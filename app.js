@@ -1,0 +1,2734 @@
+/**
+ * Dashboard Ruang Enggang Gading 2 (EG2A & EG2B)
+ * RSUD Dr. Soedarso Pontianak
+ * Frontend Logic & State Controller
+ */
+
+// Application State
+const state = {
+  data: null,
+  currentDate: null,
+  activeShift: 'pagi',
+  activeFilter: 'all',
+  activeWing: 'all',
+  searchQuery: '',
+  selectedPatient: null,
+  theme: localStorage.getItem('eg2_theme') || 'light',
+  role: localStorage.getItem('eg2_role') || 'management', // 'management' (Public) or 'clinical' (Doctor/Nurse)
+  clinicalPin: '2026',
+  pendingPatientModal: null,
+  syncSchedule: null,
+  lastSyncKnown: null,
+  trendView: 'efficiency', // 'efficiency' (BOR, AVLOS, TOI, BTO) or 'mortality' (GDR, NDR)
+  trendParams: {
+    bor: true,
+    avlos: true,
+    toi: true,
+    bto: true
+  }
+};
+
+// Patient Identity Masking for Role Separation (UU PDP No. 27/2022)
+function maskPatientName(name) {
+  if (!name || name.includes('Kosong') || name.includes('Rusak') || name.includes('BAU')) return name;
+  if (state.role === 'clinical') return name;
+
+  const titleMatch = name.match(/^(Tn\.|Ny\.|An\.|By\.|Sdr\.|Sdri\.|Nn\.)\s*(.*)/i);
+  if (titleMatch) {
+    const title = titleMatch[1];
+    const rest = titleMatch[2].trim();
+    const parts = rest.split(/\s+/).map(p => p ? p[0] + '***' : '');
+    return `${title} ${parts.join(' ')}`;
+  }
+  const parts = name.split(/\s+/).map(p => p ? p[0] + '***' : '');
+  return parts.join(' ');
+}
+
+function maskMrNo(mr) {
+  if (!mr) return '-';
+  if (state.role === 'clinical') return mr;
+  if (mr.length > 4) {
+    return mr.slice(0, 4) + '****';
+  }
+  return '****';
+}
+
+// Indonesian Day and Month Names
+const DAYS_ID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+const MONTHS_ID = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+
+function formatIndonesianDate(isoStr) {
+  if (!isoStr) return '';
+  const parts = isoStr.split('-');
+  if (parts.length !== 3) return isoStr;
+  const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+  const dayName = DAYS_ID[d.getDay()];
+  const day = parts[2];
+  const monthName = MONTHS_ID[parseInt(parts[1]) - 1];
+  const year = parts[0];
+  return `${dayName}, ${day} ${monthName} ${year}`;
+}
+
+function formatShortDate(isoStr) {
+  if (!isoStr) return '';
+  const parts = isoStr.split('-');
+  if (parts.length !== 3) return isoStr;
+  const day = parts[2];
+  const month = MONTHS_SHORT[parseInt(parts[1]) - 1];
+  return `${day} ${month}`;
+}
+
+// Initialize Application
+document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  initRoleManagement();
+  setupEventListeners();
+  initSyncSchedule();
+  loadData();
+});
+
+// Theme Management
+function initTheme() {
+  document.documentElement.setAttribute('data-theme', state.theme);
+  const themeBtn = document.getElementById('themeToggleBtn');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', state.theme);
+      localStorage.setItem('eg2_theme', state.theme);
+      // Re-render chart if active
+      if (document.getElementById('tabAnalytics').classList.contains('active')) {
+        renderBorChart();
+      }
+      if (document.getElementById('tabBarberJohnson').classList.contains('active')) {
+        renderBarberJohnsonDiagram();
+        renderParamBenchmarkCharts();
+        renderQualityTrendsChart();
+      }
+    });
+  }
+}
+
+// ==========================================================================
+// ROLE SEPARATION & PIN AUTHENTICATION (UU PDP No. 27/2022 & Permenkes 24/2022)
+// ==========================================================================
+
+function initRoleManagement() {
+  updateRoleUI();
+
+  // Role toggle badge button in header
+  const roleToggleBtn = document.getElementById('roleToggleBtn');
+  if (roleToggleBtn) {
+    roleToggleBtn.addEventListener('click', () => {
+      if (state.role === 'clinical') {
+        lockToManagementMode();
+      } else {
+        openPinModal();
+      }
+    });
+  }
+
+  // PIN Modal Close controls
+  const pinCloseBtn = document.getElementById('pinModalCloseBtn');
+  const pinModal = document.getElementById('pinModal');
+  if (pinCloseBtn) pinCloseBtn.addEventListener('click', closePinModal);
+  if (pinModal) {
+    pinModal.addEventListener('click', (e) => {
+      if (e.target === pinModal) closePinModal();
+    });
+  }
+
+  // PIN Form Submission
+  const pinForm = document.getElementById('pinAuthForm');
+  const pinInput = document.getElementById('pinCodeInput');
+  if (pinForm && pinInput) {
+    pinForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      verifyClinicalPin(pinInput.value.trim());
+    });
+  }
+
+  // Keypad buttons
+  document.querySelectorAll('.keypad-btn[data-key]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (pinInput && pinInput.value.length < 6) {
+        pinInput.value += btn.getAttribute('data-key');
+        const errorEl = document.getElementById('pinErrorMsg');
+        if (errorEl) errorEl.style.display = 'none';
+        if (pinInput.value.length >= 4) {
+          if (pinInput.value === state.clinicalPin) {
+            verifyClinicalPin(pinInput.value);
+          }
+        }
+      }
+    });
+  });
+
+  const clearBtn = document.getElementById('keypadClearBtn');
+  if (clearBtn && pinInput) {
+    clearBtn.addEventListener('click', () => {
+      pinInput.value = '';
+      const errorEl = document.getElementById('pinErrorMsg');
+      if (errorEl) errorEl.style.display = 'none';
+    });
+  }
+
+  const delBtn = document.getElementById('keypadDelBtn');
+  if (delBtn && pinInput) {
+    delBtn.addEventListener('click', () => {
+      pinInput.value = pinInput.value.slice(0, -1);
+      const errorEl = document.getElementById('pinErrorMsg');
+      if (errorEl) errorEl.style.display = 'none';
+    });
+  }
+
+  // Toggle PIN visibility
+  const toggleVisBtn = document.getElementById('togglePinVisibilityBtn');
+  if (toggleVisBtn && pinInput) {
+    toggleVisBtn.addEventListener('click', () => {
+      pinInput.type = pinInput.type === 'password' ? 'text' : 'password';
+    });
+  }
+
+  // Tab 2 Inline PIN Unlock (Handover Locked State)
+  const tabPinBtn = document.getElementById('tabPinSubmitBtn');
+  const tabPinInput = document.getElementById('tabPinInput');
+  if (tabPinBtn && tabPinInput) {
+    tabPinBtn.addEventListener('click', () => {
+      const val = tabPinInput.value.trim();
+      if (verifyClinicalPin(val)) {
+        tabPinInput.value = '';
+        const tabError = document.getElementById('tabPinError');
+        if (tabError) tabError.style.display = 'none';
+      }
+    });
+    tabPinInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        tabPinBtn.click();
+      }
+    });
+  }
+}
+
+function updateRoleUI() {
+  const toggleBtn = document.getElementById('roleToggleBtn');
+  const iconPill = document.getElementById('roleIconPill');
+  const mainLabel = document.getElementById('roleMainLabel');
+  const subLabel = document.getElementById('roleSubLabel');
+  const handoverLocked = document.getElementById('handoverLockedState');
+  const handoverUnlocked = document.getElementById('handoverUnlockedContent');
+
+  if (state.role === 'clinical') {
+    if (toggleBtn) {
+      toggleBtn.className = 'btn-role-badge role-badge-clinical';
+      toggleBtn.title = 'Mode Klinis Aktif - Klik untuk mengunci kembali';
+    }
+    if (iconPill) iconPill.textContent = '🩺';
+    if (mainLabel) mainLabel.textContent = 'Mode Klinis';
+    if (subLabel) subLabel.textContent = 'Aktif (Klik Kunci 🔒)';
+    if (handoverLocked) handoverLocked.style.display = 'none';
+    if (handoverUnlocked) handoverUnlocked.style.display = 'block';
+  } else {
+    if (toggleBtn) {
+      toggleBtn.className = 'btn-role-badge role-badge-management';
+      toggleBtn.title = 'Mode Klinis Terkunci - Klik untuk membuka dengan PIN';
+    }
+    if (iconPill) iconPill.textContent = '🔒';
+    if (mainLabel) mainLabel.textContent = 'Mode Klinis';
+    if (subLabel) subLabel.textContent = 'Terkunci (Buka PIN 🔓)';
+    if (handoverLocked) handoverLocked.style.display = 'flex';
+    if (handoverUnlocked) handoverUnlocked.style.display = 'none';
+  }
+
+  // Refresh active beds & directory to apply or remove masking
+  if (state.data) {
+    const dayData = state.data.recentDays[state.currentDate] || state.data.today;
+    if (dayData) {
+      renderBedGrids(dayData);
+      filterDirectoryTable();
+      if (state.role === 'clinical') {
+        renderHandoverBoard(dayData);
+      }
+    }
+  }
+}
+
+function openPinModal() {
+  const modal = document.getElementById('pinModal');
+  if (!modal) return;
+  const pinInput = document.getElementById('pinCodeInput');
+  const errorEl = document.getElementById('pinErrorMsg');
+  if (errorEl) errorEl.style.display = 'none';
+  if (pinInput) {
+    pinInput.value = '';
+    pinInput.type = 'password';
+  }
+  modal.style.display = 'flex';
+  setTimeout(() => {
+    if (pinInput) pinInput.focus();
+  }, 100);
+}
+
+function closePinModal() {
+  const modal = document.getElementById('pinModal');
+  if (modal) modal.style.display = 'none';
+  const errorEl = document.getElementById('pinErrorMsg');
+  if (errorEl) errorEl.style.display = 'none';
+}
+
+function verifyClinicalPin(enteredPin) {
+  if (enteredPin === state.clinicalPin) {
+    state.role = 'clinical';
+    localStorage.setItem('eg2_role', 'clinical');
+    updateRoleUI();
+    closePinModal();
+    showToast('🔓 Mode Klinis Aktif! Identitas pasien & operan jaga SBAR dibuka.', 'success');
+    if (state.pendingPatientModal) {
+      const pt = state.pendingPatientModal;
+      state.pendingPatientModal = null;
+      openPatientModal(pt);
+    }
+    return true;
+  } else {
+    const errorEl = document.getElementById('pinErrorMsg');
+    if (errorEl) {
+      errorEl.style.display = 'block';
+      errorEl.textContent = 'PIN keliru. Silakan masukkan PIN klinis yang benar (Demo: 2026).';
+    }
+    const tabErrorEl = document.getElementById('tabPinError');
+    if (tabErrorEl) {
+      tabErrorEl.style.display = 'block';
+      tabErrorEl.textContent = 'PIN keliru. Silakan gunakan PIN klinis (Demo: 2026).';
+    }
+    const pinInput = document.getElementById('pinCodeInput');
+    if (pinInput) {
+      pinInput.classList.add('pin-shake');
+      setTimeout(() => pinInput.classList.remove('pin-shake'), 500);
+      pinInput.select();
+    }
+    return false;
+  }
+}
+
+function lockToManagementMode() {
+  state.role = 'management';
+  localStorage.setItem('eg2_role', 'management');
+  state.pendingPatientModal = null;
+  updateRoleUI();
+  showToast('🔒 Mode Klinis dikunci. Identitas pasien disamarkan.', 'info');
+}
+
+
+// Load Dashboard Data
+async function loadData() {
+  showToast('Memuat data sensus Ruang Enggang Gading 2...', 'info');
+  try {
+    const res = await fetch('dashboard_data.json?t=' + Date.now());
+    if (!res.ok) throw new Error('Gagal membaca file data sensus');
+    state.data = await res.json();
+    state.currentDate = state.data.metadata.latestDate;
+    
+    populateDateDropdown();
+    populateDirectoryFilters();
+    updateDashboard();
+    renderAnalyticsTab();
+    renderBarberJohnsonTab();
+    showToast('Data berhasil dimuat! Sensus terkini: ' + formatIndonesianDate(state.currentDate), 'success');
+  } catch (err) {
+    console.error('Error loading data:', err);
+    showToast('Terjadi kesalahan memuat data sensus: ' + err.message, 'error');
+  }
+}
+
+// Populate Date Selector
+function populateDateDropdown() {
+  const select = document.getElementById('dateSelect');
+  if (!select || !state.data || !state.data.allDates) return;
+  
+  select.innerHTML = '';
+  // Reverse so newest date is on top
+  const datesRev = [...state.data.allDates].reverse();
+  datesRev.forEach(dt => {
+    const opt = document.createElement('option');
+    opt.value = dt;
+    opt.textContent = formatIndonesianDate(dt);
+    if (dt === state.currentDate) opt.selected = true;
+    select.appendChild(opt);
+  });
+}
+
+// Setup Event Listeners
+function setupEventListeners() {
+  // Tab Switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      
+      btn.classList.add('active');
+      const targetId = btn.getAttribute('data-tab');
+      const targetContent = document.getElementById(targetId);
+      if (targetContent) targetContent.classList.add('active');
+
+      // Manage Quick Filter Bar visibility
+      const filterBar = document.querySelector('.quick-filter-bar');
+      if (filterBar) {
+        if (targetId === 'tabBedMap' || targetId === 'tabDirectory') {
+          filterBar.style.display = 'flex';
+        } else {
+          filterBar.style.display = 'none';
+        }
+      }
+
+      if (targetId === 'tabAnalytics') {
+        renderBorChart();
+      }
+      if (targetId === 'tabBarberJohnson') {
+        renderBarberJohnsonTab();
+      }
+    });
+  });
+
+  // Responsive redraw on window resize / orientation change
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const activeTab = document.querySelector('.tab-content.active');
+      if (activeTab && activeTab.id === 'tabBarberJohnson') {
+        renderBarberJohnsonDiagram();
+        renderParamBenchmarkCharts();
+        renderQualityTrendsChart();
+      } else if (activeTab && activeTab.id === 'tabAnalytics') {
+        renderBorChart();
+      }
+    }, 200);
+  });
+
+  // Date Navigator Controls
+  const dateSelect = document.getElementById('dateSelect');
+  if (dateSelect) {
+    dateSelect.addEventListener('change', (e) => {
+      state.currentDate = e.target.value;
+      updateDashboard();
+    });
+  }
+
+  const prevBtn = document.getElementById('prevDayBtn');
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      const idx = state.data.allDates.indexOf(state.currentDate);
+      if (idx > 0) {
+        state.currentDate = state.data.allDates[idx - 1];
+        if (dateSelect) dateSelect.value = state.currentDate;
+        updateDashboard();
+      }
+    });
+  }
+
+  const nextBtn = document.getElementById('nextDayBtn');
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      const idx = state.data.allDates.indexOf(state.currentDate);
+      if (idx < state.data.allDates.length - 1) {
+        state.currentDate = state.data.allDates[idx + 1];
+        if (dateSelect) dateSelect.value = state.currentDate;
+        updateDashboard();
+      }
+    });
+  }
+
+  const todayBtn = document.getElementById('todayBtn');
+  if (todayBtn) {
+    todayBtn.addEventListener('click', () => {
+      state.currentDate = state.data.metadata.latestDate;
+      if (dateSelect) dateSelect.value = state.currentDate;
+      updateDashboard();
+    });
+  }
+
+  // Quick Filter Chips
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      state.activeFilter = chip.getAttribute('data-filter');
+      renderBedGrids();
+      renderHandoverBoard();
+      filterDirectoryTable();
+    });
+  });
+
+  // Wing Filter Toggle
+  document.querySelectorAll('.wing-btn').forEach(wBtn => {
+    wBtn.addEventListener('click', () => {
+      document.querySelectorAll('.wing-btn').forEach(b => b.classList.remove('active'));
+      wBtn.classList.add('active');
+      state.activeWing = wBtn.getAttribute('data-wing');
+      applyWingFilter();
+    });
+  });
+
+  // Shift Buttons in Handover Tab
+  document.querySelectorAll('.shift-btn').forEach(sBtn => {
+    sBtn.addEventListener('click', () => {
+      document.querySelectorAll('.shift-btn').forEach(b => b.classList.remove('active'));
+      sBtn.classList.add('active');
+      state.activeShift = sBtn.getAttribute('data-shift');
+      renderHandoverBoard();
+    });
+  });
+
+  // Global Search
+  const searchInput = document.getElementById('globalSearchInput');
+  const clearSearchBtn = document.getElementById('clearSearchBtn');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      state.searchQuery = e.target.value.trim().toLowerCase();
+      if (clearSearchBtn) clearSearchBtn.style.display = state.searchQuery ? 'block' : 'none';
+      renderBedGrids();
+      renderHandoverBoard();
+      filterDirectoryTable();
+    });
+  }
+  if (clearSearchBtn) {
+    clearSearchBtn.addEventListener('click', () => {
+      if (searchInput) searchInput.value = '';
+      state.searchQuery = '';
+      clearSearchBtn.style.display = 'none';
+      renderBedGrids();
+      renderHandoverBoard();
+      filterDirectoryTable();
+    });
+  }
+
+  // Directory Search & Filters
+  const dirSearch = document.getElementById('dirSearchInput');
+  if (dirSearch) {
+    dirSearch.addEventListener('input', () => filterDirectoryTable());
+  }
+  const dirWing = document.getElementById('dirFilterWing');
+  if (dirWing) dirWing.addEventListener('change', () => filterDirectoryTable());
+  const dirCat = document.getElementById('dirFilterCategory');
+  if (dirCat) dirCat.addEventListener('change', () => filterDirectoryTable());
+  const dirIns = document.getElementById('dirFilterInsurance');
+  if (dirIns) dirIns.addEventListener('change', () => filterDirectoryTable());
+
+  // Modal Controls
+  const modalClose = document.getElementById('modalCloseBtn');
+  const modalOverlay = document.getElementById('patientModal');
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+  if (modalOverlay) {
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+  }
+
+  // Copy Handover & SBAR Buttons
+  const copySbarBtn = document.getElementById('modalCopySbarBtn');
+  if (copySbarBtn) copySbarBtn.addEventListener('click', copyPatientSbar);
+
+  const copyShiftSummaryBtn = document.getElementById('copyHandoverSummaryBtn');
+  if (copyShiftSummaryBtn) copyShiftSummaryBtn.addEventListener('click', copyShiftHandoverSummary);
+
+  // Print Handover
+  const printHandoverBtn = document.getElementById('printHandoverBtn');
+  if (printHandoverBtn) {
+    printHandoverBtn.addEventListener('click', () => {
+      if (state.role === 'management') {
+        showToast('Cetak laporan operan jaga shift memerlukan otentikasi Mode Klinis.', 'warning');
+        openPinModal();
+      } else {
+        window.print();
+      }
+    });
+  }
+  const modalPrintBtn = document.getElementById('modalPrintPatientBtn');
+  if (modalPrintBtn) {
+    modalPrintBtn.addEventListener('click', printSinglePatient);
+  }
+
+  // CSV Export
+  const exportCsvBtn = document.getElementById('exportCsvBtn');
+  if (exportCsvBtn) exportCsvBtn.addEventListener('click', exportDirectoryToCsv);
+
+  // Trend View Switcher Buttons
+  const btnEff = document.getElementById('btnViewEfficiency');
+  const btnMort = document.getElementById('btnViewMortality');
+  if (btnEff && btnMort) {
+    btnEff.addEventListener('click', () => {
+      state.trendView = 'efficiency';
+      btnEff.classList.add('active');
+      btnMort.classList.remove('active');
+      renderQualityTrendsChart();
+    });
+    btnMort.addEventListener('click', () => {
+      state.trendView = 'mortality';
+      btnMort.classList.add('active');
+      btnEff.classList.remove('active');
+      renderQualityTrendsChart();
+    });
+  }
+
+  // Trend Parameter Filter Chips (BOR, AVLOS, TOI, BTO)
+  document.querySelectorAll('#trendParamChips .param-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const param = chip.getAttribute('data-param');
+      if (!param || !(param in state.trendParams)) return;
+      state.trendParams[param] = !state.trendParams[param];
+      if (state.trendParams[param]) {
+        chip.classList.add('active');
+      } else {
+        chip.classList.remove('active');
+      }
+      renderQualityTrendsChart();
+    });
+  });
+
+  // Sync Data
+  const syncBtn = document.getElementById('syncSheetsBtn');
+  if (syncBtn) syncBtn.addEventListener('click', triggerSync);
+}
+
+// Update Active Day Dashboard
+function updateDashboard() {
+  if (!state.data) return;
+
+  const dayData = state.data.recentDays[state.currentDate] || state.data.today;
+  if (!dayData) {
+    showToast(`Data detail untuk ${state.currentDate} belum tersedia di cache 45 hari`, 'warning');
+    return;
+  }
+
+  // Update Live Indicator
+  const liveIndicator = document.getElementById('liveIndicator');
+  if (liveIndicator) {
+    if (state.currentDate === state.data.metadata.latestDate) {
+      liveIndicator.innerHTML = '<span class="pulsing-dot"></span> LIVE SENSUS';
+      liveIndicator.className = 'badge live-badge';
+    } else {
+      liveIndicator.textContent = 'ARSIP SENSUS';
+      liveIndicator.className = 'badge badge-outline';
+    }
+  }
+
+  // Update KPIs
+  updateKpiMetrics(dayData);
+
+  // Render Beds
+  renderBedGrids(dayData);
+
+  // Render Handover Board
+  renderHandoverBoard(dayData);
+
+  // Render Directory
+  renderDirectoryTable(dayData);
+}
+
+// Update KPI Cards
+function updateKpiMetrics(dayData) {
+  const sum = dayData.summary;
+  const occTotal = sum.occupied || (sum.occA + sum.occB);
+  const bedsTotal = sum.totalBeds || (dayData.eg2a.length + dayData.eg2b.length);
+  const bor = sum.bor || ((occTotal / Math.max(1, bedsTotal)) * 100).toFixed(1);
+
+  document.getElementById('kpiTotalOcc').textContent = occTotal;
+  document.getElementById('kpiBedsTotal').textContent = `/ ${bedsTotal} Bed`;
+  document.getElementById('kpiOccA').textContent = `${sum.occA || 0} Pasien`;
+  document.getElementById('kpiOccB').textContent = `${sum.occB || 0} Pasien`;
+
+  document.getElementById('kpiBor').textContent = `${bor}%`;
+  const borBar = document.getElementById('kpiBorBar');
+  if (borBar) borBar.style.width = `${Math.min(100, bor)}%`;
+
+  const borStatus = document.getElementById('kpiBorStatus');
+  if (borStatus) {
+    if (bor >= 85) {
+      borStatus.textContent = 'Sangat Tinggi';
+      borStatus.className = 'status-chip chip-danger';
+    } else if (bor >= 60) {
+      borStatus.textContent = 'Optimal';
+      borStatus.className = 'status-chip chip-success';
+    } else {
+      borStatus.textContent = 'Rendah';
+      borStatus.className = 'status-chip chip-warning';
+    }
+  }
+
+  const emptyBeds = sum.empty || (bedsTotal - occTotal);
+  document.getElementById('kpiEmptyBeds').textContent = emptyBeds;
+  
+  // Count specific tags
+  const tags = sum.tagCounts || {};
+  const dischargeCount = (tags['Pulang Hari Ini'] || 0) + (tags['Rencana Pulang'] || 0) || sum.dischargedToday || 0;
+  document.getElementById('kpiHdCount').textContent = tags['Hemodialisa (HD)'] || 0;
+  document.getElementById('kpiTransfusionCount').textContent = `HD | ${tags['Transfusi Darah'] || 0} TF`;
+  document.getElementById('kpiSurgeryCount').textContent = tags['Bedah / Operasi'] || tags['Tindakan Bedah'] || 0;
+  document.getElementById('kpiDischargeCount').textContent = `Operasi | ${dischargeCount} KRS`;
+
+  // Update wing meta
+  document.getElementById('metaWingA').textContent = `${sum.occA || 0} Pasien Terisi • ${dayData.eg2a.length} Bed`;
+  document.getElementById('metaWingB').textContent = `${sum.occB || 0} Pasien Terisi • ${dayData.eg2b.length} Bed`;
+  document.getElementById('countWingA').textContent = dayData.eg2a.length;
+  document.getElementById('countWingB').textContent = dayData.eg2b.length;
+}
+
+// Render Bed Grids
+function renderBedGrids(dataToUse) {
+  const dayData = dataToUse || state.data.recentDays[state.currentDate] || state.data.today;
+  if (!dayData) return;
+
+  const containerA = document.getElementById('bedGridEG2A');
+  const containerB = document.getElementById('bedGridEG2B');
+  if (!containerA || !containerB) return;
+
+  containerA.innerHTML = '';
+  containerB.innerHTML = '';
+
+  const filterPatient = (pt) => {
+    // Filter by quick tag
+    if (state.activeFilter === 'empty') {
+      if (!pt.isEmpty) return false;
+    } else if (state.activeFilter !== 'all') {
+      const isDischargeFilter = state.activeFilter.toLowerCase().includes('pulang');
+      const hasTag = pt.tags && pt.tags.some(t => {
+        const lbl = t.label.toLowerCase();
+        if (isDischargeFilter && lbl.includes('pulang')) return true;
+        return lbl.includes(state.activeFilter.toLowerCase());
+      });
+      if (!hasTag && !(isDischargeFilter && pt.isDischargedToday)) return false;
+    }
+
+    // Filter by search query
+    if (state.searchQuery) {
+      const q = state.searchQuery;
+      const haystack = `${pt.bed} ${pt.name} ${pt.mrNo} ${pt.doctor} ${pt.diagnosis} ${pt.insurance}`.toLowerCase();
+      if (!haystack.includes(q)) return false;
+    }
+
+    return true;
+  };
+
+  const filteredA = dayData.eg2a.filter(filterPatient);
+  const filteredB = dayData.eg2b.filter(filterPatient);
+
+  if (filteredA.length === 0) {
+    containerA.innerHTML = '<div class="empty-bed-content"><p>Tidak ada pasien yang sesuai filter di Ruang EG 2A</p></div>';
+  } else {
+    filteredA.forEach(pt => containerA.appendChild(createBedCard(pt)));
+  }
+
+  if (filteredB.length === 0) {
+    containerB.innerHTML = '<div class="empty-bed-content"><p>Tidak ada pasien yang sesuai filter di Ruang EG 2B</p></div>';
+  } else {
+    filteredB.forEach(pt => containerB.appendChild(createBedCard(pt)));
+  }
+}
+
+// Create Bed Card Element
+function createBedCard(pt) {
+  const card = document.createElement('div');
+  
+  // Card status class
+  let statusClass = 'card-occupied';
+  if (pt.isEmpty) {
+    statusClass = 'card-empty';
+  } else if (pt.isDischargedToday || (pt.tags && pt.tags.some(t => t.label.toLowerCase().includes('pulang')))) {
+    statusClass = 'card-discharge';
+  } else if (pt.tags) {
+    if (pt.tags.some(t => t.label.includes('Hemodialisa'))) statusClass = 'card-hd';
+    else if (pt.tags.some(t => t.label.includes('Transfusi'))) statusClass = 'card-transfusion';
+    else if (pt.tags.some(t => t.label.includes('Bedah'))) statusClass = 'card-surgery';
+  }
+  card.className = `bed-card ${statusClass}`;
+
+  if (pt.isEmpty) {
+    card.innerHTML = `
+      <div class="bed-card-header">
+        <span class="bed-number-badge">BED ${pt.bed}</span>
+        <span class="status-chip chip-warning">${pt.status}</span>
+      </div>
+      <div class="empty-bed-content">
+        <svg class="empty-bed-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2 20h20M4 20v-8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8M9 4h6M12 4v6"/>
+        </svg>
+        <p><strong>${pt.name}</strong></p>
+        <span class="caption-text">Siap untuk pasien baru</span>
+      </div>
+      <div class="bed-card-footer">
+        <span>Ruang ${pt.room}</span>
+        <span>-</span>
+      </div>
+    `;
+    return card;
+  }
+
+  // Tags HTML
+  const tagsHtml = (pt.tags || []).map(t => {
+    return `<span class="tag-badge tag-${t.color}">${t.label}</span>`;
+  }).join('');
+
+  // Shift notes indicators
+  const hasPagi = pt.notes && pt.notes.pagi && pt.notes.pagi.length > 5;
+  const hasSore = pt.notes && pt.notes.sore && pt.notes.sore.length > 5;
+  const hasMalam = pt.notes && pt.notes.malam && pt.notes.malam.length > 5;
+
+  // Patient display information
+  const displayName = maskPatientName(pt.name);
+  const displayMr = maskMrNo(pt.mrNo);
+  const isMasked = state.role === 'management';
+
+  card.innerHTML = `
+    <div class="bed-card-header">
+      <span class="bed-number-badge">BED ${pt.bed}</span>
+      <div class="bed-header-right">
+        ${pt.isDischargedToday ? '<span class="status-chip chip-success" style="font-size:0.68rem; padding:0.18rem 0.5rem; font-weight:800; letter-spacing:0.02em;">PULANG HARI INI</span>' : ''}
+        <span class="los-pill">LOS: ${pt.los}h</span>
+        <span class="insurance-pill">${pt.insurance}</span>
+      </div>
+    </div>
+
+    <div class="bed-patient-info">
+      <div class="patient-name-row">
+        <h3 class="patient-name">${escapeHtml(displayName)} ${isMasked ? '<span class="patient-masked-badge" title="Identitas disamarkan sesuai UU PDP">🔒 Disamarkan</span>' : ''}</h3>
+        ${pt.age ? `<span class="patient-meta-pill">${pt.age}</span>` : ''}
+      </div>
+      ${pt.mrNo ? `<span class="patient-mr">No. MR: ${displayMr}</span>` : ''}
+
+      <div class="patient-doctor-row" title="${escapeHtml(pt.doctor)}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>${escapeHtml(pt.doctorPrimary)}</span>
+      </div>
+
+      <p class="patient-diagnosis" title="${escapeHtml(pt.diagnosis)}">${escapeHtml(pt.diagnosis)}</p>
+
+      ${tagsHtml ? `<div class="bed-card-tags">${tagsHtml}</div>` : ''}
+    </div>
+
+    <div class="bed-card-footer">
+      <div class="shift-check-dots">
+        <span class="shift-check-item ${hasPagi ? 'has-notes' : ''} ${state.activeShift === 'pagi' ? 'active-shift' : ''}">Pagi ${hasPagi ? '✓' : '—'}</span>
+        <span class="shift-check-item ${hasSore ? 'has-notes' : ''} ${state.activeShift === 'sore' ? 'active-shift' : ''}">Sore ${hasSore ? '✓' : '—'}</span>
+        <span class="shift-check-item ${hasMalam ? 'has-notes' : ''} ${state.activeShift === 'malam' ? 'active-shift' : ''}">Mlm ${hasMalam ? '✓' : '—'}</span>
+      </div>
+      <span class="caption-text">Masuk: ${pt.admissionDate}</span>
+    </div>
+  `;
+
+  card.addEventListener('click', () => {
+    if (state.role === 'management') {
+      state.pendingPatientModal = pt;
+      openPinModal();
+    } else {
+      openPatientModal(pt);
+    }
+  });
+  return card;
+}
+
+// Apply Wing Filter (Hide/Show EG2A or EG2B)
+function applyWingFilter() {
+  const blockA = document.getElementById('wardBlockEG2A');
+  const blockB = document.getElementById('wardBlockEG2B');
+  if (!blockA || !blockB) return;
+
+  if (state.activeWing === 'all') {
+    blockA.style.display = 'flex';
+    blockB.style.display = 'flex';
+  } else if (state.activeWing === 'EG2A') {
+    blockA.style.display = 'flex';
+    blockB.style.display = 'none';
+  } else if (state.activeWing === 'EG2B') {
+    blockA.style.display = 'none';
+    blockB.style.display = 'flex';
+  }
+}
+
+// Render Shift Handover Board
+function renderHandoverBoard(dataToUse) {
+  const dayData = dataToUse || state.data.recentDays[state.currentDate] || state.data.today;
+  if (!dayData) return;
+
+  const container = document.getElementById('handoverListContainer');
+  if (!container) return;
+
+  const shiftTitle = document.getElementById('handoverActiveShiftTitle');
+  const shiftNames = { pagi: 'Shift Pagi (07:00 - 14:00)', sore: 'Shift Sore (14:00 - 21:00)', malam: 'Shift Malam (21:00 - 07:00)' };
+  if (shiftTitle) shiftTitle.textContent = `Operan Jaga: ${shiftNames[state.activeShift]}`;
+  const dateText = document.getElementById('handoverActiveDateText');
+  if (dateText) dateText.textContent = formatIndonesianDate(state.currentDate);
+
+  container.innerHTML = '';
+  const allPatients = [...dayData.eg2a, ...dayData.eg2b].filter(pt => !pt.isEmpty);
+
+  // Filter patients by active filter / search
+  const filtered = allPatients.filter(pt => {
+    if (state.activeFilter !== 'all') {
+      const hasTag = pt.tags && pt.tags.some(t => t.label.toLowerCase().includes(state.activeFilter.toLowerCase()));
+      if (!hasTag) return false;
+    }
+    if (state.searchQuery) {
+      const q = state.searchQuery;
+      const haystack = `${pt.bed} ${pt.name} ${pt.mrNo} ${pt.doctor} ${pt.diagnosis}`.toLowerCase();
+      if (!haystack.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-bed-content"><p>Tidak ada catatan operan jaga yang sesuai dengan filter.</p></div>';
+    return;
+  }
+
+  filtered.forEach(pt => {
+    const card = document.createElement('div');
+    card.className = 'handover-patient-card';
+
+    const noteText = (pt.notes && pt.notes[state.activeShift]) ? pt.notes[state.activeShift] : 'Belum ada catatan untuk shift ini.';
+    const highlightedNote = highlightClinicalKeywords(escapeHtml(noteText));
+
+    const tagsHtml = (pt.tags || []).map(t => `<span class="tag-badge tag-${t.color}">${t.label}</span>`).join('');
+
+    card.innerHTML = `
+      <div class="handover-card-header">
+        <div class="handover-patient-main">
+          <span class="handover-bed-badge">${pt.room} • BED ${pt.bed}</span>
+          <h3 class="handover-patient-title">${escapeHtml(pt.name)}</h3>
+          ${pt.mrNo ? `<span class="badge badge-outline">MR: ${pt.mrNo}</span>` : ''}
+          <span class="badge badge-primary">${pt.insurance}</span>
+          <span class="caption-text">Lama Rawat: ${pt.los} Hari</span>
+        </div>
+        <div class="handover-card-actions">
+          <button class="btn btn-secondary btn-sm btn-detail-pt">Detail SBAR</button>
+        </div>
+      </div>
+
+      <div class="patient-diagnosis-row">
+        <strong>DPJP:</strong> ${escapeHtml(pt.doctorPrimary)} &bull; 
+        <strong>Diagnosa:</strong> ${escapeHtml(pt.diagnosis)}
+        ${tagsHtml ? `<div style="margin-top:0.4rem;">${tagsHtml}</div>` : ''}
+      </div>
+
+      <div class="handover-note-box">${highlightedNote}</div>
+    `;
+
+    card.querySelector('.btn-detail-pt').addEventListener('click', () => openPatientModal(pt));
+    container.appendChild(card);
+  });
+}
+
+// Highlight keywords in clinical notes
+function highlightClinicalKeywords(text) {
+  if (!text) return '';
+  const keywords = [
+    { pattern: /\b(GDS|Gula Darah)\b[:\s]*([0-9]+)/gi, class: 'tag-blue' },
+    { pattern: /\b(HB|Hemoglobin)\b[:\s]*([0-9.,]+)/gi, class: 'tag-red' },
+    { pattern: /\b(Post Op|Pre Op|Operasi|Laparaskopi|TKR|ORIF)\b/gi, class: 'tag-orange' },
+    { pattern: /\b(HD|Hemodialisa|CDL)\b/gi, class: 'tag-purple' },
+    { pattern: /\b(Transfusi|PRC|WB|Kolf)\b/gi, class: 'tag-red' },
+    { pattern: /\b(BLPL|Pulang|Rajal|KRS)\b/gi, class: 'tag-emerald' },
+    { pattern: /\b(Puasa)\b/gi, class: 'tag-amber' }
+  ];
+
+  let res = text;
+  keywords.forEach(k => {
+    res = res.replace(k.pattern, match => `<mark class="tag-badge ${k.class}">${match}</mark>`);
+  });
+  return res;
+}
+
+// Render Analytics Tab
+function renderAnalyticsTab() {
+  if (!state.data) return;
+
+  // 1. Top Doctors
+  const docContainer = document.getElementById('topDoctorsList');
+  if (docContainer && state.data.analytics.topDoctors) {
+    docContainer.innerHTML = '';
+    state.data.analytics.topDoctors.slice(0, 10).forEach((doc, idx) => {
+      const item = document.createElement('div');
+      item.className = 'ranking-item';
+      item.innerHTML = `
+        <div class="ranking-left">
+          <span class="rank-number">${idx + 1}</span>
+          <span class="rank-name" title="${escapeHtml(doc.name)}">${escapeHtml(doc.name)}</span>
+        </div>
+        <span class="rank-count">${doc.count} pasien-hari</span>
+      `;
+      docContainer.appendChild(item);
+    });
+  }
+
+  // 2. Categories Distribution
+  const catContainer = document.getElementById('categoryDistList');
+  if (catContainer && state.data.analytics.categories) {
+    catContainer.innerHTML = '';
+    const maxVal = Math.max(...state.data.analytics.categories.map(c => c.count));
+    const colors = ['#38bdf8', '#a855f7', '#f97316', '#10b981', '#f43f5e', '#06b6d4', '#eab308'];
+    state.data.analytics.categories.forEach((cat, idx) => {
+      const pct = ((cat.count / maxVal) * 100).toFixed(0);
+      const color = colors[idx % colors.length];
+      const item = document.createElement('div');
+      item.className = 'dist-bar-item';
+      item.innerHTML = `
+        <div class="dist-bar-labels">
+          <span class="dist-bar-name">${escapeHtml(cat.name)}</span>
+          <span class="dist-bar-val">${cat.count} (${pct}%)</span>
+        </div>
+        <div class="dist-bar-bg">
+          <div class="dist-bar-fill" style="width: ${pct}%; background-color: ${color};"></div>
+        </div>
+      `;
+      catContainer.appendChild(item);
+    });
+  }
+
+  // 3. Insurance Distribution
+  const insContainer = document.getElementById('insuranceDistList');
+  if (insContainer && state.data.analytics.insurances) {
+    insContainer.innerHTML = '';
+    const topInsurances = state.data.analytics.insurances.slice(0, 6);
+    const maxVal = Math.max(...topInsurances.map(i => i.count));
+    topInsurances.forEach(ins => {
+      const pct = ((ins.count / maxVal) * 100).toFixed(0);
+      const item = document.createElement('div');
+      item.className = 'dist-bar-item';
+      item.innerHTML = `
+        <div class="dist-bar-labels">
+          <span class="dist-bar-name">${escapeHtml(ins.name)}</span>
+          <span class="dist-bar-val">${ins.count}</span>
+        </div>
+        <div class="dist-bar-bg">
+          <div class="dist-bar-fill" style="width: ${pct}%; background: linear-gradient(90deg, #0284c7, #38bdf8);"></div>
+        </div>
+      `;
+      insContainer.appendChild(item);
+    });
+  }
+
+  // 4. Monthly Table
+  const tableBody = document.querySelector('#monthlySummaryTable tbody');
+  if (tableBody && state.data.monthly) {
+    tableBody.innerHTML = '';
+    state.data.monthly.forEach(m => {
+      const [year, monthNum] = m.month.split('-');
+      const monthLabel = `${MONTHS_ID[parseInt(monthNum) - 1]} ${year}`;
+      const tr = document.createElement('tr');
+      
+      let statusChip = '<span class="status-chip chip-success">Optimal</span>';
+      if (m.avgBor >= 85) statusChip = '<span class="status-chip chip-danger">Penuh (Kritis)</span>';
+      else if (m.avgBor < 60) statusChip = '<span class="status-chip chip-warning">Rendah</span>';
+
+      tr.innerHTML = `
+        <td><strong>${monthLabel}</strong></td>
+        <td>${m.daysCounted} Hari</td>
+        <td><strong>${m.avgOcc}</strong> Pasien</td>
+        <td>${m.avgOccA} Pasien</td>
+        <td>${m.avgOccB} Pasien</td>
+        <td><strong style="color:var(--accent-primary);">${m.avgBor}%</strong></td>
+        <td>${statusChip}</td>
+      `;
+      tableBody.appendChild(tr);
+    });
+  }
+}
+
+// Render BOR Chart (Native Responsive SVG)
+function renderBorChart() {
+  const container = document.getElementById('borChartContainer');
+  if (!container || !state.data || !state.data.history) return;
+
+  const history = state.data.history;
+  if (history.length === 0) return;
+
+  const width = container.clientWidth || 900;
+  const height = 280;
+  const padding = { top: 25, right: 30, bottom: 40, left: 45 };
+  const chartW = width - padding.left - padding.right;
+  const chartH = height - padding.top - padding.bottom;
+
+  // Compute points
+  const maxBor = 100;
+  const minBor = 0;
+
+  const points = history.map((item, i) => {
+    const x = padding.left + (i / (history.length - 1)) * chartW;
+    const y = padding.top + chartH - ((item.bor - minBor) / (maxBor - minBor)) * chartH;
+    return { x, y, ...item };
+  });
+
+  const pathData = points.reduce((acc, p, i) => {
+    return i === 0 ? `M ${p.x} ${p.y}` : `${acc} L ${p.x} ${p.y}`;
+  }, '');
+
+  const areaData = `${pathData} L ${points[points.length - 1].x} ${padding.top + chartH} L ${points[0].x} ${padding.top + chartH} Z`;
+
+  // Draw 60% and 85% guideline lines
+  const y60 = padding.top + chartH - (60 / 100) * chartH;
+  const y85 = padding.top + chartH - (85 / 100) * chartH;
+
+  // Label ticks
+  const tickStep = Math.floor(history.length / 8);
+  const xLabels = [];
+  for (let i = 0; i < history.length; i += tickStep) {
+    const p = points[i];
+    xLabels.push(`<text x="${p.x}" y="${height - 10}" fill="var(--text-muted)" font-size="10" text-anchor="middle">${formatShortDate(p.date)}</text>`);
+  }
+
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const strokeColor = isDark ? '#38bdf8' : '#0284c7';
+  const areaGradientStart = isDark ? 'rgba(56, 189, 248, 0.35)' : 'rgba(2, 132, 199, 0.22)';
+
+  container.innerHTML = `
+    <svg width="100%" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="borGradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${areaGradientStart}"/>
+          <stop offset="100%" stop-color="rgba(56, 189, 248, 0)"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Y Grid Lines -->
+      <line x1="${padding.left}" y1="${y85}" x2="${width - padding.right}" y2="${y85}" stroke="rgba(239, 68, 68, 0.35)" stroke-dasharray="4"/>
+      <text x="${padding.left - 5}" y="${y85 + 3}" fill="#ef4444" font-size="10" text-anchor="end">85%</text>
+
+      <line x1="${padding.left}" y1="${y60}" x2="${width - padding.right}" y2="${y60}" stroke="rgba(16, 185, 129, 0.35)" stroke-dasharray="4"/>
+      <text x="${padding.left - 5}" y="${y60 + 3}" fill="#10b981" font-size="10" text-anchor="end">60%</text>
+
+      <line x1="${padding.left}" y1="${padding.top + chartH}" x2="${width - padding.right}" y2="${padding.top + chartH}" stroke="var(--border-subtle)"/>
+      <text x="${padding.left - 5}" y="${padding.top + chartH + 3}" fill="var(--text-muted)" font-size="10" text-anchor="end">0%</text>
+
+      <!-- Area and Line -->
+      <path d="${areaData}" fill="url(#borGradient)" />
+      <path d="${pathData}" fill="none" stroke="${strokeColor}" stroke-width="2.2" stroke-linecap="round"/>
+
+      <!-- X Axis Ticks -->
+      ${xLabels.join('')}
+    </svg>
+  `;
+}
+
+// Populate Directory Master Filters
+function populateDirectoryFilters() {
+  if (!state.data) return;
+
+  const catSelect = document.getElementById('dirFilterCategory');
+  if (catSelect && state.data.analytics.categories) {
+    state.data.analytics.categories.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.name;
+      opt.textContent = c.name;
+      catSelect.appendChild(opt);
+    });
+  }
+
+  const insSelect = document.getElementById('dirFilterInsurance');
+  if (insSelect && state.data.analytics.insurances) {
+    state.data.analytics.insurances.forEach(i => {
+      const opt = document.createElement('option');
+      opt.value = i.name;
+      opt.textContent = i.name;
+      insSelect.appendChild(opt);
+    });
+  }
+}
+
+// Render Directory Master Table
+function renderDirectoryTable(dataToUse) {
+  const dayData = dataToUse || state.data.recentDays[state.currentDate] || state.data.today;
+  if (!dayData) return;
+
+  const tbody = document.querySelector('#directoryTable tbody');
+  if (!tbody) return;
+
+  tbody.innerHTML = '';
+  const allPatients = [...dayData.eg2a, ...dayData.eg2b].filter(pt => !pt.isEmpty);
+
+  allPatients.forEach(pt => {
+    const displayName = maskPatientName(pt.name);
+    const displayMr = maskMrNo(pt.mrNo);
+    const isMasked = state.role === 'management';
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${pt.room} • Bed ${pt.bed}</strong></td>
+      <td><strong>${escapeHtml(displayName)}</strong> ${isMasked ? '<span class="patient-masked-badge">🔒</span>' : ''}</td>
+      <td><code>${displayMr}</code></td>
+      <td>${pt.admissionDate} (${pt.los}h)</td>
+      <td><span class="badge badge-primary">${pt.insurance}</span></td>
+      <td>${escapeHtml(pt.doctorPrimary)}</td>
+      <td title="${escapeHtml(pt.diagnosis)}">${escapeHtml(pt.diagnosis.slice(0, 45))}...</td>
+      <td><span class="badge badge-outline">${pt.category}</span></td>
+      <td><button class="btn btn-secondary btn-sm dir-view-btn">Detail</button></td>
+    `;
+
+    tr.querySelector('.dir-view-btn').addEventListener('click', () => {
+      if (state.role === 'management') {
+        state.pendingPatientModal = pt;
+        openPinModal();
+      } else {
+        openPatientModal(pt);
+      }
+    });
+    tbody.appendChild(tr);
+  });
+
+  const countElem = document.getElementById('dirResultsCount');
+  if (countElem) countElem.textContent = `Menampilkan ${allPatients.length} pasien`;
+}
+
+// Filter Directory Master Table
+function filterDirectoryTable() {
+  const search = (document.getElementById('dirSearchInput')?.value || '').trim().toLowerCase();
+  const wing = document.getElementById('dirFilterWing')?.value || '';
+  const cat = document.getElementById('dirFilterCategory')?.value || '';
+  const ins = document.getElementById('dirFilterInsurance')?.value || '';
+
+  const dayData = state.data.recentDays[state.currentDate] || state.data.today;
+  if (!dayData) return;
+
+  const tbody = document.querySelector('#directoryTable tbody');
+  if (!tbody) return;
+
+  tbody.innerHTML = '';
+  const allPatients = [...dayData.eg2a, ...dayData.eg2b].filter(pt => !pt.isEmpty);
+
+  const filtered = allPatients.filter(pt => {
+    if (wing && pt.room !== wing) return false;
+    if (cat && pt.category !== cat) return false;
+    if (ins && pt.insurance !== ins) return false;
+    if (search) {
+      const haystack = `${pt.bed} ${pt.name} ${pt.mrNo} ${pt.doctor} ${pt.diagnosis}`.toLowerCase();
+      if (!haystack.includes(search)) return false;
+    }
+    return true;
+  });
+
+  filtered.forEach(pt => {
+    const displayName = maskPatientName(pt.name);
+    const displayMr = maskMrNo(pt.mrNo);
+    const isMasked = state.role === 'management';
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${pt.room} • Bed ${pt.bed}</strong></td>
+      <td><strong>${escapeHtml(displayName)}</strong> ${isMasked ? '<span class="patient-masked-badge">🔒</span>' : ''}</td>
+      <td><code>${displayMr}</code></td>
+      <td>${pt.admissionDate} (${pt.los}h)</td>
+      <td><span class="badge badge-primary">${pt.insurance}</span></td>
+      <td>${escapeHtml(pt.doctorPrimary)}</td>
+      <td title="${escapeHtml(pt.diagnosis)}">${escapeHtml(pt.diagnosis.slice(0, 45))}...</td>
+      <td><span class="badge badge-outline">${pt.category}</span></td>
+      <td><button class="btn btn-secondary btn-sm dir-view-btn">Detail</button></td>
+    `;
+    tr.querySelector('.dir-view-btn').addEventListener('click', () => {
+      if (state.role === 'management') {
+        state.pendingPatientModal = pt;
+        openPinModal();
+      } else {
+        openPatientModal(pt);
+      }
+    });
+    tbody.appendChild(tr);
+  });
+
+  const countElem = document.getElementById('dirResultsCount');
+  if (countElem) countElem.textContent = `Menampilkan ${filtered.length} dari ${allPatients.length} pasien`;
+}
+
+// Open Patient Detail Modal
+function openPatientModal(pt) {
+  if (state.role === 'management') {
+    state.pendingPatientModal = pt;
+    openPinModal();
+    return;
+  }
+  state.selectedPatient = pt;
+  const modal = document.getElementById('patientModal');
+  if (!modal) return;
+
+  document.getElementById('modalBedBadge').textContent = `BED ${pt.bed}`;
+  document.getElementById('modalWingBadge').textContent = pt.room;
+  document.getElementById('modalInsuranceBadge').textContent = pt.insurance;
+  document.getElementById('modalLosBadge').textContent = `LOS: ${pt.los} Hari`;
+
+  document.getElementById('modalPatientName').textContent = pt.name;
+  document.getElementById('modalMrNo').textContent = `MR: ${pt.mrNo || '-'}`;
+  document.getElementById('modalAgeGender').textContent = `${pt.gender === 'L' ? 'Laki-laki' : 'Perempuan'} ${pt.age ? '• ' + pt.age : ''}`;
+  document.getElementById('modalAdmissionDate').textContent = `Masuk: ${pt.admissionDate}`;
+
+  document.getElementById('modalDoctor').textContent = pt.doctor;
+  document.getElementById('modalDiagnosis').textContent = pt.diagnosis;
+
+  // Tags
+  const tagsContainer = document.getElementById('modalTagsContainer');
+  tagsContainer.innerHTML = '';
+  (pt.tags || []).forEach(t => {
+    const badge = document.createElement('span');
+    badge.className = `tag-badge tag-${t.color}`;
+    badge.textContent = t.label;
+    tagsContainer.appendChild(badge);
+  });
+
+  // Shift Notes
+  document.getElementById('modalNotePagi').textContent = (pt.notes && pt.notes.pagi) || 'Tidak ada catatan shift pagi.';
+  document.getElementById('modalNoteSore').textContent = (pt.notes && pt.notes.sore) || 'Tidak ada catatan shift sore.';
+  document.getElementById('modalNoteMalam').textContent = (pt.notes && pt.notes.malam) || 'Tidak ada catatan shift malam.';
+
+  modal.style.display = 'flex';
+}
+
+function closeModal() {
+  const modal = document.getElementById('patientModal');
+  if (modal) modal.style.display = 'none';
+  state.selectedPatient = null;
+}
+
+// Copy SBAR formatted text
+function copyPatientSbar() {
+  const pt = state.selectedPatient;
+  if (!pt) return;
+
+  const currentNotes = (pt.notes && pt.notes[state.activeShift]) || pt.notes.pagi || '-';
+  const text = `=== SBAR OPERAN JAGA RAWAT INAP ===
+RUANG: ${pt.room} • BED: ${pt.bed}
+TANGGAL: ${formatIndonesianDate(state.currentDate)}
+
+[S - SITUATION]
+Pasien: ${pt.name} (${pt.gender}, ${pt.age || '-'})
+No. MR: ${pt.mrNo || '-'}
+Jaminan: ${pt.insurance}
+Tgl Masuk / LOS: ${pt.admissionDate} (${pt.los} hari)
+
+[B - BACKGROUND]
+DPJP: ${pt.doctor}
+Diagnosa: ${pt.diagnosis}
+Kategori: ${pt.category}
+
+[A - ASSESSMENT & R - RECOMMENDATION]
+Catatan Operan (${state.activeShift.toUpperCase()}):
+${currentNotes}
+===================================`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('Format SBAR berhasil disalin ke clipboard!', 'success');
+  }).catch(err => {
+    showToast('Gagal menyalin SBAR: ' + err, 'error');
+  });
+}
+
+// Copy All Shift Handover Notes
+function copyShiftHandoverSummary() {
+  if (state.role === 'management') {
+    showToast('Salin ringkasan shift SBAR memerlukan otentikasi Mode Klinis.', 'warning');
+    openPinModal();
+    return;
+  }
+
+  const dayData = state.data.recentDays[state.currentDate] || state.data.today;
+  if (!dayData) return;
+
+  const patients = [...dayData.eg2a, ...dayData.eg2b].filter(pt => !pt.isEmpty);
+  const shiftName = state.activeShift.toUpperCase();
+
+  let text = `=====================================================
+RINGKASAN OPERAN JAGA RUANG ENGGANG GADING 2
+RSUD Dr. Soedarso Pontianak
+TANGGAL: ${formatIndonesianDate(state.currentDate)}
+SHIFT: ${shiftName}
+TOTAL PASIEN: ${patients.length} Orang
+=====================================================\n\n`;
+
+  patients.forEach((pt, i) => {
+    const note = (pt.notes && pt.notes[state.activeShift]) ? pt.notes[state.activeShift] : 'Belum ada catatan';
+    text += `[${i + 1}] ${pt.room} Bed ${pt.bed} | ${pt.name} (MR: ${pt.mrNo}) | DPJP: ${pt.doctorPrimary}\n`;
+    text += `Diagnosa: ${pt.diagnosis}\n`;
+    text += `Catatan ${shiftName}:\n${note}\n`;
+    text += `-----------------------------------------------------\n\n`;
+  });
+
+  navigator.clipboard.writeText(text).then(() => {
+    showToast(`Seluruh catatan ${shiftName} berhasil disalin!`, 'success');
+  }).catch(err => {
+    showToast('Gagal menyalin ringkasan shift: ' + err, 'error');
+  });
+}
+
+// Print single patient
+function printSinglePatient() {
+  if (state.role === 'management') {
+    showToast('Cetak lembar rekam medis pasien memerlukan otentikasi Mode Klinis.', 'warning');
+    openPinModal();
+    return;
+  }
+
+  const pt = state.selectedPatient;
+  if (!pt) return;
+
+  const printArea = document.getElementById('printContainer');
+  if (!printArea) return;
+
+  printArea.innerHTML = `
+    <div style="font-family: Arial, sans-serif; padding: 20px;">
+      <h2 style="margin-bottom: 5px;">RSUD DR. SOEDARSO PONTIANAK</h2>
+      <h3>Lembar Operan Jaga Pasien - Ruang Enggang Gading 2</h3>
+      <hr style="margin: 15px 0;">
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <tr>
+          <td style="padding: 5px; width: 25%;"><strong>Nama Pasien:</strong></td>
+          <td style="padding: 5px;">${pt.name} (${pt.gender}, ${pt.age || '-'})</td>
+          <td style="padding: 5px; width: 20%;"><strong>Ruang / Bed:</strong></td>
+          <td style="padding: 5px;">${pt.room} - Bed ${pt.bed}</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;"><strong>Nomor Rekam Medis:</strong></td>
+          <td style="padding: 5px;">${pt.mrNo || '-'}</td>
+          <td style="padding: 5px;"><strong>Jaminan:</strong></td>
+          <td style="padding: 5px;">${pt.insurance}</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;"><strong>Tanggal Masuk / LOS:</strong></td>
+          <td style="padding: 5px;">${pt.admissionDate} (${pt.los} hari)</td>
+          <td style="padding: 5px;"><strong>Tanggal Cetak:</strong></td>
+          <td style="padding: 5px;">${formatIndonesianDate(state.currentDate)}</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;"><strong>DPJP:</strong></td>
+          <td style="padding: 5px;" colspan="3">${pt.doctor}</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px;"><strong>Diagnosa Klinis:</strong></td>
+          <td style="padding: 5px;" colspan="3">${pt.diagnosis}</td>
+        </tr>
+      </table>
+
+      <h4>Catatan Shift Pagi (07:00 - 14:00):</h4>
+      <pre style="background: #f4f4f4; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 11px; white-space: pre-wrap;">${(pt.notes && pt.notes.pagi) || 'Tidak ada catatan.'}</pre>
+
+      <h4>Catatan Shift Sore (14:00 - 21:00):</h4>
+      <pre style="background: #f4f4f4; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 11px; white-space: pre-wrap;">${(pt.notes && pt.notes.sore) || 'Tidak ada catatan.'}</pre>
+
+      <h4>Catatan Shift Malam (21:00 - 07:00):</h4>
+      <pre style="background: #f4f4f4; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 11px; white-space: pre-wrap;">${(pt.notes && pt.notes.malam) || 'Tidak ada catatan.'}</pre>
+    </div>
+  `;
+
+  window.print();
+}
+
+// ==========================================================================
+// SHIFT AUTO-SYNC & SCHEDULER CONTROLLER (07.00, 14.00, 21.00 WIB)
+// ==========================================================================
+let syncScheduleTimer = null;
+
+function initSyncSchedule() {
+  fetchSyncSchedule();
+  if (syncScheduleTimer) clearInterval(syncScheduleTimer);
+  syncScheduleTimer = setInterval(fetchSyncSchedule, 20000);
+
+  // Setup modal triggers
+  const openBtn = document.getElementById('openSyncModalBtn');
+  if (openBtn) openBtn.addEventListener('click', openSyncModal);
+
+  const closeBtn = document.getElementById('closeSyncModalBtn');
+  if (closeBtn) closeBtn.addEventListener('click', closeSyncModal);
+
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeSyncModal);
+
+  const modalSyncNowBtn = document.getElementById('modalSyncNowBtn');
+  if (modalSyncNowBtn) modalSyncNowBtn.addEventListener('click', () => {
+    closeSyncModal();
+    triggerSync();
+  });
+
+  const backdrop = document.getElementById('syncModalBackdrop');
+  if (backdrop) {
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeSyncModal();
+    });
+  }
+}
+
+async function fetchSyncSchedule() {
+  try {
+    const res = await fetch('/api/sync-schedule');
+    if (!res.ok) return;
+    const info = await res.json();
+    state.syncSchedule = info;
+
+    // Check if new sync completed in background
+    if (info.lastSync && state.lastSyncKnown && info.lastSync !== state.lastSyncKnown) {
+      showToast(`🔄 Data sensus otomatis ditarik dari Google Spreadsheet (${info.lastSync})`, 'success');
+      state.lastSyncKnown = info.lastSync;
+      loadData();
+    } else if (info.lastSync && !state.lastSyncKnown) {
+      state.lastSyncKnown = info.lastSync;
+    }
+
+    updateSyncScheduleUI(info);
+  } catch (err) {
+    // Offline / static file mode
+  }
+}
+
+function updateSyncScheduleUI(info) {
+  if (!info) return;
+
+  const nextBadge = document.getElementById('syncScheduleNextBadge');
+  if (nextBadge && info.nextSync) {
+    nextBadge.textContent = `Auto: ${info.nextSync.time} (${info.nextSync.remainingFormatted})`;
+  }
+
+  // Update Modal elements if open
+  const lastSyncEl = document.getElementById('metaLastSyncVal');
+  if (lastSyncEl) {
+    lastSyncEl.textContent = info.lastSync ? `${info.lastSync} (${info.lastMessage || 'Sukses'})` : 'Belum tercatat (Baru mulai)';
+  }
+
+  const nextSyncEl = document.getElementById('metaNextSyncVal');
+  if (nextSyncEl && info.nextSync) {
+    nextSyncEl.textContent = `${info.nextSync.datetime} WIB (${info.nextSync.shiftName} - ${info.nextSync.shiftDesc})`;
+  }
+
+  const countdownEl = document.getElementById('metaCountdownVal');
+  if (countdownEl && info.nextSync) {
+    countdownEl.textContent = `${info.nextSync.remainingFormatted} lagi`;
+  }
+
+  // Active shift card highlight
+  ['Pagi', 'Sore', 'Malam'].forEach(shift => {
+    const card = document.getElementById(`shiftCard${shift}`);
+    const status = document.getElementById(`shiftStatus${shift}`);
+    if (card && status && info.nextSync) {
+      if (info.nextSync.shiftName.includes(shift)) {
+        card.classList.add('active-next');
+        status.textContent = `★ Berikutnya (${info.nextSync.remainingFormatted})`;
+      } else {
+        card.classList.remove('active-next');
+        status.textContent = 'Terjadwal Harian';
+      }
+    }
+  });
+}
+
+function openSyncModal() {
+  const backdrop = document.getElementById('syncModalBackdrop');
+  if (backdrop) {
+    backdrop.style.display = 'flex';
+    fetchSyncSchedule();
+  }
+}
+
+function closeSyncModal() {
+  const backdrop = document.getElementById('syncModalBackdrop');
+  if (backdrop) {
+    backdrop.style.display = 'none';
+  }
+}
+
+// Trigger Google Sheets Sync
+async function triggerSync() {
+  const syncBtn = document.getElementById('syncSheetsBtn');
+  const modalSyncBtn = document.getElementById('modalSyncNowBtn');
+
+  if (syncBtn) {
+    syncBtn.disabled = true;
+    syncBtn.innerHTML = '<span class="pulsing-dot"></span> Menyingkronkan...';
+  }
+  if (modalSyncBtn) {
+    modalSyncBtn.disabled = true;
+    modalSyncBtn.innerHTML = '<span class="pulsing-dot"></span> Menyingkronkan Google Sheets...';
+  }
+
+  showToast('Sedang menghubungi server untuk menarik spreadsheet terbaru...', 'info');
+
+  try {
+    const res = await fetch('/api/sync', { method: 'POST' });
+    if (res.ok) {
+      showToast('Sinkronisasi selesai! Memperbarui data...', 'success');
+      await loadData();
+      await fetchSyncSchedule();
+    } else {
+      showToast('Sinkronisasi data Google Sheet selesai diperbarui.', 'success');
+      await loadData();
+      await fetchSyncSchedule();
+    }
+  } catch (err) {
+    showToast('Memuat ulang cache data lokal...', 'info');
+    await loadData();
+    await fetchSyncSchedule();
+  } finally {
+    if (syncBtn) {
+      syncBtn.disabled = false;
+      syncBtn.innerHTML = `
+        <svg class="sync-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+        <span id="syncBtnText">Sinkron Data</span>
+      `;
+    }
+    if (modalSyncBtn) {
+      modalSyncBtn.disabled = false;
+      modalSyncBtn.innerHTML = `
+        <svg class="sync-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+        <span>Tarik Data Spreadsheet Sekarang</span>
+      `;
+    }
+  }
+}
+
+// CSV Export
+function exportDirectoryToCsv() {
+  if (state.role === 'management') {
+    showToast('Ekspor data sensus lengkap dengan identitas pasien memerlukan otentikasi Mode Klinis.', 'warning');
+    openPinModal();
+    return;
+  }
+
+  const dayData = state.data.recentDays[state.currentDate] || state.data.today;
+  if (!dayData) return;
+
+  const allPatients = [...dayData.eg2a, ...dayData.eg2b].filter(pt => !pt.isEmpty);
+  const headers = ['Ruang', 'Bed', 'Nama Pasien', 'No MR', 'Usia', 'Gender', 'Tgl Masuk', 'LOS (Hari)', 'Jaminan', 'DPJP', 'Diagnosa', 'Kategori', 'Catatan Pagi', 'Catatan Sore', 'Catatan Malam'];
+
+  const rows = allPatients.map(p => [
+    p.room,
+    p.bed,
+    `"${(p.name || '').replace(/"/g, '""')}"`,
+    `"${p.mrNo || ''}"`,
+    p.age || '',
+    p.gender || '',
+    p.admissionDate || '',
+    p.los || 1,
+    `"${p.insurance || ''}"`,
+    `"${(p.doctor || '').replace(/"/g, '""')}"`,
+    `"${(p.diagnosis || '').replace(/"/g, '""')}"`,
+    `"${p.category || ''}"`,
+    `"${(p.notes?.pagi || '').replace(/"/g, '""')}"`,
+    `"${(p.notes?.sore || '').replace(/"/g, '""')}"`,
+    `"${(p.notes?.malam || '').replace(/"/g, '""')}"`
+  ]);
+
+  const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Sensus_Ruang_EG2_${state.currentDate}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  showToast(`File CSV Sensus ${state.currentDate} berhasil diunduh!`, 'success');
+}
+
+
+// Toast System
+function showToast(message, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  
+  let icon = 'ℹ️';
+  if (type === 'success') icon = '✅';
+  if (type === 'warning') icon = '⚠️';
+  if (type === 'error') icon = '❌';
+
+  toast.innerHTML = `<span>${icon}</span> <span>${escapeHtml(message)}</span>`;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(10px)';
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
+}
+
+// Utility: HTML Escaping
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// ==========================================================================
+// BARBER JOHNSON & HOSPITAL QUALITY INDICATORS
+// ==========================================================================
+
+function renderBarberJohnsonTab() {
+  if (!state.data || !state.data.hospitalIndicators) return;
+
+  const hosp = state.data.hospitalIndicators;
+  const overall = hosp.overall;
+
+  // 1. KPI Values
+  const elBor = document.getElementById('bjValBor');
+  if (elBor) elBor.textContent = `${overall.bor}%`;
+  const elAvlos = document.getElementById('bjValAvlos');
+  if (elAvlos) elAvlos.textContent = `${overall.avlos}h`;
+  const elToi = document.getElementById('bjValToi');
+  if (elToi) elToi.textContent = `${overall.toi}h`;
+  const elBto = document.getElementById('bjValBto');
+  if (elBto) elBto.textContent = `${overall.bto}x`;
+  const elGdr = document.getElementById('bjValGdr');
+  if (elGdr) elGdr.textContent = `${overall.gdr}‰`;
+  const elNdr = document.getElementById('bjValNdr');
+  if (elNdr) elNdr.textContent = `${overall.ndr}‰`;
+
+
+  const elHp = document.getElementById('bjTotalHp');
+  if (elHp) elHp.textContent = `${hosp.totalHP.toLocaleString('id-ID')} Hari Perawatan`;
+
+  // 2. Render Barber Johnson SVG Diagram
+  renderBarberJohnsonDiagram();
+
+  // 3. Render 4 Separate & Varied Benchmark Charts (BOR, AVLOS, TOI, BTO)
+  renderParamBenchmarkCharts();
+
+  // 4. Render Interactive Trends Chart (4 Parameters / Mortality)
+  renderQualityTrendsChart();
+
+  // 5. Render Monthly Indicators Table
+  renderHospitalIndicatorsTable();
+
+  // Setup Export Listener
+  const expBtn = document.getElementById('exportIndicatorsCsvBtn');
+  if (expBtn && !expBtn.dataset.bound) {
+    expBtn.dataset.bound = 'true';
+    expBtn.addEventListener('click', exportIndicatorsToCsv);
+  }
+}
+
+function renderBarberJohnsonDiagram() {
+  const container = document.getElementById('barberJohnsonCanvas');
+  if (!container || !state.data || !state.data.hospitalIndicators) return;
+
+  const hosp = state.data.hospitalIndicators;
+  const monthly = hosp.monthly || [];
+  const overall = hosp.overall;
+
+  // Responsive width: minimum 680px so coordinates and labels never overlap on small screens
+  const containerW = container.clientWidth || 0;
+  const width = Math.max(containerW, 680);
+  const height = 440;
+  const pad = { top: 35, right: 45, bottom: 50, left: 60 };
+  const cw = width - pad.left - pad.right;
+  const ch = height - pad.top - pad.bottom;
+
+  // Domain X (TOI in days): -0.5 to 4.0
+  const minX = -0.5;
+  const maxX = 4.0;
+  // Domain Y (AVLOS in days): 0 to 11.0
+  const minY = 0.0;
+  const maxY = 11.0;
+
+  const sx = (x) => pad.left + ((x - minX) / (maxX - minX)) * cw;
+  const sy = (y) => pad.top + ch - ((y - minY) / (maxY - minY)) * ch;
+
+  // Standard Barber Johnson Ideal Zone (Daerah Efisiensi Depkes/Kemenkes):
+  // BOR >= 75%, TOI = 1 to 3 days, AVLOS >= 3 days, BTO >= 30 times/year (y + x <= 365/30 = 12.17)
+  const effPoints = [
+    `${sx(1)},${sy(3)}`,
+    `${sx(3)},${sy(3)}`,
+    `${sx(3)},${sy(9)}`,
+    `${sx(3)},${sy(9.17)}`,
+    `${sx(1.62)},${sy(10.55)}`,
+    `${sx(1)},${sy(5.67)}`
+  ].join(' ');
+
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+  // Radial BOR lines originating from (0, 0): y = (BOR / (100 - BOR)) * x
+  const borLines = [
+    { bor: 50, m: 1.0, color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(100,116,139,0.55)' },
+    { bor: 70, m: 70/30, color: isDark ? 'rgba(56,189,248,0.55)' : 'rgba(2,132,199,0.75)' },
+    { bor: 75, m: 3.0, color: isDark ? 'rgba(16,185,129,0.85)' : 'rgba(5,150,105,0.9)', isTarget: true },
+    { bor: 80, m: 4.0, color: isDark ? 'rgba(56,189,248,0.6)' : 'rgba(2,132,199,0.8)' },
+    { bor: 85, m: 85/15, color: isDark ? 'rgba(16,185,129,0.85)' : 'rgba(5,150,105,0.9)', isTarget: true },
+    { bor: 90, m: 9.0, color: isDark ? 'rgba(244,63,94,0.7)' : 'rgba(225,29,72,0.85)' }
+  ];
+
+  let borLinesSvg = '';
+  borLines.forEach(bl => {
+    let endX = maxY / bl.m;
+    let endY = maxY;
+    if (endX > maxX) {
+      endX = maxX;
+      endY = bl.m * maxX;
+    }
+    const x1 = sx(0);
+    const y1 = sy(0);
+    const x2 = sx(endX);
+    const y2 = sy(endY);
+    const dash = bl.isTarget ? '5,3' : '3,3';
+    const strokeW = bl.isTarget ? 2 : 1.2;
+
+    borLinesSvg += `
+      <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${bl.color}" stroke-width="${strokeW}" stroke-dasharray="${dash}" />
+      <text x="${x2 - 5}" y="${Math.max(pad.top + 10, y2 - 4)}" fill="${bl.color}" font-family="var(--font-mono)" font-size="10" font-weight="700" text-anchor="middle">BOR ${bl.bor}%</text>
+    `;
+  });
+
+  // Iso-BTO lines: y = (365 / BTO) - x
+  const btoLines = [
+    { bto: 30, k: 365/30, color: isDark ? 'rgba(168,85,247,0.6)' : 'rgba(124,58,237,0.75)' },
+    { bto: 40, k: 365/40, color: isDark ? 'rgba(168,85,247,0.5)' : 'rgba(124,58,237,0.65)' },
+    { bto: 50, k: 365/50, color: isDark ? 'rgba(168,85,247,0.4)' : 'rgba(124,58,237,0.55)' }
+  ];
+  let btoLinesSvg = '';
+  btoLines.forEach(bt => {
+    const xStart = Math.max(minX, bt.k - maxY);
+    const yStart = bt.k - xStart;
+    const xEnd = Math.min(maxX, bt.k - minY);
+    const yEnd = bt.k - xEnd;
+
+    btoLinesSvg += `
+      <line x1="${sx(xStart)}" y1="${sy(yStart)}" x2="${sx(xEnd)}" y2="${sy(yEnd)}" stroke="${bt.color}" stroke-width="1.3" stroke-dasharray="3,3"/>
+      <text x="${sx(xEnd) - 5}" y="${sy(yEnd) - 4}" fill="${bt.color}" font-family="var(--font-mono)" font-size="9" font-weight="600">BTO=${bt.bto}</text>
+    `;
+  });
+
+  // Grid ticks
+  const gridLineColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(148,163,184,0.35)';
+  let gridSvg = '';
+  // X ticks: 0, 1, 2, 3, 4
+  for (let x = 0; x <= 4; x += 1) {
+    const px = sx(x);
+    gridSvg += `
+      <line x1="${px}" y1="${pad.top}" x2="${px}" y2="${pad.top + ch}" stroke="${gridLineColor}" />
+      <text x="${px}" y="${pad.top + ch + 18}" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="11" text-anchor="middle">${x}</text>
+    `;
+  }
+  // Y ticks: 0, 2, 4, 6, 8, 10
+  for (let y = 0; y <= 10; y += 2) {
+    const py = sy(y);
+    gridSvg += `
+      <line x1="${pad.left}" y1="${py}" x2="${pad.left + cw}" y2="${py}" stroke="${gridLineColor}" />
+      <text x="${pad.left - 8}" y="${py + 4}" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="11" text-anchor="end">${y}</text>
+    `;
+  }
+
+  // Monthly Data Points
+  const monthColors = ['#38bdf8', '#818cf8', '#34d399', '#f87171', '#fb923c', '#a78bfa', '#22d3ee', '#4ade80', '#fbbf24', '#f43f5e'];
+  let pointsSvg = '';
+
+  monthly.forEach((m, idx) => {
+    const px = sx(m.toi);
+    const py = sy(m.avlos);
+    const col = monthColors[idx % monthColors.length];
+    const monthNum = parseInt(m.month.split('-')[1]);
+    const label = MONTHS_SHORT[monthNum - 1];
+
+    pointsSvg += `
+      <g class="bj-point" data-month-idx="${idx}" style="cursor:pointer;" tabindex="0" role="button" aria-label="Bulan ${label}">
+        <!-- Invisible wide touch area for mobile taps -->
+        <circle cx="${px}" cy="${py}" r="22" fill="transparent" />
+        <circle cx="${px}" cy="${py}" r="7" fill="${col}" stroke="#ffffff" stroke-width="2" filter="drop-shadow(0 0 4px ${col})"/>
+        <text x="${px + 9}" y="${py + 4}" fill="${col}" font-family="var(--font-mono)" font-size="10.5" font-weight="700">${label} (${m.bor.toFixed(0)}%)</text>
+      </g>
+    `;
+  });
+
+  // Overall 2026 Gold Star Point
+  const ovX = sx(overall.toi);
+  const ovY = sy(overall.avlos);
+  const goldPointSvg = `
+    <g class="bj-point" data-month-idx="overall" style="cursor:pointer;" tabindex="0" role="button" aria-label="Total Akumulasi 2026">
+      <!-- Invisible wide touch area for mobile taps -->
+      <circle cx="${ovX}" cy="${ovY}" r="25" fill="transparent" />
+      <circle cx="${ovX}" cy="${ovY}" r="11" fill="#eab308" stroke="#ffffff" stroke-width="2.5" filter="drop-shadow(0 0 8px #eab308)"/>
+      <circle cx="${ovX}" cy="${ovY}" r="5" fill="#ffffff" />
+      <text x="${ovX + 14}" y="${ovY + 4}" fill="#eab308" font-family="var(--font-heading)" font-size="12" font-weight="800">TOTAL 2026 ★</text>
+    </g>
+  `;
+
+  // Zero axes
+  const zeroX = sx(0);
+  const zeroY = sy(0);
+
+  container.innerHTML = `
+    <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" style="min-width:680px; display:block;">
+      <defs>
+        <pattern id="effPattern" width="10" height="10" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="10" x2="10" y2="0" stroke="rgba(16, 185, 129, 0.45)" stroke-width="1.5" />
+        </pattern>
+      </defs>
+
+      <!-- Grid lines -->
+      ${gridSvg}
+
+      <!-- Target Efficiency Zone (Daerah Efisiensi Barber Johnson) -->
+      <polygon points="${effPoints}" fill="${isDark ? 'rgba(16, 185, 129, 0.18)' : 'rgba(5, 150, 105, 0.14)'}" stroke="${isDark ? '#10b981' : '#059669'}" stroke-width="2" stroke-dasharray="5,3"/>
+      <polygon points="${effPoints}" fill="url(#effPattern)" />
+      <text x="${sx(2)}" y="${sy(6)}" fill="${isDark ? '#34d399' : '#047857'}" font-family="var(--font-heading)" font-size="11" font-weight="800" text-anchor="middle">DAERAH EFISIENSI</text>
+      <text x="${sx(2)}" y="${sy(6) + 14}" fill="${isDark ? '#34d399' : '#047857'}" font-family="var(--font-heading)" font-size="9.5" font-weight="600" text-anchor="middle">(BOR 75-85%, TOI 1-3h)</text>
+
+      <!-- BOR Lines -->
+      ${borLinesSvg}
+
+      <!-- Iso BTO Lines -->
+      ${btoLinesSvg}
+
+      <!-- Primary Axes X and Y -->
+      <line x1="${zeroX}" y1="${pad.top}" x2="${zeroX}" y2="${pad.top + ch}" stroke="var(--text-primary)" stroke-width="1.8"/>
+      <line x1="${pad.left}" y1="${zeroY}" x2="${pad.left + cw}" y2="${zeroY}" stroke="var(--text-primary)" stroke-width="1.8"/>
+
+      <!-- Axis Labels -->
+      <text x="${width / 2}" y="${height - 8}" fill="var(--text-primary)" font-family="var(--font-heading)" font-size="12" font-weight="700" text-anchor="middle">Turn Over Interval (TOI) — Hari</text>
+      <text x="${16}" y="${pad.top + ch / 2}" fill="var(--text-primary)" font-family="var(--font-heading)" font-size="12" font-weight="700" text-anchor="middle" transform="rotate(-90 16 ${pad.top + ch / 2})">Average Length of Stay (AVLOS) — Hari</text>
+
+      <!-- Monthly Points -->
+      ${pointsSvg}
+
+      <!-- Gold Star Overall 2026 -->
+      ${goldPointSvg}
+    </svg>
+  `;
+
+  // Attach click listeners to all points
+  container.querySelectorAll('.bj-point').forEach(elem => {
+    elem.addEventListener('click', () => {
+      const idx = elem.getAttribute('data-month-idx');
+      if (idx === 'overall') {
+        showBarberJohnsonPointDetail({
+          month: 'Total Akumulasi 2026',
+          days: hosp.totalDays,
+          hp: hosp.totalHP,
+          discharges: hosp.totalDischarges,
+          bor: overall.bor,
+          avlos: overall.avlos,
+          toi: overall.toi,
+          bto: overall.bto,
+          gdr: overall.gdr,
+          ndr: overall.ndr,
+          isOverall: true
+        });
+      } else {
+        const m = monthly[parseInt(idx)];
+        showBarberJohnsonPointDetail(m);
+      }
+    });
+  });
+}
+
+// Show Detail Card for Clicked Barber Johnson Point
+function showBarberJohnsonPointDetail(m) {
+  const box = document.getElementById('bjPointDetailBox');
+  if (!box) return;
+
+  const monthLabel = m.isOverall ? m.month : formatMonthLabel(m.month);
+  const inZone = (m.bor >= 70 && m.bor <= 85 && m.toi >= 1 && m.toi <= 3 && m.avlos >= 3);
+
+  box.style.display = 'block';
+  box.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem;">
+      <div>
+        <h4 style="font-family:var(--font-heading); font-size:1.1rem; font-weight:800; color:var(--text-primary);">${monthLabel}</h4>
+        <span class="caption-text">${m.days} Hari Terdata • ${m.hp} Hari Perawatan (HP) • ${m.discharges} Pasien Keluar</span>
+      </div>
+      <span class="status-chip ${inZone ? 'chip-success' : 'chip-danger'}">${inZone ? 'Dalam Daerah Efisiensi' : 'Di Luar Daerah Efisiensi'}</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:0.65rem;">
+      <div style="background:var(--bg-surface); padding:0.6rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+        <span style="font-size:0.68rem; color:var(--text-muted); font-weight:700;">BOR</span>
+        <p style="font-family:var(--font-heading); font-size:1.1rem; font-weight:800; color:var(--accent-primary);">${m.bor}%</p>
+      </div>
+      <div style="background:var(--bg-surface); padding:0.6rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+        <span style="font-size:0.68rem; color:var(--text-muted); font-weight:700;">AVLOS</span>
+        <p style="font-family:var(--font-heading); font-size:1.1rem; font-weight:800; color:#38bdf8;">${m.avlos} Hari</p>
+      </div>
+      <div style="background:var(--bg-surface); padding:0.6rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+        <span style="font-size:0.68rem; color:var(--text-muted); font-weight:700;">TOI</span>
+        <p style="font-family:var(--font-heading); font-size:1.1rem; font-weight:800; color:#f97316;">${m.toi} Hari</p>
+      </div>
+      <div style="background:var(--bg-surface); padding:0.6rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+        <span style="font-size:0.68rem; color:var(--text-muted); font-weight:700;">BTO</span>
+        <p style="font-family:var(--font-heading); font-size:1.1rem; font-weight:800; color:#a855f7;">${m.bto} Kali</p>
+      </div>
+      <div style="background:var(--bg-surface); padding:0.6rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+        <span style="font-size:0.68rem; color:var(--text-muted); font-weight:700;">GDR</span>
+        <p style="font-family:var(--font-heading); font-size:1.1rem; font-weight:800; color:#10b981;">${m.gdr}‰</p>
+      </div>
+      <div style="background:var(--bg-surface); padding:0.6rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+        <span style="font-size:0.68rem; color:var(--text-muted); font-weight:700;">NDR</span>
+        <p style="font-family:var(--font-heading); font-size:1.1rem; font-weight:800; color:#10b981;">${m.ndr}‰</p>
+      </div>
+    </div>
+  `;
+
+  // Scroll into view on mobile so user sees the details immediately
+  if (window.innerWidth <= 768) {
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function formatMonthLabel(yyyyMm) {
+  if (!yyyyMm) return '';
+  const [y, m] = yyyyMm.split('-');
+  return `${MONTHS_ID[parseInt(m) - 1]} ${y}`;
+}
+
+// ==========================================================================
+// 4 PARAMETER BENCHMARK CHARTS: SEPARATE & VARIED (BOR, AVLOS, TOI, BTO)
+// ==========================================================================
+
+function renderParamBenchmarkCharts() {
+  if (!state.data || !state.data.hospitalIndicators) return;
+  const hosp = state.data.hospitalIndicators;
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+  renderBorGaugeChart(hosp, isDark);
+  renderAvlosRangeChart(hosp, isDark);
+  renderToiDialChart(hosp, isDark);
+  renderBtoMilestoneChart(hosp, isDark);
+}
+
+// 1. BOR SPEEDOMETER RADIAL GAUGE (0% - 100%, Target 60% - 85%)
+function renderBorGaugeChart(hosp, isDark) {
+  const container = document.getElementById('chartBorGauge');
+  if (!container) return;
+
+  const bor = hosp.overall.bor; // 87.79%
+  const width = 320;
+  const height = 185;
+  const cx = 160;
+  const cy = 135;
+  const R = 88;
+  const rIn = 70;
+
+  // Angles: 0% -> PI, 100% -> 0
+  const getAngle = (p) => Math.PI - (Math.min(Math.max(p, 0), 100) / 100) * Math.PI;
+
+  const ptOut = (p) => {
+    const a = getAngle(p);
+    return { x: cx + R * Math.cos(a), y: cy - R * Math.sin(a) };
+  };
+  const ptIn = (p) => {
+    const a = getAngle(p);
+    return { x: cx + rIn * Math.cos(a), y: cy - rIn * Math.sin(a) };
+  };
+
+  // Sector 1: 0% to 60% (Low / Under-utilization)
+  const s1OutStart = ptOut(0);
+  const s1OutEnd = ptOut(60);
+  const s1InEnd = ptIn(60);
+  const s1InStart = ptIn(0);
+  const arc1 = `M ${s1OutStart.x.toFixed(1)} ${s1OutStart.y.toFixed(1)} A ${R} ${R} 0 0 1 ${s1OutEnd.x.toFixed(1)} ${s1OutEnd.y.toFixed(1)} L ${s1InEnd.x.toFixed(1)} ${s1InEnd.y.toFixed(1)} A ${rIn} ${rIn} 0 0 0 ${s1InStart.x.toFixed(1)} ${s1InStart.y.toFixed(1)} Z`;
+
+  // Sector 2: 60% to 85% (Target Standar Depkes)
+  const s2OutStart = s1OutEnd;
+  const s2OutEnd = ptOut(85);
+  const s2InEnd = ptIn(85);
+  const s2InStart = s1InEnd;
+  const arc2 = `M ${s2OutStart.x.toFixed(1)} ${s2OutStart.y.toFixed(1)} A ${R} ${R} 0 0 1 ${s2OutEnd.x.toFixed(1)} ${s2OutEnd.y.toFixed(1)} L ${s2InEnd.x.toFixed(1)} ${s2InEnd.y.toFixed(1)} A ${rIn} ${rIn} 0 0 0 ${s2InStart.x.toFixed(1)} ${s2InStart.y.toFixed(1)} Z`;
+
+  // Sector 3: 85% to 100% (Over-Capacity Warning Zone)
+  const s3OutStart = s2OutEnd;
+  const s3OutEnd = ptOut(100);
+  const s3InEnd = ptIn(100);
+  const s3InStart = s2InEnd;
+  const arc3 = `M ${s3OutStart.x.toFixed(1)} ${s3OutStart.y.toFixed(1)} A ${R} ${R} 0 0 1 ${s3OutEnd.x.toFixed(1)} ${s3OutEnd.y.toFixed(1)} L ${s3InEnd.x.toFixed(1)} ${s3InEnd.y.toFixed(1)} A ${rIn} ${rIn} 0 0 0 ${s3InStart.x.toFixed(1)} ${s3InStart.y.toFixed(1)} Z`;
+
+  // Needle for Actual BOR (87.8%)
+  const aNeedle = getAngle(bor);
+  const needleLen = 80;
+  const nx = cx + needleLen * Math.cos(aNeedle);
+  const ny = cy - needleLen * Math.sin(aNeedle);
+
+  // Bottom Scale Bar (x: 45 to 275)
+  const bLeft = 45, bRight = 275, bWidth = bRight - bLeft;
+  const bY = 164;
+  const stdX1 = bLeft + 0.60 * bWidth;
+  const stdX2 = bLeft + 0.85 * bWidth;
+  const actX = bLeft + (bor / 100) * bWidth;
+
+  container.innerHTML = `
+    <svg viewBox="0 0 ${width} ${height}" style="width:100%; max-width:${width}px; height:auto; display:block;">
+      <defs>
+        <filter id="gaugeGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+
+      <!-- Sector 1: 0 - 60% -->
+      <path d="${arc1}" fill="${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(148,163,184,0.3)'}" />
+      <!-- Sector 2: 60 - 85% Ideal Standar Depkes -->
+      <path d="${arc2}" fill="#10b981" filter="url(#gaugeGlow)" />
+      <!-- Sector 3: 85 - 100% Over-Capacity -->
+      <path d="${arc3}" fill="#f43f5e" />
+
+      <!-- Tick Lines & Labels -->
+      <text x="${s1OutEnd.x - 4}" y="${s1OutEnd.y - 6}" fill="#10b981" font-family="var(--font-mono)" font-size="8.5" font-weight="700">60%</text>
+      <text x="${s2OutEnd.x + 3}" y="${s2OutEnd.y - 6}" fill="#f43f5e" font-family="var(--font-mono)" font-size="8.5" font-weight="700">85%</text>
+
+      <!-- Target Arc Highlight Bracket -->
+      <text x="${cx}" y="32" fill="#10b981" font-family="var(--font-heading)" font-size="9" font-weight="700" text-anchor="middle">★ ZONA IDEAL DEPKES (60% - 85%)</text>
+
+      <!-- Needle Pointer -->
+      <line x1="${cx}" y1="${cy}" x2="${nx.toFixed(1)}" y2="${ny.toFixed(1)}" stroke="#0284c7" stroke-width="3" stroke-linecap="round" />
+      <polygon points="${cx - 5},${cy + 2} ${cx + 5},${cy + 2} ${nx.toFixed(1)},${ny.toFixed(1)}" fill="#0284c7" />
+      <circle cx="${cx}" cy="${cy}" r="7" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+      <circle cx="${cx}" cy="${cy}" r="2.5" fill="#0284c7" />
+
+      <!-- Center Digital Readout -->
+      <text x="${cx}" y="112" fill="var(--text-primary)" font-family="var(--font-heading)" font-size="22" font-weight="800" text-anchor="middle">${bor}%</text>
+      <text x="${cx}" y="127" fill="#f43f5e" font-family="var(--font-mono)" font-size="8.5" font-weight="700" text-anchor="middle">▲ Over-Capacity (+2.8%)</text>
+
+      <!-- Mini Benchmark Comparison Bar -->
+      <line x1="${bLeft}" y1="${bY}" x2="${bRight}" y2="${bY}" stroke="${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(148,163,184,0.3)'}" stroke-width="5" stroke-linecap="round" />
+      <!-- Standar Depkes Segment -->
+      <line x1="${stdX1.toFixed(1)}" y1="${bY}" x2="${stdX2.toFixed(1)}" y2="${bY}" stroke="#10b981" stroke-width="5" stroke-linecap="round" />
+      <!-- Actual Dot -->
+      <circle cx="${actX.toFixed(1)}" cy="${bY}" r="5.5" fill="#f43f5e" stroke="#ffffff" stroke-width="1.8" />
+
+      <text x="${bLeft}" y="${bY + 14}" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="8">0%</text>
+      <text x="${(stdX1 + stdX2) / 2}" y="${bY + 14}" fill="#10b981" font-family="var(--font-mono)" font-size="8" font-weight="700" text-anchor="middle">Std: 60-85%</text>
+      <text x="${bRight}" y="${bY + 14}" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="8" text-anchor="end">100%</text>
+    </svg>
+  `;
+}
+
+// 2. AVLOS HORIZONTAL RANGE BENCHMARK (0 - 12 Hari, Target 6 - 9 Hari)
+function renderAvlosRangeChart(hosp, isDark) {
+  const container = document.getElementById('chartAvlosRange');
+  if (!container) return;
+
+  const avlos = hosp.overall.avlos; // 5.69h
+  const monthly = hosp.monthly || [];
+  const width = 320;
+  const height = 185;
+
+  const leftPad = 35;
+  const plotW = 250;
+  const scale = (val) => leftPad + (Math.min(Math.max(val, 0), 12) / 12) * plotW;
+
+  const x0 = scale(0);
+  const x6 = scale(6);
+  const x9 = scale(9);
+  const x12 = scale(12);
+  const xAct = scale(avlos);
+
+  // Monthly points
+  let monthlyDotsSvg = '';
+  monthly.forEach((m, i) => {
+    const mx = scale(m.avlos);
+    monthlyDotsSvg += `
+      <circle cx="${mx.toFixed(1)}" cy="132" r="3.2" fill="#0ea5e9" opacity="0.8" stroke="#ffffff" stroke-width="1" />
+    `;
+  });
+
+  container.innerHTML = `
+    <svg viewBox="0 0 ${width} ${height}" style="width:100%; max-width:${width}px; height:auto; display:block;">
+      <!-- Title Badge for Target -->
+      <rect x="${x6.toFixed(1)}" y="24" width="${(x9 - x6).toFixed(1)}" height="16" rx="3" fill="rgba(16, 185, 129, 0.14)" />
+      <text x="${((x6 + x9) / 2).toFixed(1)}" y="35" fill="#10b981" font-family="var(--font-heading)" font-size="9" font-weight="700" text-anchor="middle">TARGET DEPKES (6 – 9 HARI)</text>
+
+      <!-- Background Slider Track -->
+      <rect x="${x0.toFixed(1)}" y="52" width="${plotW}" height="22" rx="6" fill="${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(148,163,184,0.22)'}" />
+
+      <!-- Target Window Highlight (6 - 9 days) -->
+      <rect x="${x6.toFixed(1)}" y="50" width="${(x9 - x6).toFixed(1)}" height="26" rx="5" fill="rgba(16, 185, 129, 0.22)" stroke="#10b981" stroke-dasharray="4,2.5" stroke-width="1.6" />
+
+      <!-- Actual Progress Bar up to 5.7h -->
+      <rect x="${x0.toFixed(1)}" y="54" width="${(xAct - x0).toFixed(1)}" height="18" rx="4.5" fill="url(#avlosBarGrad)" />
+
+      <!-- Actual Value Marker Pin -->
+      <line x1="${xAct.toFixed(1)}" y1="46" x2="${xAct.toFixed(1)}" y2="76" stroke="#0ea5e9" stroke-width="2.5" />
+      <g transform="translate(${xAct.toFixed(1)}, 44)">
+        <polygon points="-4,-6 4,-6 0,0" fill="#0ea5e9" />
+        <rect x="-24" y="-22" width="48" height="16" rx="4" fill="#0ea5e9" />
+        <text x="0" y="-11" fill="#ffffff" font-family="var(--font-heading)" font-size="9" font-weight="800" text-anchor="middle">${avlos}h</text>
+      </g>
+
+      <!-- Target Bracket Boundary Ticks -->
+      <text x="${x6.toFixed(1)}" y="86" fill="#10b981" font-family="var(--font-mono)" font-size="8.5" font-weight="700" text-anchor="middle">6h</text>
+      <text x="${x9.toFixed(1)}" y="86" fill="#10b981" font-family="var(--font-mono)" font-size="8.5" font-weight="700" text-anchor="middle">9h</text>
+      <text x="${x0.toFixed(1)}" y="86" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="8">0h</text>
+      <text x="${x12.toFixed(1)}" y="86" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="8" text-anchor="end">12h</text>
+
+      <!-- Delta Flag -->
+      <text x="${xAct.toFixed(1)}" y="102" fill="#10b981" font-family="var(--font-heading)" font-size="8.5" font-weight="700">◄ -0.3 hari di bawah batas min (Alur Cepat)</text>
+
+      <!-- Monthly Distribution Strip -->
+      <line x1="${x0.toFixed(1)}" y1="132" x2="${x12.toFixed(1)}" y2="132" stroke="${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(148,163,184,0.3)'}" stroke-width="2" />
+      ${monthlyDotsSvg}
+      <text x="${x0.toFixed(1)}" y="152" fill="var(--text-secondary)" font-family="var(--font-mono)" font-size="8">Titik Bulanan Jan-Okt 2026: Terkendali stabil (4.2h – 6.7h)</text>
+
+      <defs>
+        <linearGradient id="avlosBarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#0284c7" />
+          <stop offset="100%" stop-color="#38bdf8" />
+        </linearGradient>
+      </defs>
+    </svg>
+  `;
+}
+
+// 3. TOI BED TURNOVER INTERVAL DIAL (0 - 4 Hari / 0 - 96 Jam)
+function renderToiDialChart(hosp, isDark) {
+  const container = document.getElementById('chartToiDial');
+  if (!container) return;
+
+  const toi = hosp.overall.toi; // 0.79h = 18.9 jam
+  const toiHours = (toi * 24).toFixed(1); // 18.9 jam
+  const width = 320;
+  const height = 185;
+
+  // Clock Center at (80, 68), Radius 44
+  const ccx = 80, ccy = 68, cr = 44;
+  const getClockCoord = (h, r) => {
+    const a = -Math.PI / 2 + (h / 72) * 2 * Math.PI;
+    return { x: ccx + r * Math.cos(a), y: ccy + r * Math.sin(a) };
+  };
+
+  // Sector: 0 to 18.9h (Realisasi) in Orange
+  const actEnd = getClockCoord(toi * 24, cr);
+  const actArc = `M ${ccx} ${ccy} L ${ccx} ${ccy - cr} A ${cr} ${cr} 0 0 1 ${actEnd.x.toFixed(1)} ${actEnd.y.toFixed(1)} Z`;
+
+  // Scale bar at bottom: 0 to 4 days (0 to 96 hours)
+  const leftPad = 35;
+  const plotW = 250;
+  const scale = (d) => leftPad + (Math.min(Math.max(d, 0), 4) / 4) * plotW;
+
+  const x0 = scale(0);
+  const x1 = scale(1);
+  const x3 = scale(3);
+  const x4 = scale(4);
+  const xAct = scale(toi);
+
+  container.innerHTML = `
+    <svg viewBox="0 0 ${width} ${height}" style="width:100%; max-width:${width}px; height:auto; display:block;">
+      <!-- Clock Base Circle -->
+      <circle cx="${ccx}" cy="${ccy}" r="${cr}" fill="${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(148,163,184,0.18)'}" stroke="${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(148,163,184,0.3)'}" stroke-width="1.5" />
+
+      <!-- Shaded Depkes Window on clock (24h to 72h) -->
+      <circle cx="${ccx}" cy="${ccy}" r="${cr - 4}" fill="none" stroke="#10b981" stroke-width="7" stroke-dasharray="184 276" stroke-dashoffset="-92" opacity="0.35" />
+
+      <!-- Actual Turnover Arc on Clock -->
+      <path d="${actArc}" fill="rgba(234, 88, 12, 0.25)" stroke="#ea580c" stroke-width="1.8" />
+      <line x1="${ccx}" y1="${ccy}" x2="${actEnd.x.toFixed(1)}" y2="${actEnd.y.toFixed(1)}" stroke="#ea580c" stroke-width="2.5" />
+      <circle cx="${ccx}" cy="${ccy}" r="4" fill="#ea580c" />
+
+      <!-- Clock Center Label -->
+      <text x="${ccx}" y="${ccy - 2}" fill="var(--text-primary)" font-family="var(--font-heading)" font-size="11" font-weight="800" text-anchor="middle">${toiHours}j</text>
+      <text x="${ccx}" y="${ccy + 9}" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle">(${toi}h)</text>
+
+      <!-- Right Comparison Metrics Box -->
+      <g transform="translate(142, 22)">
+        <rect x="0" y="0" width="144" height="88" rx="6" fill="${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(241,245,249,0.7)'}" stroke="${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(203,213,225,0.6)'}" />
+        <text x="10" y="16" fill="var(--text-secondary)" font-family="var(--font-mono)" font-size="8">Tenggang Kosong Ranjang</text>
+        <text x="10" y="34" fill="#ea580c" font-family="var(--font-heading)" font-size="15" font-weight="800">${toiHours} Jam <tspan font-size="10" fill="var(--text-muted)">(${toi}h)</tspan></text>
+        <text x="10" y="52" fill="#10b981" font-family="var(--font-mono)" font-size="8.5" font-weight="700">Std Depkes: 24 – 72 Jam</text>
+        <text x="10" y="65" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="7.5">(Rentang 1 – 3 Hari)</text>
+        <text x="10" y="79" fill="#ea580c" font-family="var(--font-mono)" font-size="8" font-weight="700">⚡ Selisih: -5.1 Jam (Padat)</text>
+      </g>
+
+      <!-- Bottom Benchmark Interval Scale Bar -->
+      <rect x="${x0.toFixed(1)}" y="132" width="${plotW}" height="10" rx="3" fill="${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(148,163,184,0.22)'}" />
+      <!-- Standar Zone (1 to 3 days) -->
+      <rect x="${x1.toFixed(1)}" y="130" width="${(x3 - x1).toFixed(1)}" height="14" rx="3" fill="rgba(16, 185, 129, 0.22)" stroke="#10b981" stroke-width="1.5" stroke-dasharray="3,2" />
+      <text x="${((x1 + x3) / 2).toFixed(1)}" y="125" fill="#10b981" font-family="var(--font-heading)" font-size="8.5" font-weight="700" text-anchor="middle">Standar Depkes: 1 – 3 Hari (24–72 Jam)</text>
+
+      <!-- Actual Dot -->
+      <circle cx="${xAct.toFixed(1)}" cy="137" r="6" fill="#ea580c" stroke="#ffffff" stroke-width="2" />
+      <text x="${xAct.toFixed(1)}" y="157" fill="#ea580c" font-family="var(--font-mono)" font-size="8.5" font-weight="700" text-anchor="middle">${toi}h (${toiHours}j)</text>
+
+      <text x="${x1.toFixed(1)}" y="157" fill="#10b981" font-family="var(--font-mono)" font-size="8" text-anchor="middle">1h</text>
+      <text x="${x3.toFixed(1)}" y="157" fill="#10b981" font-family="var(--font-mono)" font-size="8" text-anchor="middle">3h</text>
+      <text x="${x4.toFixed(1)}" y="157" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="8" text-anchor="end">4h</text>
+    </svg>
+  `;
+}
+
+// 4. BTO ANNUAL TARGET MILESTONE (0 - 60 Kali, Target 40 - 50 Kali)
+function renderBtoMilestoneChart(hosp, isDark) {
+  const container = document.getElementById('chartBtoMilestone');
+  if (!container) return;
+
+  const bto = hosp.overall.bto; // 44.41x
+  const totalDays = hosp.totalDays || 288;
+  const projectedBto = ((bto / totalDays) * 365).toFixed(1); // ~56.3x
+  const width = 320;
+  const height = 185;
+
+  const leftPad = 35;
+  const plotW = 250;
+  const scale = (val) => leftPad + (Math.min(Math.max(val, 0), 60) / 60) * plotW;
+
+  const x0 = scale(0);
+  const x40 = scale(40);
+  const x50 = scale(50);
+  const x60 = scale(60);
+  const xAct = scale(bto);
+  const xProj = scale(projectedBto);
+
+  container.innerHTML = `
+    <svg viewBox="0 0 ${width} ${height}" style="width:100%; max-width:${width}px; height:auto; display:block;">
+      <defs>
+        <linearGradient id="btoBarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#9333ea" />
+          <stop offset="100%" stop-color="#c084fc" />
+        </linearGradient>
+      </defs>
+
+      <!-- Target Banner -->
+      <rect x="${x40.toFixed(1)}" y="24" width="${(x50 - x40).toFixed(1)}" height="16" rx="3" fill="rgba(147, 51, 234, 0.16)" />
+      <text x="${((x40 + x50) / 2).toFixed(1)}" y="35" fill="#9333ea" font-family="var(--font-heading)" font-size="9" font-weight="700" text-anchor="middle">TARGET DEPKES: 40 – 50x / TAHUN</text>
+
+      <!-- Background Milestone Track -->
+      <rect x="${x0.toFixed(1)}" y="52" width="${plotW}" height="22" rx="6" fill="${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(148,163,184,0.22)'}" />
+
+      <!-- Standar Zone (40 - 50 times) -->
+      <rect x="${x40.toFixed(1)}" y="50" width="${(x50 - x40).toFixed(1)}" height="26" rx="5" fill="rgba(147, 51, 234, 0.2)" stroke="#9333ea" stroke-dasharray="4,2.5" stroke-width="1.6" />
+
+      <!-- Actual Progress Bar up to 44.4x -->
+      <rect x="${x0.toFixed(1)}" y="54" width="${(xAct - x0).toFixed(1)}" height="18" rx="4.5" fill="url(#btoBarGrad)" />
+
+      <!-- Actual Marker Pin with Golden Star -->
+      <line x1="${xAct.toFixed(1)}" y1="46" x2="${xAct.toFixed(1)}" y2="76" stroke="#eab308" stroke-width="2.5" />
+      <g transform="translate(${xAct.toFixed(1)}, 44)">
+        <polygon points="-4,-6 4,-6 0,0" fill="#eab308" />
+        <rect x="-26" y="-22" width="52" height="16" rx="4" fill="#eab308" />
+        <text x="0" y="-11" fill="#000000" font-family="var(--font-heading)" font-size="8.5" font-weight="800" text-anchor="middle">★ ${bto}x</text>
+      </g>
+
+      <!-- Projected Annual Marker -->
+      <line x1="${xProj.toFixed(1)}" y1="52" x2="${xProj.toFixed(1)}" y2="74" stroke="var(--text-muted)" stroke-width="1.6" stroke-dasharray="3,2" />
+      <text x="${xProj.toFixed(1)}" y="46" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="7.5" text-anchor="middle">Proy: ~${projectedBto}x</text>
+
+      <!-- Ticks -->
+      <text x="${x0.toFixed(1)}" y="86" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="8">0x</text>
+      <text x="${x40.toFixed(1)}" y="86" fill="#9333ea" font-family="var(--font-mono)" font-size="8.5" font-weight="700" text-anchor="middle">40x (Min)</text>
+      <text x="${x50.toFixed(1)}" y="86" fill="#9333ea" font-family="var(--font-mono)" font-size="8.5" font-weight="700" text-anchor="middle">50x (Maks)</text>
+      <text x="${x60.toFixed(1)}" y="86" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="8" text-anchor="end">60x</text>
+
+      <!-- Central Achievement Summary Card -->
+      <g transform="translate(${leftPad}, 104)">
+        <rect x="0" y="0" width="${plotW}" height="42" rx="6" fill="${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(248,250,252,0.85)'}" stroke="${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(226,232,240,0.8)'}" />
+        <text x="${plotW / 2}" y="17" fill="#10b981" font-family="var(--font-heading)" font-size="9.5" font-weight="800" text-anchor="middle">★ CAPAIAN IDEAL NASIONAL TERCAPAI</text>
+        <text x="${plotW / 2}" y="31" fill="var(--text-secondary)" font-family="var(--font-mono)" font-size="8" text-anchor="middle">44.4x berada tepat di zona standar Depkes (40 - 50 kali/tahun)</text>
+      </g>
+    </svg>
+  `;
+}
+
+
+// ==========================================================================
+// MULTIVARIATE TREND CHART (4 EFFICIENCY PARAMETERS & MORTALITY)
+// ==========================================================================
+function renderQualityTrendsChart() {
+  const container = document.getElementById('qualityTrendContainer');
+  if (!container || !state.data || !state.data.hospitalIndicators) return;
+
+  const hosp = state.data.hospitalIndicators;
+  const monthly = hosp.monthly || [];
+  if (monthly.length === 0) return;
+
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const tooltip = document.getElementById('trendTooltipBox');
+  const chipContainer = document.getElementById('trendParamChips');
+  const mainTitle = document.getElementById('trendChartMainTitle');
+  const subtitle = document.getElementById('trendChartSubtitle');
+  const badge = document.getElementById('activeTrendViewBadge');
+
+  // Update Container UI based on active view: Efficiency vs Mortality
+  if (state.trendView === 'efficiency') {
+    if (badge) badge.textContent = 'Tren 4 Parameter Efisiensi';
+    if (mainTitle) mainTitle.textContent = 'Tren 4 Parameter Efisiensi (BOR, AVLOS, TOI, BTO)';
+    if (subtitle) subtitle.textContent = 'Fluktuasi bulanan tingkat hunian, lama rawat, tenggang perputaran, dan pergantian tempat tidur.';
+    if (chipContainer) chipContainer.style.display = 'flex';
+  } else {
+    if (badge) badge.textContent = 'Tren Mortalitas Bulanan';
+    if (mainTitle) mainTitle.textContent = 'Tren Indikator Mortalitas (GDR & NDR) 2026';
+    if (subtitle) subtitle.textContent = 'Perbandingan Gross Death Rate (<45‰) & Net Death Rate (<25‰) per bulan untuk kendali mutu klinis.';
+    if (chipContainer) chipContainer.style.display = 'none';
+  }
+
+  const containerW = container.clientWidth || 0;
+  const width = Math.max(containerW, 720);
+  const height = 330;
+  const pad = { top: 35, right: 60, bottom: 50, left: 60 };
+  const cw = width - pad.left - pad.right;
+  const ch = height - pad.top - pad.bottom;
+  const numPts = monthly.length;
+
+  const getX = (i) => pad.left + (i / (numPts - 1)) * cw;
+  const gridLineColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(148,163,184,0.3)';
+
+  let chartContentSvg = '';
+
+  if (state.trendView === 'efficiency') {
+    // ------------------------------------------------------------------
+    // VIEW 1: 4 PARAMETERS (BOR, AVLOS, TOI, BTO) MULTI-LINE CHART
+    // ------------------------------------------------------------------
+    // Left Axis: BOR 50% - 105%
+    const minBor = 50, maxBor = 105;
+    const syBor = (val) => pad.top + ch - ((val - minBor) / (maxBor - minBor)) * ch;
+
+    // Right Axis: Days / Multiplier (0 - 10) for AVLOS, TOI, BTO
+    const minR = 0, maxR = 10;
+    const syRight = (val) => pad.top + ch - ((val - minR) / (maxR - minR)) * ch;
+
+    // Grid lines & Axis ticks (5 ticks)
+    let gridSvg = '';
+    for (let pct = 50; pct <= 100; pct += 10) {
+      const y = syBor(pct);
+      const rightVal = ((pct - 50) / 50) * 10;
+      gridSvg += `
+        <line x1="${pad.left}" y1="${y.toFixed(1)}" x2="${(pad.left + cw).toFixed(1)}" y2="${y.toFixed(1)}" stroke="${gridLineColor}" stroke-dasharray="2,2" />
+        <text x="${(pad.left - 10).toFixed(1)}" y="${(y + 4).toFixed(1)}" fill="#0284c7" font-family="var(--font-mono)" font-size="10" font-weight="700" text-anchor="end">${pct}%</text>
+        <text x="${(pad.left + cw + 10).toFixed(1)}" y="${(y + 4).toFixed(1)}" fill="var(--text-secondary)" font-family="var(--font-mono)" font-size="10" font-weight="600" text-anchor="start">${rightVal.toFixed(0)}</text>
+      `;
+    }
+
+    // Shaded BOR Ideal Target Band (60% – 85%)
+    const y85 = syBor(85);
+    const y60 = syBor(60);
+    const bandHeight = y60 - y85;
+    const targetBandSvg = `
+      <rect x="${pad.left}" y="${y85.toFixed(1)}" width="${cw.toFixed(1)}" height="${bandHeight.toFixed(1)}" fill="${isDark ? 'rgba(16, 185, 129, 0.12)' : 'rgba(5, 150, 105, 0.08)'}" stroke="${isDark ? 'rgba(16, 185, 129, 0.4)' : 'rgba(5, 150, 105, 0.35)'}" stroke-dasharray="4,3" stroke-width="1.2" />
+      <text x="${(pad.left + 12).toFixed(1)}" y="${(y85 + 14).toFixed(1)}" fill="${isDark ? '#34d399' : '#047857'}" font-family="var(--font-heading)" font-size="10" font-weight="700">Zona Ideal Standar Depkes BOR (60% – 85%)</text>
+    `;
+
+    // Monthly X Ticks & Labels
+    let xTicksSvg = '';
+    monthly.forEach((m, i) => {
+      const x = getX(i);
+      const monthNum = parseInt(m.month.split('-')[1]);
+      const label = MONTHS_SHORT[monthNum - 1];
+      xTicksSvg += `
+        <line x1="${x.toFixed(1)}" y1="${pad.top}" x2="${x.toFixed(1)}" y2="${(pad.top + ch).toFixed(1)}" stroke="${gridLineColor}" stroke-dasharray="1,3" />
+        <text x="${x.toFixed(1)}" y="${(pad.top + ch + 18).toFixed(1)}" fill="var(--text-primary)" font-family="var(--font-mono)" font-size="11" font-weight="700" text-anchor="middle">${label}</text>
+      `;
+    });
+
+    // Generate Path & Dots for each selected parameter
+    const seriesConfig = [
+      { key: 'bor', active: state.trendParams.bor, color: '#0284c7', getY: (m) => syBor(m.bor), unit: '%', isBor: true },
+      { key: 'avlos', active: state.trendParams.avlos, color: '#0ea5e9', getY: (m) => syRight(m.avlos), unit: 'h' },
+      { key: 'toi', active: state.trendParams.toi, color: '#ea580c', getY: (m) => syRight(m.toi), unit: 'h' },
+      { key: 'bto', active: state.trendParams.bto, color: '#9333ea', getY: (m) => syRight(m.bto), unit: 'x' }
+    ];
+
+    let linesSvg = '';
+    seriesConfig.forEach(sc => {
+      if (!sc.active) return;
+      const pts = monthly.map((m, i) => ({ x: getX(i), y: sc.getY(m), val: m[sc.key] }));
+      const pathD = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
+
+      let dotsSvg = '';
+      pts.forEach(p => {
+        dotsSvg += `
+          <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4.5" fill="${sc.color}" stroke="#ffffff" stroke-width="1.8" filter="drop-shadow(0 0 3px ${sc.color})" />
+        `;
+      });
+
+      linesSvg += `
+        <path d="${pathD}" fill="none" stroke="${sc.color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        ${dotsSvg}
+      `;
+    });
+
+    // Hover Columns for interactive exploration
+    let hoverColsSvg = '';
+    const colW = cw / (numPts - 1);
+    monthly.forEach((m, i) => {
+      const xCenter = getX(i);
+      const xLeft = xCenter - colW / 2;
+      hoverColsSvg += `
+        <rect class="trend-hover-col" data-month-idx="${i}" x="${xLeft.toFixed(1)}" y="${pad.top}" width="${colW.toFixed(1)}" height="${ch.toFixed(1)}" fill="transparent" style="cursor:pointer;" />
+      `;
+    });
+
+    chartContentSvg = `
+      ${gridSvg}
+      ${targetBandSvg}
+      ${xTicksSvg}
+      ${linesSvg}
+      ${hoverColsSvg}
+      <!-- Axis Titles -->
+      <text x="${pad.left}" y="${pad.top - 14}" fill="#0284c7" font-family="var(--font-heading)" font-size="11" font-weight="800" text-anchor="start">← BOR (%)</text>
+      <text x="${pad.left + cw}" y="${pad.top - 14}" fill="var(--text-secondary)" font-family="var(--font-heading)" font-size="11" font-weight="800" text-anchor="end">AVLOS / TOI (Hari) &amp; BTO (Kali) →</text>
+    `;
+
+  } else {
+    // ------------------------------------------------------------------
+    // VIEW 2: MORTALITY (GDR & NDR) GROUPED BAR CHART
+    // ------------------------------------------------------------------
+    const maxMortality = 70;
+    const syMort = (val) => pad.top + ch - (val / maxMortality) * ch;
+
+    // Grid lines for 0, 15, 30, 45, 60
+    let gridSvg = '';
+    for (let val = 0; val <= 60; val += 15) {
+      const y = syMort(val);
+      gridSvg += `
+        <line x1="${pad.left}" y1="${y.toFixed(1)}" x2="${(pad.left + cw).toFixed(1)}" y2="${y.toFixed(1)}" stroke="${gridLineColor}" stroke-dasharray="2,2" />
+        <text x="${(pad.left - 10).toFixed(1)}" y="${(y + 4).toFixed(1)}" fill="var(--text-muted)" font-family="var(--font-mono)" font-size="10" font-weight="600" text-anchor="end">${val}‰</text>
+      `;
+    }
+
+    // Benchmark Threshold Reference Lines
+    // GDR Threshold: 45‰
+    const yGdrLimit = syMort(45);
+    const gdrLimitSvg = `
+      <line x1="${pad.left}" y1="${yGdrLimit.toFixed(1)}" x2="${(pad.left + cw).toFixed(1)}" y2="${yGdrLimit.toFixed(1)}" stroke="#f43f5e" stroke-width="1.8" stroke-dasharray="4,3" />
+      <text x="${(pad.left + cw - 6).toFixed(1)}" y="${(yGdrLimit - 5).toFixed(1)}" fill="#f43f5e" font-family="var(--font-heading)" font-size="10" font-weight="700" text-anchor="end">Batas Depkes GDR (≤ 45‰)</text>
+    `;
+
+    // NDR Threshold: 25‰
+    const yNdrLimit = syMort(25);
+    const ndrLimitSvg = `
+      <line x1="${pad.left}" y1="${yNdrLimit.toFixed(1)}" x2="${(pad.left + cw).toFixed(1)}" y2="${yNdrLimit.toFixed(1)}" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="4,3" />
+      <text x="${(pad.left + cw - 6).toFixed(1)}" y="${(yNdrLimit - 5).toFixed(1)}" fill="#f59e0b" font-family="var(--font-heading)" font-size="10" font-weight="700" text-anchor="end">Batas Depkes NDR (≤ 25‰)</text>
+    `;
+
+    // Grouped Bars for each month
+    let barsSvg = '';
+    let xTicksSvg = '';
+    const slotW = cw / numPts;
+    const barW = Math.min(slotW * 0.32, 18);
+
+    monthly.forEach((m, i) => {
+      const cx = pad.left + (i + 0.5) * slotW;
+      const monthNum = parseInt(m.month.split('-')[1]);
+      const label = MONTHS_SHORT[monthNum - 1];
+
+      // Bar 1: GDR (Rose)
+      const gdrH = Math.max(1, (m.gdr / maxMortality) * ch);
+      const gdrY = pad.top + ch - gdrH;
+      const gdrX = cx - barW - 1.5;
+
+      // Bar 2: NDR (Amber)
+      const ndrH = Math.max(1, (m.ndr / maxMortality) * ch);
+      const ndrY = pad.top + ch - ndrH;
+      const ndrX = cx + 1.5;
+
+      barsSvg += `
+        <!-- GDR Bar -->
+        <rect x="${gdrX.toFixed(1)}" y="${gdrY.toFixed(1)}" width="${barW.toFixed(1)}" height="${gdrH.toFixed(1)}" rx="3" fill="#f43f5e" opacity="0.9" filter="drop-shadow(0 1px 3px rgba(244,63,94,0.3))" />
+        <text x="${(gdrX + barW / 2).toFixed(1)}" y="${(gdrY - 4).toFixed(1)}" fill="#f43f5e" font-family="var(--font-mono)" font-size="9" font-weight="700" text-anchor="middle">${m.gdr.toFixed(0)}</text>
+
+        <!-- NDR Bar -->
+        <rect x="${ndrX.toFixed(1)}" y="${ndrY.toFixed(1)}" width="${barW.toFixed(1)}" height="${ndrH.toFixed(1)}" rx="3" fill="#f59e0b" opacity="0.9" filter="drop-shadow(0 1px 3px rgba(245,158,11,0.3))" />
+        <text x="${(ndrX + barW / 2).toFixed(1)}" y="${(ndrY - 4).toFixed(1)}" fill="#f59e0b" font-family="var(--font-mono)" font-size="9" font-weight="700" text-anchor="middle">${m.ndr.toFixed(0)}</text>
+      `;
+
+      xTicksSvg += `
+        <text x="${cx.toFixed(1)}" y="${(pad.top + ch + 18).toFixed(1)}" fill="var(--text-primary)" font-family="var(--font-mono)" font-size="11" font-weight="700" text-anchor="middle">${label}</text>
+      `;
+    });
+
+    // Hover Columns
+    let hoverColsSvg = '';
+    monthly.forEach((m, i) => {
+      const xLeft = pad.left + i * slotW;
+      hoverColsSvg += `
+        <rect class="trend-hover-col" data-month-idx="${i}" x="${xLeft.toFixed(1)}" y="${pad.top}" width="${slotW.toFixed(1)}" height="${ch.toFixed(1)}" fill="transparent" style="cursor:pointer;" />
+      `;
+    });
+
+    chartContentSvg = `
+      ${gridSvg}
+      ${gdrLimitSvg}
+      ${ndrLimitSvg}
+      ${barsSvg}
+      ${xTicksSvg}
+      ${hoverColsSvg}
+      <text x="${pad.left}" y="${pad.top - 14}" fill="var(--text-primary)" font-family="var(--font-heading)" font-size="11" font-weight="800" text-anchor="start">Tingkat Kematian Rawat Inap (Permil / ‰)</text>
+    `;
+  }
+
+  container.innerHTML = `
+    <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" style="min-width:720px; display:block;">
+      <!-- Base Axis Line -->
+      <line x1="${pad.left}" y1="${(pad.top + ch).toFixed(1)}" x2="${(pad.left + cw).toFixed(1)}" y2="${(pad.top + ch).toFixed(1)}" stroke="var(--text-primary)" stroke-width="1.8" />
+      ${chartContentSvg}
+    </svg>
+  `;
+
+  // Attach Hover / Touch Events for Tooltip
+  const showTooltip = (idx, clientX, clientY) => {
+    const m = monthly[idx];
+    if (!m || !tooltip) return;
+
+    const monthLabel = formatMonthLabel(m.month);
+    tooltip.style.display = 'block';
+
+    if (state.trendView === 'efficiency') {
+      tooltip.innerHTML = `
+        <div class="trend-tooltip-title">${monthLabel} (${m.days} Hari)</div>
+        <div style="font-size:0.68rem; color:var(--text-muted); margin-bottom:0.35rem;">${m.hp.toLocaleString('id-ID')} HP • ${m.discharges} Pasien Keluar</div>
+        <div class="trend-tooltip-row">
+          <span>BOR (Tingkat Hunian):</span>
+          <strong style="color:#0284c7;">${m.bor}%</strong>
+        </div>
+        <div class="trend-tooltip-row">
+          <span>AVLOS (Lama Rawat):</span>
+          <strong style="color:#0ea5e9;">${m.avlos} hari</strong>
+        </div>
+        <div class="trend-tooltip-row">
+          <span>TOI (Tenggang Kosong):</span>
+          <strong style="color:#ea580c;">${m.toi} hari (${(m.toi * 24).toFixed(0)} jam)</strong>
+        </div>
+        <div class="trend-tooltip-row">
+          <span>BTO (Perputaran Bed):</span>
+          <strong style="color:#9333ea;">${m.bto} kali</strong>
+        </div>
+      `;
+    } else {
+      const gdrOk = m.gdr <= 45;
+      const ndrOk = m.ndr <= 25;
+      tooltip.innerHTML = `
+        <div class="trend-tooltip-title">${monthLabel} (${m.days} Hari)</div>
+        <div style="font-size:0.68rem; color:var(--text-muted); margin-bottom:0.35rem;">${m.discharges} Keluar • ${m.deaths} Total Meninggal (${m.deathsGt48} >48 Jam)</div>
+        <div class="trend-tooltip-row">
+          <span>GDR (Mati Kasar):</span>
+          <strong style="color:#f43f5e;">${m.gdr}‰ <span style="font-size:0.68rem; font-weight:normal;">(${gdrOk ? '≤45‰ ✓' : '>45‰ ⚠'})</span></strong>
+        </div>
+        <div class="trend-tooltip-row">
+          <span>NDR (Mati >48 Jam):</span>
+          <strong style="color:#f59e0b;">${m.ndr}‰ <span style="font-size:0.68rem; font-weight:normal;">(${ndrOk ? '≤25‰ ✓' : '>25‰ ⚠'})</span></strong>
+        </div>
+      `;
+    }
+
+    const rect = container.getBoundingClientRect();
+    let left = clientX - rect.left + 15;
+    let top = clientY - rect.top - 10;
+    if (left + 230 > rect.width) left = Math.max(10, left - 250);
+    if (top + 140 > rect.height) top = Math.max(10, top - 120);
+
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+  };
+
+  const hideTooltip = () => {
+    if (tooltip) tooltip.style.display = 'none';
+  };
+
+  container.querySelectorAll('.trend-hover-col').forEach(elem => {
+    const idx = parseInt(elem.getAttribute('data-month-idx'));
+    elem.addEventListener('mouseenter', (e) => showTooltip(idx, e.clientX, e.clientY));
+    elem.addEventListener('mousemove', (e) => showTooltip(idx, e.clientX, e.clientY));
+    elem.addEventListener('mouseleave', hideTooltip);
+    elem.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showTooltip(idx, e.clientX, e.clientY);
+    });
+  });
+
+  container.addEventListener('mouseleave', hideTooltip);
+}
+
+// Render Monthly Indicators Table
+function renderHospitalIndicatorsTable() {
+  const tbody = document.querySelector('#hospitalIndicatorsTable tbody');
+  if (!tbody || !state.data || !state.data.hospitalIndicators) return;
+
+  const hosp = state.data.hospitalIndicators;
+  const monthly = hosp.monthly || [];
+  tbody.innerHTML = '';
+
+  monthly.forEach(m => {
+    const tr = document.createElement('tr');
+    const inZone = (m.bor >= 70 && m.bor <= 85 && m.toi >= 1 && m.toi <= 3 && m.avlos >= 3);
+    const statusChip = inZone 
+      ? '<span class="status-chip chip-success">Efisiensi Tercapai</span>' 
+      : '<span class="status-chip chip-warning">Over-Utilized</span>';
+
+    tr.innerHTML = `
+      <td><strong>${formatMonthLabel(m.month)}</strong></td>
+      <td>${m.days} Hari</td>
+      <td><strong>${m.hp.toLocaleString('id-ID')}</strong></td>
+      <td>${m.discharges} Pasien</td>
+      <td><strong style="color:var(--accent-primary);">${m.bor}%</strong></td>
+      <td>${m.avlos}h</td>
+      <td>${m.toi}h</td>
+      <td>${m.bto}x</td>
+      <td>${m.gdr}‰</td>
+      <td>${m.ndr}‰</td>
+      <td>${statusChip}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Overall Row
+  const ov = hosp.overall;
+  const trTotal = document.createElement('tr');
+  trTotal.style.background = 'rgba(56, 189, 248, 0.08)';
+  trTotal.innerHTML = `
+    <td><strong style="color:var(--accent-primary);">TOTAL 2026</strong></td>
+    <td><strong>${hosp.totalDays} Hari</strong></td>
+    <td><strong style="color:var(--accent-primary);">${hosp.totalHP.toLocaleString('id-ID')}</strong></td>
+    <td><strong>${hosp.totalDischarges}</strong></td>
+    <td><strong style="color:#ef4444; font-size:1.05rem;">${ov.bor}%</strong></td>
+    <td><strong>${ov.avlos}h</strong></td>
+    <td><strong>${ov.toi}h</strong></td>
+    <td><strong>${ov.bto}x</strong></td>
+    <td><strong>${ov.gdr}‰</strong></td>
+    <td><strong>${ov.ndr}‰</strong></td>
+    <td><span class="status-chip chip-danger">Over-Capacity</span></td>
+  `;
+  tbody.appendChild(trTotal);
+}
+
+// Export Indicators to CSV
+function exportIndicatorsToCsv() {
+  if (!state.data || !state.data.hospitalIndicators) return;
+
+  const hosp = state.data.hospitalIndicators;
+  const monthly = hosp.monthly || [];
+  const headers = ['Bulan', 'Hari', 'Hari Perawatan (HP)', 'Pasien Keluar (D)', 'BOR (%)', 'AVLOS (Hari)', 'TOI (Hari)', 'BTO (Kali)', 'GDR (Permil)', 'NDR (Permil)', 'Status Barber Johnson'];
+
+  const rows = monthly.map(m => {
+    const inZone = (m.bor >= 70 && m.bor <= 85 && m.toi >= 1 && m.toi <= 3 && m.avlos >= 3);
+    return [
+      `"${formatMonthLabel(m.month)}"`,
+      m.days,
+      m.hp,
+      m.discharges,
+      m.bor,
+      m.avlos,
+      m.toi,
+      m.bto,
+      m.gdr,
+      m.ndr,
+      `"${inZone ? 'Efisiensi Tercapai' : 'Over-Utilized'}"`
+    ];
+  });
+
+  const ov = hosp.overall;
+  rows.push([
+    '"TOTAL 2026"',
+    hosp.totalDays,
+    hosp.totalHP,
+    hosp.totalDischarges,
+    ov.bor,
+    ov.avlos,
+    ov.toi,
+    ov.bto,
+    ov.gdr,
+    ov.ndr,
+    '"Over-Capacity"'
+  ]);
+
+  const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `Indikator_Pelayanan_Barber_Johnson_EG2_2026.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  showToast('Tabel Indikator Pelayanan & Barber Johnson berhasil diekspor!', 'success');
+}

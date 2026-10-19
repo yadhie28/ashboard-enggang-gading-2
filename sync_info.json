@@ -1,0 +1,26 @@
+{
+  "last_sync": "2026-10-19 10:12:52",
+  "last_status": "success",
+  "last_message": "Sinkronisasi (manual_web) berhasil dalam 33.4 detik [Netlify Live 🚀]",
+  "sync_count": 2,
+  "history": [
+    {
+      "timestamp": "2026-10-19 09:51:56",
+      "trigger": "manual_web",
+      "status": "success",
+      "duration": "48.4s"
+    },
+    {
+      "timestamp": "2026-10-19 10:10:05",
+      "trigger": "manual_web",
+      "status": "error",
+      "error": "HTTP Error 400: Bad Request"
+    },
+    {
+      "timestamp": "2026-10-19 10:12:52",
+      "trigger": "manual_web",
+      "status": "success",
+      "duration": "33.4s"
+    }
+  ]
+}
