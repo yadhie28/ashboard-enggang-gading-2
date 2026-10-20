@@ -13,7 +13,7 @@
       "Enggang Gading 2A (16 Bed)",
       "Enggang Gading 2B (40 Bed)"
     ],
-    "lastUpdated": "20-10-2026 08:49:58",
+    "lastUpdated": "20-10-2026 09:02:51",
     "latestDate": "2026-10-19",
     "totalDatesRecorded": 288,
     "dateRange": "2026-01-01 s/d 2026-10-19",
@@ -2744,96 +2744,89 @@
     ],
     "topDiagnoses": [
       {
-        "name": "anemia aplastik",
-        "count": 59
+        "name": "Anemia (Semua Jenis)",
+        "count": 586
       },
       {
-        "name": "CKD on HD",
-        "count": 59
+        "name": "Chronic Kidney Disease (CKD / GGK)",
+        "count": 464
       },
       {
-        "name": "Anemia",
-        "count": 54
+        "name": "Gangguan Elektrolit (Hipo/Hiperkalemia/Natremia)",
+        "count": 447
       },
       {
-        "name": "anemia",
-        "count": 39
+        "name": "Neoplasma / Kanker (Ca / Tumor)",
+        "count": 422
       },
       {
-        "name": "Anemia aplastic",
-        "count": 38
+        "name": "Diabetes Melitus (DM)",
+        "count": 274
       },
       {
-        "name": "Abdominal pain",
-        "count": 36
+        "name": "Hipertensi (HT)",
+        "count": 247
       },
       {
-        "name": "CKD on HD akses CDL Anemia Renal CHF Ulkus pe",
-        "count": 36
+        "name": "Dyspepsia / Sindrom Dispepsia",
+        "count": 230
       },
       {
-        "name": "abdominal pain",
-        "count": 32
+        "name": "Acute Kidney Injury (AKI)",
+        "count": 174
       },
       {
-        "name": "DM induced steroid hiperglikemia OA genu bila",
-        "count": 29
+        "name": "Abdominal Pain / Akut Abdomen",
+        "count": 162
       },
       {
-        "name": "SLE Lupus Nefritis Dyspepsia Hiperkalemia",
-        "count": 28
-      },
-      {
-        "name": "DM tipe 2",
-        "count": 27
-      },
-      {
-        "name": "Anemia Melena",
-        "count": 25
-      },
-      {
-        "name": "Melena",
-        "count": 25
-      },
-      {
-        "name": "AIHA",
-        "count": 25
-      },
-      {
-        "name": "aki dd ckd",
-        "count": 25
+        "name": "Fraktur / Trauma Ortopedi",
+        "count": 128
       }
     ],
     "categories": [
       {
-        "name": "Lain-lain",
-        "count": 5343
+        "name": "Anemia (Semua Jenis)",
+        "count": 586
       },
       {
-        "name": "Nefrologi & Urologi",
-        "count": 3307
+        "name": "Chronic Kidney Disease (CKD / GGK)",
+        "count": 464
       },
       {
-        "name": "Onkologi & Hematologi",
-        "count": 2486
+        "name": "Gangguan Elektrolit (Hipo/Hiperkalemia/Natremia)",
+        "count": 447
       },
       {
-        "name": "Penyakit Dalam (Metabolik)",
-        "count": 1102
+        "name": "Neoplasma / Kanker (Ca / Tumor)",
+        "count": 422
       },
       {
-        "name": "Bedah Digestif & Gastro",
-        "count": 1051
+        "name": "Diabetes Melitus (DM)",
+        "count": 274
       },
       {
-        "name": "Ortopedi & Traumatologi",
-        "count": 684
+        "name": "Hipertensi (HT)",
+        "count": 247
       },
       {
-        "name": "Pulmonologi / Paru",
-        "count": 186
+        "name": "Dyspepsia / Sindrom Dispepsia",
+        "count": 230
+      },
+      {
+        "name": "Acute Kidney Injury (AKI)",
+        "count": 174
+      },
+      {
+        "name": "Abdominal Pain / Akut Abdomen",
+        "count": 162
+      },
+      {
+        "name": "Fraktur / Trauma Ortopedi",
+        "count": 128
       }
     ],
+    "totalPatients": 2521,
     "insurances": [
       {
         "name": "BPJS Kelas 3",

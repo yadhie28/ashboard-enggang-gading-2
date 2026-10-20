@@ -961,28 +961,49 @@ function renderAnalyticsTab() {
     });
   }
 
-  // 2. Categories Distribution
+  // 2. Top 10 Diagnosa Medis (Data per diagnosa medis bukan kategori, 1 pasien dapat memiliki >1 diagnosa)
   const catContainer = document.getElementById('categoryDistList');
-  if (catContainer && state.data.analytics.categories) {
+  const diagnoses = state.data.analytics.topDiagnoses || state.data.analytics.categories;
+  if (catContainer && diagnoses) {
     catContainer.innerHTML = '';
-    const maxVal = Math.max(...state.data.analytics.categories.map(c => c.count));
-    const colors = ['#38bdf8', '#a855f7', '#f97316', '#10b981', '#f43f5e', '#06b6d4', '#eab308'];
-    state.data.analytics.categories.forEach((cat, idx) => {
-      const pct = ((cat.count / maxVal) * 100).toFixed(0);
+    const top10 = diagnoses.slice(0, 10);
+    const totalPatients = state.data.analytics.totalPatients || 2579;
+    const maxVal = Math.max(...top10.map(c => c.count));
+    const colors = ['#38bdf8', '#a855f7', '#f97316', '#10b981', '#f43f5e', '#06b6d4', '#eab308', '#ec4899', '#6366f1', '#14b8a6'];
+    top10.forEach((diag, idx) => {
+      const pct = ((diag.count / totalPatients) * 100).toFixed(1);
+      const barPct = ((diag.count / maxVal) * 100).toFixed(0);
       const color = colors[idx % colors.length];
       const item = document.createElement('div');
       item.className = 'dist-bar-item';
       item.innerHTML = `
         <div class="dist-bar-labels">
-          <span class="dist-bar-name">${escapeHtml(cat.name)}</span>
-          <span class="dist-bar-val">${cat.count} (${pct}%)</span>
+          <span class="dist-bar-name">#${idx + 1} ${escapeHtml(diag.name)}</span>
+          <span class="dist-bar-val">${diag.count} pasien (${pct}%)</span>
         </div>
         <div class="dist-bar-bg">
-          <div class="dist-bar-fill" style="width: ${pct}%; background-color: ${color};"></div>
+          <div class="dist-bar-fill" style="width: ${barPct}%; background-color: ${color};"></div>
         </div>
       `;
       catContainer.appendChild(item);
     });
+
+    // Cantumkan jumlah total pasien di bagian akhir
+    const totalItem = document.createElement('div');
+    totalItem.className = 'dist-total-footer';
+    totalItem.innerHTML = `
+      <div class="dist-total-box">
+        <div class="dist-total-left">
+          <span class="dist-total-icon">👥</span>
+          <div>
+            <div class="dist-total-label">Total Akumulasi Pasien Unik:</div>
+            <div class="dist-total-subtext">1 MR = 1 Pasien &bull; Pasien dapat memiliki lebih dari 1 diagnosa medis</div>
+          </div>
+        </div>
+        <div class="dist-total-value">${totalPatients.toLocaleString('id-ID')} Pasien</div>
+      </div>
+    `;
+    catContainer.appendChild(totalItem);
   }
 
   // 3. Insurance Distribution

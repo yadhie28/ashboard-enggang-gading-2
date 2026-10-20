@@ -386,6 +386,8 @@ def run():
 
     history = []
     doctor_patients = defaultdict(set)
+    patient_diagnoses_text = defaultdict(set)
+    total_unique_patients = set()
     diag_counts = {}
     cat_counts = {}
     insurance_counts = {}
@@ -450,23 +452,23 @@ def run():
 
             for p in patients_a + patients_b:
                 if not p["isEmpty"]:
-                    pkey = p["mrNo"] if (p["mrNo"] and len(p["mrNo"]) > 4) else p["name"]
+                    pkey = p["mrNo"].strip() if (p["mrNo"] and len(p["mrNo"].strip()) > 3) else p["name"].strip().upper()
                     curr_p_keys.add(pkey)
+                    total_unique_patients.add(pkey)
 
                     if p.get("isDischargedToday"):
                         discharges_from_color += 1
 
                     doc = p["doctorPrimary"]
                     if doc and doc != "-" and len(doc) > 3:
-                        pkey = p["mrNo"].strip() if (p["mrNo"] and len(p["mrNo"].strip()) > 3) else p["name"].strip().upper()
                         doctor_patients[doc].add(pkey)
                     cat = p["category"]
                     cat_counts[cat] = cat_counts.get(cat, 0) + 1
                     ins = p["insurance"]
                     insurance_counts[ins] = insurance_counts.get(ins, 0) + 1
-                    diag_raw = p["diagnosis"].split("\n")[0].strip()[:45]
-                    if diag_raw and diag_raw != "-" and len(diag_raw) > 3:
-                        diag_counts[diag_raw] = diag_counts.get(diag_raw, 0) + 1
+                    diag_raw = p.get("diagnosis", "")
+                    if diag_raw and diag_raw != "-" and len(diag_raw) > 2:
+                        patient_diagnoses_text[pkey].add(diag_raw.upper())
 
                     notes = (p["notes"]["pagi"] + " " + p["notes"]["sore"] + " " + p["notes"]["malam"]).upper()
                     if any(k in notes for k in ["MENINGGAL JAM", "MENINGGAL PUKUL", "EXIT JAM", "EXIT PUKUL", "WAFAT JAM", "WAFAT PUKUL", "MENINGGAL DI RUANGAN", "PX MENINGGAL", "PASIEN MENINGGAL", "DEATH"]):
@@ -612,9 +614,35 @@ def run():
     with open("hospital_indicators.json", "w") as f_hosp:
         json.dump(hospital_indicators, f_hosp, indent=2)
 
+    CLINICAL_DIAGNOSES = [
+        ("Anemia (Semua Jenis)", [r"\bANEMIA\b"]),
+        ("Chronic Kidney Disease (CKD / GGK)", [r"\bCKD\b", r"CHRONIC KIDNEY", r"GAGAL GINJAL KRONIK"]),
+        ("Gangguan Elektrolit (Hipo/Hiperkalemia/Natremia)", [r"HIPOKALEMI", r"HIPONATREMI", r"HIPERKALEMI", r"HIPERALBUMIN", r"HIPOALBUMIN"]),
+        ("Neoplasma / Kanker (Ca / Tumor)", [r"\bCA\b", r"CANCER", r"TUMOR", r"KANKER", r"CARCINOMA", r"LEUKEMIA", r"MYELOMA"]),
+        ("Diabetes Melitus (DM)", [r"\bDM\b", r"DIABETES", r"ULKUS DM", r"GANGREN"]),
+        ("Hipertensi (HT)", [r"\bHT\b", r"HIPERTENSI", r"HYPERTENSION"]),
+        ("Dyspepsia / Sindrom Dispepsia", [r"DYSPEPSIA", r"DISPEPSIA", r"GASTRITIS", r"HEMATEMESIS", r"MELENA"]),
+        ("Acute Kidney Injury (AKI)", [r"\bAKI\b", r"ACUTE KIDNEY", r"GAGAL GINJAL AKUT"]),
+        ("Abdominal Pain / Akut Abdomen", [r"ABD\b.*PAIN", r"ABDOMINAL PAIN", r"NYERI PERUT", r"COLIC ABDOMEN", r"AKUT ABDOMEN"]),
+        ("Fraktur / Trauma Ortopedi", [r"FRAKTUR", r"FRACTURE", r"DISLOKASI", r"TRAUMA"]),
+        ("Hepatitis / Sirosis Hepatis", [r"HEPATITIS", r"SIROSIS", r"HBSAG"]),
+        ("Gastroenteritis Akut (GEA)", [r"\bGEA\b", r"GASTROENTERITIS", r"DIARE", r"BAB CAIR"]),
+        ("Penyakit Jantung (CHF / CAD / UAP)", [r"\bCHF\b", r"\bCAD\b", r"\bUAP\b", r"HEART FAILURE", r"GAGAL JANTUNG", r"INFARK"]),
+        ("Penyakit Paru / Pneumonia / TB", [r"PNEUMONIA", r"TUBERKULOSIS", r"\bTB\b", r"EFFUSI PLEURA", r"TBC"]),
+        ("Sepsis / Syok Septik", [r"SEPSIS", r"SEPTIC", r"SYOK SEPTIK"]),
+        ("Apendisitis (Appendicitis)", [r"APP\b", r"APPENDISITIS", r"APENDISITIS"]),
+    ]
+
+    diag_patient_sets = defaultdict(set)
+    for pkey, d_set in patient_diagnoses_text.items():
+        all_text = " ".join(d_set)
+        for dname, patterns in CLINICAL_DIAGNOSES:
+            if any(re.search(pat, all_text) for pat in patterns):
+                diag_patient_sets[dname].add(pkey)
+
     top_doctors = sorted([{"name": k, "count": len(v)} for k, v in doctor_patients.items()], key=lambda x: x["count"], reverse=True)[:15]
-    top_diags = sorted([{"name": k, "count": v} for k, v in diag_counts.items()], key=lambda x: x["count"], reverse=True)[:15]
-    cat_distribution = sorted([{"name": k, "count": v} for k, v in cat_counts.items()], key=lambda x: x["count"], reverse=True)
+    top_diags = sorted([{"name": k, "count": len(v)} for k, v in diag_patient_sets.items()], key=lambda x: x["count"], reverse=True)[:10]
+    total_patients_count = len(total_unique_patients)
     ins_distribution = sorted([{"name": k, "count": v} for k, v in insurance_counts.items()], key=lambda x: x["count"], reverse=True)
 
     monthly_stats = []
@@ -652,7 +680,8 @@ def run():
         "analytics": {
             "topDoctors": top_doctors,
             "topDiagnoses": top_diags,
-            "categories": cat_distribution,
+            "categories": top_diags,
+            "totalPatients": total_patients_count,
             "insurances": ins_distribution
         },
         "hospitalIndicators": hospital_indicators,
