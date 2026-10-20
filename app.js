@@ -3337,6 +3337,8 @@ function renderChronologyTimeline(patientKey) {
   const displayMr = maskMrNo(profile.mrNo);
   const cleanName = profile.name.replace(/^(Tn\.|Ny\.|An\.|By\.|Sdr\.|Sdri\.|Nn\.)\s*/i, '');
   const initials = cleanName.slice(0, 2).toUpperCase() || 'P';
+  const initialDiagnosis = days[0]?.patient?.diagnosis || profile.diagnosis || '-';
+  const finalDiagnosis = days[days.length - 1]?.patient?.diagnosis || profile.diagnosis || '-';
 
   // Count Shift Notes & Detect Procedures
   let totalShiftNotes = 0;
@@ -3404,8 +3406,16 @@ function renderChronologyTimeline(patientKey) {
     </div>
 
     <div class="patient-diagnosis-box">
-      <div class="box-label">Diagnosa Kerja / Diagnosa Utama:</div>
-      <div style="font-weight:600; color:var(--text-primary); margin-bottom:0.35rem;">${escapeHtml(profile.diagnosis)}</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 0.4rem;">
+        <div>
+          <div class="box-label">Diagnosa Awal:</div>
+          <div style="font-weight:600; color:var(--text-primary); font-size:0.88rem;">${escapeHtml(initialDiagnosis)}</div>
+        </div>
+        <div>
+          <div class="box-label">Diagnosa Akhir:</div>
+          <div style="font-weight:600; color:var(--accent-primary); font-size:0.88rem;">${escapeHtml(finalDiagnosis)}</div>
+        </div>
+      </div>
       <div style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center;">
         <span class="badge badge-outline">${profile.category}</span>
         ${Array.from(procSet).map(pr => `<span class="tag-badge tag-blue">${escapeHtml(pr)}</span>`).join(' ')}
@@ -3683,46 +3693,91 @@ function printChronologyResume(patientKey) {
 
   const displayName = maskPatientName(profile.name);
   const displayMr = maskMrNo(profile.mrNo);
+  const initialDiagnosis = days[0]?.patient?.diagnosis || profile.diagnosis || '-';
+  const finalDiagnosis = days[days.length - 1]?.patient?.diagnosis || profile.diagnosis || '-';
 
+  let lastDisplayedShiftText = '';
   let rowsHtml = '';
+
   days.forEach(d => {
     const pt = d.patient;
     const dateFormatted = formatIndonesianDate(d.date);
     const dayCustom = customEntries.filter(c => c.date === d.date);
 
-    let content = '';
-    if (pt.notes?.pagi) content += `<strong>Pagi (07-14):</strong> ${escapeHtml(pt.notes.pagi)}<br>`;
-    if (pt.notes?.sore) content += `<strong>Sore (14-21):</strong> ${escapeHtml(pt.notes.sore)}<br>`;
-    if (pt.notes?.malam) content += `<strong>Malam (21-07):</strong> ${escapeHtml(pt.notes.malam)}<br>`;
+    const shiftItems = [];
+    const candidates = [
+      { name: 'Shift Pagi (07.00 - 14.00)', text: (pt.notes?.pagi || '').trim() },
+      { name: 'Shift Sore (14.00 - 21.00)', text: (pt.notes?.sore || '').trim() },
+      { name: 'Shift Malam (21.00 - 07.00)', text: (pt.notes?.malam || '').trim() }
+    ];
 
-    if (dayCustom.length > 0) {
-      content += `<hr style="margin:4px 0; border:0; border-top:1px dashed #ccc;">`;
-      dayCustom.forEach(c => {
-        content += `<strong>[${c.shiftTitle} - ${c.ppa}]:</strong> S: ${escapeHtml(c.s)} | O: ${escapeHtml(c.o)} | A: ${escapeHtml(c.a)} | P: ${escapeHtml(c.p)}<br>`;
+    let prevShiftInSameDay = '';
+
+    candidates.forEach(cand => {
+      if (!cand.text || cand.text.length < 3 || cand.text === '-') return;
+      const norm = cand.text.replace(/\s+/g, ' ').toLowerCase();
+
+      // Pastikan tidak ada isi yang berulang dari shift sebelumnya, jika ada yang berulang jangan ditampilkan
+      if (norm === prevShiftInSameDay || norm === lastDisplayedShiftText) {
+        return;
+      }
+
+      shiftItems.push({
+        title: cand.name,
+        text: cand.text
       });
+
+      prevShiftInSameDay = norm;
+      lastDisplayedShiftText = norm;
+    });
+
+    dayCustom.forEach(c => {
+      const customTxt = `S: ${c.s || '-'} | O: ${c.o || '-'} | A: ${c.a || '-'} | P: ${c.p || '-'}`;
+      const customNorm = customTxt.replace(/\s+/g, ' ').toLowerCase();
+      if (customNorm !== lastDisplayedShiftText) {
+        shiftItems.push({
+          title: `${c.shiftTitle} (${c.ppa || 'Petugas Ruangan'})`,
+          text: customTxt
+        });
+        lastDisplayedShiftText = customNorm;
+      }
+    });
+
+    let uraianContent = '';
+    if (shiftItems.length > 0) {
+      uraianContent = shiftItems.map(item => `
+        <div style="margin-bottom: 6px;">
+          <span style="font-weight: bold; text-decoration: underline; font-size: 9.5pt;">${escapeHtml(item.title)}:</span>
+          <div style="white-space: pre-line; margin-top: 2px;">${escapeHtml(item.text)}</div>
+        </div>
+      `).join('');
+    } else {
+      uraianContent = '<span style="color:#555; font-style: italic;">(Kondisi klinis &amp; terapi melanjutkan shift sebelumnya tanpa perubahan keluhan)</span>';
     }
 
     rowsHtml += `
       <tr>
-        <td style="text-align:center; font-weight:bold;">Hari ke-${d.dayOfStay}</td>
-        <td>${dateFormatted}</td>
-        <td>${pt.room} - B${pt.bed}</td>
-        <td>${escapeHtml(pt.doctorPrimary || pt.doctor)}</td>
-        <td>${content || 'Tidak ada catatan'}</td>
-        <td style="font-size:9pt;">${escapeHtml(pt.diagnosis)}</td>
+        <td style="text-align: center; font-weight: bold; vertical-align: top; width: 14%;">Hari ke-${d.dayOfStay}</td>
+        <td style="vertical-align: top; width: 22%;">${dateFormatted}</td>
+        <td style="vertical-align: top; width: 64%;">${uraianContent}</td>
       </tr>
     `;
   });
 
   printContainer.innerHTML = `
     <div class="chronology-print-letterhead">
-      <h3>PEMERINTAH PROVINSI KALIMANTAN BARAT</h3>
-      <h2>RUMAH SAKIT UMUM DAERAH DOKTER SOEDARSO</h2>
-      <p>Jl. Dr. Soedarso No. 1, Pontianak 78124, Kalimantan Barat &bull; Telp. (0561) 737701</p>
-      <p style="font-weight:bold; margin-top:2px;">INSTALASI RAWAT INAP - RUANG ENGGANG GADING 2 (EG 2A &amp; EG 2B)</p>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 18px;">
+        <img src="logo_kalbar.svg" alt="Logo Pemerintah Provinsi Kalimantan Barat" style="width: 72px; height: auto; max-height: 85px; flex-shrink: 0;" />
+        <div style="text-align: center;">
+          <h3 style="font-size: 13pt; font-weight: bold; margin: 0; letter-spacing: 0.5px; text-transform: uppercase;">PEMERINTAH PROVINSI KALIMANTAN BARAT</h3>
+          <h2 style="font-size: 15pt; font-weight: 800; margin: 2px 0; letter-spacing: 0.5px; text-transform: uppercase;">RUMAH SAKIT UMUM DAERAH DOKTER SOEDARSO</h2>
+          <p style="font-size: 9pt; margin: 0; line-height: 1.3;">Jalan Dr. Soedarso No. 1, Pontianak 78124, Kalimantan Barat &bull; Telp. (0561) 737701</p>
+          <p style="font-size: 8.5pt; margin: 0; line-height: 1.3;">Laman: rsuddrsoedarso.kalbarprov.go.id &bull; Pos-el: rsuddrsoedarso@kalbarprov.go.id</p>
+        </div>
+      </div>
     </div>
 
-    <div class="chronology-print-title">RESUME KRONOLOGIS PERJALANAN RAWAT INAP PASIEN (CPPT)</div>
+    <div class="chronology-print-title">KRONOLOGIS PERJALANAN RAWAT INAP PASIEN</div>
 
     <table class="chronology-print-patient-table">
       <tr>
@@ -3740,8 +3795,8 @@ function printChronologyResume(patientKey) {
       <tr>
         <td><strong>Jenis Kelamin / Usia</strong></td>
         <td>: ${profile.gender === 'L' ? 'Laki-laki' : 'Perempuan'} ${profile.age ? '/ ' + profile.age : ''}</td>
-        <td><strong>Ruang / Kamar Terakhir</strong></td>
-        <td>: ${profile.room} - Bed ${profile.bed}</td>
+        <td><strong>Ruang / Kamar</strong></td>
+        <td>: Ruang Enggang Gading 2 (${profile.room} - Bed ${profile.bed})</td>
       </tr>
       <tr>
         <td><strong>DPJP Utama</strong></td>
@@ -3750,20 +3805,21 @@ function printChronologyResume(patientKey) {
         <td>: ${profile.insurance}</td>
       </tr>
       <tr>
-        <td><strong>Diagnosa Kerja</strong></td>
-        <td colspan="3">: ${escapeHtml(profile.diagnosis)}</td>
+        <td><strong>Diagnosa Awal</strong></td>
+        <td colspan="3">: ${escapeHtml(initialDiagnosis)}</td>
+      </tr>
+      <tr>
+        <td><strong>Diagnosa Akhir</strong></td>
+        <td colspan="3">: ${escapeHtml(finalDiagnosis)}</td>
       </tr>
     </table>
 
     <table class="chronology-print-data-table">
       <thead>
         <tr>
-          <th width="8%">Hari Rawat</th>
-          <th width="14%">Tanggal</th>
-          <th width="10%">Bed / Ruang</th>
-          <th width="18%">DPJP / Dokter</th>
-          <th width="35%">Catatan Perkembangan Terintegrasi (CPPT / SBAR Shift)</th>
-          <th width="15%">Diagnosa / Keterangan</th>
+          <th width="14%">Hari Rawat</th>
+          <th width="22%">Tanggal</th>
+          <th width="64%">Uraian</th>
         </tr>
       </thead>
       <tbody>
@@ -3771,24 +3827,23 @@ function printChronologyResume(patientKey) {
       </tbody>
     </table>
 
-    <div class="chronology-print-signatures">
-      <div class="chronology-print-sig-col">
-        <p>Mengetahui,<br>Kepala Ruang Rawat Inap EG 2</p>
-        <div class="chronology-print-sig-space"></div>
-        <p><strong>( Ns. Ruang Enggang Gading 2, S.Kep )</strong><br>NIP. ........................................</p>
-      </div>
-
-      <div class="chronology-print-sig-col">
-        <p>Pontianak, ${formatIndonesianDate(state.currentDate || new Date().toISOString().slice(0, 10))}<br>Dokter Penanggung Jawab Pelayanan (DPJP)</p>
-        <div class="chronology-print-sig-space"></div>
-        <p><strong>( ${escapeHtml(profile.doctorPrimary || profile.doctor)} )</strong><br>SIP. ........................................</p>
+    <div class="chronology-print-signatures" style="display: flex; justify-content: flex-end; margin-top: 36px; page-break-inside: avoid;">
+      <div class="chronology-print-sig-col" style="width: 320px; text-align: center; font-size: 10pt;">
+        <p style="margin: 0 0 4px 0;">Pontianak, ${formatIndonesianDate(state.currentDate || new Date().toISOString().slice(0, 10))}</p>
+        <p style="margin: 0; font-weight: bold;">Kepala Ruang Enggang Gading 2</p>
+        <div class="chronology-print-sig-space" style="height: 65px;"></div>
+        <p style="margin: 0;"><strong><u>Ns. Rusmulyadi, S.Kep.,M.A.R.S</u></strong></p>
+        <p style="margin: 2px 0 0 0;">NIP. 198212282003121005</p>
       </div>
     </div>
   `;
 
+  const originalTitle = document.title;
+  document.title = ' ';
   document.body.classList.add('printing-chronology');
   window.print();
   window.onafterprint = () => {
+    document.title = originalTitle;
     document.body.classList.remove('printing-chronology');
   };
 }
@@ -3800,41 +3855,72 @@ function copyChronologySummary(patientKey) {
 
   const displayName = maskPatientName(profile.name);
   const displayMr = maskMrNo(profile.mrNo);
+  const initialDiagnosis = days[0]?.patient?.diagnosis || profile.diagnosis || '-';
+  const finalDiagnosis = days[days.length - 1]?.patient?.diagnosis || profile.diagnosis || '-';
 
   let text = `======================================================================\n`;
-  text += `RESUME & KRONOLOGI RAWAT INAP PASIEN (CPPT)\n`;
-  text += `RUANG ENGGANG GADING 2 - RSUD DR. SOEDARSO PONTIANAK\n`;
+  text += `KRONOLOGIS PERJALANAN RAWAT INAP PASIEN\n`;
+  text += `PEMERINTAH PROVINSI KALIMANTAN BARAT\n`;
+  text += `RSUD DR. SOEDARSO PONTIANAK - RUANG ENGGANG GADING 2\n`;
   text += `======================================================================\n`;
-  text += `Nama Pasien      : ${displayName}\n`;
-  text += `No. Rekam Medis  : ${displayMr}\n`;
+  text += `Nama Pasien       : ${displayName}\n`;
+  text += `No. Rekam Medis   : ${displayMr}\n`;
   text += `Jenis Kelamin/Usia: ${profile.gender === 'L' ? 'Laki-laki' : 'Perempuan'} ${profile.age ? '/ ' + profile.age : ''}\n`;
-  text += `Ruang / Bed      : ${profile.room} - Bed ${profile.bed}\n`;
-  text += `DPJP             : ${profile.doctorPrimary || profile.doctor}\n`;
-  text += `Jaminan          : ${profile.insurance}\n`;
-  text += `Tanggal Masuk    : ${profile.admissionDate || '-'}\n`;
-  text += `Total Hari Rawat : ${days.length} Hari\n`;
-  text += `Diagnosa Kerja   : ${profile.diagnosis}\n`;
+  text += `Ruang / Bed       : Ruang Enggang Gading 2 (${profile.room} - Bed ${profile.bed})\n`;
+  text += `DPJP              : ${profile.doctorPrimary || profile.doctor}\n`;
+  text += `Jaminan           : ${profile.insurance}\n`;
+  text += `Tanggal Masuk     : ${profile.admissionDate || '-'}\n`;
+  text += `Total Hari Rawat  : ${days.length} Hari\n`;
+  text += `Diagnosa Awal     : ${initialDiagnosis}\n`;
+  text += `Diagnosa Akhir    : ${finalDiagnosis}\n`;
   text += `----------------------------------------------------------------------\n`;
-  text += `PERJALANAN KLINIS DARI HARI KE HARI:\n`;
+  text += `URAIAN PERJALANAN KLINIS:\n`;
 
+  let lastShiftCopy = '';
   days.forEach(d => {
     const pt = d.patient;
-    text += `\n[HARI KE-${d.dayOfStay} - ${formatIndonesianDate(d.date)}] (${pt.room} Bed ${pt.bed})\n`;
-    if (d.bedChanged) text += `* Pindah dari ${d.prevLoc}\n`;
-    if (pt.notes?.pagi) text += `  - Shift Pagi (07-14) : ${pt.notes.pagi.replace(/\n+/g, ' ')}\n`;
-    if (pt.notes?.sore) text += `  - Shift Sore (14-21) : ${pt.notes.sore.replace(/\n+/g, ' ')}\n`;
-    if (pt.notes?.malam) text += `  - Shift Malam (21-07): ${pt.notes.malam.replace(/\n+/g, ' ')}\n`;
+    text += `\n[HARI KE-${d.dayOfStay} - ${formatIndonesianDate(d.date)}]\n`;
+
+    const candidates = [
+      { name: 'Shift Pagi (07-14)', text: (pt.notes?.pagi || '').trim() },
+      { name: 'Shift Sore (14-21)', text: (pt.notes?.sore || '').trim() },
+      { name: 'Shift Malam (21-07)', text: (pt.notes?.malam || '').trim() }
+    ];
+
+    let prevShiftDay = '';
+    let hasNote = false;
+
+    candidates.forEach(c => {
+      if (!c.text || c.text.length < 3 || c.text === '-') return;
+      const norm = c.text.replace(/\s+/g, ' ').toLowerCase();
+      if (norm === prevShiftDay || norm === lastShiftCopy) return;
+
+      text += `  - ${c.name}: ${c.text.replace(/\n+/g, ' ')}\n`;
+      prevShiftDay = norm;
+      lastShiftCopy = norm;
+      hasNote = true;
+    });
 
     const dayCustom = customEntries.filter(c => c.date === d.date);
     dayCustom.forEach(c => {
       text += `  - [${c.shiftTitle} / ${c.ppa}]: S: ${c.s} | O: ${c.o} | A: ${c.a} | P: ${c.p}\n`;
+      hasNote = true;
     });
+
+    if (!hasNote) {
+      text += `  - (Melanjutkan evaluasi & terapi shift sebelumnya)\n`;
+    }
   });
 
+  text += `\n======================================================================\n`;
+  text += `Pontianak, ${formatIndonesianDate(state.currentDate || new Date().toISOString().slice(0, 10))}\n`;
+  text += `Kepala Ruang Enggang Gading 2\n\n\n`;
+  text += `( Ns. Rusmulyadi, S.Kep.,M.A.R.S )\n`;
+  text += `NIP. 198212282003121005\n`;
   text += `======================================================================\n`;
 
   navigator.clipboard.writeText(text).then(() => {
-    showToast('Ringkasan kronologi pasien berhasil disalin ke clipboard!', 'success');
+    showToast('Teks kronologis perjalanan rawat berhasil disalin ke clipboard!', 'success');
   }).catch(err => {
     console.error('Clipboard copy error:', err);
     showToast('Gagal menyalin teks: ' + err.message, 'error');

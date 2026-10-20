@@ -4394,9 +4394,28 @@ body::before {
 }
 
 /* ==========================================================================
-   OFFICIAL HOSPITAL PRINT LAYOUT (RESUME KRONOLOGIS RAWAT INAP)
+   OFFICIAL HOSPITAL PRINT LAYOUT (KRONOLOGIS PERJALANAN RAWAT INAP PASIEN)
    ========================================================================== */
+@page {
+  size: A4 portrait;
+  margin: 1.2cm 1.5cm 1.2cm 1.5cm;
+  @top-left { content: none; }
+  @top-center { content: none; }
+  @top-right { content: none; }
+  @bottom-left { content: none; }
+  @bottom-center { content: none; }
+  @bottom-right { content: none; }
+}
+
 @media print {
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
   body.printing-chronology * {
     visibility: hidden;
   }
@@ -4410,11 +4429,11 @@ body::before {
     top: 0;
     width: 100%;
     margin: 0;
-    padding: 1.5cm;
+    padding: 0;
     background: #ffffff !important;
     color: #000000 !important;
     font-family: 'Times New Roman', Times, serif;
-    font-size: 11pt;
+    font-size: 10pt;
     line-height: 1.35;
   }
 }
@@ -4422,80 +4441,88 @@ body::before {
 .chronology-print-letterhead {
   border-bottom: 3px double #000000;
   padding-bottom: 8px;
-  margin-bottom: 16px;
-  text-align: center;
+  margin-bottom: 14px;
 }
 
 .chronology-print-letterhead h3 {
-  font-size: 12pt;
-  font-weight: normal;
-  margin: 0 0 2px 0;
+  font-size: 12.5pt;
+  font-weight: bold;
+  margin: 0;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
+  color: #000000;
 }
 
 .chronology-print-letterhead h2 {
-  font-size: 14pt;
-  font-weight: bold;
-  margin: 0 0 2px 0;
-  text-transform: uppercase;
+  font-size: 14.5pt;
+  font-weight: 800;
+  margin: 2px 0;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #000000;
 }
 
 .chronology-print-letterhead p {
-  font-size: 9pt;
+  font-size: 8.5pt;
   margin: 0;
-  font-style: italic;
+  line-height: 1.35;
+  color: #111111;
+  font-style: normal;
 }
 
 .chronology-print-title {
   text-align: center;
-  font-size: 13pt;
+  font-size: 12.5pt;
   font-weight: bold;
-  margin: 12px 0 16px 0;
+  margin: 10px 0 14px 0;
   text-decoration: underline;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .chronology-print-patient-table,
 .chronology-print-data-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 16px;
-  font-size: 10pt;
+  margin-bottom: 14px;
+  font-size: 9.5pt;
 }
 
 .chronology-print-patient-table td {
-  padding: 4px 6px;
+  padding: 3px 6px;
   vertical-align: top;
 }
 
 .chronology-print-data-table th,
 .chronology-print-data-table td {
-  border: 1px solid #333333;
+  border: 1px solid #000000;
   padding: 6px 8px;
   text-align: left;
   vertical-align: top;
 }
 
 .chronology-print-data-table th {
-  background-color: #f0f0f0;
+  background-color: #f2f2f2 !important;
   font-weight: bold;
   text-align: center;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
 }
 
 .chronology-print-signatures {
   display: flex;
-  justify-content: space-between;
-  margin-top: 36px;
+  justify-content: flex-end;
+  margin-top: 30px;
   page-break-inside: avoid;
 }
 
 .chronology-print-sig-col {
-  width: 42%;
+  width: 320px;
   text-align: center;
   font-size: 10pt;
 }
 
 .chronology-print-sig-space {
-  height: 60px;
+  height: 65px;
 }
+
