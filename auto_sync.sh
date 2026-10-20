@@ -23,13 +23,13 @@ python3 run_build_data.py
 
 # 4. Update zip archive
 echo "Updating zip package..."
-zip -r dashboard-enggang-gading-2.zip index.html index.css app.js dashboard_data.json hospital_indicators.json server.py share_link.sh auto_sync.sh
+zip -r dashboard-enggang-gading-2.zip index.html index.css app.js dashboard_data.json hospital_indicators.json server.py share_link.sh auto_sync.sh run_build_data.py update_full_pipeline.py generate_dashboard_data.py logo_kalbar.svg start_server.command _redirects sync_info.json logo_asset.js logo_kalbar.png logo_enggang.png
 cp dashboard-enggang-gading-2.zip ~/Downloads/dashboard-enggang-gading-2.zip
 
 # 5. Automatically deploy to Netlify (https://heroic-travesseiro-ef2369.netlify.app)
 echo "Deploying update to Netlify (heroic-travesseiro-ef2369.netlify.app)..."
 echo "/* /index.html 200" > _redirects
-zip -r deploy_netlify.zip index.html index.css app.js dashboard_data.json hospital_indicators.json _redirects > /dev/null
+zip -r deploy_netlify.zip index.html index.css app.js dashboard_data.json hospital_indicators.json _redirects logo_kalbar.svg logo_asset.js logo_kalbar.png logo_enggang.png > /dev/null
 curl -s -X POST \
   -H "Authorization: Bearer nfp_jReUwsNgDkXUNzN4n8is2vbtGeRwP9Teab01" \
   -H "Content-Type: application/zip" \
