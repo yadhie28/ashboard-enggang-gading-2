@@ -4084,13 +4084,13 @@ function exportChronologyWord(patientKey) {
 
       rowsHtml += `
         <tr>
-          <td style="text-align: center; vertical-align: top; font-weight: bold; width: 5%; font-size: 9.5pt;">${rowNum++}</td>
-          <td style="text-align: center; vertical-align: top; width: 17%; font-size: 9.5pt;">${dateCellHtml}</td>
-          <td style="text-align: center; vertical-align: top; width: 16%; font-size: 9.5pt;">
+          <td style="border: 0.5pt solid #000000; text-align: center; vertical-align: top; font-weight: bold; width: 5%; font-size: 9.5pt; padding: 4.5pt 4pt;">${rowNum++}</td>
+          <td style="border: 0.5pt solid #000000; text-align: center; vertical-align: top; width: 17%; font-size: 9.5pt; padding: 4.5pt 4pt;">${dateCellHtml}</td>
+          <td style="border: 0.5pt solid #000000; text-align: center; vertical-align: top; width: 16%; font-size: 9.5pt; padding: 4.5pt 4pt;">
             <div style="font-weight: bold;">${escapeHtml(cand.name)}</div>
             <div style="font-size: 8pt; color: #444;">(${cand.time})</div>
           </td>
-          <td style="vertical-align: top; width: 62%; font-size: 9.5pt; line-height: 1.35;">
+          <td style="border: 0.5pt solid #000000; vertical-align: top; width: 62%; font-size: 9.5pt; line-height: 1.35; padding: 4.5pt 6pt;">
             ${formattedUraian}
           </td>
         </tr>
@@ -4115,13 +4115,13 @@ function exportChronologyWord(patientKey) {
 
       rowsHtml += `
         <tr>
-          <td style="text-align: center; vertical-align: top; font-weight: bold; width: 5%; font-size: 9.5pt;">${rowNum++}</td>
-          <td style="text-align: center; vertical-align: top; width: 17%; font-size: 9.5pt;">${dateCellHtml}</td>
-          <td style="text-align: center; vertical-align: top; width: 16%; font-size: 9.5pt;">
+          <td style="border: 0.5pt solid #000000; text-align: center; vertical-align: top; font-weight: bold; width: 5%; font-size: 9.5pt; padding: 4.5pt 4pt;">${rowNum++}</td>
+          <td style="border: 0.5pt solid #000000; text-align: center; vertical-align: top; width: 17%; font-size: 9.5pt; padding: 4.5pt 4pt;">${dateCellHtml}</td>
+          <td style="border: 0.5pt solid #000000; text-align: center; vertical-align: top; width: 16%; font-size: 9.5pt; padding: 4.5pt 4pt;">
             <div style="font-weight: bold;">${escapeHtml(c.shiftTitle)}</div>
             <div style="font-size: 8pt; color: #444;">(${c.time ? c.time + ' WIB' : '-'})</div>
           </td>
-          <td style="vertical-align: top; width: 62%; font-size: 9.5pt; line-height: 1.35;">
+          <td style="border: 0.5pt solid #000000; vertical-align: top; width: 62%; font-size: 9.5pt; line-height: 1.35; padding: 4.5pt 6pt;">
             <div style="font-weight: bold; font-size: 9pt;">${escapeHtml(c.ppa || 'Petugas Ruangan')}:</div>
             ${formattedCustom}
           </td>
@@ -4135,7 +4135,7 @@ function exportChronologyWord(patientKey) {
   if (!rowsHtml) {
     rowsHtml = `
       <tr>
-        <td colspan="4" style="text-align: center; padding: 14pt; font-style: italic; color: #555;">
+        <td colspan="4" style="border: 0.5pt solid #000000; text-align: center; padding: 14pt; font-style: italic; color: #555;">
           (Tidak ada catatan klinis shift yang terdata)
         </td>
       </tr>
@@ -4180,6 +4180,8 @@ function exportChronologyWord(patientKey) {
         table {
           border-collapse: collapse;
           width: 100%;
+          mso-table-lspace: 0pt;
+          mso-table-rspace: 0pt;
         }
         td, th {
           font-family: 'Times New Roman', Times, serif;
@@ -4188,16 +4190,11 @@ function exportChronologyWord(patientKey) {
         .kop-table {
           width: 100%;
           border-collapse: collapse;
-          margin-bottom: 4pt;
+          margin-bottom: 0;
         }
         .kop-table td {
           border: none;
           padding: 0;
-        }
-        .double-line {
-          border-bottom: 3.5pt double #000000;
-          padding-top: 4pt;
-          margin-bottom: 12pt;
         }
         .doc-title {
           text-align: center;
@@ -4206,7 +4203,7 @@ function exportChronologyWord(patientKey) {
           text-decoration: underline;
           text-transform: uppercase;
           letter-spacing: 0.5px;
-          margin: 10pt 0 14pt 0;
+          margin: 12pt 0 14pt 0;
         }
         .patient-table {
           width: 100%;
@@ -4218,17 +4215,24 @@ function exportChronologyWord(patientKey) {
           border: none;
           padding: 3pt 4pt;
         }
-        .data-table {
+        table.data-table {
           width: 100%;
           border-collapse: collapse;
           margin-bottom: 14pt;
           font-size: 9.5pt;
+          border: 0.5pt solid #000000;
+          mso-border-alt: solid windowtext 0.5pt;
+          mso-border-insideh: 0.5pt solid windowtext;
+          mso-border-insidev: 0.5pt solid windowtext;
         }
-        .data-table th, .data-table td {
-          border: 1pt solid #000000;
-          padding: 6pt 7pt;
+        table.data-table th, table.data-table td {
+          border: 0.5pt solid #000000;
+          mso-border-alt: solid windowtext 0.5pt;
+          padding: 4.5pt 6pt;
+          font-family: 'Times New Roman', Times, serif;
+          vertical-align: top;
         }
-        .data-table th {
+        table.data-table th {
           background-color: #f2f2f2;
           font-weight: bold;
           text-align: center;
@@ -4236,7 +4240,7 @@ function exportChronologyWord(patientKey) {
         .sig-table {
           width: 100%;
           border-collapse: collapse;
-          margin-top: 24pt;
+          margin-top: 20pt;
         }
         .sig-table td {
           border: none;
@@ -4246,69 +4250,72 @@ function exportChronologyWord(patientKey) {
     </head>
     <body>
       <div class="Section1">
-        <!-- Letterhead Kop Rumah Sakit -->
-        <table class="kop-table">
+        <!-- Letterhead Kop Rumah Sakit (3-kolom seimbang sesuai lebar kertas) -->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kop-table">
           <tr>
-            <td width="85" align="center" valign="middle">
+            <td width="80" align="center" valign="middle" style="width: 80px; padding: 0;">
               ${logoBase64 ? `<img src="${logoBase64}" width="68" height="92" alt="Logo Pemprov Kalbar" style="width: 68px; height: 92px;" />` : ''}
             </td>
-            <td align="center" valign="middle" style="padding-left: 10px;">
-              <div style="font-size: 12.5pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">PEMERINTAH PROVINSI KALIMANTAN BARAT</div>
-              <div style="font-size: 14.5pt; font-weight: bold; text-transform: uppercase; margin: 2px 0; letter-spacing: 0.5px;">RUMAH SAKIT UMUM DAERAH DOKTER SOEDARSO</div>
-              <div style="font-size: 8.5pt; margin: 0; line-height: 1.35;">Jalan Dr. Soedarso No. 1, Pontianak 78124, Kalimantan Barat &bull; Telp. (0561) 737701</div>
-              <div style="font-size: 8.5pt; margin: 0; line-height: 1.35;">Laman: rsuddrsoedarso.kalbarprov.go.id &bull; Pos-el: rsuddrsoedarso@kalbarprov.go.id</div>
+            <td align="center" valign="middle" style="text-align: center; padding: 0 6px;">
+              <div style="font-size: 13pt; font-weight: bold; text-transform: uppercase; font-family: 'Times New Roman', serif; line-height: 1.25;">PEMERINTAH PROVINSI KALIMANTAN BARAT</div>
+              <div style="font-size: 15pt; font-weight: bold; text-transform: uppercase; font-family: 'Times New Roman', serif; margin: 2pt 0; line-height: 1.25;">RUMAH SAKIT UMUM DAERAH DOKTER SOEDARSO</div>
+              <div style="font-size: 9pt; font-family: 'Times New Roman', serif; margin: 0; line-height: 1.3;">Jalan Dr. Soedarso No. 1, Pontianak 78124, Kalimantan Barat &bull; Telp. (0561) 737701</div>
+              <div style="font-size: 8.5pt; font-family: 'Times New Roman', serif; margin: 0; line-height: 1.3;">Laman: rsuddrsoedarso.kalbarprov.go.id &bull; Pos-el: rsuddrsoedarso@kalbarprov.go.id</div>
             </td>
+            <td width="80" align="center" valign="middle" style="width: 80px; padding: 0;"></td>
+          </tr>
+          <tr>
+            <td colspan="3" style="border-bottom: 3.0pt double #000000; padding-top: 6pt; height: 1px; font-size: 1pt; line-height: 1pt;">&nbsp;</td>
           </tr>
         </table>
-        <div class="double-line"></div>
 
         <!-- Document Title -->
         <div class="doc-title">KRONOLOGIS PERJALANAN RAWAT INAP PASIEN</div>
 
         <!-- Patient Demographics Table -->
-        <table class="patient-table">
+        <table width="100%" border="0" cellspacing="0" cellpadding="2" class="patient-table">
           <tr>
-            <td width="18%"><strong>Nama Pasien</strong></td>
-            <td width="32%">: ${escapeHtml(displayName)}</td>
-            <td width="18%"><strong>Tanggal Masuk (MRS)</strong></td>
-            <td width="32%">: ${profile.admissionDate || '-'}</td>
+            <td width="18%" style="border: none;"><strong>Nama Pasien</strong></td>
+            <td width="32%" style="border: none;">: ${escapeHtml(displayName)}</td>
+            <td width="18%" style="border: none;"><strong>Tanggal Masuk (MRS)</strong></td>
+            <td width="32%" style="border: none;">: ${profile.admissionDate || '-'}</td>
           </tr>
           <tr>
-            <td><strong>Nomor Rekam Medis</strong></td>
-            <td>: ${displayMr}</td>
-            <td><strong>Total Hari Terdata (LOS)</strong></td>
-            <td>: ${days.length} Hari</td>
+            <td style="border: none;"><strong>Nomor Rekam Medis</strong></td>
+            <td style="border: none;">: ${displayMr}</td>
+            <td style="border: none;"><strong>Total Hari Terdata (LOS)</strong></td>
+            <td style="border: none;">: ${days.length} Hari</td>
           </tr>
           <tr>
-            <td><strong>Jenis Kelamin / Usia</strong></td>
-            <td>: ${profile.gender === 'L' ? 'Laki-laki' : 'Perempuan'} ${profile.age ? '/ ' + profile.age : ''}</td>
-            <td><strong>Ruang / Kamar</strong></td>
-            <td>: Ruang Enggang Gading 2 (${profile.room} - Bed ${profile.bed})</td>
+            <td style="border: none;"><strong>Jenis Kelamin / Usia</strong></td>
+            <td style="border: none;">: ${profile.gender === 'L' ? 'Laki-laki' : 'Perempuan'} ${profile.age ? '/ ' + profile.age : ''}</td>
+            <td style="border: none;"><strong>Ruang / Kamar</strong></td>
+            <td style="border: none;">: Ruang Enggang Gading 2 (${profile.room} - Bed ${profile.bed})</td>
           </tr>
           <tr>
-            <td><strong>DPJP Utama</strong></td>
-            <td>: ${escapeHtml(profile.doctorPrimary || profile.doctor)}</td>
-            <td><strong>Jaminan / Asuransi</strong></td>
-            <td>: ${profile.insurance}</td>
+            <td style="border: none;"><strong>DPJP Utama</strong></td>
+            <td style="border: none;">: ${escapeHtml(profile.doctorPrimary || profile.doctor)}</td>
+            <td style="border: none;"><strong>Jaminan / Asuransi</strong></td>
+            <td style="border: none;">: ${profile.insurance}</td>
           </tr>
           <tr>
-            <td><strong>Diagnosa Awal</strong></td>
-            <td colspan="3">: ${escapeHtml(initialDiagnosis)}</td>
+            <td style="border: none;"><strong>Diagnosa Awal</strong></td>
+            <td colspan="3" style="border: none;">: ${escapeHtml(initialDiagnosis)}</td>
           </tr>
           <tr>
-            <td><strong>Diagnosa Akhir</strong></td>
-            <td colspan="3">: ${escapeHtml(finalDiagnosis)}</td>
+            <td style="border: none;"><strong>Diagnosa Akhir</strong></td>
+            <td colspan="3" style="border: none;">: ${escapeHtml(finalDiagnosis)}</td>
           </tr>
         </table>
 
-        <!-- Clinical Journey Table -->
-        <table class="data-table">
+        <!-- Clinical Journey Table (Garis Tipis Biasa 0.5pt, Bukan Garis Double) -->
+        <table class="data-table" width="100%" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse; border: 0.5pt solid #000000; mso-border-alt: solid windowtext 0.5pt; mso-border-insideh: 0.5pt solid windowtext; mso-border-insidev: 0.5pt solid windowtext; margin-bottom: 14pt;">
           <thead>
-            <tr>
-              <th width="5%" style="text-align: center;">No.</th>
-              <th width="17%" style="text-align: center;">Tanggal</th>
-              <th width="16%" style="text-align: center;">Waktu</th>
-              <th width="62%" style="text-align: center;">Uraian</th>
+            <tr style="mso-yfti-firstrow: yes; mso-yfti-tblheader: yes;">
+              <th width="5%" style="border: 0.5pt solid #000000; background-color: #f2f2f2; font-family: 'Times New Roman', serif; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 5pt 4pt;">No.</th>
+              <th width="17%" style="border: 0.5pt solid #000000; background-color: #f2f2f2; font-family: 'Times New Roman', serif; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 5pt 4pt;">Tanggal</th>
+              <th width="16%" style="border: 0.5pt solid #000000; background-color: #f2f2f2; font-family: 'Times New Roman', serif; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 5pt 4pt;">Waktu</th>
+              <th width="62%" style="border: 0.5pt solid #000000; background-color: #f2f2f2; font-family: 'Times New Roman', serif; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 5pt 6pt;">Uraian</th>
             </tr>
           </thead>
           <tbody>
@@ -4316,16 +4323,16 @@ function exportChronologyWord(patientKey) {
           </tbody>
         </table>
 
-        <!-- Single Official Signatory Table -->
-        <table class="sig-table">
+        <!-- Single Official Signatory Table (Jeda Tanda Tangan Longgar Antara Jabatan & Nama) -->
+        <table class="sig-table" width="100%" border="0" cellspacing="0" cellpadding="0" style="width: 100%; border-collapse: collapse; margin-top: 20pt;">
           <tr>
-            <td width="55%"></td>
-            <td width="45%" align="center">
-              <p style="margin: 0 0 4px 0;">Pontianak, ${currentDateFormatted}</p>
-              <p style="margin: 0; font-weight: bold;">Kepala Ruang Enggang Gading 2</p>
-              <div style="height: 55px;"></div>
-              <p style="margin: 0;"><strong><u>Ns. Rusmulyadi, S.Kep.,M.A.R.S</u></strong></p>
-              <p style="margin: 2px 0 0 0;">NIP. 198212282003121005</p>
+            <td width="55%" style="border: none;"></td>
+            <td width="45%" align="center" style="border: none; text-align: center; font-family: 'Times New Roman', serif;">
+              <p style="margin: 0 0 4pt 0; font-size: 10pt;">Pontianak, ${currentDateFormatted}</p>
+              <p style="margin: 0; font-size: 10pt; font-weight: bold;">Kepala Ruang Enggang Gading 2</p>
+              <div style="height: 60pt; line-height: 60pt; font-size: 60pt;">&nbsp;</div>
+              <p style="margin: 0; font-size: 10pt;"><strong><u>Ns. Rusmulyadi, S.Kep.,M.A.R.S</u></strong></p>
+              <p style="margin: 2pt 0 0 0; font-size: 9.5pt;">NIP. 198212282003121005</p>
             </td>
           </tr>
         </table>
