@@ -25,7 +25,9 @@ const state = {
     avlos: true,
     toi: true,
     bto: true
-  }
+  },
+  chronologyPatient: null,
+  chronologySort: 'asc'
 };
 
 // Patient Identity Masking for Role Separation (UU PDP No. 27/2022)
@@ -335,6 +337,7 @@ async function loadData() {
     updateDashboard();
     renderAnalyticsTab();
     renderBarberJohnsonTab();
+    initChronologyModule();
     showToast('Data berhasil dimuat! Sensus terkini: ' + formatIndonesianDate(state.currentDate), 'success');
   } catch (err) {
     console.error('Error loading data:', err);
@@ -387,6 +390,9 @@ function setupEventListeners() {
       }
       if (targetId === 'tabBarberJohnson') {
         renderBarberJohnsonTab();
+      }
+      if (targetId === 'tabChronology') {
+        renderChronologyTab();
       }
     });
   });
@@ -1357,7 +1363,12 @@ function renderDirectoryTable(dataToUse) {
       <td>${escapeHtml(pt.doctorPrimary)}</td>
       <td title="${escapeHtml(pt.diagnosis)}">${escapeHtml(pt.diagnosis.slice(0, 45))}...</td>
       <td><span class="badge badge-outline">${pt.category}</span></td>
-      <td><button class="btn btn-secondary btn-sm dir-view-btn">Detail</button></td>
+      <td>
+        <div style="display:flex; gap:0.35rem; align-items:center;">
+          <button class="btn btn-secondary btn-sm dir-view-btn">Detail</button>
+          <button class="btn btn-outline btn-sm dir-chronology-btn" title="Buka Riwayat Kronologi Rawat Pasien">Kronologi</button>
+        </div>
+      </td>
     `;
 
     tr.querySelector('.dir-view-btn').addEventListener('click', () => {
@@ -1366,6 +1377,15 @@ function renderDirectoryTable(dataToUse) {
         openPinModal();
       } else {
         openPatientModal(pt);
+      }
+    });
+
+    tr.querySelector('.dir-chronology-btn').addEventListener('click', () => {
+      if (state.role === 'management') {
+        state.pendingPatientModal = pt;
+        openPinModal();
+      } else {
+        switchToChronologyWithPatient(pt);
       }
     });
     tbody.appendChild(tr);
@@ -1417,7 +1437,12 @@ function filterDirectoryTable() {
       <td>${escapeHtml(pt.doctorPrimary)}</td>
       <td title="${escapeHtml(pt.diagnosis)}">${escapeHtml(pt.diagnosis.slice(0, 45))}...</td>
       <td><span class="badge badge-outline">${pt.category}</span></td>
-      <td><button class="btn btn-secondary btn-sm dir-view-btn">Detail</button></td>
+      <td>
+        <div style="display:flex; gap:0.35rem; align-items:center;">
+          <button class="btn btn-secondary btn-sm dir-view-btn">Detail</button>
+          <button class="btn btn-outline btn-sm dir-chronology-btn" title="Buka Riwayat Kronologi Rawat Pasien">Kronologi</button>
+        </div>
+      </td>
     `;
     tr.querySelector('.dir-view-btn').addEventListener('click', () => {
       if (state.role === 'management') {
@@ -1425,6 +1450,14 @@ function filterDirectoryTable() {
         openPinModal();
       } else {
         openPatientModal(pt);
+      }
+    });
+    tr.querySelector('.dir-chronology-btn').addEventListener('click', () => {
+      if (state.role === 'management') {
+        state.pendingPatientModal = pt;
+        openPinModal();
+      } else {
+        switchToChronologyWithPatient(pt);
       }
     });
     tbody.appendChild(tr);
@@ -1472,6 +1505,17 @@ function openPatientModal(pt) {
   document.getElementById('modalNotePagi').textContent = (pt.notes && pt.notes.pagi) || 'Tidak ada catatan shift pagi.';
   document.getElementById('modalNoteSore').textContent = (pt.notes && pt.notes.sore) || 'Tidak ada catatan shift sore.';
   document.getElementById('modalNoteMalam').textContent = (pt.notes && pt.notes.malam) || 'Tidak ada catatan shift malam.';
+
+  // Connect Kronologi Rawat Button in Modal
+  const modalChronologyBtn = document.getElementById('modalOpenChronologyBtn');
+  if (modalChronologyBtn) {
+    modalChronologyBtn.onclick = () => {
+      const patient = state.selectedPatient;
+      if (!patient) return;
+      closeModal();
+      switchToChronologyWithPatient(patient);
+    };
+  }
 
   modal.style.display = 'flex';
 }
@@ -2927,4 +2971,872 @@ function exportIndicatorsToCsv() {
   a.click();
   document.body.removeChild(a);
   showToast('Tabel Indikator Pelayanan & Barber Johnson berhasil diekspor!', 'success');
+}
+
+/* ==========================================================================
+   TAB 6: KRONOLOGI RAWAT PASIEN (CPPT, SBAR & REKONSTRUKSI KLINIS)
+   ========================================================================== */
+
+function getPatientKey(pt) {
+  if (!pt) return '';
+  const mr = (pt.mrNo || '').trim();
+  if (mr && mr.length >= 4 && mr !== '-') return mr;
+  return (pt.name || '').trim().toUpperCase();
+}
+
+function switchToChronologyWithPatient(pt) {
+  const tabBtn = document.getElementById('btnTabChronology');
+  if (tabBtn) tabBtn.click();
+  const key = getPatientKey(pt);
+  if (key) {
+    selectChronologyPatient(key, true);
+  }
+}
+
+function extractAllPatientsList() {
+  if (!state.data || !state.data.recentDays) return [];
+
+  const patientMap = new Map();
+  const latestDate = state.data.metadata?.latestDate || state.currentDate;
+  const recentDays = state.data.recentDays;
+  const dates = Object.keys(recentDays).sort().reverse(); // newest first
+
+  dates.forEach(dt => {
+    const day = recentDays[dt];
+    const isLatest = (dt === latestDate);
+    const allPts = [...(day.eg2a || []), ...(day.eg2b || [])].filter(p => !p.isEmpty);
+
+    allPts.forEach(p => {
+      const key = getPatientKey(p);
+      if (!key) return;
+
+      if (!patientMap.has(key)) {
+        patientMap.set(key, {
+          key: key,
+          name: p.name,
+          mrNo: p.mrNo || '-',
+          room: p.room,
+          bed: p.bed,
+          gender: p.gender || '-',
+          age: p.age || '-',
+          admissionDate: p.admissionDate || '-',
+          doctor: p.doctorPrimary || p.doctor || '-',
+          diagnosis: p.diagnosis || '-',
+          category: p.category || '-',
+          insurance: p.insurance || '-',
+          isCurrentlyActive: isLatest,
+          latestDate: dt,
+          datesCount: 1,
+          dates: [dt]
+        });
+      } else {
+        const item = patientMap.get(key);
+        if (!item.dates.includes(dt)) {
+          item.dates.push(dt);
+          item.datesCount++;
+        }
+        if (isLatest) {
+          item.isCurrentlyActive = true;
+          item.room = p.room;
+          item.bed = p.bed;
+        }
+      }
+    });
+  });
+
+  return Array.from(patientMap.values());
+}
+
+function initChronologyModule() {
+  const patientSelect = document.getElementById('chronologyPatientSelect');
+  const searchInput = document.getElementById('chronologySearchInput');
+  const searchResults = document.getElementById('chronologySearchResults');
+  const activeChipsContainer = document.getElementById('chronologyActivePillsContainer');
+  const sortAscBtn = document.getElementById('sortChronologyAsc');
+  const sortDescBtn = document.getElementById('sortChronologyDesc');
+
+  if (!patientSelect) return;
+
+  const allPatients = extractAllPatientsList();
+
+  // Populate Select Dropdown
+  patientSelect.innerHTML = '<option value="">-- Pilih Pasien Ruang Enggang Gading 2 --</option>';
+  
+  const activeGroup = document.createElement('optgroup');
+  activeGroup.label = 'PASIEN SEDANG DIRAWAT (SAAT INI)';
+  const historyGroup = document.createElement('optgroup');
+  historyGroup.label = 'PASIEN RIWAYAT SENSUS (45 HARI TERAKHIR)';
+
+  allPatients.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.key;
+    const displayName = maskPatientName(p.name);
+    const displayMr = maskMrNo(p.mrNo);
+    opt.textContent = `[${p.room} Bed ${p.bed}] ${displayName} (MR: ${displayMr}) - DPJP: ${p.doctor.slice(0, 25)}`;
+    if (p.isCurrentlyActive) {
+      activeGroup.appendChild(opt);
+    } else {
+      historyGroup.appendChild(opt);
+    }
+  });
+
+  patientSelect.appendChild(activeGroup);
+  patientSelect.appendChild(historyGroup);
+
+  // Populate Quick Active Chips
+  if (activeChipsContainer) {
+    activeChipsContainer.innerHTML = '';
+    const activePatients = allPatients.filter(p => p.isCurrentlyActive);
+    activePatients.sort((a, b) => {
+      if (a.room !== b.room) return a.room.localeCompare(b.room);
+      return parseInt(a.bed) - parseInt(b.bed);
+    });
+
+    activePatients.forEach(p => {
+      const chip = document.createElement('button');
+      chip.className = 'active-patient-chip';
+      chip.dataset.key = p.key;
+      const displayName = maskPatientName(p.name);
+      chip.innerHTML = `<span class="chip-bed-tag">${p.room} • B${p.bed}</span> <span>${escapeHtml(displayName)}</span>`;
+      chip.addEventListener('click', () => {
+        selectChronologyPatient(p.key, false);
+      });
+      activeChipsContainer.appendChild(chip);
+    });
+  }
+
+  // Event: Select Dropdown Change
+  patientSelect.onchange = (e) => {
+    if (e.target.value) {
+      selectChronologyPatient(e.target.value, false);
+    }
+  };
+
+  // Event: Live Search
+  if (searchInput && searchResults) {
+    searchInput.oninput = (e) => {
+      const query = (e.target.value || '').trim().toLowerCase();
+      if (!query || query.length < 2) {
+        searchResults.style.display = 'none';
+        return;
+      }
+      const matches = allPatients.filter(p => {
+        const nameMatch = p.name.toLowerCase().includes(query);
+        const mrMatch = p.mrNo.toLowerCase().includes(query);
+        const docMatch = p.doctor.toLowerCase().includes(query);
+        return nameMatch || mrMatch || docMatch;
+      }).slice(0, 10);
+
+      if (matches.length === 0) {
+        searchResults.innerHTML = '<div class="search-dropdown-item"><span class="item-sub">Tidak ditemukan pasien dengan kata kunci tersebut</span></div>';
+        searchResults.style.display = 'block';
+        return;
+      }
+
+      searchResults.innerHTML = '';
+      matches.forEach(m => {
+        const item = document.createElement('div');
+        item.className = 'search-dropdown-item';
+        const displayName = maskPatientName(m.name);
+        const displayMr = maskMrNo(m.mrNo);
+        item.innerHTML = `
+          <div>
+            <strong>${escapeHtml(displayName)}</strong>
+            <div class="item-sub">No. RM: ${displayMr} &bull; ${m.room} Bed ${m.bed} &bull; ${escapeHtml(m.doctor)}</div>
+          </div>
+          <span class="badge ${m.isCurrentlyActive ? 'badge-primary' : 'badge-outline'}">${m.isCurrentlyActive ? 'Aktif' : 'Riwayat'}</span>
+        `;
+        item.onclick = () => {
+          searchInput.value = `${displayName} (${displayMr})`;
+          searchResults.style.display = 'none';
+          selectChronologyPatient(m.key, false);
+        };
+        searchResults.appendChild(item);
+      });
+      searchResults.style.display = 'block';
+    };
+
+    document.addEventListener('click', (e) => {
+      if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.style.display = 'none';
+      }
+    });
+  }
+
+  // Event: Sort Toggles
+  if (sortAscBtn && sortDescBtn) {
+    sortAscBtn.onclick = () => {
+      sortAscBtn.classList.add('active');
+      sortDescBtn.classList.remove('active');
+      state.chronologySort = 'asc';
+      if (state.chronologyPatient) {
+        renderChronologyTimeline(state.chronologyPatient);
+      }
+    };
+    sortDescBtn.onclick = () => {
+      sortDescBtn.classList.add('active');
+      sortAscBtn.classList.remove('active');
+      state.chronologySort = 'desc';
+      if (state.chronologyPatient) {
+        renderChronologyTimeline(state.chronologyPatient);
+      }
+    };
+  }
+
+  // Event: Toolbar Buttons
+  const btnNewEntry = document.getElementById('btnNewChronologyEntry');
+  if (btnNewEntry) {
+    btnNewEntry.onclick = () => {
+      if (!state.chronologyPatient) {
+        showToast('Pilih pasien terlebih dahulu sebelum membuat catatan!', 'warning');
+        return;
+      }
+      openChronologyEntryModal();
+    };
+  }
+
+  const btnPrint = document.getElementById('btnPrintChronology');
+  if (btnPrint) {
+    btnPrint.onclick = () => {
+      if (!state.chronologyPatient) {
+        showToast('Pilih pasien terlebih dahulu untuk dicetak!', 'warning');
+        return;
+      }
+      printChronologyResume(state.chronologyPatient);
+    };
+  }
+
+  const btnCopy = document.getElementById('btnCopyChronologySummary');
+  if (btnCopy) {
+    btnCopy.onclick = () => {
+      if (!state.chronologyPatient) {
+        showToast('Pilih pasien terlebih dahulu untuk disalin!', 'warning');
+        return;
+      }
+      copyChronologySummary(state.chronologyPatient);
+    };
+  }
+
+  // Modal Save & Cancel Listeners
+  const modalCloseBtn = document.getElementById('chronologyModalCloseBtn');
+  const modalCancelBtn = document.getElementById('btnCancelChronologyEntry');
+  const modalSaveBtn = document.getElementById('btnSaveChronologyEntry');
+
+  if (modalCloseBtn) modalCloseBtn.onclick = closeChronologyEntryModal;
+  if (modalCancelBtn) modalCancelBtn.onclick = closeChronologyEntryModal;
+  if (modalSaveBtn) modalSaveBtn.onclick = saveCustomChronologyEntry;
+
+  // Auto-select first active patient if available and none selected
+  if (!state.chronologyPatient && allPatients.length > 0) {
+    const firstActive = allPatients.find(p => p.isCurrentlyActive) || allPatients[0];
+    if (firstActive) {
+      selectChronologyPatient(firstActive.key, false);
+    }
+  }
+}
+
+function renderChronologyTab() {
+  if (!state.data) return;
+  initChronologyModule();
+  if (state.chronologyPatient) {
+    selectChronologyPatient(state.chronologyPatient, false);
+  }
+}
+
+function selectChronologyPatient(patientKey, autoScroll) {
+  state.chronologyPatient = patientKey;
+
+  const select = document.getElementById('chronologyPatientSelect');
+  if (select && select.value !== patientKey) {
+    select.value = patientKey;
+  }
+
+  // Update quick chip active state
+  document.querySelectorAll('.active-patient-chip').forEach(c => {
+    if (c.dataset.key === patientKey) c.classList.add('active');
+    else c.classList.remove('active');
+  });
+
+  const emptyState = document.getElementById('chronologyEmptyState');
+  const patientCard = document.getElementById('chronologyPatientCard');
+  if (emptyState) emptyState.style.display = 'none';
+  if (patientCard) patientCard.style.display = 'flex';
+
+  renderChronologyTimeline(patientKey);
+
+  if (autoScroll) {
+    const el = document.getElementById('tabChronology');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+function getPatientChronologyData(patientKey) {
+  if (!state.data || !state.data.recentDays) return { days: [], customEntries: [], profile: null };
+
+  const recentDays = state.data.recentDays;
+  const sortedDates = Object.keys(recentDays).sort(); // chronological: oldest to newest
+  const historyDays = [];
+
+  sortedDates.forEach(dt => {
+    const day = recentDays[dt];
+    const match = [...(day.eg2a || []), ...(day.eg2b || [])].find(p => !p.isEmpty && getPatientKey(p) === patientKey);
+    if (match) {
+      const prev = historyDays[historyDays.length - 1];
+      const bedChanged = prev && (prev.patient.room !== match.room || prev.patient.bed !== match.bed);
+      const diagnosisChanged = prev && (prev.patient.diagnosis !== match.diagnosis);
+      historyDays.push({
+        date: dt,
+        dayOfStay: historyDays.length + 1,
+        patient: match,
+        bedChanged: bedChanged,
+        prevLoc: prev ? `${prev.patient.room} Bed ${prev.patient.bed}` : null,
+        diagnosisChanged: diagnosisChanged
+      });
+    }
+  });
+
+  // Fetch custom entries from localStorage
+  let customEntries = [];
+  try {
+    const stored = localStorage.getItem('eg2_chronology_custom_' + patientKey);
+    if (stored) customEntries = JSON.parse(stored);
+  } catch (e) {
+    console.error('Error loading custom chronology entries:', e);
+  }
+
+  const latest = historyDays.length > 0 ? historyDays[historyDays.length - 1].patient : null;
+
+  return {
+    days: historyDays,
+    customEntries: customEntries,
+    profile: latest
+  };
+}
+
+function renderChronologyTimeline(patientKey) {
+  const container = document.getElementById('chronologyTimelineContainer');
+  const patientCard = document.getElementById('chronologyPatientCard');
+  if (!container || !patientCard) return;
+
+  const { days, customEntries, profile } = getPatientChronologyData(patientKey);
+
+  if (!profile && days.length === 0) {
+    patientCard.style.display = 'none';
+    container.innerHTML = `
+      <div class="chronology-empty-state">
+        <div class="empty-state-icon">🔍</div>
+        <h3>Data Pasien Tidak Ditemukan</h3>
+        <p>Silakan pilih pasien lain dari daftar sensus atau gunakan kotak pencarian.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const isMasked = state.role === 'management';
+  const displayName = maskPatientName(profile.name);
+  const displayMr = maskMrNo(profile.mrNo);
+  const cleanName = profile.name.replace(/^(Tn\.|Ny\.|An\.|By\.|Sdr\.|Sdri\.|Nn\.)\s*/i, '');
+  const initials = cleanName.slice(0, 2).toUpperCase() || 'P';
+
+  // Count Shift Notes & Detect Procedures
+  let totalShiftNotes = 0;
+  const procSet = new Set();
+  days.forEach(d => {
+    const p = d.patient;
+    if (p.notes?.pagi && p.notes.pagi.length > 10) totalShiftNotes++;
+    if (p.notes?.sore && p.notes.sore.length > 10) totalShiftNotes++;
+    if (p.notes?.malam && p.notes.malam.length > 10) totalShiftNotes++;
+
+    (p.tags || []).forEach(t => procSet.add(t.label));
+    const allNotes = ((p.notes?.pagi || '') + ' ' + (p.notes?.sore || '') + ' ' + (p.notes?.malam || '')).toUpperCase();
+    if (allNotes.includes('HEMODIALISA') || allNotes.includes(' HD ')) procSet.add('Hemodialisa');
+    if (allNotes.includes('TRANSFUSI') || allNotes.includes('PRC') || allNotes.includes('KOLF')) procSet.add('Transfusi Darah');
+    if (allNotes.includes('OPERASI') || allNotes.includes('POST OP') || allNotes.includes('DEBRIDEMENT')) procSet.add('Bedah / Post-Op');
+  });
+
+  const latestDate = state.data.metadata?.latestDate || state.currentDate;
+  const isCurrentlyAdmitted = days.length > 0 && (days[days.length - 1].date === latestDate) && !days[days.length - 1].patient.isDischargedToday;
+
+  // Render Patient Profile Header Card
+  patientCard.style.display = 'flex';
+  patientCard.innerHTML = `
+    <div class="patient-card-top">
+      <div class="patient-identity-left">
+        <div class="patient-avatar-badge">${initials}</div>
+        <div>
+          <h2 class="patient-name-title">
+            ${escapeHtml(displayName)}
+            ${isMasked ? '<span class="patient-masked-badge">🔒</span>' : ''}
+          </h2>
+          <div class="patient-sub-meta">
+            <span>No. RM: <code>${displayMr}</code></span> &bull;
+            <span>${profile.gender === 'L' ? 'Laki-laki' : 'Perempuan'} ${profile.age ? '• ' + profile.age : ''}</span> &bull;
+            <span>Kamar / Bed Terakhir: <strong>${profile.room} - Bed ${profile.bed}</strong></span> &bull;
+            <span>Jaminan: <strong class="badge badge-primary">${profile.insurance}</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:0.5rem; align-items:center;">
+        <span class="status-chip ${isCurrentlyAdmitted ? 'chip-success' : 'chip-warning'}">
+          ${isCurrentlyAdmitted ? '🟢 Aktif Rawat Inap' : '⚪ Riwayat Sensus / KRS'}
+        </span>
+      </div>
+    </div>
+
+    <div class="patient-kpi-summary-row">
+      <div class="chronology-kpi-pill">
+        <span class="kpi-sub-title">Hari Rawat Terdata</span>
+        <span class="kpi-num-val">${days.length} Hari</span>
+      </div>
+      <div class="chronology-kpi-pill">
+        <span class="kpi-sub-title">Total Catatan CPPT</span>
+        <span class="kpi-num-val">${totalShiftNotes + customEntries.length} Catatan</span>
+      </div>
+      <div class="chronology-kpi-pill">
+        <span class="kpi-sub-title">Tgl Masuk (MRS)</span>
+        <span class="kpi-num-val" style="font-size:0.95rem;">${profile.admissionDate || '-'}</span>
+      </div>
+      <div class="chronology-kpi-pill">
+        <span class="kpi-sub-title">DPJP Penanggung Jawab</span>
+        <span class="kpi-num-val" style="font-size:0.85rem; color:var(--text-primary);">${escapeHtml(profile.doctorPrimary || profile.doctor)}</span>
+      </div>
+    </div>
+
+    <div class="patient-diagnosis-box">
+      <div class="box-label">Diagnosa Kerja / Diagnosa Utama:</div>
+      <div style="font-weight:600; color:var(--text-primary); margin-bottom:0.35rem;">${escapeHtml(profile.diagnosis)}</div>
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center;">
+        <span class="badge badge-outline">${profile.category}</span>
+        ${Array.from(procSet).map(pr => `<span class="tag-badge tag-blue">${escapeHtml(pr)}</span>`).join(' ')}
+      </div>
+    </div>
+  `;
+
+  // Determine display order
+  let displayDays = [...days];
+  if (state.chronologySort === 'desc') {
+    displayDays.reverse();
+  }
+
+  // Render Timeline Day Cards
+  let timelineHtml = '';
+
+  displayDays.forEach(d => {
+    const pt = d.patient;
+    const formattedDate = formatIndonesianDate(d.date);
+
+    // Filter custom entries for this date
+    const dayCustomEntries = customEntries.filter(c => c.date === d.date);
+
+    timelineHtml += `
+      <div class="timeline-day-card" id="timelineDay-${d.date}">
+        <div class="timeline-day-header">
+          <div class="day-header-left">
+            <span class="day-number-badge">Hari Rawat ke-${d.dayOfStay}</span>
+            <span class="day-date-title">${formattedDate}</span>
+            <span class="day-bed-badge">${pt.room} &bull; Bed ${pt.bed}</span>
+            ${d.bedChanged ? `<span class="bed-transfer-alert" title="Pindah dari ${d.prevLoc}">⚠️ Pindah Bed (dari ${d.prevLoc})</span>` : ''}
+            ${pt.isDischargedToday ? `<span class="day-discharge-alert">🏁 Rencana / Pasien KRS Pulang</span>` : ''}
+          </div>
+
+          <div>
+            <span class="badge badge-outline" style="font-size:0.75rem;">LOS: ${pt.los} Hari</span>
+          </div>
+        </div>
+
+        ${d.diagnosisChanged ? `
+          <div style="background:rgba(234, 88, 12, 0.08); padding:0.4rem 0.75rem; border-radius:4px; font-size:0.8rem; color:#ea580c;">
+            <strong>Perubahan Diagnosa:</strong> ${escapeHtml(pt.diagnosis)}
+          </div>
+        ` : ''}
+
+        <!-- 3 Shifts CPPT Grid -->
+        <div class="timeline-shifts-grid">
+          <!-- Pagi -->
+          <div class="timeline-shift-card shift-card-pagi">
+            <div class="timeline-shift-header">
+              <span class="shift-icon-label">☀️ Shift Pagi</span>
+              <span class="shift-time-pill">07.00 - 14.00</span>
+            </div>
+            <div class="timeline-shift-body">
+              ${pt.notes?.pagi && pt.notes.pagi.trim().length > 0 
+                ? highlightClinicalKeywords(pt.notes.pagi) 
+                : '<span class="timeline-shift-empty">Tidak ada catatan shift pagi</span>'}
+            </div>
+          </div>
+
+          <!-- Sore -->
+          <div class="timeline-shift-card shift-card-sore">
+            <div class="timeline-shift-header">
+              <span class="shift-icon-label">⛅ Shift Sore</span>
+              <span class="shift-time-pill">14.00 - 21.00</span>
+            </div>
+            <div class="timeline-shift-body">
+              ${pt.notes?.sore && pt.notes.sore.trim().length > 0 
+                ? highlightClinicalKeywords(pt.notes.sore) 
+                : '<span class="timeline-shift-empty">Tidak ada catatan shift sore</span>'}
+            </div>
+          </div>
+
+          <!-- Malam -->
+          <div class="timeline-shift-card shift-card-malam">
+            <div class="timeline-shift-header">
+              <span class="shift-icon-label">🌙 Shift Malam</span>
+              <span class="shift-time-pill">21.00 - 07.00</span>
+            </div>
+            <div class="timeline-shift-body">
+              ${pt.notes?.malam && pt.notes.malam.trim().length > 0 
+                ? highlightClinicalKeywords(pt.notes.malam) 
+                : '<span class="timeline-shift-empty">Tidak ada catatan shift malam</span>'}
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom User-Added Progress Notes for this Day -->
+        ${dayCustomEntries.length > 0 ? `
+          <div class="timeline-custom-entries-list">
+            ${dayCustomEntries.map(c => `
+              <div class="custom-entry-card">
+                <div class="custom-entry-header">
+                  <div style="display:flex; gap:0.5rem; align-items:center;">
+                    <span class="ppa-badge">${escapeHtml(c.ppa || 'Petugas Ruangan')}</span>
+                    <strong style="font-size:0.8rem; color:var(--text-primary);">${c.shiftTitle} &bull; Jam ${c.time || '-'} WIB</strong>
+                  </div>
+                  <div style="display:flex; gap:0.35rem;">
+                    ${(c.procedures || []).map(p => `<span class="badge badge-primary" style="font-size:0.68rem;">${p}</span>`).join('')}
+                  </div>
+                </div>
+                <div class="soap-preview-grid">
+                  <div class="soap-preview-item">
+                    <strong>S (Subjektif):</strong>
+                    <span>${escapeHtml(c.s || '-')}</span>
+                  </div>
+                  <div class="soap-preview-item">
+                    <strong>O (Objektif):</strong>
+                    <span>${escapeHtml(c.o || '-')}</span>
+                  </div>
+                  <div class="soap-preview-item">
+                    <strong>A (Asesmen):</strong>
+                    <span>${escapeHtml(c.a || '-')}</span>
+                  </div>
+                  <div class="soap-preview-item">
+                    <strong>P (Planning):</strong>
+                    <span>${escapeHtml(c.p || '-')}</span>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  });
+
+  // Also check if there are custom entries with dates outside recorded sensus days
+  const knownDates = new Set(days.map(d => d.date));
+  const otherCustomEntries = customEntries.filter(c => !knownDates.has(c.date));
+  if (otherCustomEntries.length > 0) {
+    timelineHtml += `
+      <div class="timeline-day-card" style="border-left: 4px solid #10b981;">
+        <div class="timeline-day-header">
+          <div class="day-header-left">
+            <span class="day-number-badge" style="background:#10b981;">Catatan Tambahan</span>
+            <span class="day-date-title">Observasi & Catatan Tambahan Petugas</span>
+          </div>
+        </div>
+        <div class="timeline-custom-entries-list">
+          ${otherCustomEntries.map(c => `
+            <div class="custom-entry-card">
+              <div class="custom-entry-header">
+                <div style="display:flex; gap:0.5rem; align-items:center;">
+                  <span class="ppa-badge">${escapeHtml(c.ppa || 'Petugas Ruangan')}</span>
+                  <strong style="font-size:0.8rem; color:var(--text-primary);">${formatIndonesianDate(c.date)} &bull; ${c.shiftTitle} (${c.time || '-'} WIB)</strong>
+                </div>
+              </div>
+              <div class="soap-preview-grid">
+                <div class="soap-preview-item"><strong>S:</strong> ${escapeHtml(c.s || '-')}</div>
+                <div class="soap-preview-item"><strong>O:</strong> ${escapeHtml(c.o || '-')}</div>
+                <div class="soap-preview-item"><strong>A:</strong> ${escapeHtml(c.a || '-')}</div>
+                <div class="soap-preview-item"><strong>P:</strong> ${escapeHtml(c.p || '-')}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  container.innerHTML = timelineHtml;
+}
+
+// Modal Form Management: Add Chronology Entry
+function openChronologyEntryModal() {
+  const patientKey = state.chronologyPatient;
+  if (!patientKey) return;
+
+  const { profile } = getPatientChronologyData(patientKey);
+  if (!profile) return;
+
+  const modal = document.getElementById('chronologyEntryModal');
+  const label = document.getElementById('chronologyModalPatientLabel');
+  const dateInput = document.getElementById('entryDateInput');
+  const timeInput = document.getElementById('entryTimeInput');
+
+  if (label) {
+    const displayName = maskPatientName(profile.name);
+    const displayMr = maskMrNo(profile.mrNo);
+    label.textContent = `Pasien: ${displayName} (No. RM: ${displayMr}) • ${profile.room} Bed ${profile.bed}`;
+  }
+
+  const todayStr = state.currentDate || new Date().toISOString().slice(0, 10);
+  if (dateInput) dateInput.value = todayStr;
+
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0');
+  const mins = String(now.getMinutes()).padStart(2, '0');
+  if (timeInput) timeInput.value = `${hours}:${mins}`;
+
+  // Reset fields
+  document.getElementById('entrySubjective').value = '';
+  document.getElementById('entryObjective').value = '';
+  document.getElementById('entryAssessment').value = '';
+  document.getElementById('entryPlanning').value = '';
+  document.getElementById('entryPpaInput').value = '';
+  document.querySelectorAll('#chronologyEntryForm input[type="checkbox"]').forEach(c => c.checked = false);
+
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeChronologyEntryModal() {
+  const modal = document.getElementById('chronologyEntryModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function saveCustomChronologyEntry() {
+  const patientKey = state.chronologyPatient;
+  if (!patientKey) return;
+
+  const dateVal = document.getElementById('entryDateInput')?.value;
+  const timeVal = document.getElementById('entryTimeInput')?.value || '';
+  const shiftSelect = document.getElementById('entryShiftSelect');
+  const shiftVal = shiftSelect?.value || 'pagi';
+  const shiftTitle = shiftSelect?.options[shiftSelect.selectedIndex]?.text || 'Catatan Klinis';
+  const ppaVal = document.getElementById('entryPpaInput')?.value.trim() || 'Perawat Jaga';
+  const sVal = document.getElementById('entrySubjective')?.value.trim() || '';
+  const oVal = document.getElementById('entryObjective')?.value.trim() || '';
+  const aVal = document.getElementById('entryAssessment')?.value.trim() || '';
+  const pVal = document.getElementById('entryPlanning')?.value.trim() || '';
+
+  if (!dateVal) {
+    showToast('Pilih tanggal catatan terlebih dahulu!', 'warning');
+    return;
+  }
+
+  if (!sVal && !oVal && !aVal && !pVal) {
+    showToast('Mohon isi minimal satu komponen catatan SOAP!', 'warning');
+    return;
+  }
+
+  const procs = [];
+  document.querySelectorAll('#chronologyEntryForm input[type="checkbox"]:checked').forEach(c => {
+    procs.push(c.value);
+  });
+
+  const newEntry = {
+    id: 'entry_' + Date.now(),
+    date: dateVal,
+    time: timeVal,
+    shift: shiftVal,
+    shiftTitle: shiftTitle,
+    ppa: ppaVal,
+    s: sVal,
+    o: oVal,
+    a: aVal,
+    p: pVal,
+    procedures: procs,
+    createdAt: new Date().toISOString()
+  };
+
+  try {
+    const key = 'eg2_chronology_custom_' + patientKey;
+    const existing = JSON.parse(localStorage.getItem(key) || '[]');
+    existing.push(newEntry);
+    localStorage.setItem(key, JSON.stringify(existing));
+
+    closeChronologyEntryModal();
+    showToast('Catatan kronologi rawat berhasil disimpan!', 'success');
+    renderChronologyTimeline(patientKey);
+  } catch (err) {
+    console.error('Error saving chronology entry:', err);
+    showToast('Gagal menyimpan catatan: ' + err.message, 'error');
+  }
+}
+
+// Print Hospital Official Chronology Document
+function printChronologyResume(patientKey) {
+  const { days, customEntries, profile } = getPatientChronologyData(patientKey);
+  if (!profile) return;
+
+  const printContainer = document.getElementById('printContainer');
+  if (!printContainer) return;
+
+  const displayName = maskPatientName(profile.name);
+  const displayMr = maskMrNo(profile.mrNo);
+
+  let rowsHtml = '';
+  days.forEach(d => {
+    const pt = d.patient;
+    const dateFormatted = formatIndonesianDate(d.date);
+    const dayCustom = customEntries.filter(c => c.date === d.date);
+
+    let content = '';
+    if (pt.notes?.pagi) content += `<strong>Pagi (07-14):</strong> ${escapeHtml(pt.notes.pagi)}<br>`;
+    if (pt.notes?.sore) content += `<strong>Sore (14-21):</strong> ${escapeHtml(pt.notes.sore)}<br>`;
+    if (pt.notes?.malam) content += `<strong>Malam (21-07):</strong> ${escapeHtml(pt.notes.malam)}<br>`;
+
+    if (dayCustom.length > 0) {
+      content += `<hr style="margin:4px 0; border:0; border-top:1px dashed #ccc;">`;
+      dayCustom.forEach(c => {
+        content += `<strong>[${c.shiftTitle} - ${c.ppa}]:</strong> S: ${escapeHtml(c.s)} | O: ${escapeHtml(c.o)} | A: ${escapeHtml(c.a)} | P: ${escapeHtml(c.p)}<br>`;
+      });
+    }
+
+    rowsHtml += `
+      <tr>
+        <td style="text-align:center; font-weight:bold;">Hari ke-${d.dayOfStay}</td>
+        <td>${dateFormatted}</td>
+        <td>${pt.room} - B${pt.bed}</td>
+        <td>${escapeHtml(pt.doctorPrimary || pt.doctor)}</td>
+        <td>${content || 'Tidak ada catatan'}</td>
+        <td style="font-size:9pt;">${escapeHtml(pt.diagnosis)}</td>
+      </tr>
+    `;
+  });
+
+  printContainer.innerHTML = `
+    <div class="chronology-print-letterhead">
+      <h3>PEMERINTAH PROVINSI KALIMANTAN BARAT</h3>
+      <h2>RUMAH SAKIT UMUM DAERAH DOKTER SOEDARSO</h2>
+      <p>Jl. Dr. Soedarso No. 1, Pontianak 78124, Kalimantan Barat &bull; Telp. (0561) 737701</p>
+      <p style="font-weight:bold; margin-top:2px;">INSTALASI RAWAT INAP - RUANG ENGGANG GADING 2 (EG 2A &amp; EG 2B)</p>
+    </div>
+
+    <div class="chronology-print-title">RESUME KRONOLOGIS PERJALANAN RAWAT INAP PASIEN (CPPT)</div>
+
+    <table class="chronology-print-patient-table">
+      <tr>
+        <td width="18%"><strong>Nama Pasien</strong></td>
+        <td width="32%">: ${escapeHtml(displayName)}</td>
+        <td width="18%"><strong>Tanggal Masuk (MRS)</strong></td>
+        <td width="32%">: ${profile.admissionDate || '-'}</td>
+      </tr>
+      <tr>
+        <td><strong>Nomor Rekam Medis</strong></td>
+        <td>: ${displayMr}</td>
+        <td><strong>Total Hari Terdata (LOS)</strong></td>
+        <td>: ${days.length} Hari</td>
+      </tr>
+      <tr>
+        <td><strong>Jenis Kelamin / Usia</strong></td>
+        <td>: ${profile.gender === 'L' ? 'Laki-laki' : 'Perempuan'} ${profile.age ? '/ ' + profile.age : ''}</td>
+        <td><strong>Ruang / Kamar Terakhir</strong></td>
+        <td>: ${profile.room} - Bed ${profile.bed}</td>
+      </tr>
+      <tr>
+        <td><strong>DPJP Utama</strong></td>
+        <td>: ${escapeHtml(profile.doctorPrimary || profile.doctor)}</td>
+        <td><strong>Jaminan / Asuransi</strong></td>
+        <td>: ${profile.insurance}</td>
+      </tr>
+      <tr>
+        <td><strong>Diagnosa Kerja</strong></td>
+        <td colspan="3">: ${escapeHtml(profile.diagnosis)}</td>
+      </tr>
+    </table>
+
+    <table class="chronology-print-data-table">
+      <thead>
+        <tr>
+          <th width="8%">Hari Rawat</th>
+          <th width="14%">Tanggal</th>
+          <th width="10%">Bed / Ruang</th>
+          <th width="18%">DPJP / Dokter</th>
+          <th width="35%">Catatan Perkembangan Terintegrasi (CPPT / SBAR Shift)</th>
+          <th width="15%">Diagnosa / Keterangan</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rowsHtml}
+      </tbody>
+    </table>
+
+    <div class="chronology-print-signatures">
+      <div class="chronology-print-sig-col">
+        <p>Mengetahui,<br>Kepala Ruang Rawat Inap EG 2</p>
+        <div class="chronology-print-sig-space"></div>
+        <p><strong>( Ns. Ruang Enggang Gading 2, S.Kep )</strong><br>NIP. ........................................</p>
+      </div>
+
+      <div class="chronology-print-sig-col">
+        <p>Pontianak, ${formatIndonesianDate(state.currentDate || new Date().toISOString().slice(0, 10))}<br>Dokter Penanggung Jawab Pelayanan (DPJP)</p>
+        <div class="chronology-print-sig-space"></div>
+        <p><strong>( ${escapeHtml(profile.doctorPrimary || profile.doctor)} )</strong><br>SIP. ........................................</p>
+      </div>
+    </div>
+  `;
+
+  document.body.classList.add('printing-chronology');
+  window.print();
+  window.onafterprint = () => {
+    document.body.classList.remove('printing-chronology');
+  };
+}
+
+// Copy Plaintext Summary to Clipboard
+function copyChronologySummary(patientKey) {
+  const { days, customEntries, profile } = getPatientChronologyData(patientKey);
+  if (!profile) return;
+
+  const displayName = maskPatientName(profile.name);
+  const displayMr = maskMrNo(profile.mrNo);
+
+  let text = `======================================================================\n`;
+  text += `RESUME & KRONOLOGI RAWAT INAP PASIEN (CPPT)\n`;
+  text += `RUANG ENGGANG GADING 2 - RSUD DR. SOEDARSO PONTIANAK\n`;
+  text += `======================================================================\n`;
+  text += `Nama Pasien      : ${displayName}\n`;
+  text += `No. Rekam Medis  : ${displayMr}\n`;
+  text += `Jenis Kelamin/Usia: ${profile.gender === 'L' ? 'Laki-laki' : 'Perempuan'} ${profile.age ? '/ ' + profile.age : ''}\n`;
+  text += `Ruang / Bed      : ${profile.room} - Bed ${profile.bed}\n`;
+  text += `DPJP             : ${profile.doctorPrimary || profile.doctor}\n`;
+  text += `Jaminan          : ${profile.insurance}\n`;
+  text += `Tanggal Masuk    : ${profile.admissionDate || '-'}\n`;
+  text += `Total Hari Rawat : ${days.length} Hari\n`;
+  text += `Diagnosa Kerja   : ${profile.diagnosis}\n`;
+  text += `----------------------------------------------------------------------\n`;
+  text += `PERJALANAN KLINIS DARI HARI KE HARI:\n`;
+
+  days.forEach(d => {
+    const pt = d.patient;
+    text += `\n[HARI KE-${d.dayOfStay} - ${formatIndonesianDate(d.date)}] (${pt.room} Bed ${pt.bed})\n`;
+    if (d.bedChanged) text += `* Pindah dari ${d.prevLoc}\n`;
+    if (pt.notes?.pagi) text += `  - Shift Pagi (07-14) : ${pt.notes.pagi.replace(/\n+/g, ' ')}\n`;
+    if (pt.notes?.sore) text += `  - Shift Sore (14-21) : ${pt.notes.sore.replace(/\n+/g, ' ')}\n`;
+    if (pt.notes?.malam) text += `  - Shift Malam (21-07): ${pt.notes.malam.replace(/\n+/g, ' ')}\n`;
+
+    const dayCustom = customEntries.filter(c => c.date === d.date);
+    dayCustom.forEach(c => {
+      text += `  - [${c.shiftTitle} / ${c.ppa}]: S: ${c.s} | O: ${c.o} | A: ${c.a} | P: ${c.p}\n`;
+    });
+  });
+
+  text += `======================================================================\n`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('Ringkasan kronologi pasien berhasil disalin ke clipboard!', 'success');
+  }).catch(err => {
+    console.error('Clipboard copy error:', err);
+    showToast('Gagal menyalin teks: ' + err.message, 'error');
+  });
 }

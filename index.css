@@ -3686,5 +3686,816 @@ body::before {
   }
 }
 
+/* ==========================================================================
+   TAB 6: PEMBUATAN RIWAYAT KRONOLOGI RAWAT PASIEN
+   ========================================================================== */
+.chronology-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 0.25rem 0 2rem 0;
+}
 
+.chronology-header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem 1.65rem;
+  box-shadow: var(--shadow-sm);
+}
 
+.chronology-title-group {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.chronology-icon-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.18), rgba(2, 132, 199, 0.28));
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(14, 165, 233, 0.35);
+}
+
+.chronology-icon-badge svg {
+  width: 26px;
+  height: 26px;
+}
+
+.chronology-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.chronology-title-row h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  font-family: var(--font-heading);
+}
+
+.chronology-actions-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+/* Patient Picker Control Bar */
+.chronology-patient-picker {
+  display: grid;
+  grid-template-columns: 1.6fr 1.6fr 1fr;
+  gap: 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 1.15rem 1.4rem;
+  align-items: end;
+  position: relative;
+}
+
+.picker-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.4rem;
+}
+
+.picker-search-col {
+  position: relative;
+}
+
+.search-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 280px;
+  overflow-y: auto;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+}
+
+.search-dropdown-item {
+  padding: 0.65rem 0.9rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  transition: background 0.15s ease;
+}
+
+.search-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.search-dropdown-item:hover {
+  background: rgba(14, 165, 233, 0.12);
+}
+
+.search-dropdown-item strong {
+  color: var(--text-primary);
+}
+
+.search-dropdown-item .item-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.picker-sort-col .btn-group-toggle {
+  display: flex;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-medium);
+}
+
+.btn-toggle {
+  flex: 1;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--bg-surface-elevated);
+  color: var(--text-muted);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-toggle.active {
+  background: var(--accent-primary);
+  color: #ffffff;
+}
+
+/* Quick Active Patient Chips */
+.chronology-quick-chips {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: rgba(14, 165, 233, 0.05);
+  border: 1px dashed var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1.15rem;
+  overflow: hidden;
+}
+
+.quick-chip-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.quick-chips-scroll {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.15rem;
+  scrollbar-width: thin;
+}
+
+.active-patient-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.active-patient-chip:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
+.active-patient-chip.active {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
+}
+
+.active-patient-chip .chip-bed-tag {
+  background: rgba(0, 0, 0, 0.12);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* Patient Header Profile Card */
+.chronology-patient-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.65rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.chronology-patient-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #0284c7, #38bdf8, #10b981);
+}
+
+.patient-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.patient-identity-left {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.patient-avatar-badge {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0284c7, #0ea5e9);
+  color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+  flex-shrink: 0;
+}
+
+.patient-name-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.25rem 0;
+}
+
+.patient-sub-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.patient-sub-meta strong {
+  color: var(--text-secondary);
+}
+
+.patient-kpi-summary-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.85rem;
+}
+
+.chronology-kpi-pill {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.chronology-kpi-pill .kpi-sub-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.chronology-kpi-pill .kpi-num-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+}
+
+.patient-diagnosis-box {
+  background: rgba(14, 165, 233, 0.05);
+  border-left: 3px solid var(--accent-primary);
+  padding: 0.75rem 1rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.85rem;
+}
+
+.patient-diagnosis-box .box-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+/* Timeline Layout */
+.chronology-timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.chronology-empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--bg-surface);
+  border: 2px dashed var(--border-medium);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+}
+
+.chronology-empty-state .empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+}
+
+.chronology-empty-state h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+}
+
+.chronology-empty-state p {
+  font-size: 0.85rem;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Timeline Day Card */
+.timeline-day-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1.35rem 1.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timeline-day-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(14, 165, 233, 0.4);
+}
+
+.timeline-day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 0.85rem;
+}
+
+.day-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.day-number-badge {
+  background: linear-gradient(135deg, #0284c7, #0ea5e9);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+}
+
+.day-date-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+}
+
+.day-bed-badge {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.bed-transfer-alert {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(234, 88, 12, 0.12);
+  border: 1px solid rgba(234, 88, 12, 0.35);
+  color: #ea580c;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.day-discharge-alert {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #10b981;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* Shift Notes Grid */
+.timeline-shifts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+}
+
+.timeline-shift-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 0.95rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.shift-card-pagi { border-top: 3px solid #eab308; }
+.shift-card-sore { border-top: 3px solid #f97316; }
+.shift-card-malam { border-top: 3px solid #6366f1; }
+.shift-card-custom { border-top: 3px solid #10b981; }
+
+.timeline-shift-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shift-icon-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.shift-card-pagi .shift-icon-label { color: #ca8a04; }
+.shift-card-sore .shift-icon-label { color: #ea580c; }
+.shift-card-malam .shift-icon-label { color: #4f46e5; }
+.shift-card-custom .shift-icon-label { color: #10b981; }
+
+[data-theme="dark"] .shift-card-pagi .shift-icon-label { color: #facc15; }
+[data-theme="dark"] .shift-card-sore .shift-icon-label { color: #fb923c; }
+[data-theme="dark"] .shift-card-malam .shift-icon-label { color: #818cf8; }
+[data-theme="dark"] .shift-card-custom .shift-icon-label { color: #34d399; }
+
+.shift-time-pill {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.timeline-shift-body {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.timeline-shift-empty {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+/* Custom User Added Entries in Timeline */
+.timeline-custom-entries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+}
+
+.custom-entry-card {
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.custom-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ppa-badge {
+  background: rgba(16, 185, 129, 0.18);
+  color: #10b981;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+}
+
+.soap-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65rem;
+}
+
+.soap-preview-item {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.7rem;
+}
+
+.soap-preview-item strong {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--accent-primary);
+  margin-bottom: 0.15rem;
+}
+
+/* SOAP Modal Input Styling */
+.modal-dialog-md {
+  max-width: 680px;
+  width: 95%;
+}
+
+.soap-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.soap-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  position: relative;
+}
+
+.soap-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.soap-s { background: #0284c7; }
+.soap-o { background: #0ea5e9; }
+.soap-a { background: #f59e0b; }
+.soap-p { background: #10b981; }
+
+.form-textarea-sm {
+  min-height: 85px;
+  font-size: 0.82rem;
+  resize: vertical;
+}
+
+.procedure-checkbox-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 0.35rem;
+}
+
+.proc-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  padding: 0.35rem 0.7rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.proc-check:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* Responsive adjustments for Chronology */
+@media (max-width: 1024px) {
+  .chronology-patient-picker {
+    grid-template-columns: 1fr 1fr;
+  }
+  .picker-sort-col {
+    grid-column: span 2;
+  }
+  .timeline-shifts-grid {
+    grid-template-columns: 1fr;
+  }
+  .soap-preview-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .chronology-patient-picker {
+    grid-template-columns: 1fr;
+  }
+  .picker-sort-col {
+    grid-column: span 1;
+  }
+  .soap-inputs-grid {
+    grid-template-columns: 1fr;
+  }
+  .patient-card-top {
+    flex-direction: column;
+  }
+}
+
+/* ==========================================================================
+   OFFICIAL HOSPITAL PRINT LAYOUT (RESUME KRONOLOGIS RAWAT INAP)
+   ========================================================================== */
+@media print {
+  body.printing-chronology * {
+    visibility: hidden;
+  }
+  body.printing-chronology #printContainer,
+  body.printing-chronology #printContainer * {
+    visibility: visible;
+  }
+  body.printing-chronology #printContainer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 1.5cm;
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    line-height: 1.35;
+  }
+}
+
+.chronology-print-letterhead {
+  border-bottom: 3px double #000000;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.chronology-print-letterhead h3 {
+  font-size: 12pt;
+  font-weight: normal;
+  margin: 0 0 2px 0;
+  text-transform: uppercase;
+}
+
+.chronology-print-letterhead h2 {
+  font-size: 14pt;
+  font-weight: bold;
+  margin: 0 0 2px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.chronology-print-letterhead p {
+  font-size: 9pt;
+  margin: 0;
+  font-style: italic;
+}
+
+.chronology-print-title {
+  text-align: center;
+  font-size: 13pt;
+  font-weight: bold;
+  margin: 12px 0 16px 0;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+.chronology-print-patient-table,
+.chronology-print-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  font-size: 10pt;
+}
+
+.chronology-print-patient-table td {
+  padding: 4px 6px;
+  vertical-align: top;
+}
+
+.chronology-print-data-table th,
+.chronology-print-data-table td {
+  border: 1px solid #333333;
+  padding: 6px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.chronology-print-data-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.chronology-print-signatures {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 36px;
+  page-break-inside: avoid;
+}
+
+.chronology-print-sig-col {
+  width: 42%;
+  text-align: center;
+  font-size: 10pt;
+}
+
+.chronology-print-sig-space {
+  height: 60px;
+}

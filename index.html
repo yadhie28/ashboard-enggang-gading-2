@@ -118,6 +118,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
           <span>Direktori Master Pasien</span>
         </button>
+        <button class="tab-btn" data-tab="tabChronology" id="btnTabChronology">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Kronologi Rawat Pasien</span>
+        </button>
       </div>
 
       <!-- Quick Filter Chips (Shown when Bed Map or Directory is active) -->
@@ -869,6 +873,94 @@
         </div>
       </div>
     </section>
+
+    <!-- TAB 6: PEMBUATAN RIWAYAT KRONOLOGI RAWAT PASIEN -->
+    <section id="tabChronology" class="tab-content">
+      <div class="chronology-wrapper">
+        <!-- Top Toolbar & Patient Selector -->
+        <div class="chronology-header-card">
+          <div class="chronology-title-group">
+            <div class="chronology-icon-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 8v4l3 3"/>
+                <circle cx="12" cy="12" r="9"/>
+              </svg>
+            </div>
+            <div>
+              <div class="chronology-title-row">
+                <h2>Pembuatan Riwayat Kronologi Rawat Pasien</h2>
+                <span class="badge badge-primary">CPPT &amp; Rekam Klinis</span>
+              </div>
+              <p class="chart-subtitle">Rekonstruksi &amp; Dokumentasi Perjalanan Rawat Inap Harian (Sensus, SBAR, Shift, DPJP &amp; Prosedur) Ruang EG 2</p>
+            </div>
+          </div>
+
+          <div class="chronology-actions-toolbar">
+            <button class="btn btn-primary" id="btnNewChronologyEntry" title="Tambah Catatan Perkembangan / Observasi Baru">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>Tambah Catatan Klinis</span>
+            </button>
+            <button class="btn btn-secondary" id="btnPrintChronology" title="Cetak Format Dokumen Resmi RSUD Dr. Soedarso">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              <span>Cetak Resume Kronologi</span>
+            </button>
+            <button class="btn btn-secondary" id="btnCopyChronologySummary" title="Salin Ringkasan Kronologis ke Clipboard (SIMRS / Handover)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Salin Teks Kronologi</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Patient Selection Control Panel -->
+        <div class="chronology-patient-picker">
+          <div class="picker-search-col">
+            <label for="chronologySearchInput" class="picker-label">Pencarian Pasien (No. RM / Nama):</label>
+            <div class="input-with-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="text" id="chronologySearchInput" placeholder="Ketik No. RM atau Nama Pasien..." autocomplete="off">
+            </div>
+            <div id="chronologySearchResults" class="search-dropdown-menu" style="display:none;"></div>
+          </div>
+
+          <div class="picker-dropdown-col">
+            <label for="chronologyPatientSelect" class="picker-label">Atau Pilih Pasien Dari Master / Sensus:</label>
+            <select id="chronologyPatientSelect">
+              <option value="">-- Pilih Pasien Ruang Enggang Gading 2 --</option>
+            </select>
+          </div>
+
+          <div class="picker-sort-col">
+            <label class="picker-label">Urutan Kronologi:</label>
+            <div class="btn-group-toggle">
+              <button class="btn-toggle active" id="sortChronologyAsc" title="Dari Hari Pertama Rawat ke Terakhir">Hari 1 &rarr; Akhir</button>
+              <button class="btn-toggle" id="sortChronologyDesc" title="Dari Hari Terbaru ke Hari Pertama">Terbaru &rarr; Hari 1</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Patient Pills: Currently Active Patients in Ward -->
+        <div class="chronology-quick-chips">
+          <span class="quick-chip-label">Pasien Sedang Dirawat:</span>
+          <div class="quick-chips-scroll" id="chronologyActivePillsContainer">
+            <!-- Dynamically injected pills for quick click -->
+          </div>
+        </div>
+
+        <!-- Patient Detail Header Card (Visible once patient is selected) -->
+        <div class="chronology-patient-card" id="chronologyPatientCard" style="display:none;">
+          <!-- Dynamically populated patient header -->
+        </div>
+
+        <!-- Main Timeline & CPPT Flow -->
+        <div class="chronology-timeline-container" id="chronologyTimelineContainer">
+          <div class="chronology-empty-state" id="chronologyEmptyState">
+            <div class="empty-state-icon">📋</div>
+            <h3>Pilih Pasien untuk Menampilkan / Membuat Kronologi Rawat</h3>
+            <p>Pilih salah satu pasien di atas, cari berdasarkan Nomor RM / Nama, atau klik tombol "Kronologi" pada tabel Direktori Pasien / Detail Bed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- PATIENT DETAIL & SBAR MODAL -->
@@ -936,6 +1028,10 @@
       </div>
 
       <div class="modal-footer">
+        <button class="btn btn-accent" id="modalOpenChronologyBtn" title="Buka riwayat perjalanan dan pembuatan kronologi rawat pasien">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
+          <span>Kronologi Rawat</span>
+        </button>
         <button class="btn btn-secondary" id="modalCopySbarBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           <span>Salin Format SBAR</span>
@@ -1086,6 +1182,94 @@
           </button>
           <button class="btn btn-secondary" id="modalCloseBtn">Tutup</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL TAMBAH CATATAN KRONOLOGI RAWAT -->
+  <div class="modal-overlay" id="chronologyEntryModal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="chronologyModalTitle">
+    <div class="modal-dialog modal-dialog-md">
+      <div class="modal-header">
+        <div class="modal-patient-info">
+          <h2 id="chronologyModalTitle" class="modal-title" style="font-size:1.2rem;">Tambah Catatan Kronologi Rawat</h2>
+          <p class="caption-text" id="chronologyModalPatientLabel">Pasien: -</p>
+        </div>
+        <button class="modal-close-btn" id="chronologyModalCloseBtn" aria-label="Tutup Modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="chronologyEntryForm" onsubmit="return false;">
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label for="entryDateInput" class="form-label">Tanggal Observasi / Catatan</label>
+              <input type="date" id="entryDateInput" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="entryTimeInput" class="form-label">Jam (WIB)</label>
+              <input type="time" id="entryTimeInput" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="form-row form-row-2">
+            <div class="form-group">
+              <label for="entryShiftSelect" class="form-label">Shift / Jenis Catatan</label>
+              <select id="entryShiftSelect" class="form-control" required>
+                <option value="pagi">Shift Pagi (07:00 - 14:00)</option>
+                <option value="sore">Shift Sore (14:00 - 21:00)</option>
+                <option value="malam">Shift Malam (21:00 - 07:00)</option>
+                <option value="visite_dpjp">Visite Dokter Spesialis (DPJP)</option>
+                <option value="visite_jaga">Visite Dokter Jaga Ruangan</option>
+                <option value="tindakan">Tindakan / Prosedur Khusus</option>
+                <option value="krs">Ringkasan Kepulangan / KRS</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="entryPpaInput" class="form-label">Nama Petugas / PPA</label>
+              <input type="text" id="entryPpaInput" class="form-control" placeholder="Contoh: dr. Ivan, Sp.PD / Ns. Fatimah" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Catatan Perkembangan Pasien Terintegrasi (CPPT / SOAP)</label>
+            <div class="soap-inputs-grid">
+              <div class="soap-col">
+                <span class="soap-badge soap-s">S</span>
+                <textarea id="entrySubjective" class="form-control form-textarea-sm" placeholder="Subjektif (Keluhan utama pasien, respon nyeri, mual, sesak, dll)..."></textarea>
+              </div>
+              <div class="soap-col">
+                <span class="soap-badge soap-o">O</span>
+                <textarea id="entryObjective" class="form-control form-textarea-sm" placeholder="Objektif (TTV: TD, Nadi, RR, Suhu, SpO2, GDS, KU, hasil lab/foto)..."></textarea>
+              </div>
+              <div class="soap-col">
+                <span class="soap-badge soap-a">A</span>
+                <textarea id="entryAssessment" class="form-control form-textarea-sm" placeholder="Asesmen (Diagnosis klinis, perbaikan / perburukan, evaluasi)..."></textarea>
+              </div>
+              <div class="soap-col">
+                <span class="soap-badge soap-p">P</span>
+                <textarea id="entryPlanning" class="form-control form-textarea-sm" placeholder="Planning (Instruksi DPJP, terapi obat, infus, program HD/TF/OK)..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Prosedur / Tag Klinis Terkait Hari Ini</label>
+            <div class="procedure-checkbox-row">
+              <label class="proc-check"><input type="checkbox" value="HD" id="chkProcHd"> Hemodialisa (HD)</label>
+              <label class="proc-check"><input type="checkbox" value="Transfusi" id="chkProcTf"> Transfusi Darah (PRC/WB)</label>
+              <label class="proc-check"><input type="checkbox" value="Bedah" id="chkProcSurgery"> Tindakan Bedah / Operasi</label>
+              <label class="proc-check"><input type="checkbox" value="DM" id="chkProcDm"> Monitoring GDS / Insulin</label>
+              <label class="proc-check"><input type="checkbox" value="KRS" id="chkProcKrs"> Rencana / ACC KRS Pulang</label>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnCancelChronologyEntry">Batal</button>
+        <button class="btn btn-primary" id="btnSaveChronologyEntry">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          <span>Simpan ke Kronologi</span>
+        </button>
       </div>
     </div>
   </div>
