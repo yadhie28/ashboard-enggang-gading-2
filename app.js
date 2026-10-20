@@ -943,50 +943,109 @@ function highlightClinicalKeywords(text) {
 function renderAnalyticsTab() {
   if (!state.data) return;
 
-  // 1. Top Doctors
+  // 1. Top 10 DPJP / Dokter Spesialis (Leaderboard Podium Bars)
   const docContainer = document.getElementById('topDoctorsList');
   if (docContainer && state.data.analytics.topDoctors) {
     docContainer.innerHTML = '';
-    state.data.analytics.topDoctors.slice(0, 10).forEach((doc, idx) => {
-      const item = document.createElement('div');
-      item.className = 'ranking-item';
-      item.innerHTML = `
-        <div class="ranking-left">
-          <span class="rank-number">${idx + 1}</span>
-          <span class="rank-name" title="${escapeHtml(doc.name)}">${escapeHtml(doc.name)}</span>
+    const top10 = state.data.analytics.topDoctors.slice(0, 10);
+    const maxVal = Math.max(...top10.map(d => d.count));
+    const totalPatients = state.data.analytics.totalPatients || 2521;
+
+    const listWrapper = document.createElement('div');
+    listWrapper.className = 'leaderboard-list';
+
+    top10.forEach((doc, idx) => {
+      const pctWidth = ((doc.count / maxVal) * 100).toFixed(1);
+      const pctTotal = ((doc.count / totalPatients) * 100).toFixed(1);
+      const rank = idx + 1;
+      
+      let rankClass = 'rank-regular';
+      let medalIcon = rank;
+      if (rank === 1) { rankClass = 'rank-gold'; medalIcon = '🥇'; }
+      else if (rank === 2) { rankClass = 'rank-silver'; medalIcon = '🥈'; }
+      else if (rank === 3) { rankClass = 'rank-bronze'; medalIcon = '🥉'; }
+
+      const row = document.createElement('div');
+      row.className = `leaderboard-row ${rankClass}`;
+      row.title = `${doc.name}: ${doc.count} pasien (${pctTotal}% dari total akumulasi)`;
+      row.innerHTML = `
+        <div class="lb-header">
+          <div class="lb-left">
+            <span class="lb-medal">${medalIcon}</span>
+            <span class="lb-name" title="${escapeHtml(doc.name)}">${escapeHtml(doc.name)}</span>
+          </div>
+          <div class="lb-right">
+            <span class="lb-count">${doc.count} pasien</span>
+            <span class="lb-pct">${pctTotal}%</span>
+          </div>
         </div>
-        <span class="rank-count">${doc.count} pasien</span>
+        <div class="lb-bar-track">
+          <div class="lb-bar-fill" style="width: ${pctWidth}%;"></div>
+        </div>
       `;
-      docContainer.appendChild(item);
+      listWrapper.appendChild(row);
     });
+
+    docContainer.appendChild(listWrapper);
   }
 
-  // 2. Top 10 Diagnosa Medis (Data per diagnosa medis bukan kategori, 1 pasien dapat memiliki >1 diagnosa)
+  // 2. Top 10 Diagnosa Medis (Clinical Stem & Bubble / Lollipop Chart)
   const catContainer = document.getElementById('categoryDistList');
   const diagnoses = state.data.analytics.topDiagnoses || state.data.analytics.categories;
   if (catContainer && diagnoses) {
     catContainer.innerHTML = '';
     const top10 = diagnoses.slice(0, 10);
-    const totalPatients = state.data.analytics.totalPatients || 2579;
+    const totalPatients = state.data.analytics.totalPatients || 2521;
     const maxVal = Math.max(...top10.map(c => c.count));
-    const colors = ['#38bdf8', '#a855f7', '#f97316', '#10b981', '#f43f5e', '#06b6d4', '#eab308', '#ec4899', '#6366f1', '#14b8a6'];
+    
+    const diagThemes = [
+      { color: '#f43f5e', icon: '🩸', cat: 'Hematologi' },
+      { color: '#6366f1', icon: '🫘', cat: 'Nefrologi' },
+      { color: '#f59e0b', icon: '⚡', cat: 'Elektrolit' },
+      { color: '#ec4899', icon: '🎗️', cat: 'Onkologi' },
+      { color: '#10b981', icon: '🩺', cat: 'Metabolik' },
+      { color: '#ea580c', icon: '❤️', cat: 'Kardio / Vaskular' },
+      { color: '#06b6d4', icon: '🧪', cat: 'Gastroenterologi' },
+      { color: '#8b5cf6', icon: '🔬', cat: 'Renal Akut' },
+      { color: '#14b8a6', icon: '⚠️', cat: 'Akut Abdomen' },
+      { color: '#64748b', icon: '🦴', cat: 'Trauma / Ortopedi' }
+    ];
+
+    const lollipopContainer = document.createElement('div');
+    lollipopContainer.className = 'lollipop-chart-container';
+
     top10.forEach((diag, idx) => {
       const pct = ((diag.count / totalPatients) * 100).toFixed(1);
-      const barPct = ((diag.count / maxVal) * 100).toFixed(0);
-      const color = colors[idx % colors.length];
+      const stemPct = Math.max(12, ((diag.count / maxVal) * 100)).toFixed(1);
+      const theme = diagThemes[idx % diagThemes.length];
+
       const item = document.createElement('div');
-      item.className = 'dist-bar-item';
+      item.className = 'lollipop-item';
+      item.style.setProperty('--lollipop-color', theme.color);
       item.innerHTML = `
-        <div class="dist-bar-labels">
-          <span class="dist-bar-name">#${idx + 1} ${escapeHtml(diag.name)}</span>
-          <span class="dist-bar-val">${diag.count} pasien (${pct}%)</span>
+        <div class="lollipop-header">
+          <div class="lollipop-title-group">
+            <span class="lollipop-icon-badge">${theme.icon}</span>
+            <span class="lollipop-title" title="${escapeHtml(diag.name)}">${escapeHtml(diag.name)}</span>
+            <span class="lollipop-category-pill">${theme.cat}</span>
+          </div>
+          <div class="lollipop-values">
+            <span class="lollipop-count">${diag.count} pasien</span>
+            <span class="lollipop-badge-pct">${pct}%</span>
+          </div>
         </div>
-        <div class="dist-bar-bg">
-          <div class="dist-bar-fill" style="width: ${barPct}%; background-color: ${color};"></div>
+        <div class="lollipop-track-wrapper">
+          <div class="lollipop-stem" style="width: ${stemPct}%;">
+            <div class="lollipop-bubble" title="${diag.count} pasien (${pct}%)">
+              <span class="bubble-inner-dot"></span>
+            </div>
+          </div>
         </div>
       `;
-      catContainer.appendChild(item);
+      lollipopContainer.appendChild(item);
     });
+
+    catContainer.appendChild(lollipopContainer);
 
     // Cantumkan jumlah total pasien di bagian akhir
     const totalItem = document.createElement('div');
@@ -1006,26 +1065,138 @@ function renderAnalyticsTab() {
     catContainer.appendChild(totalItem);
   }
 
-  // 3. Insurance Distribution
+  // 3. Distribusi Jaminan / Asuransi (Interactive SVG Donut / Ring Diagram with Center Display & Legend)
   const insContainer = document.getElementById('insuranceDistList');
   if (insContainer && state.data.analytics.insurances) {
     insContainer.innerHTML = '';
-    const topInsurances = state.data.analytics.insurances.slice(0, 6);
-    const maxVal = Math.max(...topInsurances.map(i => i.count));
-    topInsurances.forEach(ins => {
-      const pct = ((ins.count / maxVal) * 100).toFixed(0);
-      const item = document.createElement('div');
-      item.className = 'dist-bar-item';
-      item.innerHTML = `
-        <div class="dist-bar-labels">
-          <span class="dist-bar-name">${escapeHtml(ins.name)}</span>
-          <span class="dist-bar-val">${ins.count}</span>
+    const rawInsurances = state.data.analytics.insurances;
+    
+    const insColors = {
+      'BPJS Kelas 3': '#0284c7',
+      'BPJS Kelas 2': '#8b5cf6',
+      'BPJS Kelas 1': '#10b981',
+      'Umum / Mandiri': '#f59e0b',
+      'Jasa Raharja': '#ec4899',
+      'Lainnya / Penjamin Khusus': '#64748b'
+    };
+
+    let items = rawInsurances.slice(0, 6);
+    const totalCount = items.reduce((acc, curr) => acc + curr.count, 0);
+
+    const donutLayout = document.createElement('div');
+    donutLayout.className = 'donut-visualization-layout';
+
+    // SVG Donut calculation
+    const size = 190;
+    const strokeWidth = 26;
+    const radius = (size - strokeWidth) / 2;
+    const center = size / 2;
+    const circumference = 2 * Math.PI * radius;
+
+    let currentOffset = 0;
+    const svgSegments = [];
+
+    items.forEach((item, idx) => {
+      const color = insColors[item.name] || ['#0284c7', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#64748b'][idx % 6];
+      const pct = item.count / totalCount;
+      const strokeDasharray = `${pct * circumference} ${circumference}`;
+      const strokeDashoffset = -currentOffset;
+      currentOffset += pct * circumference;
+
+      svgSegments.push(`
+        <circle 
+          class="donut-segment" 
+          data-ins-name="${escapeHtml(item.name)}" 
+          data-ins-count="${item.count}" 
+          data-ins-pct="${(pct * 100).toFixed(1)}"
+          cx="${center}" 
+          cy="${center}" 
+          r="${radius}" 
+          fill="transparent" 
+          stroke="${color}" 
+          stroke-width="${strokeWidth}" 
+          stroke-dasharray="${strokeDasharray}" 
+          stroke-dashoffset="${strokeDashoffset}"
+          tabindex="0"
+          role="img"
+          aria-label="${escapeHtml(item.name)}: ${item.count} (${(pct * 100).toFixed(1)}%)"
+        />
+      `);
+    });
+
+    const topItem = items[0] || { name: 'Total Hari Rawat', count: totalCount };
+    const topPct = ((topItem.count / totalCount) * 100).toFixed(1);
+
+    donutLayout.innerHTML = `
+      <div class="donut-chart-container">
+        <svg viewBox="0 0 ${size} ${size}" class="donut-svg" id="insuranceDonutSvg">
+          <circle cx="${center}" cy="${center}" r="${radius}" fill="transparent" stroke="var(--bg-surface-elevated)" stroke-width="${strokeWidth}" />
+          ${svgSegments.join('')}
+        </svg>
+        <div class="donut-center-info" id="donutCenterInfo">
+          <div class="donut-center-pct" id="donutCenterPct">${topPct}%</div>
+          <div class="donut-center-label" id="donutCenterLabel" title="${escapeHtml(topItem.name)}">${escapeHtml(topItem.name)}</div>
+          <div class="donut-center-sub" id="donutCenterSub">${topItem.count.toLocaleString('id-ID')} hari</div>
         </div>
-        <div class="dist-bar-bg">
-          <div class="dist-bar-fill" style="width: ${pct}%; background: linear-gradient(90deg, #0284c7, #38bdf8);"></div>
-        </div>
-      `;
-      insContainer.appendChild(item);
+      </div>
+
+      <div class="donut-legend-grid">
+        ${items.map((item, idx) => {
+          const color = insColors[item.name] || ['#0284c7', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#64748b'][idx % 6];
+          const pct = ((item.count / totalCount) * 100).toFixed(1);
+          return `
+            <div class="donut-legend-card" data-ins-idx="${idx}" data-ins-name="${escapeHtml(item.name)}" data-ins-count="${item.count}" data-ins-pct="${pct}" style="--legend-color: ${color};">
+              <div class="legend-color-dot" style="background-color: ${color};"></div>
+              <div class="legend-info">
+                <div class="legend-name" title="${escapeHtml(item.name)}">${escapeHtml(item.name)}</div>
+                <div class="legend-numbers">
+                  <span class="legend-count">${item.count.toLocaleString('id-ID')} hari</span>
+                  <span class="legend-pct-pill" style="color:${color}; background:${color}18;">${pct}%</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+
+    insContainer.appendChild(donutLayout);
+
+    // Interactive hover listeners for Donut & Legend
+    const centerPct = document.getElementById('donutCenterPct');
+    const centerLabel = document.getElementById('donutCenterLabel');
+    const centerSub = document.getElementById('donutCenterSub');
+
+    const updateCenter = (name, count, pct) => {
+      if (centerPct) centerPct.textContent = `${pct}%`;
+      if (centerLabel) {
+        centerLabel.textContent = name;
+        centerLabel.title = name;
+      }
+      if (centerSub) centerSub.textContent = `${Number(count).toLocaleString('id-ID')} hari`;
+    };
+
+    const resetCenter = () => {
+      updateCenter(topItem.name, topItem.count, topPct);
+    };
+
+    donutLayout.querySelectorAll('.donut-segment').forEach(seg => {
+      seg.addEventListener('mouseenter', () => {
+        updateCenter(seg.dataset.insName, seg.dataset.insCount, seg.dataset.insPct);
+      });
+      seg.addEventListener('mouseleave', resetCenter);
+    });
+
+    donutLayout.querySelectorAll('.donut-legend-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        updateCenter(card.dataset.insName, card.dataset.insCount, card.dataset.insPct);
+        const matchSeg = donutLayout.querySelector(`.donut-segment[data-ins-name="${card.dataset.insName}"]`);
+        if (matchSeg) matchSeg.classList.add('segment-active');
+      });
+      card.addEventListener('mouseleave', () => {
+        resetCenter();
+        donutLayout.querySelectorAll('.donut-segment').forEach(s => s.classList.remove('segment-active'));
+      });
     });
   }
 

@@ -80,6 +80,26 @@ def normalize_doctor_name(raw_name):
         
     return name_clean
 
+def clean_insurance_name(name):
+    if not name or name in ['-', '.', '0.0'] or len(str(name).strip()) < 2:
+        return 'Lainnya / Penjamin Khusus'
+    u = str(name).strip().upper()
+    if any(k in u for k in ['TN.', 'NY.', 'NN.', 'SDR.', 'MR:']):
+        return 'Lainnya / Penjamin Khusus'
+    if any(k in u for k in ['JR', 'JASA RAHARJA', 'JASARAHARJA', 'JASSA RAHARJA']):
+        return 'Jasa Raharja'
+    if any(k in u for k in ['UMUM', 'MANDIRI']):
+        return 'Umum / Mandiri'
+    if any(k in u for k in ['KELAS 3', 'KELAS III', 'BPJS 3', 'BPJS3', 'BPKS 3', 'BPJD 3', 'BPJ 3', 'PBJS 3', 'BPSJ 3']):
+        return 'BPJS Kelas 3'
+    if any(k in u for k in ['KELAS 2', 'KELAS II', 'BPJS 2', 'BPJS2', 'BPSJ 2']):
+        return 'BPJS Kelas 2'
+    if any(k in u for k in ['KELAS 1', 'KELAS I', 'BPJS 1', 'BPJS1']):
+        return 'BPJS Kelas 1'
+    if 'BPJS' in u:
+        return 'BPJS Kelas 3'
+    return 'Lainnya / Penjamin Khusus'
+
 def load_style_fills(z):
     styles_root = ET.fromstring(z.read('xl/styles.xml'))
     ns = {'ns': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
@@ -464,7 +484,7 @@ def run():
                         doctor_patients[doc].add(pkey)
                     cat = p["category"]
                     cat_counts[cat] = cat_counts.get(cat, 0) + 1
-                    ins = p["insurance"]
+                    ins = clean_insurance_name(p["insurance"])
                     insurance_counts[ins] = insurance_counts.get(ins, 0) + 1
                     diag_raw = p.get("diagnosis", "")
                     if diag_raw and diag_raw != "-" and len(diag_raw) > 2:

@@ -1652,52 +1652,82 @@ body::before {
   background: #0f172a;
 }
 
-/* Ranking List */
-.ranking-list {
+/* ==========================================================================
+   CHART 1: TOP 10 DPJP / DOKTER SPESIALIS (LEADERBOARD PODIUM BARS)
+   ========================================================================== */
+.leaderboard-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
-.ranking-item {
+.leaderboard-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  cursor: default;
+}
+
+.leaderboard-row:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.leaderboard-row.rank-gold {
+  border-color: rgba(234, 179, 8, 0.45);
+  background: linear-gradient(90deg, rgba(234, 179, 8, 0.08) 0%, var(--bg-surface-elevated) 100%);
+}
+.leaderboard-row.rank-silver {
+  border-color: rgba(148, 163, 184, 0.45);
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0.08) 0%, var(--bg-surface-elevated) 100%);
+}
+.leaderboard-row.rank-bronze {
+  border-color: rgba(217, 119, 6, 0.45);
+  background: linear-gradient(90deg, rgba(217, 119, 6, 0.08) 0%, var(--bg-surface-elevated) 100%);
+}
+
+.lb-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.6rem 0.85rem;
-  background: var(--bg-surface-elevated);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-subtle);
-  gap: 0.85rem;
+  gap: 0.65rem;
 }
 
-.ranking-left {
+.lb-left {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
   min-width: 0;
+  flex: 1;
 }
 
-.rank-number {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 800;
+.lb-medal {
+  font-size: 0.95rem;
   width: 24px;
   height: 24px;
-  border-radius: 50%;
-  background: var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
+  font-weight: 800;
+  font-family: var(--font-mono);
+  border-radius: var(--radius-full);
+  background: var(--border-subtle);
+  color: var(--text-secondary);
   flex-shrink: 0;
 }
 
-.ranking-item:nth-child(1) .rank-number { background: #fef08a; color: #854d0e; }
-.ranking-item:nth-child(2) .rank-number { background: #e2e8f0; color: #334155; }
-.ranking-item:nth-child(3) .rank-number { background: #fed7aa; color: #9a3412; }
+.rank-gold .lb-medal { background: #fef08a; color: #854d0e; }
+.rank-silver .lb-medal { background: #e2e8f0; color: #334155; }
+.rank-bronze .lb-medal { background: #fed7aa; color: #9a3412; }
 
-.rank-name {
-  font-size: 0.84rem;
+.lb-name {
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--text-primary);
   white-space: nowrap;
@@ -1705,56 +1735,349 @@ body::before {
   text-overflow: ellipsis;
 }
 
-.rank-count {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--accent-primary);
+.lb-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   flex-shrink: 0;
 }
 
-/* Distribution Bars */
-.category-distribution-list, .insurance-distribution-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.dist-bar-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.dist-bar-labels {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.lb-count {
+  font-family: var(--font-mono);
   font-size: 0.82rem;
-}
-
-.dist-bar-name {
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-primary);
 }
 
-.dist-bar-val {
+.lb-pct {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
 }
 
-.dist-bar-bg {
+.lb-bar-track {
   width: 100%;
-  height: 9px;
-  background: var(--bg-surface-elevated);
+  height: 7px;
+  background: var(--border-subtle);
   border-radius: var(--radius-full);
   overflow: hidden;
 }
 
-.dist-bar-fill {
+.lb-bar-fill {
   height: 100%;
   border-radius: var(--radius-full);
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
+  transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rank-gold .lb-bar-fill {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+.rank-silver .lb-bar-fill {
+  background: linear-gradient(90deg, #64748b, #94a3b8);
+}
+.rank-bronze .lb-bar-fill {
+  background: linear-gradient(90deg, #b45309, #d97706);
+}
+
+/* ==========================================================================
+   CHART 2: TOP 10 DIAGNOSA MEDIS (LOLLIPOP STEM & BUBBLE CHART)
+   ========================================================================== */
+.lollipop-chart-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.lollipop-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.55rem 0.85rem;
+  background: var(--bg-surface-elevated);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.lollipop-item:hover {
+  transform: translateX(2px);
+  border-color: var(--lollipop-color, var(--accent-primary));
+}
+
+.lollipop-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
+
+.lollipop-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.lollipop-icon-badge {
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.lollipop-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lollipop-category-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--lollipop-color, #0284c7) 12%, transparent);
+  color: var(--lollipop-color, #0284c7);
+  border: 1px solid color-mix(in srgb, var(--lollipop-color, #0284c7) 30%, transparent);
+  flex-shrink: 0;
+}
+
+.lollipop-values {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.lollipop-count {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.lollipop-badge-pct {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--lollipop-color, #0284c7);
+  background: var(--bg-surface);
+  padding: 0.12rem 0.45rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+}
+
+.lollipop-track-wrapper {
+  position: relative;
+  width: 100%;
+  height: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.lollipop-track-wrapper::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--border-subtle);
+  border-radius: 2px;
+}
+
+.lollipop-stem {
+  position: relative;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--lollipop-color, var(--accent-primary)));
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lollipop-bubble {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--lollipop-color, var(--accent-primary));
+  box-shadow: 0 0 8px color-mix(in srgb, var(--lollipop-color, #0284c7) 50%, transparent);
+  margin-right: -6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.18s ease;
+}
+
+.lollipop-item:hover .lollipop-bubble {
+  transform: scale(1.35);
+}
+
+.bubble-inner-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+/* ==========================================================================
+   CHART 3: DISTRIBUSI ASURANSI (INTERACTIVE SVG DONUT CHART + LEGEND)
+   ========================================================================== */
+.donut-visualization-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+@media (min-width: 640px) {
+  .donut-visualization-layout {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.75rem;
+  }
+}
+
+.donut-chart-container {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+
+.donut-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.donut-segment {
+  cursor: pointer;
+  transition: stroke-width 0.22s ease, opacity 0.22s ease, filter 0.22s ease;
+  outline: none;
+}
+
+.donut-segment:hover,
+.donut-segment.segment-active {
+  stroke-width: 34;
+  filter: drop-shadow(0 0 6px rgba(0,0,0,0.2));
+  opacity: 1;
+}
+
+.donut-center-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  max-width: 120px;
+}
+
+.donut-center-pct {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.donut-center-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 0.15rem;
+}
+
+.donut-center-sub {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
+
+.donut-legend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 0.55rem;
+  flex: 1;
+}
+
+.donut-legend-card {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  cursor: pointer;
+}
+
+.donut-legend-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--legend-color, var(--accent-primary));
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.legend-color-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px var(--legend-color, transparent);
+}
+
+.legend-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.legend-name {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.legend-numbers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+}
+
+.legend-count {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.legend-pct-pill {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.05rem 0.35rem;
+  border-radius: 3px;
 }
 
 .dist-total-footer {
