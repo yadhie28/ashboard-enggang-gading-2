@@ -4,6 +4,7 @@ import re
 import json
 import os
 from datetime import datetime, date, timedelta
+from collections import defaultdict
 from parse_sheets import parse_shared_strings, get_sheets_info
 from run_build_data import extract_date_from_sheet, parse_worksheet, parse_patient_row
 
@@ -94,7 +95,7 @@ def run():
     latest_date = all_dates[-1]
 
     history = []
-    doctor_counts = {}
+    doctor_patients = defaultdict(set)
     diag_counts = {}
     cat_counts = {}
     insurance_counts = {}
@@ -166,7 +167,8 @@ def run():
 
                     doc = p["doctorPrimary"]
                     if doc and doc != "-" and len(doc) > 3:
-                        doctor_counts[doc] = doctor_counts.get(doc, 0) + 1
+                        pkey = p["mrNo"].strip() if (p["mrNo"] and len(p["mrNo"].strip()) > 3) else p["name"].strip().upper()
+                        doctor_patients[doc].add(pkey)
                     cat = p["category"]
                     cat_counts[cat] = cat_counts.get(cat, 0) + 1
                     ins = p["insurance"]
@@ -312,7 +314,7 @@ def run():
     with open("hospital_indicators.json", "w") as f_hosp:
         json.dump(hospital_indicators, f_hosp, indent=2)
 
-    top_doctors = sorted([{"name": k, "count": v} for k, v in doctor_counts.items()], key=lambda x: x["count"], reverse=True)[:15]
+    top_doctors = sorted([{"name": k, "count": len(v)} for k, v in doctor_patients.items()], key=lambda x: x["count"], reverse=True)[:15]
     top_diags = sorted([{"name": k, "count": v} for k, v in diag_counts.items()], key=lambda x: x["count"], reverse=True)[:15]
     cat_distribution = sorted([{"name": k, "count": v} for k, v in cat_counts.items()], key=lambda x: x["count"], reverse=True)
     ins_distribution = sorted([{"name": k, "count": v} for k, v in insurance_counts.items()], key=lambda x: x["count"], reverse=True)

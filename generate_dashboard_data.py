@@ -4,6 +4,8 @@ import re
 import json
 import os
 from datetime import datetime, date, timedelta
+from collections import defaultdict
+from run_build_data import normalize_doctor_name
 
 def parse_shared_strings(z):
     shared_strings = []
@@ -281,7 +283,7 @@ def compile_all():
     print(f"Latest date is {latest_date}")
 
     history = []
-    doctor_counts = {}
+    doctor_patients = defaultdict(set)
     diag_counts = {}
     cat_counts = {}
     insurance_counts = {}
@@ -342,9 +344,10 @@ def compile_all():
             # Tally stats
             for p in patients_a + patients_b:
                 if not p["isEmpty"]:
-                    doc = p["doctorPrimary"]
-                    if doc and doc != "-":
-                        doctor_counts[doc] = doctor_counts.get(doc, 0) + 1
+                    doc = normalize_doctor_name(p["doctorPrimary"])
+                    if doc and doc != "-" and len(doc) > 3:
+                        pkey = p["mrNo"].strip() if (p["mrNo"] and len(p["mrNo"].strip()) > 3) else p["name"].strip().upper()
+                        doctor_patients[doc].add(pkey)
                     cat = p["category"]
                     cat_counts[cat] = cat_counts.get(cat, 0) + 1
                     ins = p["insurance"]
@@ -371,7 +374,7 @@ def compile_all():
                 }
 
     # Format Top Doctors
-    top_doctors = sorted([{"name": k, "count": v} for k, v in doctor_counts.items()], key=lambda x: x["count"], reverse=True)[:15]
+    top_doctors = sorted([{"name": k, "count": len(v)} for k, v in doctor_patients.items()], key=lambda x: x["count"], reverse=True)[:15]
     top_diags = sorted([{"name": k, "count": v} for k, v in diag_counts.items()], key=lambda x: x["count"], reverse=True)[:15]
     cat_distribution = [{"name": k, "count": v} for k, v in cat_counts.items()]
     ins_distribution = [{"name": k, "count": v} for k, v in insurance_counts.items()]

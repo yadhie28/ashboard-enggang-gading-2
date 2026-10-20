@@ -955,7 +955,7 @@ function renderAnalyticsTab() {
           <span class="rank-number">${idx + 1}</span>
           <span class="rank-name" title="${escapeHtml(doc.name)}">${escapeHtml(doc.name)}</span>
         </div>
-        <span class="rank-count">${doc.count} pasien-hari</span>
+        <span class="rank-count">${doc.count} pasien</span>
       `;
       docContainer.appendChild(item);
     });

@@ -7,6 +7,7 @@ import re
 import json
 import os
 from datetime import datetime, date, timedelta
+from collections import defaultdict
 from parse_sheets import parse_shared_strings, get_sheets_info
 from fix_dates import extract_date_from_sheet
 
@@ -16,6 +17,68 @@ TOTAL_CAPACITY = 56
 
 HEADER_COLORS = {'FF6AA84F', 'FF356854', 'FF38761D'}
 IGNORE_COLORS = {'FFFFFFFF', 'FFF8F9FA', 'FFF6F8F9', 'FFF3F3F3', None}
+
+def normalize_doctor_name(raw_name):
+    if not raw_name or raw_name == "-" or len(str(raw_name).strip()) < 3:
+        return "-"
+    name = str(raw_name).strip()
+    name = re.sub(r"\s+", " ", name).strip()
+    name_clean = name.rstrip(".").strip()
+    u = name_clean.upper()
+    
+    # Filter out non-doctor entries
+    if any(u.startswith(x) for x in ["BPJS", "UMUM", "ASURANSI", "BED", "KOSONG", "RUSAK", "RUANG"]):
+        return "-"
+    if u in ["-", "NONE", "NULL"]:
+        return "-"
+        
+    # Canonical mappings for key doctors requested by user & common variants
+    if "IVAN" in u:
+        return "IVAN LUMBAN TORUAN, DR, SP.PD-KHOM"
+    if "SONY" in u:
+        return "R. SONY YUSUF WIBISONO, DR, SP.PD.,KGH"
+    if "DARMAWAN" in u:
+        return "DARMAWAN, DR., M.KES., SP.PD-KGH. FINASIM"
+    if "DECKY" in u:
+        return "DECKY ANDREA, DR, SP.PD"
+    if "APRIANI" in u:
+        return "APRIANI, DR, M.KED (PD), SP.PD"
+    if "HARRY ANDHIKA" in u or (u.startswith("DR. HARRY") and "FADJAR" not in u):
+        return "HARRY ANDHIKA, DR, SP.PD"
+    if "HARRY FADJAR" in u:
+        return "HARRY FADJAR, DR. SP.OT"
+    if "YANCE" in u or "FEDRY" in u:
+        return "FEDRY YANCE, DR, SP.U"
+    if "DANAR" in u:
+        return "DANAR ANGGRAHINI. K.D., DR. SP.PD. KGH. FINASIM"
+    if "EKO RUSTIANTO" in u or u == "DR. EKO":
+        return "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK"
+    if "MUHARDANI" in u:
+        return "MUHARDANI IQBAL, DR., M.KED (PD), SP.PD"
+    if "PARSAORAN" in u:
+        return "PARSAORAN NABABAN, DR., SP.U(K)"
+    if "ELIT" in u:
+        return "ELIT IRAWAN, DR, M.KES. SP.B SUBSP.BD (K) FINACS"
+    if "ZAINUL" in u:
+        return "ZAINUL NAIM, DR. SP.B-KBD"
+    if "DENNY KRYSTIAN" in u:
+        return "DENNY KRYSTIAN TANDI OSE, DR, SP.B-KBD"
+    if "NOSIKO" in u:
+        return "NOSIKO ALLBER, DR. SP.BS"
+    if "OKTAVIANUS" in u:
+        return "OKTAVIANUS, DR, SP.OT. SPINE (K)"
+    if "YEREMIA" in u:
+        return "YEREMIA GERALD K., DR, SP.B"
+    if "RETNO" in u:
+        return "RETNO MUSTIKANINGSIH, DR, M.KES. SP.K"
+    if "DONI SETIAWAN" in u:
+        return "DONI SETIAWAN, DR. SP.BP-RE"
+    if "JOHANNES MANURUNG" in u:
+        return "JOHANNES MANURUNG, DR. SP.BS"
+    if "GEDE SANDJAJA" in u:
+        return "GEDE SANDJAJA, DR. SP.OT. (K)"
+        
+    return name_clean
 
 def load_style_fills(z):
     styles_root = ET.fromstring(z.read('xl/styles.xml'))
@@ -192,7 +255,7 @@ def parse_patient_row_enhanced(r, room_type, current_iso_date):
         tags.append({"label": "Puasa Pre-Op", "color": "amber"})
 
     dpjp_primary = dokter_raw.split("\n")[0].strip()
-    dpjp_primary = re.sub(r"\s+", " ", dpjp_primary).strip()
+    dpjp_primary = normalize_doctor_name(dpjp_primary)
 
     cat = "Lain-lain"
     diag_up = diagnosa_raw.upper()
@@ -322,7 +385,7 @@ def run():
     latest_date = all_dates[-1]
 
     history = []
-    doctor_counts = {}
+    doctor_patients = defaultdict(set)
     diag_counts = {}
     cat_counts = {}
     insurance_counts = {}
@@ -395,7 +458,8 @@ def run():
 
                     doc = p["doctorPrimary"]
                     if doc and doc != "-" and len(doc) > 3:
-                        doctor_counts[doc] = doctor_counts.get(doc, 0) + 1
+                        pkey = p["mrNo"].strip() if (p["mrNo"] and len(p["mrNo"].strip()) > 3) else p["name"].strip().upper()
+                        doctor_patients[doc].add(pkey)
                     cat = p["category"]
                     cat_counts[cat] = cat_counts.get(cat, 0) + 1
                     ins = p["insurance"]
@@ -548,7 +612,7 @@ def run():
     with open("hospital_indicators.json", "w") as f_hosp:
         json.dump(hospital_indicators, f_hosp, indent=2)
 
-    top_doctors = sorted([{"name": k, "count": v} for k, v in doctor_counts.items()], key=lambda x: x["count"], reverse=True)[:15]
+    top_doctors = sorted([{"name": k, "count": len(v)} for k, v in doctor_patients.items()], key=lambda x: x["count"], reverse=True)[:15]
     top_diags = sorted([{"name": k, "count": v} for k, v in diag_counts.items()], key=lambda x: x["count"], reverse=True)[:15]
     cat_distribution = sorted([{"name": k, "count": v} for k, v in cat_counts.items()], key=lambda x: x["count"], reverse=True)
     ins_distribution = sorted([{"name": k, "count": v} for k, v in insurance_counts.items()], key=lambda x: x["count"], reverse=True)
