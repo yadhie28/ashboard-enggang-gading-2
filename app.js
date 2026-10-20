@@ -295,12 +295,12 @@ function verifyClinicalPin(enteredPin) {
     const errorEl = document.getElementById('pinErrorMsg');
     if (errorEl) {
       errorEl.style.display = 'block';
-      errorEl.textContent = 'PIN keliru. Silakan masukkan PIN klinis yang benar (Demo: 2026).';
+      errorEl.textContent = 'PIN keliru. Silakan masukkan PIN klinis yang benar.';
     }
     const tabErrorEl = document.getElementById('tabPinError');
     if (tabErrorEl) {
       tabErrorEl.style.display = 'block';
-      tabErrorEl.textContent = 'PIN keliru. Silakan gunakan PIN klinis (Demo: 2026).';
+      tabErrorEl.textContent = 'PIN keliru. Silakan gunakan PIN klinis yang benar.';
     }
     const pinInput = document.getElementById('pinCodeInput');
     if (pinInput) {
