@@ -4421,7 +4421,7 @@ body::before {
     width: 100% !important;
     box-sizing: border-box !important;
     margin: 0 !important;
-    padding: 12mm 15mm 12mm 15mm !important;
+    padding: 14mm 18mm 14mm 18mm !important;
     background: #ffffff !important;
     color: #000000 !important;
     font-family: 'Times New Roman', Times, serif;
@@ -4431,13 +4431,17 @@ body::before {
 
   body.printing-chronology #printContainer * {
     visibility: visible !important;
+    box-sizing: border-box !important;
   }
 }
 
 .chronology-print-letterhead {
+  width: 100%;
   border-bottom: 3px double #000000;
   padding-bottom: 8px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .chronology-print-letterhead h3 {
@@ -4474,36 +4478,43 @@ body::before {
   text-decoration: underline;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
-.chronology-print-patient-table,
-.chronology-print-data-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 14px;
-  font-size: 9.5pt;
+.chronology-print-patient-table {
+  width: 100% !important;
+  table-layout: fixed !important;
+  border-collapse: collapse !important;
+  margin-bottom: 14px !important;
+  font-size: 9.5pt !important;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
 }
 
 .chronology-print-patient-table td {
   padding: 3px 6px;
   vertical-align: top;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .chronology-print-data-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 14px;
-  font-size: 9.5pt;
+  width: 100% !important;
+  table-layout: fixed !important;
+  border-collapse: collapse !important;
+  margin-bottom: 14px !important;
+  font-size: 9.5pt !important;
   page-break-inside: auto;
 }
 
 .chronology-print-data-table thead {
-  display: table-header-group;
+  display: table-header-group !important;
 }
 
 .chronology-print-data-table tr {
-  page-break-inside: avoid;
-  break-inside: avoid;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
 }
 
 .chronology-print-data-table th,
@@ -4512,6 +4523,8 @@ body::before {
   padding: 6px 8px;
   text-align: left;
   vertical-align: top;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .chronology-print-data-table th {
@@ -4522,20 +4535,32 @@ body::before {
   print-color-adjust: exact !important;
 }
 
+.chronology-sig-tbody {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+.chronology-sig-tbody tr.sig-row td {
+  border: none !important;
+  padding: 20px 0 0 0 !important;
+  background: transparent !important;
+}
+
 .chronology-print-signatures {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 30px;
-  page-break-inside: avoid;
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin-top: 10px !important;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
 }
 
 .chronology-print-sig-col {
-  width: 320px;
-  text-align: center;
-  font-size: 10pt;
+  width: 300px !important;
+  text-align: center !important;
+  font-size: 10pt !important;
 }
 
 .chronology-print-sig-space {
-  height: 65px;
+  height: 60px !important;
 }
 

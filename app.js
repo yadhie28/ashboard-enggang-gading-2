@@ -3683,6 +3683,42 @@ function saveCustomChronologyEntry() {
   }
 }
 
+// Smart Clinical Note Deduplication across shifts
+function isDuplicateUraian(text1, text2) {
+  if (!text1 || !text2) return false;
+  const t1 = text1.trim();
+  const t2 = text2.trim();
+  if (!t1 || !t2) return false;
+
+  // Strict character-level alphanumeric comparison (ignores dashes, spaces, bullets, punctuation, case)
+  const norm1 = t1.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const norm2 = t2.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (norm1 === norm2) return true;
+  if (!norm1 || !norm2) return false;
+
+  // Substring or prefix match with small length difference (< 30 chars diff)
+  if ((norm1.includes(norm2) || norm2.includes(norm1)) && Math.abs(norm1.length - norm2.length) < 30) {
+    return true;
+  }
+
+  // Token similarity test (> 88% common words) to catch heavily copy-pasted notes
+  const words1 = new Set(t1.toLowerCase().match(/[a-z0-9]+/g) || []);
+  const words2 = new Set(t2.toLowerCase().match(/[a-z0-9]+/g) || []);
+  if (words1.size >= 10 && words2.size >= 10) {
+    let intersect = 0;
+    for (const w of words1) {
+      if (words2.has(w)) intersect++;
+    }
+    const union = new Set([...words1, ...words2]).size;
+    const similarity = intersect / union;
+    if (similarity > 0.88) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 // Print Hospital Official Chronology Document
 function printChronologyResume(patientKey) {
   const { days, customEntries, profile } = getPatientChronologyData(patientKey);
@@ -3696,9 +3732,10 @@ function printChronologyResume(patientKey) {
   const initialDiagnosis = days[0]?.patient?.diagnosis || profile.diagnosis || '-';
   const finalDiagnosis = days[days.length - 1]?.patient?.diagnosis || profile.diagnosis || '-';
 
+  const allRowItems = [];
   let rowNum = 1;
   let lastDisplayedShiftText = '';
-  let rowsHtml = '';
+  let lastRenderedDate = '';
 
   days.forEach(d => {
     const pt = d.patient;
@@ -3711,65 +3748,121 @@ function printChronologyResume(patientKey) {
       { name: 'Shift Malam', time: '21.00 - 07.00 WIB', text: (pt.notes?.malam || '').trim() }
     ];
 
-    let prevShiftInSameDay = '';
-
     shiftCandidates.forEach(cand => {
       if (!cand.text || cand.text.length < 3 || cand.text === '-') return;
-      const norm = cand.text.replace(/\s+/g, ' ').toLowerCase();
 
-      // Pastikan tidak ada isi yang berulang dari shift sebelumnya, jika ada yang berulang jangan ditampilkan
-      if (norm === prevShiftInSameDay || norm === lastDisplayedShiftText) {
+      // Pastikan tidak mengulangi isi uraian yang sama di waktu berikutnya
+      if (isDuplicateUraian(cand.text, lastDisplayedShiftText)) {
         return;
       }
 
-      rowsHtml += `
+      // Hapus penulisan tanggal yang berulang (cukup ditulis sekali jika tanggal sama)
+      let dateCellHtml = '';
+      if (d.date !== lastRenderedDate) {
+        dateCellHtml = `<strong>${dateFormatted}</strong>`;
+        lastRenderedDate = d.date;
+      }
+
+      const rowHtml = `
         <tr>
-          <td style="text-align: center; vertical-align: top; font-weight: bold; width: 6%;">${rowNum++}</td>
-          <td style="text-align: center; vertical-align: top; width: 18%;">${dateFormatted}</td>
-          <td style="text-align: center; vertical-align: top; width: 18%;">
+          <td style="text-align: center; vertical-align: top; font-weight: bold; width: 5%;">${rowNum++}</td>
+          <td style="text-align: center; vertical-align: top; width: 17%;">${dateCellHtml}</td>
+          <td style="text-align: center; vertical-align: top; width: 16%;">
             <div style="font-weight: bold;">${escapeHtml(cand.name)}</div>
             <div style="font-size: 8pt; color: #444; margin-top: 2px;">(${cand.time})</div>
           </td>
-          <td style="vertical-align: top; width: 58%;">
+          <td style="vertical-align: top; width: 62%;">
             <div style="white-space: pre-line; line-height: 1.35;">${escapeHtml(cand.text)}</div>
           </td>
         </tr>
       `;
 
-      prevShiftInSameDay = norm;
-      lastDisplayedShiftText = norm;
+      allRowItems.push({ html: rowHtml, date: d.date });
+      lastDisplayedShiftText = cand.text;
     });
 
     dayCustom.forEach(c => {
       const customTxt = `S: ${c.s || '-'}\nO: ${c.o || '-'}\nA: ${c.a || '-'}\nP: ${c.p || '-'}`;
-      const customNorm = customTxt.replace(/\s+/g, ' ').toLowerCase();
-      if (customNorm !== lastDisplayedShiftText) {
-        rowsHtml += `
-          <tr>
-            <td style="text-align: center; vertical-align: top; font-weight: bold; width: 6%;">${rowNum++}</td>
-            <td style="text-align: center; vertical-align: top; width: 18%;">${dateFormatted}</td>
-            <td style="text-align: center; vertical-align: top; width: 18%;">
-              <div style="font-weight: bold;">${escapeHtml(c.shiftTitle)}</div>
-              <div style="font-size: 8pt; color: #444; margin-top: 2px;">(${c.time ? c.time + ' WIB' : '-'})</div>
-            </td>
-            <td style="vertical-align: top; width: 58%;">
-              <div style="font-weight: bold; font-size: 9pt; margin-bottom: 2px;">${escapeHtml(c.ppa || 'Petugas Ruangan')}:</div>
-              <div style="white-space: pre-line; line-height: 1.35;">${escapeHtml(customTxt)}</div>
-            </td>
-          </tr>
-        `;
-        lastDisplayedShiftText = customNorm;
+      if (isDuplicateUraian(customTxt, lastDisplayedShiftText)) {
+        return;
       }
+
+      let dateCellHtml = '';
+      if (d.date !== lastRenderedDate) {
+        dateCellHtml = `<strong>${dateFormatted}</strong>`;
+        lastRenderedDate = d.date;
+      }
+
+      const rowHtml = `
+        <tr>
+          <td style="text-align: center; vertical-align: top; font-weight: bold; width: 5%;">${rowNum++}</td>
+          <td style="text-align: center; vertical-align: top; width: 17%;">${dateCellHtml}</td>
+          <td style="text-align: center; vertical-align: top; width: 16%;">
+            <div style="font-weight: bold;">${escapeHtml(c.shiftTitle)}</div>
+            <div style="font-size: 8pt; color: #444; margin-top: 2px;">(${c.time ? c.time + ' WIB' : '-'})</div>
+          </td>
+          <td style="vertical-align: top; width: 62%;">
+            <div style="font-weight: bold; font-size: 9pt; margin-bottom: 2px;">${escapeHtml(c.ppa || 'Petugas Ruangan')}:</div>
+            <div style="white-space: pre-line; line-height: 1.35;">${escapeHtml(customTxt)}</div>
+          </td>
+        </tr>
+      `;
+
+      allRowItems.push({ html: rowHtml, date: d.date });
+      lastDisplayedShiftText = customTxt;
     });
   });
 
-  if (!rowsHtml) {
-    rowsHtml = `
-      <tr>
-        <td colspan="4" style="text-align: center; padding: 16px; font-style: italic; color: #555;">
-          (Tidak ada catatan klinis shift yang terdata)
-        </td>
-      </tr>
+  // Susun body tabel agar minimal 1 baris berada di halaman tanda tangan
+  const sigHtml = `
+    <tr class="sig-row" style="page-break-inside: avoid; break-inside: avoid;">
+      <td colspan="4" style="border: none !important; padding: 20px 0 0 0 !important; background: transparent !important;">
+        <div class="chronology-print-signatures">
+          <div class="chronology-print-sig-col">
+            <p style="margin: 0 0 4px 0;">Pontianak, ${formatIndonesianDate(state.currentDate || new Date().toISOString().slice(0, 10))}</p>
+            <p style="margin: 0; font-weight: bold;">Kepala Ruang Enggang Gading 2</p>
+            <div class="chronology-print-sig-space"></div>
+            <p style="margin: 0;"><strong><u>Ns. Rusmulyadi, S.Kep.,M.A.R.S</u></strong></p>
+            <p style="margin: 2px 0 0 0;">NIP. 198212282003121005</p>
+          </div>
+        </div>
+      </td>
+    </tr>
+  `;
+
+  let tableBodyHtml = '';
+  if (allRowItems.length === 0) {
+    tableBodyHtml = `
+      <tbody class="chronology-sig-tbody" style="page-break-inside: avoid; break-inside: avoid;">
+        <tr>
+          <td colspan="4" style="text-align: center; padding: 16px; font-style: italic; color: #555;">
+            (Tidak ada catatan klinis shift yang terdata)
+          </td>
+        </tr>
+        ${sigHtml}
+      </tbody>
+    `;
+  } else if (allRowItems.length === 1) {
+    tableBodyHtml = `
+      <tbody class="chronology-sig-tbody" style="page-break-inside: avoid; break-inside: avoid;">
+        ${allRowItems[0].html}
+        ${sigHtml}
+      </tbody>
+    `;
+  } else {
+    // Multi-rows: Baris 1 sampai N-1 berada di tbody utama, baris terakhir N digabungkan dengan blok tanda tangan
+    // dalam tbody khusus yang tidak dapat dipisah (page-break-inside: avoid).
+    // Hal ini menjamin halaman tanda tangan selalu memiliki minimal 1 baris tabel.
+    const mainRows = allRowItems.slice(0, allRowItems.length - 1).map(r => r.html).join('');
+    const lastRow = allRowItems[allRowItems.length - 1].html;
+    tableBodyHtml = `
+      <tbody>
+        ${mainRows}
+      </tbody>
+      <tbody class="chronology-sig-tbody" style="page-break-inside: avoid; break-inside: avoid;">
+        ${lastRow}
+        ${sigHtml}
+      </tbody>
     `;
   }
 
@@ -3826,26 +3919,14 @@ function printChronologyResume(patientKey) {
     <table class="chronology-print-data-table">
       <thead>
         <tr>
-          <th width="6%" style="text-align: center;">No.</th>
-          <th width="18%" style="text-align: center;">Tanggal</th>
-          <th width="18%" style="text-align: center;">Waktu</th>
-          <th width="58%" style="text-align: center;">Uraian</th>
+          <th width="5%" style="text-align: center;">No.</th>
+          <th width="17%" style="text-align: center;">Tanggal</th>
+          <th width="16%" style="text-align: center;">Waktu</th>
+          <th width="62%" style="text-align: center;">Uraian</th>
         </tr>
       </thead>
-      <tbody>
-        ${rowsHtml}
-      </tbody>
+      ${tableBodyHtml}
     </table>
-
-    <div class="chronology-print-signatures" style="display: flex; justify-content: flex-end; margin-top: 36px; page-break-inside: avoid;">
-      <div class="chronology-print-sig-col" style="width: 320px; text-align: center; font-size: 10pt;">
-        <p style="margin: 0 0 4px 0;">Pontianak, ${formatIndonesianDate(state.currentDate || new Date().toISOString().slice(0, 10))}</p>
-        <p style="margin: 0; font-weight: bold;">Kepala Ruang Enggang Gading 2</p>
-        <div class="chronology-print-sig-space" style="height: 65px;"></div>
-        <p style="margin: 0;"><strong><u>Ns. Rusmulyadi, S.Kep.,M.A.R.S</u></strong></p>
-        <p style="margin: 2px 0 0 0;">NIP. 198212282003121005</p>
-      </div>
-    </div>
   `;
 
   const originalTitle = document.title;
@@ -3888,6 +3969,8 @@ function copyChronologySummary(patientKey) {
 
   let lastShiftCopy = '';
   let copyIndex = 1;
+  let lastCopyDate = '';
+
   days.forEach(d => {
     const pt = d.patient;
     const dateFormatted = formatIndonesianDate(d.date);
@@ -3898,25 +3981,29 @@ function copyChronologySummary(patientKey) {
       { name: 'Shift Malam (21.00 - 07.00 WIB)', text: (pt.notes?.malam || '').trim() }
     ];
 
-    let prevShiftDay = '';
-
     candidates.forEach(c => {
       if (!c.text || c.text.length < 3 || c.text === '-') return;
-      const norm = c.text.replace(/\s+/g, ' ').toLowerCase();
-      if (norm === prevShiftDay || norm === lastShiftCopy) return;
+      if (isDuplicateUraian(c.text, lastShiftCopy)) return;
 
-      text += `\n[${copyIndex++}] Tanggal : ${dateFormatted}\n`;
+      const dateStr = (d.date !== lastCopyDate) ? dateFormatted : `(Tanggal sama: ${dateFormatted})`;
+      text += `\n[${copyIndex++}] Tanggal : ${dateStr}\n`;
       text += `    Waktu   : ${c.name}\n`;
       text += `    Uraian  : ${c.text.replace(/\n+/g, '\n              ')}\n`;
-      prevShiftDay = norm;
-      lastShiftCopy = norm;
+      lastCopyDate = d.date;
+      lastShiftCopy = c.text;
     });
 
     const dayCustom = customEntries.filter(c => c.date === d.date);
     dayCustom.forEach(c => {
-      text += `\n[${copyIndex++}] Tanggal : ${dateFormatted}\n`;
+      const customTxt = `S: ${c.s || '-'} | O: ${c.o || '-'} | A: ${c.a || '-'} | P: ${c.p || '-'}`;
+      if (isDuplicateUraian(customTxt, lastShiftCopy)) return;
+
+      const dateStr = (d.date !== lastCopyDate) ? dateFormatted : `(Tanggal sama: ${dateFormatted})`;
+      text += `\n[${copyIndex++}] Tanggal : ${dateStr}\n`;
       text += `    Waktu   : ${c.shiftTitle} (${c.time || '-'} WIB) - ${c.ppa || 'Petugas Ruangan'}\n`;
-      text += `    Uraian  : S: ${c.s} | O: ${c.o} | A: ${c.a} | P: ${c.p}\n`;
+      text += `    Uraian  : ${customTxt}\n`;
+      lastCopyDate = d.date;
+      lastShiftCopy = customTxt;
     });
   });
 
