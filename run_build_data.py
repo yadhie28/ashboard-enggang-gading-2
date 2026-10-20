@@ -505,6 +505,8 @@ def run():
 
             daily_stats[dt] = {
                 "hp": tot_occ,
+                "occA": occ_a,
+                "occB": occ_b,
                 "discharges": discharges_today,
                 "deaths": deaths_today,
                 "deathsGt48": death_gt48_today
@@ -549,12 +551,16 @@ def run():
                 "month": m_key,
                 "days": 0,
                 "totalHP": 0,
+                "totalHPA": 0,
+                "totalHPB": 0,
                 "totalDischarges": 0,
                 "totalDeaths": 0,
                 "totalDeathsGt48": 0
             }
         monthly_data[m_key]["days"] += 1
         monthly_data[m_key]["totalHP"] += stat["hp"]
+        monthly_data[m_key]["totalHPA"] += stat.get("occA", 0)
+        monthly_data[m_key]["totalHPB"] += stat.get("occB", 0)
         monthly_data[m_key]["totalDischarges"] += stat["discharges"]
         monthly_data[m_key]["totalDeaths"] += stat["deaths"]
         monthly_data[m_key]["totalDeathsGt48"] += stat["deathsGt48"]
@@ -592,6 +598,8 @@ def run():
             "month": m_key,
             "days": T,
             "hp": HP,
+            "hpA": m["totalHPA"],
+            "hpB": m["totalHPB"],
             "discharges": D,
             "deaths": Deaths,
             "deathsGt48": DeathsGt48,
@@ -670,6 +678,8 @@ def run():
         monthly_stats.append({
             "month": m["month"],
             "avgOcc": round(m["hp"] / m["days"], 1),
+            "avgOccA": round(m.get("hpA", 0) / m["days"], 1),
+            "avgOccB": round(m.get("hpB", 0) / m["days"], 1),
             "avgBor": m["bor"],
             "daysCounted": m["days"]
         })

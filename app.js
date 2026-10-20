@@ -1213,12 +1213,16 @@ function renderAnalyticsTab() {
       if (m.avgBor >= 85) statusChip = '<span class="status-chip chip-danger">Penuh (Kritis)</span>';
       else if (m.avgBor < 60) statusChip = '<span class="status-chip chip-warning">Rendah</span>';
 
+      const occA = (m.avgOccA !== undefined && m.avgOccA !== null) ? `${m.avgOccA} Pasien` : '-';
+      const occB = (m.avgOccB !== undefined && m.avgOccB !== null) ? `${m.avgOccB} Pasien` : '-';
+      const avgOcc = (m.avgOcc !== undefined && m.avgOcc !== null) ? `${m.avgOcc} Pasien` : '-';
+
       tr.innerHTML = `
         <td><strong>${monthLabel}</strong></td>
         <td>${m.daysCounted} Hari</td>
-        <td><strong>${m.avgOcc}</strong> Pasien</td>
-        <td>${m.avgOccA} Pasien</td>
-        <td>${m.avgOccB} Pasien</td>
+        <td><strong>${avgOcc}</strong></td>
+        <td>${occA}</td>
+        <td>${occB}</td>
         <td><strong style="color:var(--accent-primary);">${m.avgBor}%</strong></td>
         <td>${statusChip}</td>
       `;
