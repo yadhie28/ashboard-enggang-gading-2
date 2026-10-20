@@ -3206,6 +3206,17 @@ function initChronologyModule() {
     };
   }
 
+  const btnExportWord = document.getElementById('btnExportWordChronology');
+  if (btnExportWord) {
+    btnExportWord.onclick = () => {
+      if (!state.chronologyPatient) {
+        showToast('Pilih pasien terlebih dahulu untuk dicetak ke Word!', 'warning');
+        return;
+      }
+      exportChronologyWord(state.chronologyPatient);
+    };
+  }
+
   const btnCopy = document.getElementById('btnCopyChronologySummary');
   if (btnCopy) {
     btnCopy.onclick = () => {
@@ -4020,4 +4031,326 @@ function copyChronologySummary(patientKey) {
     console.error('Clipboard copy error:', err);
     showToast('Gagal menyalin teks: ' + err.message, 'error');
   });
+}
+
+// Export Hospital Official Chronology Document to Microsoft Word (.doc)
+function exportChronologyWord(patientKey) {
+  const { days, customEntries, profile } = getPatientChronologyData(patientKey);
+  if (!profile) {
+    showToast('Pilih pasien terlebih dahulu untuk dicetak ke Word!', 'warning');
+    return;
+  }
+
+  showToast('Membuat dokumen Word (.doc)...', 'info');
+
+  const displayName = maskPatientName(profile.name);
+  const displayMr = maskMrNo(profile.mrNo);
+  const initialDiagnosis = days[0]?.patient?.diagnosis || profile.diagnosis || '-';
+  const finalDiagnosis = days[days.length - 1]?.patient?.diagnosis || profile.diagnosis || '-';
+
+  // Get embedded logo (Base64 PNG from logo_asset.js)
+  const logoBase64 = window.LOGO_KALBAR_BASE64 || '';
+
+  let rowNum = 1;
+  let lastDisplayedShiftText = '';
+  let lastRenderedDate = '';
+  let rowsHtml = '';
+
+  days.forEach(d => {
+    const pt = d.patient;
+    const dateFormatted = formatIndonesianDate(d.date);
+    const dayCustom = customEntries.filter(c => c.date === d.date);
+
+    const shiftCandidates = [
+      { name: 'Shift Pagi', time: '07.00 - 14.00 WIB', text: (pt.notes?.pagi || '').trim() },
+      { name: 'Shift Sore', time: '14.00 - 21.00 WIB', text: (pt.notes?.sore || '').trim() },
+      { name: 'Shift Malam', time: '21.00 - 07.00 WIB', text: (pt.notes?.malam || '').trim() }
+    ];
+
+    shiftCandidates.forEach(cand => {
+      if (!cand.text || cand.text.length < 3 || cand.text === '-') return;
+
+      if (isDuplicateUraian(cand.text, lastDisplayedShiftText)) {
+        return;
+      }
+
+      let dateCellHtml = '';
+      if (d.date !== lastRenderedDate) {
+        dateCellHtml = `<strong>${dateFormatted}</strong>`;
+        lastRenderedDate = d.date;
+      }
+
+      const formattedUraian = escapeHtml(cand.text).replace(/\n/g, '<br/>');
+
+      rowsHtml += `
+        <tr>
+          <td style="text-align: center; vertical-align: top; font-weight: bold; width: 5%; font-size: 9.5pt;">${rowNum++}</td>
+          <td style="text-align: center; vertical-align: top; width: 17%; font-size: 9.5pt;">${dateCellHtml}</td>
+          <td style="text-align: center; vertical-align: top; width: 16%; font-size: 9.5pt;">
+            <div style="font-weight: bold;">${escapeHtml(cand.name)}</div>
+            <div style="font-size: 8pt; color: #444;">(${cand.time})</div>
+          </td>
+          <td style="vertical-align: top; width: 62%; font-size: 9.5pt; line-height: 1.35;">
+            ${formattedUraian}
+          </td>
+        </tr>
+      `;
+
+      lastDisplayedShiftText = cand.text;
+    });
+
+    dayCustom.forEach(c => {
+      const customTxt = `S: ${c.s || '-'}\nO: ${c.o || '-'}\nA: ${c.a || '-'}\nP: ${c.p || '-'}`;
+      if (isDuplicateUraian(customTxt, lastDisplayedShiftText)) {
+        return;
+      }
+
+      let dateCellHtml = '';
+      if (d.date !== lastRenderedDate) {
+        dateCellHtml = `<strong>${dateFormatted}</strong>`;
+        lastRenderedDate = d.date;
+      }
+
+      const formattedCustom = escapeHtml(customTxt).replace(/\n/g, '<br/>');
+
+      rowsHtml += `
+        <tr>
+          <td style="text-align: center; vertical-align: top; font-weight: bold; width: 5%; font-size: 9.5pt;">${rowNum++}</td>
+          <td style="text-align: center; vertical-align: top; width: 17%; font-size: 9.5pt;">${dateCellHtml}</td>
+          <td style="text-align: center; vertical-align: top; width: 16%; font-size: 9.5pt;">
+            <div style="font-weight: bold;">${escapeHtml(c.shiftTitle)}</div>
+            <div style="font-size: 8pt; color: #444;">(${c.time ? c.time + ' WIB' : '-'})</div>
+          </td>
+          <td style="vertical-align: top; width: 62%; font-size: 9.5pt; line-height: 1.35;">
+            <div style="font-weight: bold; font-size: 9pt;">${escapeHtml(c.ppa || 'Petugas Ruangan')}:</div>
+            ${formattedCustom}
+          </td>
+        </tr>
+      `;
+
+      lastDisplayedShiftText = customTxt;
+    });
+  });
+
+  if (!rowsHtml) {
+    rowsHtml = `
+      <tr>
+        <td colspan="4" style="text-align: center; padding: 14pt; font-style: italic; color: #555;">
+          (Tidak ada catatan klinis shift yang terdata)
+        </td>
+      </tr>
+    `;
+  }
+
+  const currentDateFormatted = formatIndonesianDate(state.currentDate || new Date().toISOString().slice(0, 10));
+
+  const wordHtml = `
+    <html xmlns:o='urn:schemas-microsoft-com:office:office'
+          xmlns:w='urn:schemas-microsoft-com:office:word'
+          xmlns='http://www.w3.org/TR/REC-html40'>
+    <head>
+      <meta charset='utf-8'>
+      <title>KRONOLOGIS PERJALANAN RAWAT INAP PASIEN</title>
+      <!--[if gte mso 9]>
+      <xml>
+        <w:WordDocument>
+          <w:View>Print</w:View>
+          <w:Zoom>100</w:Zoom>
+          <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+      </xml>
+      <![endif]-->
+      <style>
+        @page Section1 {
+          size: 21.0cm 29.7cm; /* A4 */
+          margin: 1.5cm 1.8cm 1.5cm 1.8cm;
+          mso-header-margin: 1.0cm;
+          mso-footer-margin: 1.0cm;
+          mso-paper-source: 0;
+        }
+        div.Section1 {
+          page: Section1;
+        }
+        body {
+          font-family: 'Times New Roman', Times, serif;
+          font-size: 10.5pt;
+          line-height: 1.35;
+          color: #000000;
+        }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+        td, th {
+          font-family: 'Times New Roman', Times, serif;
+          vertical-align: top;
+        }
+        .kop-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 4pt;
+        }
+        .kop-table td {
+          border: none;
+          padding: 0;
+        }
+        .double-line {
+          border-bottom: 3.5pt double #000000;
+          padding-top: 4pt;
+          margin-bottom: 12pt;
+        }
+        .doc-title {
+          text-align: center;
+          font-size: 13pt;
+          font-weight: bold;
+          text-decoration: underline;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin: 10pt 0 14pt 0;
+        }
+        .patient-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 12pt;
+          font-size: 10pt;
+        }
+        .patient-table td {
+          border: none;
+          padding: 3pt 4pt;
+        }
+        .data-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-bottom: 14pt;
+          font-size: 9.5pt;
+        }
+        .data-table th, .data-table td {
+          border: 1pt solid #000000;
+          padding: 6pt 7pt;
+        }
+        .data-table th {
+          background-color: #f2f2f2;
+          font-weight: bold;
+          text-align: center;
+        }
+        .sig-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 24pt;
+        }
+        .sig-table td {
+          border: none;
+          padding: 0;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="Section1">
+        <!-- Letterhead Kop Rumah Sakit -->
+        <table class="kop-table">
+          <tr>
+            <td width="85" align="center" valign="middle">
+              ${logoBase64 ? `<img src="${logoBase64}" width="68" height="92" alt="Logo Pemprov Kalbar" style="width: 68px; height: 92px;" />` : ''}
+            </td>
+            <td align="center" valign="middle" style="padding-left: 10px;">
+              <div style="font-size: 12.5pt; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">PEMERINTAH PROVINSI KALIMANTAN BARAT</div>
+              <div style="font-size: 14.5pt; font-weight: bold; text-transform: uppercase; margin: 2px 0; letter-spacing: 0.5px;">RUMAH SAKIT UMUM DAERAH DOKTER SOEDARSO</div>
+              <div style="font-size: 8.5pt; margin: 0; line-height: 1.35;">Jalan Dr. Soedarso No. 1, Pontianak 78124, Kalimantan Barat &bull; Telp. (0561) 737701</div>
+              <div style="font-size: 8.5pt; margin: 0; line-height: 1.35;">Laman: rsuddrsoedarso.kalbarprov.go.id &bull; Pos-el: rsuddrsoedarso@kalbarprov.go.id</div>
+            </td>
+          </tr>
+        </table>
+        <div class="double-line"></div>
+
+        <!-- Document Title -->
+        <div class="doc-title">KRONOLOGIS PERJALANAN RAWAT INAP PASIEN</div>
+
+        <!-- Patient Demographics Table -->
+        <table class="patient-table">
+          <tr>
+            <td width="18%"><strong>Nama Pasien</strong></td>
+            <td width="32%">: ${escapeHtml(displayName)}</td>
+            <td width="18%"><strong>Tanggal Masuk (MRS)</strong></td>
+            <td width="32%">: ${profile.admissionDate || '-'}</td>
+          </tr>
+          <tr>
+            <td><strong>Nomor Rekam Medis</strong></td>
+            <td>: ${displayMr}</td>
+            <td><strong>Total Hari Terdata (LOS)</strong></td>
+            <td>: ${days.length} Hari</td>
+          </tr>
+          <tr>
+            <td><strong>Jenis Kelamin / Usia</strong></td>
+            <td>: ${profile.gender === 'L' ? 'Laki-laki' : 'Perempuan'} ${profile.age ? '/ ' + profile.age : ''}</td>
+            <td><strong>Ruang / Kamar</strong></td>
+            <td>: Ruang Enggang Gading 2 (${profile.room} - Bed ${profile.bed})</td>
+          </tr>
+          <tr>
+            <td><strong>DPJP Utama</strong></td>
+            <td>: ${escapeHtml(profile.doctorPrimary || profile.doctor)}</td>
+            <td><strong>Jaminan / Asuransi</strong></td>
+            <td>: ${profile.insurance}</td>
+          </tr>
+          <tr>
+            <td><strong>Diagnosa Awal</strong></td>
+            <td colspan="3">: ${escapeHtml(initialDiagnosis)}</td>
+          </tr>
+          <tr>
+            <td><strong>Diagnosa Akhir</strong></td>
+            <td colspan="3">: ${escapeHtml(finalDiagnosis)}</td>
+          </tr>
+        </table>
+
+        <!-- Clinical Journey Table -->
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th width="5%" style="text-align: center;">No.</th>
+              <th width="17%" style="text-align: center;">Tanggal</th>
+              <th width="16%" style="text-align: center;">Waktu</th>
+              <th width="62%" style="text-align: center;">Uraian</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+          </tbody>
+        </table>
+
+        <!-- Single Official Signatory Table -->
+        <table class="sig-table">
+          <tr>
+            <td width="55%"></td>
+            <td width="45%" align="center">
+              <p style="margin: 0 0 4px 0;">Pontianak, ${currentDateFormatted}</p>
+              <p style="margin: 0; font-weight: bold;">Kepala Ruang Enggang Gading 2</p>
+              <div style="height: 55px;"></div>
+              <p style="margin: 0;"><strong><u>Ns. Rusmulyadi, S.Kep.,M.A.R.S</u></strong></p>
+              <p style="margin: 2px 0 0 0;">NIP. 198212282003121005</p>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </body>
+    </html>
+  `;
+
+  try {
+    const blob = new Blob(['\ufeff' + wordHtml], {
+      type: 'application/msword;charset=utf-8'
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const cleanName = (profile.name || 'Pasien').replace(/[^a-zA-Z0-9]/g, '_');
+    const cleanMr = (profile.mrNo || 'RM').replace(/[^a-zA-Z0-9]/g, '_');
+    a.href = url;
+    a.download = `Kronologis_Rawat_${cleanName}_${cleanMr}.doc`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Dokumen Word (.doc) berhasil diunduh! Siap dibuka & diedit di Microsoft Word.', 'success');
+  } catch (err) {
+    console.error('Error exporting to Word:', err);
+    showToast('Gagal mengunduh dokumen Word: ' + err.message, 'error');
+  }
 }

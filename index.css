@@ -3755,6 +3755,25 @@ body::before {
   flex-wrap: wrap;
 }
 
+.btn-export-word {
+  border-color: #2563eb !important;
+  color: #2563eb !important;
+}
+
+.btn-export-word:hover {
+  background: rgba(37, 99, 235, 0.08) !important;
+  border-color: #1d4ed8 !important;
+}
+
+[data-theme="dark"] .btn-export-word {
+  border-color: #38bdf8 !important;
+  color: #38bdf8 !important;
+}
+
+[data-theme="dark"] .btn-export-word:hover {
+  background: rgba(56, 189, 248, 0.12) !important;
+}
+
 /* Patient Picker Control Bar */
 .chronology-patient-picker {
   display: grid;
