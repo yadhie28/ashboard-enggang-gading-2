@@ -4464,7 +4464,7 @@ body::before {
 }
 
 .chronology-print-letterhead h3 {
-  font-size: 12.5pt;
+  font-size: 11pt;
   font-weight: bold;
   margin: 0;
   letter-spacing: 0.5px;
@@ -4473,18 +4473,19 @@ body::before {
 }
 
 .chronology-print-letterhead h2 {
-  font-size: 14.5pt;
-  font-weight: 800;
-  margin: 2px 0;
-  letter-spacing: 0.5px;
+  font-size: 13.5pt;
+  font-weight: bold;
+  margin: 1px 0;
+  letter-spacing: 0.2px;
   text-transform: uppercase;
+  white-space: nowrap;
   color: #000000;
 }
 
 .chronology-print-letterhead p {
   font-size: 8.5pt;
   margin: 0;
-  line-height: 1.35;
+  line-height: 1.25;
   color: #111111;
   font-style: normal;
 }
@@ -4493,7 +4494,7 @@ body::before {
   text-align: center;
   font-size: 12.5pt;
   font-weight: bold;
-  margin: 10px 0 14px 0;
+  margin: 8px 0 10px 0;
   text-decoration: underline;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -4505,14 +4506,15 @@ body::before {
   width: 100% !important;
   table-layout: fixed !important;
   border-collapse: collapse !important;
-  margin-bottom: 14px !important;
+  margin-bottom: 10px !important;
   font-size: 9.5pt !important;
   page-break-inside: avoid !important;
   break-inside: avoid !important;
 }
 
 .chronology-print-patient-table td {
-  padding: 3px 6px;
+  padding: 2px 4px;
+  line-height: 1.15;
   vertical-align: top;
   word-break: break-word;
   overflow-wrap: break-word;
@@ -4550,6 +4552,8 @@ body::before {
   background-color: #f2f2f2 !important;
   font-weight: bold;
   text-align: center;
+  padding: 4px 6px !important;
+  line-height: 1.15;
   -webkit-print-color-adjust: exact !important;
   print-color-adjust: exact !important;
 }

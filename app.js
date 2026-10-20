@@ -3879,13 +3879,13 @@ function printChronologyResume(patientKey) {
 
   printContainer.innerHTML = `
     <div class="chronology-print-letterhead">
-      <div style="display: flex; align-items: center; justify-content: center; gap: 18px;">
-        <img src="logo_kalbar.svg" alt="Logo Pemerintah Provinsi Kalimantan Barat" style="width: 72px; height: auto; max-height: 85px; flex-shrink: 0;" />
+      <div style="display: flex; align-items: center; justify-content: center; gap: 14px;">
+        <img src="logo_kalbar.svg" alt="Logo Pemerintah Provinsi Kalimantan Barat" style="width: 50px; height: auto; max-height: 66px; flex-shrink: 0;" />
         <div style="text-align: center;">
-          <h3 style="font-size: 13pt; font-weight: bold; margin: 0; letter-spacing: 0.5px; text-transform: uppercase;">PEMERINTAH PROVINSI KALIMANTAN BARAT</h3>
-          <h2 style="font-size: 15pt; font-weight: 800; margin: 2px 0; letter-spacing: 0.5px; text-transform: uppercase;">RUMAH SAKIT UMUM DAERAH DOKTER SOEDARSO</h2>
-          <p style="font-size: 9pt; margin: 0; line-height: 1.3;">Jalan Dr. Soedarso No. 1, Pontianak 78124, Kalimantan Barat &bull; Telp. (0561) 737701</p>
-          <p style="font-size: 8.5pt; margin: 0; line-height: 1.3;">Laman: rsuddrsoedarso.kalbarprov.go.id &bull; Pos-el: rsuddrsoedarso@kalbarprov.go.id</p>
+          <h3 style="font-size: 11pt; font-weight: bold; margin: 0; letter-spacing: 0.5px; text-transform: uppercase;">PEMERINTAH PROVINSI KALIMANTAN BARAT</h3>
+          <h2 style="font-size: 13.5pt; font-weight: bold; margin: 1px 0; letter-spacing: 0.2px; text-transform: uppercase; white-space: nowrap;">RUMAH SAKIT UMUM DAERAH DOKTER SOEDARSO</h2>
+          <p style="font-size: 8.5pt; margin: 0; line-height: 1.25;">Jalan Dr. Soedarso No. 1, Pontianak 78124, Kalimantan Barat &bull; Telp. (0561) 737701</p>
+          <p style="font-size: 8pt; margin: 0; line-height: 1.25;">Laman: rsuddrsoedarso.kalbarprov.go.id &bull; Pos-el: rsuddrsoedarso@kalbarprov.go.id</p>
         </div>
       </div>
     </div>
@@ -4163,7 +4163,7 @@ function exportChronologyWord(patientKey) {
       <style>
         @page Section1 {
           size: 21.0cm 29.7cm; /* A4 */
-          margin: 1.5cm 1.8cm 1.5cm 1.8cm;
+          margin: 1.5cm 1.5cm 1.5cm 1.5cm;
           mso-header-margin: 1.0cm;
           mso-footer-margin: 1.0cm;
           mso-paper-source: 0;
@@ -4173,8 +4173,8 @@ function exportChronologyWord(patientKey) {
         }
         body {
           font-family: 'Times New Roman', Times, serif;
-          font-size: 10.5pt;
-          line-height: 1.35;
+          font-size: 10pt;
+          line-height: 1.15;
           color: #000000;
         }
         table {
@@ -4198,22 +4198,29 @@ function exportChronologyWord(patientKey) {
         }
         .doc-title {
           text-align: center;
-          font-size: 13pt;
+          font-size: 12.5pt;
           font-weight: bold;
           text-decoration: underline;
           text-transform: uppercase;
           letter-spacing: 0.5px;
-          margin: 12pt 0 14pt 0;
+          margin: 8pt 0 8pt 0;
+          line-height: 1.15;
         }
         .patient-table {
           width: 100%;
           border-collapse: collapse;
-          margin-bottom: 12pt;
-          font-size: 10pt;
+          margin-bottom: 8pt;
+          font-size: 9.5pt;
+          line-height: 1.0;
+          mso-line-height-rule: exactly;
         }
         .patient-table td {
           border: none;
-          padding: 3pt 4pt;
+          padding: 1.5pt 2pt;
+          line-height: 1.0;
+          mso-line-height-rule: exactly;
+          vertical-align: top;
+          font-size: 9.5pt;
         }
         table.data-table {
           width: 100%;
@@ -4228,7 +4235,7 @@ function exportChronologyWord(patientKey) {
         table.data-table th, table.data-table td {
           border: 0.5pt solid #000000;
           mso-border-alt: solid windowtext 0.5pt;
-          padding: 4.5pt 6pt;
+          padding: 4pt 5pt;
           font-family: 'Times New Roman', Times, serif;
           vertical-align: top;
         }
@@ -4236,6 +4243,10 @@ function exportChronologyWord(patientKey) {
           background-color: #f2f2f2;
           font-weight: bold;
           text-align: center;
+          font-size: 9.5pt;
+          line-height: 1.0;
+          mso-line-height-rule: exactly;
+          padding: 2.5pt 3pt;
         }
         .sig-table {
           width: 100%;
@@ -4250,72 +4261,72 @@ function exportChronologyWord(patientKey) {
     </head>
     <body>
       <div class="Section1">
-        <!-- Letterhead Kop Rumah Sakit (3-kolom seimbang sesuai lebar kertas) -->
-        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kop-table">
+        <!-- Letterhead Kop Rumah Sakit (Ukuran Logo & Teks Proporsional, 1 Baris RSUD Soedarso) -->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="kop-table" style="width: 100%; border-collapse: collapse;">
           <tr>
-            <td width="80" align="center" valign="middle" style="width: 80px; padding: 0;">
-              ${logoBase64 ? `<img src="${logoBase64}" width="68" height="92" alt="Logo Pemprov Kalbar" style="width: 68px; height: 92px;" />` : ''}
+            <td width="55" align="center" valign="middle" style="width: 55px; padding: 0;">
+              ${logoBase64 ? `<img src="${logoBase64}" width="50" height="66" alt="Logo Pemprov Kalbar" style="width: 50px; height: 66px;" />` : ''}
             </td>
-            <td align="center" valign="middle" style="text-align: center; padding: 0 6px;">
-              <div style="font-size: 13pt; font-weight: bold; text-transform: uppercase; font-family: 'Times New Roman', serif; line-height: 1.25;">PEMERINTAH PROVINSI KALIMANTAN BARAT</div>
-              <div style="font-size: 15pt; font-weight: bold; text-transform: uppercase; font-family: 'Times New Roman', serif; margin: 2pt 0; line-height: 1.25;">RUMAH SAKIT UMUM DAERAH DOKTER SOEDARSO</div>
-              <div style="font-size: 9pt; font-family: 'Times New Roman', serif; margin: 0; line-height: 1.3;">Jalan Dr. Soedarso No. 1, Pontianak 78124, Kalimantan Barat &bull; Telp. (0561) 737701</div>
-              <div style="font-size: 8.5pt; font-family: 'Times New Roman', serif; margin: 0; line-height: 1.3;">Laman: rsuddrsoedarso.kalbarprov.go.id &bull; Pos-el: rsuddrsoedarso@kalbarprov.go.id</div>
+            <td align="center" valign="middle" style="text-align: center; padding: 0 4px;">
+              <div style="font-size: 11pt; font-weight: bold; text-transform: uppercase; font-family: 'Times New Roman', serif; line-height: 1.15; letter-spacing: 0.5px; mso-line-height-rule: exactly;">PEMERINTAH PROVINSI KALIMANTAN BARAT</div>
+              <div style="font-size: 13pt; font-weight: bold; text-transform: uppercase; font-family: 'Times New Roman', serif; margin: 1pt 0; line-height: 1.15; white-space: nowrap; word-break: keep-all; letter-spacing: 0.2px; mso-line-height-rule: exactly;">RUMAH SAKIT UMUM DAERAH DOKTER SOEDARSO</div>
+              <div style="font-size: 8.5pt; font-family: 'Times New Roman', serif; margin: 0; line-height: 1.15; mso-line-height-rule: exactly;">Jalan Dr. Soedarso No. 1, Pontianak 78124, Kalimantan Barat &bull; Telp. (0561) 737701</div>
+              <div style="font-size: 8pt; font-family: 'Times New Roman', serif; margin: 0; line-height: 1.15; mso-line-height-rule: exactly;">Laman: rsuddrsoedarso.kalbarprov.go.id &bull; Pos-el: rsuddrsoedarso@kalbarprov.go.id</div>
             </td>
-            <td width="80" align="center" valign="middle" style="width: 80px; padding: 0;"></td>
+            <td width="55" align="center" valign="middle" style="width: 55px; padding: 0;"></td>
           </tr>
           <tr>
-            <td colspan="3" style="border-bottom: 3.0pt double #000000; padding-top: 6pt; height: 1px; font-size: 1pt; line-height: 1pt;">&nbsp;</td>
+            <td colspan="3" style="border-bottom: 2.25pt double #000000; padding-top: 4pt; height: 1px; font-size: 1pt; line-height: 1pt; mso-border-bottom-alt: double windowtext 2.25pt;">&nbsp;</td>
           </tr>
         </table>
 
         <!-- Document Title -->
         <div class="doc-title">KRONOLOGIS PERJALANAN RAWAT INAP PASIEN</div>
 
-        <!-- Patient Demographics Table -->
-        <table width="100%" border="0" cellspacing="0" cellpadding="2" class="patient-table">
+        <!-- Patient Demographics Table (1 Spasi / Single Spacing Rapi) -->
+        <table width="100%" border="0" cellspacing="0" cellpadding="1" class="patient-table" style="width: 100%; border-collapse: collapse; margin-bottom: 8pt; font-size: 9.5pt; line-height: 1.0; mso-line-height-rule: exactly;">
           <tr>
-            <td width="18%" style="border: none;"><strong>Nama Pasien</strong></td>
-            <td width="32%" style="border: none;">: ${escapeHtml(displayName)}</td>
-            <td width="18%" style="border: none;"><strong>Tanggal Masuk (MRS)</strong></td>
-            <td width="32%" style="border: none;">: ${profile.admissionDate || '-'}</td>
+            <td width="18%" style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Nama Pasien</strong></td>
+            <td width="32%" style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${escapeHtml(displayName)}</td>
+            <td width="18%" style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Tanggal Masuk (MRS)</strong></td>
+            <td width="32%" style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${profile.admissionDate || '-'}</td>
           </tr>
           <tr>
-            <td style="border: none;"><strong>Nomor Rekam Medis</strong></td>
-            <td style="border: none;">: ${displayMr}</td>
-            <td style="border: none;"><strong>Total Hari Terdata (LOS)</strong></td>
-            <td style="border: none;">: ${days.length} Hari</td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Nomor Rekam Medis</strong></td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${displayMr}</td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Total Hari Terdata (LOS)</strong></td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${days.length} Hari</td>
           </tr>
           <tr>
-            <td style="border: none;"><strong>Jenis Kelamin / Usia</strong></td>
-            <td style="border: none;">: ${profile.gender === 'L' ? 'Laki-laki' : 'Perempuan'} ${profile.age ? '/ ' + profile.age : ''}</td>
-            <td style="border: none;"><strong>Ruang / Kamar</strong></td>
-            <td style="border: none;">: Ruang Enggang Gading 2 (${profile.room} - Bed ${profile.bed})</td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Jenis Kelamin / Usia</strong></td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${profile.gender === 'L' ? 'Laki-laki' : 'Perempuan'} ${profile.age ? '/ ' + profile.age : ''}</td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Ruang / Kamar</strong></td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: Ruang Enggang Gading 2 (${profile.room} - Bed ${profile.bed})</td>
           </tr>
           <tr>
-            <td style="border: none;"><strong>DPJP Utama</strong></td>
-            <td style="border: none;">: ${escapeHtml(profile.doctorPrimary || profile.doctor)}</td>
-            <td style="border: none;"><strong>Jaminan / Asuransi</strong></td>
-            <td style="border: none;">: ${profile.insurance}</td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>DPJP Utama</strong></td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${escapeHtml(profile.doctorPrimary || profile.doctor)}</td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Jaminan / Asuransi</strong></td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${profile.insurance}</td>
           </tr>
           <tr>
-            <td style="border: none;"><strong>Diagnosa Awal</strong></td>
-            <td colspan="3" style="border: none;">: ${escapeHtml(initialDiagnosis)}</td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Diagnosa Awal</strong></td>
+            <td colspan="3" style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${escapeHtml(initialDiagnosis)}</td>
           </tr>
           <tr>
-            <td style="border: none;"><strong>Diagnosa Akhir</strong></td>
-            <td colspan="3" style="border: none;">: ${escapeHtml(finalDiagnosis)}</td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Diagnosa Akhir</strong></td>
+            <td colspan="3" style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${escapeHtml(finalDiagnosis)}</td>
           </tr>
         </table>
 
-        <!-- Clinical Journey Table (Garis Tipis Biasa 0.5pt, Bukan Garis Double) -->
-        <table class="data-table" width="100%" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse; border: 0.5pt solid #000000; mso-border-alt: solid windowtext 0.5pt; mso-border-insideh: 0.5pt solid windowtext; mso-border-insidev: 0.5pt solid windowtext; margin-bottom: 14pt;">
+        <!-- Clinical Journey Table (Garis Tipis Biasa 0.5pt, Header 1 Spasi) -->
+        <table class="data-table" width="100%" border="1" cellspacing="0" cellpadding="2" style="width: 100%; border-collapse: collapse; border: 0.5pt solid #000000; mso-border-alt: solid windowtext 0.5pt; mso-border-insideh: 0.5pt solid windowtext; mso-border-insidev: 0.5pt solid windowtext; margin-bottom: 14pt;">
           <thead>
-            <tr style="mso-yfti-firstrow: yes; mso-yfti-tblheader: yes;">
-              <th width="5%" style="border: 0.5pt solid #000000; background-color: #f2f2f2; font-family: 'Times New Roman', serif; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 5pt 4pt;">No.</th>
-              <th width="17%" style="border: 0.5pt solid #000000; background-color: #f2f2f2; font-family: 'Times New Roman', serif; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 5pt 4pt;">Tanggal</th>
-              <th width="16%" style="border: 0.5pt solid #000000; background-color: #f2f2f2; font-family: 'Times New Roman', serif; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 5pt 4pt;">Waktu</th>
-              <th width="62%" style="border: 0.5pt solid #000000; background-color: #f2f2f2; font-family: 'Times New Roman', serif; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 5pt 6pt;">Uraian</th>
+            <tr style="mso-yfti-firstrow: yes; mso-yfti-tblheader: yes; line-height: 1.0; mso-line-height-rule: exactly;">
+              <th width="5%" style="border: 0.5pt solid #000000; background-color: #f2f2f2; font-family: 'Times New Roman', serif; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 2.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly;">No.</th>
+              <th width="17%" style="border: 0.5pt solid #000000; background-color: #f2f2f2; font-family: 'Times New Roman', serif; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 2.5pt 3pt; line-height: 1.0; mso-line-height-rule: exactly;">Tanggal</th>
+              <th width="16%" style="border: 0.5pt solid #000000; background-color: #f2f2f2; font-family: 'Times New Roman', serif; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 2.5pt 3pt; line-height: 1.0; mso-line-height-rule: exactly;">Waktu</th>
+              <th width="62%" style="border: 0.5pt solid #000000; background-color: #f2f2f2; font-family: 'Times New Roman', serif; font-size: 9.5pt; font-weight: bold; text-align: center; padding: 2.5pt 5pt; line-height: 1.0; mso-line-height-rule: exactly;">Uraian</th>
             </tr>
           </thead>
           <tbody>
