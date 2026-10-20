@@ -4398,13 +4398,7 @@ body::before {
    ========================================================================== */
 @page {
   size: A4 portrait;
-  margin: 1.2cm 1.5cm 1.2cm 1.5cm;
-  @top-left { content: none; }
-  @top-center { content: none; }
-  @top-right { content: none; }
-  @bottom-left { content: none; }
-  @bottom-center { content: none; }
-  @bottom-right { content: none; }
+  margin: 0 !important;
 }
 
 @media print {
@@ -4416,25 +4410,27 @@ body::before {
     print-color-adjust: exact !important;
   }
 
-  body.printing-chronology * {
-    visibility: hidden;
+  body.printing-chronology > *:not(#printContainer) {
+    display: none !important;
   }
-  body.printing-chronology #printContainer,
-  body.printing-chronology #printContainer * {
-    visibility: visible;
-  }
+
   body.printing-chronology #printContainer {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+    display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 12mm 15mm 12mm 15mm !important;
     background: #ffffff !important;
     color: #000000 !important;
     font-family: 'Times New Roman', Times, serif;
     font-size: 10pt;
     line-height: 1.35;
+  }
+
+  body.printing-chronology #printContainer * {
+    visibility: visible !important;
   }
 }
 
@@ -4491,6 +4487,23 @@ body::before {
 .chronology-print-patient-table td {
   padding: 3px 6px;
   vertical-align: top;
+}
+
+.chronology-print-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 14px;
+  font-size: 9.5pt;
+  page-break-inside: auto;
+}
+
+.chronology-print-data-table thead {
+  display: table-header-group;
+}
+
+.chronology-print-data-table tr {
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .chronology-print-data-table th,

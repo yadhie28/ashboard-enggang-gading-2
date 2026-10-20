@@ -3696,6 +3696,7 @@ function printChronologyResume(patientKey) {
   const initialDiagnosis = days[0]?.patient?.diagnosis || profile.diagnosis || '-';
   const finalDiagnosis = days[days.length - 1]?.patient?.diagnosis || profile.diagnosis || '-';
 
+  let rowNum = 1;
   let lastDisplayedShiftText = '';
   let rowsHtml = '';
 
@@ -3704,16 +3705,15 @@ function printChronologyResume(patientKey) {
     const dateFormatted = formatIndonesianDate(d.date);
     const dayCustom = customEntries.filter(c => c.date === d.date);
 
-    const shiftItems = [];
-    const candidates = [
-      { name: 'Shift Pagi (07.00 - 14.00)', text: (pt.notes?.pagi || '').trim() },
-      { name: 'Shift Sore (14.00 - 21.00)', text: (pt.notes?.sore || '').trim() },
-      { name: 'Shift Malam (21.00 - 07.00)', text: (pt.notes?.malam || '').trim() }
+    const shiftCandidates = [
+      { name: 'Shift Pagi', time: '07.00 - 14.00 WIB', text: (pt.notes?.pagi || '').trim() },
+      { name: 'Shift Sore', time: '14.00 - 21.00 WIB', text: (pt.notes?.sore || '').trim() },
+      { name: 'Shift Malam', time: '21.00 - 07.00 WIB', text: (pt.notes?.malam || '').trim() }
     ];
 
     let prevShiftInSameDay = '';
 
-    candidates.forEach(cand => {
+    shiftCandidates.forEach(cand => {
       if (!cand.text || cand.text.length < 3 || cand.text === '-') return;
       const norm = cand.text.replace(/\s+/g, ' ').toLowerCase();
 
@@ -3722,47 +3722,56 @@ function printChronologyResume(patientKey) {
         return;
       }
 
-      shiftItems.push({
-        title: cand.name,
-        text: cand.text
-      });
+      rowsHtml += `
+        <tr>
+          <td style="text-align: center; vertical-align: top; font-weight: bold; width: 6%;">${rowNum++}</td>
+          <td style="text-align: center; vertical-align: top; width: 18%;">${dateFormatted}</td>
+          <td style="text-align: center; vertical-align: top; width: 18%;">
+            <div style="font-weight: bold;">${escapeHtml(cand.name)}</div>
+            <div style="font-size: 8pt; color: #444; margin-top: 2px;">(${cand.time})</div>
+          </td>
+          <td style="vertical-align: top; width: 58%;">
+            <div style="white-space: pre-line; line-height: 1.35;">${escapeHtml(cand.text)}</div>
+          </td>
+        </tr>
+      `;
 
       prevShiftInSameDay = norm;
       lastDisplayedShiftText = norm;
     });
 
     dayCustom.forEach(c => {
-      const customTxt = `S: ${c.s || '-'} | O: ${c.o || '-'} | A: ${c.a || '-'} | P: ${c.p || '-'}`;
+      const customTxt = `S: ${c.s || '-'}\nO: ${c.o || '-'}\nA: ${c.a || '-'}\nP: ${c.p || '-'}`;
       const customNorm = customTxt.replace(/\s+/g, ' ').toLowerCase();
       if (customNorm !== lastDisplayedShiftText) {
-        shiftItems.push({
-          title: `${c.shiftTitle} (${c.ppa || 'Petugas Ruangan'})`,
-          text: customTxt
-        });
+        rowsHtml += `
+          <tr>
+            <td style="text-align: center; vertical-align: top; font-weight: bold; width: 6%;">${rowNum++}</td>
+            <td style="text-align: center; vertical-align: top; width: 18%;">${dateFormatted}</td>
+            <td style="text-align: center; vertical-align: top; width: 18%;">
+              <div style="font-weight: bold;">${escapeHtml(c.shiftTitle)}</div>
+              <div style="font-size: 8pt; color: #444; margin-top: 2px;">(${c.time ? c.time + ' WIB' : '-'})</div>
+            </td>
+            <td style="vertical-align: top; width: 58%;">
+              <div style="font-weight: bold; font-size: 9pt; margin-bottom: 2px;">${escapeHtml(c.ppa || 'Petugas Ruangan')}:</div>
+              <div style="white-space: pre-line; line-height: 1.35;">${escapeHtml(customTxt)}</div>
+            </td>
+          </tr>
+        `;
         lastDisplayedShiftText = customNorm;
       }
     });
+  });
 
-    let uraianContent = '';
-    if (shiftItems.length > 0) {
-      uraianContent = shiftItems.map(item => `
-        <div style="margin-bottom: 6px;">
-          <span style="font-weight: bold; text-decoration: underline; font-size: 9.5pt;">${escapeHtml(item.title)}:</span>
-          <div style="white-space: pre-line; margin-top: 2px;">${escapeHtml(item.text)}</div>
-        </div>
-      `).join('');
-    } else {
-      uraianContent = '<span style="color:#555; font-style: italic;">(Kondisi klinis &amp; terapi melanjutkan shift sebelumnya tanpa perubahan keluhan)</span>';
-    }
-
-    rowsHtml += `
+  if (!rowsHtml) {
+    rowsHtml = `
       <tr>
-        <td style="text-align: center; font-weight: bold; vertical-align: top; width: 14%;">Hari ke-${d.dayOfStay}</td>
-        <td style="vertical-align: top; width: 22%;">${dateFormatted}</td>
-        <td style="vertical-align: top; width: 64%;">${uraianContent}</td>
+        <td colspan="4" style="text-align: center; padding: 16px; font-style: italic; color: #555;">
+          (Tidak ada catatan klinis shift yang terdata)
+        </td>
       </tr>
     `;
-  });
+  }
 
   printContainer.innerHTML = `
     <div class="chronology-print-letterhead">
@@ -3817,9 +3826,10 @@ function printChronologyResume(patientKey) {
     <table class="chronology-print-data-table">
       <thead>
         <tr>
-          <th width="14%">Hari Rawat</th>
-          <th width="22%">Tanggal</th>
-          <th width="64%">Uraian</th>
+          <th width="6%" style="text-align: center;">No.</th>
+          <th width="18%" style="text-align: center;">Tanggal</th>
+          <th width="18%" style="text-align: center;">Waktu</th>
+          <th width="58%" style="text-align: center;">Uraian</th>
         </tr>
       </thead>
       <tbody>
@@ -3874,42 +3884,40 @@ function copyChronologySummary(patientKey) {
   text += `Diagnosa Awal     : ${initialDiagnosis}\n`;
   text += `Diagnosa Akhir    : ${finalDiagnosis}\n`;
   text += `----------------------------------------------------------------------\n`;
-  text += `URAIAN PERJALANAN KLINIS:\n`;
+  text += `URAIAN PERJALANAN KLINIS (PER SHIFT):\n`;
 
   let lastShiftCopy = '';
+  let copyIndex = 1;
   days.forEach(d => {
     const pt = d.patient;
-    text += `\n[HARI KE-${d.dayOfStay} - ${formatIndonesianDate(d.date)}]\n`;
+    const dateFormatted = formatIndonesianDate(d.date);
 
     const candidates = [
-      { name: 'Shift Pagi (07-14)', text: (pt.notes?.pagi || '').trim() },
-      { name: 'Shift Sore (14-21)', text: (pt.notes?.sore || '').trim() },
-      { name: 'Shift Malam (21-07)', text: (pt.notes?.malam || '').trim() }
+      { name: 'Shift Pagi (07.00 - 14.00 WIB)', text: (pt.notes?.pagi || '').trim() },
+      { name: 'Shift Sore (14.00 - 21.00 WIB)', text: (pt.notes?.sore || '').trim() },
+      { name: 'Shift Malam (21.00 - 07.00 WIB)', text: (pt.notes?.malam || '').trim() }
     ];
 
     let prevShiftDay = '';
-    let hasNote = false;
 
     candidates.forEach(c => {
       if (!c.text || c.text.length < 3 || c.text === '-') return;
       const norm = c.text.replace(/\s+/g, ' ').toLowerCase();
       if (norm === prevShiftDay || norm === lastShiftCopy) return;
 
-      text += `  - ${c.name}: ${c.text.replace(/\n+/g, ' ')}\n`;
+      text += `\n[${copyIndex++}] Tanggal : ${dateFormatted}\n`;
+      text += `    Waktu   : ${c.name}\n`;
+      text += `    Uraian  : ${c.text.replace(/\n+/g, '\n              ')}\n`;
       prevShiftDay = norm;
       lastShiftCopy = norm;
-      hasNote = true;
     });
 
     const dayCustom = customEntries.filter(c => c.date === d.date);
     dayCustom.forEach(c => {
-      text += `  - [${c.shiftTitle} / ${c.ppa}]: S: ${c.s} | O: ${c.o} | A: ${c.a} | P: ${c.p}\n`;
-      hasNote = true;
+      text += `\n[${copyIndex++}] Tanggal : ${dateFormatted}\n`;
+      text += `    Waktu   : ${c.shiftTitle} (${c.time || '-'} WIB) - ${c.ppa || 'Petugas Ruangan'}\n`;
+      text += `    Uraian  : S: ${c.s} | O: ${c.o} | A: ${c.a} | P: ${c.p}\n`;
     });
-
-    if (!hasNote) {
-      text += `  - (Melanjutkan evaluasi & terapi shift sebelumnya)\n`;
-    }
   });
 
   text += `\n======================================================================\n`;
