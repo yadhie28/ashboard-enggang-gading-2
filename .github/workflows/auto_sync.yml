@@ -1,15 +1,31 @@
-name: Auto Sync Spreadsheet & Deploy Netlify
+name: Auto Sync Spreadsheet & Deploy to GitHub Pages
 
 on:
   schedule:
-    # 07:00 WIB (00:00 UTC)
-    # 14:00 WIB (07:00 UTC)
-    # 21:00 WIB (14:00 UTC)
+    # 07:00 WIB (00:00 UTC) - Operan Shift Pagi
+    # 14:00 WIB (07:00 UTC) - Operan Shift Sore
+    # 21:00 WIB (14:00 UTC) - Operan Shift Malam
     - cron: '0 0,7,14 * * *'
   workflow_dispatch: # Memungkinkan tombol manual "Run workflow" di GitHub
+  push:
+    branches:
+      - main
+
+# Izin untuk menulis ke GitHub Pages dan commit pembaruan data
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   sync-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -29,12 +45,22 @@ jobs:
         run: |
           python run_build_data.py
 
-      - name: Package & Deploy to Netlify
+      - name: Commit Updated Data to Repository
         run: |
-          echo "/* /index.html 200" > _redirects
-          zip -r deploy_netlify.zip index.html index.css app.js dashboard_data.json hospital_indicators.json _redirects logo_kalbar.svg logo_asset.js logo_kalbar.png logo_enggang.png
-          curl -s -X POST \
-            -H "Authorization: Bearer ${{ secrets.NETLIFY_AUTH_TOKEN || 'nfp_jReUwsNgDkXUNzN4n8is2vbtGeRwP9Teab01' }}" \
-            -H "Content-Type: application/zip" \
-            --data-binary "@deploy_netlify.zip" \
-            https://api.netlify.com/api/v1/sites/4fbdaa25-4820-4a43-9ded-2b87885e8859/deploys
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Auto-Sync"
+          git add dashboard_data.json hospital_indicators.json EG2A.xlsx EG2B.xlsx
+          git commit -m "chore(auto-sync): update daily census from Google Sheets [skip ci]" || echo "No changes to commit"
+          git push || echo "Push skipped"
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
