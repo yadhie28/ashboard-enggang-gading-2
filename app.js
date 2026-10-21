@@ -324,10 +324,14 @@ function lockToManagementMode() {
 
 
 // Load Dashboard Data
-async function loadData() {
+async function loadData(forceRefresh = false) {
   showToast('Memuat data sensus Ruang Enggang Gading 2...', 'info');
   try {
-    const res = await fetch('dashboard_data.json?t=' + Date.now());
+    const cacheBuster = forceRefresh ? `&_nocache=${Date.now()}` : '';
+    const res = await fetch(`dashboard_data.json?t=${Date.now()}${cacheBuster}`, {
+      cache: forceRefresh ? 'no-store' : 'no-cache',
+      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' }
+    });
     if (!res.ok) throw new Error('Gagal membaca file data sensus');
     state.data = await res.json();
     state.currentDate = state.data.metadata.latestDate;
@@ -338,6 +342,9 @@ async function loadData() {
     renderAnalyticsTab();
     renderBarberJohnsonTab();
     initChronologyModule();
+    if (typeof fetchSyncSchedule === 'function') {
+      fetchSyncSchedule();
+    }
     showToast('Data berhasil dimuat! Sensus terkini: ' + formatIndonesianDate(state.currentDate), 'success');
   } catch (err) {
     console.error('Error loading data:', err);
@@ -1692,26 +1699,85 @@ function initSyncSchedule() {
   }
 }
 
+function getClientSyncSchedule(metadata) {
+  const now = new Date();
+  const schedules = [
+    { hour: 7, minute: 0, name: "Shift Pagi", desc: "Operan Jaga Malam ➔ Pagi" },
+    { hour: 14, minute: 0, name: "Shift Sore", desc: "Operan Jaga Pagi ➔ Sore" },
+    { hour: 21, minute: 0, name: "Shift Malam", desc: "Operan Jaga Sore ➔ Malam" }
+  ];
+
+  let candidates = [];
+  for (const s of schedules) {
+    const t = new Date(now);
+    t.setHours(s.hour, s.minute, 0, 0);
+    if (t > now) {
+      candidates.push({ dt: t, s });
+    } else {
+      const tNext = new Date(t);
+      tNext.setDate(tNext.getDate() + 1);
+      candidates.push({ dt: tNext, s });
+    }
+  }
+  candidates.sort((a, b) => a.dt - b.dt);
+  const next = candidates[0];
+  const totalSeconds = Math.max(0, Math.floor((next.dt - now) / 1000));
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+
+  let remainingStr = "";
+  if (hours > 0) remainingStr += `${hours} jam `;
+  remainingStr += `${minutes} menit`;
+
+  const lastSyncTime = (metadata && metadata.lastUpdated) ? metadata.lastUpdated : null;
+
+  return {
+    autoSyncEnabled: true,
+    isStaticClient: true,
+    schedules: [
+      { time: "07:00", name: "Shift Pagi", desc: "Operan Jaga Malam ➔ Pagi" },
+      { time: "14:00", name: "Shift Sore", desc: "Operan Jaga Pagi ➔ Sore" },
+      { time: "21:00", name: "Shift Malam", desc: "Operan Jaga Sore ➔ Malam" }
+    ],
+    lastSync: lastSyncTime,
+    lastMessage: "Sinkronisasi Terjadwal (Shift 07.00, 14.00, 21.00)",
+    nextSync: {
+      datetime: `${next.dt.getFullYear()}-${String(next.dt.getMonth() + 1).padStart(2, '0')}-${String(next.dt.getDate()).padStart(2, '0')} ${String(next.s.hour).padStart(2, '0')}:${String(next.s.minute).padStart(2, '0')}:00`,
+      time: `${String(next.s.hour).padStart(2, '0')}:${String(next.s.minute).padStart(2, '0')}`,
+      shiftName: next.s.name,
+      shiftDesc: next.s.desc,
+      remainingSeconds: totalSeconds,
+      remainingFormatted: remainingStr.trim() || "sebentar lagi"
+    }
+  };
+}
+
 async function fetchSyncSchedule() {
   try {
     const res = await fetch('/api/sync-schedule');
-    if (!res.ok) return;
-    const info = await res.json();
-    state.syncSchedule = info;
+    if (res.ok) {
+      const info = await res.json();
+      state.syncSchedule = info;
 
-    // Check if new sync completed in background
-    if (info.lastSync && state.lastSyncKnown && info.lastSync !== state.lastSyncKnown) {
-      showToast(`🔄 Data sensus otomatis ditarik dari Google Spreadsheet (${info.lastSync})`, 'success');
-      state.lastSyncKnown = info.lastSync;
-      loadData();
-    } else if (info.lastSync && !state.lastSyncKnown) {
-      state.lastSyncKnown = info.lastSync;
+      if (info.lastSync && state.lastSyncKnown && info.lastSync !== state.lastSyncKnown) {
+        showToast(`🔄 Data sensus otomatis ditarik dari Google Spreadsheet (${info.lastSync})`, 'success');
+        state.lastSyncKnown = info.lastSync;
+        loadData(true);
+      } else if (info.lastSync && !state.lastSyncKnown) {
+        state.lastSyncKnown = info.lastSync;
+      }
+
+      updateSyncScheduleUI(info);
+      return;
     }
-
-    updateSyncScheduleUI(info);
   } catch (err) {
-    // Offline / static file mode
+    // Offline / static hosting fallback
   }
+
+  // Fallback client-side calculation (works 100% on Netlify, static hosting & offline)
+  const clientInfo = getClientSyncSchedule(state.data?.metadata);
+  state.syncSchedule = clientInfo;
+  updateSyncScheduleUI(clientInfo);
 }
 
 function updateSyncScheduleUI(info) {
@@ -1725,7 +1791,7 @@ function updateSyncScheduleUI(info) {
   // Update Modal elements if open
   const lastSyncEl = document.getElementById('metaLastSyncVal');
   if (lastSyncEl) {
-    lastSyncEl.textContent = info.lastSync ? `${info.lastSync} (${info.lastMessage || 'Sukses'})` : 'Belum tercatat (Baru mulai)';
+    lastSyncEl.textContent = info.lastSync ? `${info.lastSync} (${info.lastMessage || 'Tersinkronisasi'})` : 'Terjadwal Tiap Shift (07.00, 14.00, 21.00)';
   }
 
   const nextSyncEl = document.getElementById('metaNextSyncVal');
@@ -1776,30 +1842,30 @@ async function triggerSync() {
 
   if (syncBtn) {
     syncBtn.disabled = true;
-    syncBtn.innerHTML = '<span class="pulsing-dot"></span> Menyingkronkan...';
+    syncBtn.innerHTML = '<span class="pulsing-dot"></span> Memeriksa Update...';
   }
   if (modalSyncBtn) {
     modalSyncBtn.disabled = true;
     modalSyncBtn.innerHTML = '<span class="pulsing-dot"></span> Menyingkronkan Google Sheets...';
   }
 
-  showToast('Sedang menghubungi server untuk menarik spreadsheet terbaru...', 'info');
+  showToast('Memeriksa pembaruan data sensus spreadsheet...', 'info');
 
   try {
     const res = await fetch('/api/sync', { method: 'POST' });
     if (res.ok) {
-      showToast('Sinkronisasi selesai! Memperbarui data...', 'success');
-      await loadData();
-      await fetchSyncSchedule();
-    } else {
-      showToast('Sinkronisasi data Google Sheet selesai diperbarui.', 'success');
-      await loadData();
-      await fetchSyncSchedule();
+      showToast('Sinkronisasi server lokal berhasil!', 'success');
     }
   } catch (err) {
-    showToast('Memuat ulang cache data lokal...', 'info');
-    await loadData();
-    await fetchSyncSchedule();
+    // Static mode / Netlify
+  }
+
+  try {
+    await loadData(true);
+    fetchSyncSchedule();
+    showToast('Tampilan sensus berhasil disegarkan.', 'success');
+  } catch (e) {
+    showToast('Gagal memuat ulang data: ' + e.message, 'error');
   } finally {
     if (syncBtn) {
       syncBtn.disabled = false;
