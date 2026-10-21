@@ -1,0 +1,40 @@
+name: Auto Sync Spreadsheet & Deploy Netlify
+
+on:
+  schedule:
+    # 07:00 WIB (00:00 UTC)
+    # 14:00 WIB (07:00 UTC)
+    # 21:00 WIB (14:00 UTC)
+    - cron: '0 0,7,14 * * *'
+  workflow_dispatch: # Memungkinkan tombol manual "Run workflow" di GitHub
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Download Spreadsheet EG2A & EG2B
+        run: |
+          curl -s -L --retry 3 "https://docs.google.com/spreadsheets/d/1RtJzfTnuTu-cmZXW59aGUDpihhJ1kGm_z9BozUHsgsI/export?format=xlsx" -o EG2A.xlsx
+          curl -s -L --retry 3 "https://docs.google.com/spreadsheets/d/1lpmrLiILZtFX-sBVyzBjlqf3xRgcYJ84Yrzj8fZ8Lx0/export?format=xlsx" -o EG2B.xlsx
+
+      - name: Rebuild Dashboard Data with Color Discharge Detection
+        run: |
+          python run_build_data.py
+
+      - name: Package & Deploy to Netlify
+        run: |
+          echo "/* /index.html 200" > _redirects
+          zip -r deploy_netlify.zip index.html index.css app.js dashboard_data.json hospital_indicators.json _redirects logo_kalbar.svg logo_asset.js logo_kalbar.png logo_enggang.png
+          curl -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.NETLIFY_AUTH_TOKEN || 'nfp_jReUwsNgDkXUNzN4n8is2vbtGeRwP9Teab01' }}" \
+            -H "Content-Type: application/zip" \
+            --data-binary "@deploy_netlify.zip" \
+            https://api.netlify.com/api/v1/sites/4fbdaa25-4820-4a43-9ded-2b87885e8859/deploys
