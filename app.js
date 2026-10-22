@@ -4518,13 +4518,20 @@ function initWhatsAppMessengerSystem() {
       if (tmplType === 'test') {
         text = 'Test Boss';
       } else if (tmplType === 'sensus') {
-        const tgl = (typeof state !== 'undefined' && state.currentDate)
-          ? formatIndonesianDate(state.currentDate)
-          : 'Hari Ini';
-        const total = (typeof state !== 'undefined' && state.patients)
-          ? state.patients.length
-          : 0;
-        text = `Yth. Kepala Ruang Enggang Gading 2,\n\nLaporan Ringkasan Sensus Pelayanan Rawat Inap Enggang Gading 2:\n📅 Tanggal: ${tgl}\n👥 Total Pasien Aktif: ${total} orang\n\nDemikian laporan ringkas kami sampaikan. Terima kasih.`;
+        const curDate = (typeof state !== 'undefined' && state.currentDate) ? state.currentDate : new Date().toISOString().slice(0, 10);
+        const dayData = (typeof state !== 'undefined' && state.data && state.data[curDate]) ? state.data[curDate] : null;
+        let pxAwal = 54, pxBaru = 3, pxPindah = '-', pxMeninggal = '-', pxPulang = 1;
+        let pxSkrg = 54, freeBed = 0, bor = '100%';
+
+        if (dayData && dayData.summary) {
+          const s = dayData.summary;
+          pxSkrg = s.occupied || (s.occA + s.occB) || 54;
+          const totalBeds = s.totalBeds || 56;
+          freeBed = Math.max(0, totalBeds - pxSkrg);
+          bor = `${s.bor || Math.round((pxSkrg / Math.max(1, totalBeds)) * 100)}%`;
+        }
+
+        text = `Ruang Enggang Gading 2\nKapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\nPx awal: ${pxAwal}\nPx baru: ${pxBaru}\nPx pindah: ${pxPindah}\nPx meninggal: ${pxMeninggal}\nPx pulang: ${pxPulang}\nRenc pulang: -\nRenc pindah: -\n\nPx sekarang: ${pxSkrg}\n\nAntrean:\n\nFree Bed:  ${freeBed} (EG2-A: 0 ekstra bed, EG2-B: 0 ekstra bed)\n\nPersentase terisi: ${bor}\n\nRencana/Antrean Pindah:\n\nMakaseh 🙏\nSemoga sehat selalu 😊`;
       } else if (tmplType === 'operan') {
         const total = (typeof state !== 'undefined' && state.patients)
           ? state.patients.length
