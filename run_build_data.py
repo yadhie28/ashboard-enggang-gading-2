@@ -450,9 +450,9 @@ def run():
 
             patients_a = normalize_wing_beds(raw_patients_a, "EG2A", CAPACITY_EG2A)
             patients_b = normalize_wing_beds(raw_patients_b, "EG2B", CAPACITY_EG2B)
-
-            occ_a = len([p for p in patients_a if not p["isEmpty"]])
-            occ_b = len([p for p in patients_b if not p["isEmpty"]])
+            # Pasien aktif = Pasien tanpa warna (tidak kosong dan bukan pasien pulang)
+            occ_a = len([p for p in patients_a if not p["isEmpty"] and not p.get("isDischargedToday")])
+            occ_b = len([p for p in patients_b if not p["isEmpty"] and not p.get("isDischargedToday")])
             tot_occ = occ_a + occ_b
             bor = round((tot_occ / TOTAL_CAPACITY) * 100, 1)
 
@@ -520,6 +520,11 @@ def run():
                         lbl = t["label"]
                         tag_counts[lbl] = tag_counts.get(lbl, 0) + 1
 
+                # Logika Pergeseran Bed
+                text_free_a = f"{max(0, 4 - (occ_a - 12))} ekstra bed" if occ_a >= 12 else f"{12 - occ_a} + 4 ekstra bed"
+                text_free_b = f"{max(0, 4 - (occ_b - 36))} ekstra bed" if occ_b >= 36 else f"{36 - occ_b} + 4 ekstra bed"
+                free_bed_detail = f"Free Bed:  {TOTAL_CAPACITY - tot_occ} (EG2-A: {text_free_a}, EG2-B: {text_free_b})"
+
                 recent_days[dt] = {
                     "date": dt,
                     "eg2a": patients_a,
@@ -530,6 +535,9 @@ def run():
                         "capacityB": CAPACITY_EG2B,
                         "occupied": tot_occ,
                         "empty": max(0, TOTAL_CAPACITY - tot_occ),
+                        "freeBedDetail": free_bed_detail,
+                        "textFreeA": text_free_a,
+                        "textFreeB": text_free_b,
                         "bor": bor,
                         "borA": round((occ_a / CAPACITY_EG2A) * 100, 1),
                         "borB": round((occ_b / CAPACITY_EG2B) * 100, 1),
