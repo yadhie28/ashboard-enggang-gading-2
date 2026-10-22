@@ -100,11 +100,15 @@ git add dashboard_data.json hospital_indicators.json EG2A.xlsx EG2B.xlsx sync_in
 git commit -m "chore(sync): automated census sync $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOG_FILE" 2>&1 || true
 git push origin main >> "$LOG_FILE" 2>&1 || true
 
-# 8. Notify local server if running
+# 8. Send WhatsApp Census Report
+log "Mengirimkan laporan sensus WhatsApp otomatis ke Kepala Ruang..."
+python3 send_whatsapp.py --sensus --gateway fonnte >> "$LOG_FILE" 2>&1 || true
+
+# 9. Notify local server if running
 curl -s http://localhost:3000/api/status > /dev/null 2>&1 || true
 
-# 8. Send macOS Desktop Notification
-osascript -e 'display notification "Data sensus berhasil ditarik & diperbarui ke Netlify." with title "Auto-Sync Enggang Gading 2" subtitle "'"$CURRENT_TIME"'" sound name "Glass"' 2>/dev/null || true
+# 10. Send macOS Desktop Notification
+osascript -e 'display notification "Data sensus berhasil ditarik, diperbarui & dikirim ke WhatsApp." with title "Auto-Sync Enggang Gading 2" subtitle "'"$CURRENT_TIME"'" sound name "Glass"' 2>/dev/null || true
 
 log "=== [AUTO-SYNC COMPLETED] Selesai pada $(date '+%Y-%m-%d %H:%M:%S') ==="
 echo "==================================================================" >> "$LOG_FILE"
