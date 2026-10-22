@@ -4522,7 +4522,7 @@ function initWhatsAppMessengerSystem() {
         const dayData = (typeof state !== 'undefined' && state.data && state.data[curDate]) ? state.data[curDate] : null;
         let pxAwal = 54, pxBaru = 1, pxPindah = '-', pxMeninggal = '-', pxPulang = 6;
         let pxSkrg = 49, freeBed = 7, bor = '87.5%';
-        let extraAEmpty = 0, extraBEmpty = 1;
+        let textFreeA = '2 ekstra bed', textFreeB = '1 + 4 ekstra bed';
 
         if (dayData && (dayData.eg2a || dayData.eg2b)) {
           const allBeds = [...(dayData.eg2a || []), ...(dayData.eg2b || [])];
@@ -4544,14 +4544,49 @@ function initWhatsAppMessengerSystem() {
             }
           });
 
+          let activeA = 0;
+          (dayData.eg2a || []).forEach(b => {
+            const isEmp = b.isEmpty || (b.name && (b.name.toLowerCase().includes('kosong') || b.name.toLowerCase().includes('rusak')));
+            const col = (b.dischargeColor || '').toUpperCase();
+            if (!isEmp && !col && !b.isDischargedToday && b.status !== 'Pulang Hari Ini') {
+              activeA++;
+            }
+          });
+
+          let activeB = 0;
+          (dayData.eg2b || []).forEach(b => {
+            const isEmp = b.isEmpty || (b.name && (b.name.toLowerCase().includes('kosong') || b.name.toLowerCase().includes('rusak')));
+            const col = (b.dischargeColor || '').toUpperCase();
+            if (!isEmp && !col && !b.isDischargedToday && b.status !== 'Pulang Hari Ini') {
+              activeB++;
+            }
+          });
+
+          // Logika Pergeseran Bed (Ekstra bed selalu dikosongkan lebih dulu saat standar pulang)
+          if (activeA >= 12) {
+            const extraEmptyA = 4 - (activeA - 12);
+            textFreeA = `${extraEmptyA} ekstra bed`;
+          } else {
+            const stdEmptyA = 12 - activeA;
+            textFreeA = `${stdEmptyA} + 4 ekstra bed`;
+          }
+
+          if (activeB >= 36) {
+            const extraEmptyB = 4 - (activeB - 36);
+            textFreeB = `${extraEmptyB} ekstra bed`;
+          } else {
+            const stdEmptyB = 36 - activeB;
+            textFreeB = `${stdEmptyB} + 4 ekstra bed`;
+          }
+
           pxSkrg = activeCount || 49;
           pxPulang = dischargedCount || 6;
           pxMeninggal = deceasedCount > 0 ? deceasedCount : '-';
-          freeBed = Math.max(0, 56 - pxSkrg);
+          freeBed = (16 - activeA) + (40 - activeB);
           bor = `${((pxSkrg / 56) * 100).toFixed(1)}%`;
         }
 
-        text = `Ruang Enggang Gading 2\nKapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\nPx awal: ${pxAwal}\nPx baru: ${pxBaru}\nPx pindah: ${pxPindah}\nPx meninggal: ${pxMeninggal}\nPx pulang: ${pxPulang}\nRenc pulang: -\nRenc pindah: -\n\nPx sekarang: ${pxSkrg}\n\nAntrean:\n\nFree Bed:  ${freeBed} (EG2-A: ${extraAEmpty} ekstra bed, EG2-B: ${extraBEmpty} ekstra bed)\n\nPersentase terisi: ${bor}\n\nRencana/Antrean Pindah:\n\nMakaseh 🙏\nSemoga sehat selalu 😊`;
+        text = `Ruang Enggang Gading 2\nKapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\nPx awal: ${pxAwal}\nPx baru: ${pxBaru}\nPx pindah: ${pxPindah}\nPx meninggal: ${pxMeninggal}\nPx pulang: ${pxPulang}\nRenc pulang: -\nRenc pindah: -\n\nPx sekarang: ${pxSkrg}\n\nAntrean:\n\nFree Bed:  ${freeBed} (EG2-A: ${textFreeA}, EG2-B: ${textFreeB})\n\nPersentase terisi: ${bor}\n\nRencana/Antrean Pindah:\n\nMakaseh 🙏\nSemoga sehat selalu 😊`;
       } else if (tmplType === 'operan') {
         const total = (typeof state !== 'undefined' && state.patients)
           ? state.patients.length
