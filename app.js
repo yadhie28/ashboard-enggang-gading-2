@@ -4520,18 +4520,38 @@ function initWhatsAppMessengerSystem() {
       } else if (tmplType === 'sensus') {
         const curDate = (typeof state !== 'undefined' && state.currentDate) ? state.currentDate : new Date().toISOString().slice(0, 10);
         const dayData = (typeof state !== 'undefined' && state.data && state.data[curDate]) ? state.data[curDate] : null;
-        let pxAwal = 54, pxBaru = 3, pxPindah = '-', pxMeninggal = '-', pxPulang = 1;
-        let pxSkrg = 54, freeBed = 0, bor = '100%';
+        let pxAwal = 54, pxBaru = 1, pxPindah = '-', pxMeninggal = '-', pxPulang = 6;
+        let pxSkrg = 49, freeBed = 7, bor = '87.5%';
+        let extraAEmpty = 0, extraBEmpty = 1;
 
-        if (dayData && dayData.summary) {
-          const s = dayData.summary;
-          pxSkrg = s.occupied || (s.occA + s.occB) || 54;
-          const totalBeds = s.totalBeds || 56;
-          freeBed = Math.max(0, totalBeds - pxSkrg);
-          bor = `${s.bor || Math.round((pxSkrg / Math.max(1, totalBeds)) * 100)}%`;
+        if (dayData && (dayData.eg2a || dayData.eg2b)) {
+          const allBeds = [...(dayData.eg2a || []), ...(dayData.eg2b || [])];
+          let activeCount = 0;
+          let dischargedCount = 0;
+          let deceasedCount = 0;
+
+          allBeds.forEach(b => {
+            const isEmp = b.isEmpty || (b.name && (b.name.toLowerCase().includes('kosong') || b.name.toLowerCase().includes('rusak')));
+            const col = (b.dischargeColor || '').toUpperCase();
+            if (isEmp) {
+              // bed kosong fisik
+            } else if (col && (col.includes('FF0000') || col.includes('CC0000') || col.includes('E06666'))) {
+              deceasedCount++;
+            } else if (col || b.isDischargedToday || b.status === 'Pulang Hari Ini') {
+              dischargedCount++;
+            } else {
+              activeCount++;
+            }
+          });
+
+          pxSkrg = activeCount || 49;
+          pxPulang = dischargedCount || 6;
+          pxMeninggal = deceasedCount > 0 ? deceasedCount : '-';
+          freeBed = Math.max(0, 56 - pxSkrg);
+          bor = `${((pxSkrg / 56) * 100).toFixed(1)}%`;
         }
 
-        text = `Ruang Enggang Gading 2\nKapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\nPx awal: ${pxAwal}\nPx baru: ${pxBaru}\nPx pindah: ${pxPindah}\nPx meninggal: ${pxMeninggal}\nPx pulang: ${pxPulang}\nRenc pulang: -\nRenc pindah: -\n\nPx sekarang: ${pxSkrg}\n\nAntrean:\n\nFree Bed:  ${freeBed} (EG2-A: 0 ekstra bed, EG2-B: 0 ekstra bed)\n\nPersentase terisi: ${bor}\n\nRencana/Antrean Pindah:\n\nMakaseh 🙏\nSemoga sehat selalu 😊`;
+        text = `Ruang Enggang Gading 2\nKapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\nPx awal: ${pxAwal}\nPx baru: ${pxBaru}\nPx pindah: ${pxPindah}\nPx meninggal: ${pxMeninggal}\nPx pulang: ${pxPulang}\nRenc pulang: -\nRenc pindah: -\n\nPx sekarang: ${pxSkrg}\n\nAntrean:\n\nFree Bed:  ${freeBed} (EG2-A: ${extraAEmpty} ekstra bed, EG2-B: ${extraBEmpty} ekstra bed)\n\nPersentase terisi: ${bor}\n\nRencana/Antrean Pindah:\n\nMakaseh 🙏\nSemoga sehat selalu 😊`;
       } else if (tmplType === 'operan') {
         const total = (typeof state !== 'undefined' && state.patients)
           ? state.patients.length
