@@ -204,6 +204,8 @@ def main():
     parser.add_argument("--gateway", choices=["fonnte", "wablas"], help="Kirim melalui Gateway API otomatis di background (dari nomor bot mana pun)")
     parser.add_argument("--token", help="API Token untuk gateway Fonnte / Wablas")
     parser.add_argument("--save-token", action="store_true", help="Simpan token gateway ke wa_gateway_config.json")
+    parser.add_argument("--no-open", action="store_true", help="Hanya tampilkan link tanpa membuka browser/aplikasi")
+    parser.add_argument("--json", action="store_true", help="Output format JSON")
 
     args = parser.parse_args()
 
