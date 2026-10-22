@@ -3479,6 +3479,48 @@ body::before {
   position: relative;
 }
 
+.param-svg-chart {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  transition: max-width var(--transition-normal);
+}
+
+/* Tablet & Layar Menengah (>= 768px) */
+@media (min-width: 768px) {
+  .param-canvas-container {
+    min-height: 220px;
+    padding: 0.25rem 0;
+  }
+  .param-svg-chart {
+    max-width: 390px;
+  }
+}
+
+/* Layar Desktop (>= 992px): Otomatis membesar proporsional mengisi kartu desktop */
+@media (min-width: 992px) {
+  .param-canvas-container {
+    min-height: 250px;
+    padding: 0.5rem 0;
+  }
+  .param-svg-chart {
+    max-width: 460px;
+  }
+}
+
+/* Layar Lebar Desktop (>= 1280px): Ukuran maksimal optimal dan sangat jelas */
+@media (min-width: 1280px) {
+  .param-canvas-container {
+    min-height: 270px;
+    padding: 0.75rem 0;
+  }
+  .param-svg-chart {
+    max-width: 480px;
+  }
+}
+
 .param-card-footer {
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-medium);

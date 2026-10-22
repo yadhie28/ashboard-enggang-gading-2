@@ -2361,7 +2361,7 @@ function renderBorGaugeChart(hosp, isDark) {
   const actX = bLeft + (bor / 100) * bWidth;
 
   container.innerHTML = `
-    <svg viewBox="0 0 ${width} ${height}" style="width:100%; max-width:${width}px; height:auto; display:block;">
+    <svg class="param-svg-chart" viewBox="0 0 ${width} ${height}">
       <defs>
         <filter id="gaugeGlow" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="3" result="blur" />
@@ -2437,7 +2437,7 @@ function renderAvlosRangeChart(hosp, isDark) {
   });
 
   container.innerHTML = `
-    <svg viewBox="0 0 ${width} ${height}" style="width:100%; max-width:${width}px; height:auto; display:block;">
+    <svg class="param-svg-chart" viewBox="0 0 ${width} ${height}">
       <!-- Title Badge for Target -->
       <rect x="${x6.toFixed(1)}" y="24" width="${(x9 - x6).toFixed(1)}" height="16" rx="3" fill="rgba(16, 185, 129, 0.14)" />
       <text x="${((x6 + x9) / 2).toFixed(1)}" y="35" fill="#10b981" font-family="var(--font-heading)" font-size="9" font-weight="700" text-anchor="middle">TARGET DEPKES (6 – 9 HARI)</text>
@@ -2516,7 +2516,7 @@ function renderToiDialChart(hosp, isDark) {
   const xAct = scale(toi);
 
   container.innerHTML = `
-    <svg viewBox="0 0 ${width} ${height}" style="width:100%; max-width:${width}px; height:auto; display:block;">
+    <svg class="param-svg-chart" viewBox="0 0 ${width} ${height}">
       <!-- Clock Base Circle -->
       <circle cx="${ccx}" cy="${ccy}" r="${cr}" fill="${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(148,163,184,0.18)'}" stroke="${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(148,163,184,0.3)'}" stroke-width="1.5" />
 
@@ -2582,7 +2582,7 @@ function renderBtoMilestoneChart(hosp, isDark) {
   const xProj = scale(projectedBto);
 
   container.innerHTML = `
-    <svg viewBox="0 0 ${width} ${height}" style="width:100%; max-width:${width}px; height:auto; display:block;">
+    <svg class="param-svg-chart" viewBox="0 0 ${width} ${height}">
       <defs>
         <linearGradient id="btoBarGrad" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#9333ea" />

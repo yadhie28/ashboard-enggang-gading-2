@@ -30,7 +30,7 @@ SYNC_INFO_FILE = os.path.join(DIRECTORY, "sync_info.json")
 SCHEDULE_HOURS = [
     {"hour": 7, "minute": 0, "name": "Shift Pagi", "desc": "Operan Jaga Malam ➔ Pagi"},
     {"hour": 14, "minute": 0, "name": "Shift Sore", "desc": "Operan Jaga Pagi ➔ Sore"},
-    {"hour": 21, "minute": 0, "name": "Shift Malam", "desc": "Operan Jaga Sore ➔ Malam"}
+    {"hour": 20, "minute": 0, "name": "Shift Malam", "desc": "Operan Jaga Sore ➔ Malam"}
 ]
 
 sync_lock = threading.Lock()

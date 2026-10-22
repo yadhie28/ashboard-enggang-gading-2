@@ -343,13 +343,15 @@ def parse_patient_row_enhanced(r, room_type, current_iso_date):
     }
 
 def normalize_wing_beds(patients_raw, wing_name, target_capacity):
-    occupied = [p for p in patients_raw if not p.get("isEmpty")]
+    active_pts = [p for p in patients_raw if p.get("isActive")]
+    discharged_pts = [p for p in patients_raw if p.get("isDischargedToday") or p.get("isDeceased")]
     empty_raw = [p for p in patients_raw if p.get("isEmpty")]
     
     bed_slots = {}
     overflow = []
     
-    for p in occupied:
+    # 1. Prioritaskan pasien aktif di tempat tidurnya masing-masing!
+    for p in active_pts:
         try:
             b_int = int(re.sub(r"[^0-9]", "", str(p["bed"])))
         except:
@@ -360,6 +362,18 @@ def normalize_wing_beds(patients_raw, wing_name, target_capacity):
         else:
             overflow.append(p)
             
+    # 2. Masukkan pasien pulang/meninggal hari ini pada slot yang masih kosong
+    for p in discharged_pts:
+        try:
+            b_int = int(re.sub(r"[^0-9]", "", str(p["bed"])))
+        except:
+            b_int = None
+        if b_int and 1 <= b_int <= target_capacity and b_int not in bed_slots:
+            bed_slots[b_int] = p
+        else:
+            overflow.append(p)
+            
+    # 3. Masukkan bed kosong fisik jika slot belum terisi
     for p in empty_raw:
         try:
             b_int = int(re.sub(r"[^0-9]", "", str(p["bed"])))
@@ -368,6 +382,7 @@ def normalize_wing_beds(patients_raw, wing_name, target_capacity):
         if b_int and 1 <= b_int <= target_capacity and b_int not in bed_slots:
             bed_slots[b_int] = p
             
+    # 4. Alokasikan slot kosong untuk pasien overflow
     for slot in range(1, target_capacity + 1):
         if slot not in bed_slots and overflow:
             p = overflow.pop(0)
