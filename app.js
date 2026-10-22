@@ -4584,7 +4584,7 @@ function initWhatsAppMessengerSystem() {
           bor = `${((pxSkrg / 56) * 100).toFixed(1)}%`;
         }
 
-        text = `Ruang Enggang Gading 2\nKapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\nPx awal: ${pxAwal}\nPx baru: ${pxBaru}\nPx pindah: ${pxPindah}\nPx meninggal: ${pxMeninggal}\nPx pulang: ${pxPulang}\nRenc pulang: -\nRenc pindah: -\n\nPx sekarang: ${pxSkrg}\n\nAntrean:\n\nFree Bed:  ${freeBed} (EG2-A: ${textFreeA}, EG2-B: ${textFreeB})\n\nPersentase terisi: ${bor}\n\nRencana/Antrean Pindah:\n\nMakaseh 🙏\nSemoga sehat selalu 😊`;
+        text = `*Ruang Enggang Gading 2*\nKapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\n*Px awal: ${pxAwal}*\nPx baru: ${pxBaru}\nPx pindah: ${pxPindah}\nPx meninggal: ${pxMeninggal}\nPx pulang: ${pxPulang}\nRenc pulang: -\nRenc pindah: -\n\n*Px sekarang: ${pxSkrg}*\n\n*Antrean:*\n\n*Free Bed:  ${freeBed} (EG2-A: ${textFreeA}, EG2-B: ${textFreeB})*\n\n*Persentase terisi: ${bor}*\n\n*Rencana/Antrean Pindah:*\n\nMakaseh 🙏\n*Semoga sehat selalu 😊*`;
       } else if (tmplType === 'operan') {
         const total = (typeof state !== 'undefined' && state.patients)
           ? state.patients.length
