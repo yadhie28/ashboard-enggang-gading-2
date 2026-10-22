@@ -13,7 +13,7 @@
       "Enggang Gading 2A (16 Bed)",
       "Enggang Gading 2B (40 Bed)"
     ],
-    "lastUpdated": "22-10-2026 14:35:25",
+    "lastUpdated": "22-10-2026 21:39:26",
     "latestDate": "2026-10-22",
     "totalDatesRecorded": 291,
     "dateRange": "2026-01-01 s/d 2026-10-22",
@@ -317,334 +317,46 @@
   "history": [
     {
       "date": "2026-01-01",
-      "occA": 14,
-      "occB": 36,
-      "totalOcc": 50,
+      "occA": 11,
+      "occB": 34,
+      "totalOcc": 45,
       "totalBeds": 56,
-      "bor": 89.3
+      "bor": 80.4
     },
     {
       "date": "2026-01-02",
-      "occA": 14,
-      "occB": 36,
-      "totalOcc": 50,
+      "occA": 9,
+      "occB": 28,
+      "totalOcc": 37,
       "totalBeds": 56,
-      "bor": 89.3
+      "bor": 66.1
     },
     {
       "date": "2026-01-03",
       "occA": 13,
-      "occB": 37,
-      "totalOcc": 50,
+      "occB": 35,
+      "totalOcc": 48,
       "totalBeds": 56,
-      "bor": 89.3
+      "bor": 85.7
     },
     {
       "date": "2026-01-04",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 15,
+      "occB": 34,
+      "totalOcc": 49,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 87.5
     },
     {
       "date": "2026-01-05",
       "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
+      "occB": 28,
+      "totalOcc": 28,
       "totalBeds": 56,
-      "bor": 71.4
+      "bor": 50.0
     },
     {
       "date": "2026-01-06",
-      "occA": 0,
-      "occB": 39,
-      "totalOcc": 39,
-      "totalBeds": 56,
-      "bor": 69.6
-    },
-    {
-      "date": "2026-01-07",
-      "occA": 0,
-      "occB": 38,
-      "totalOcc": 38,
-      "totalBeds": 56,
-      "bor": 67.9
-    },
-    {
-      "date": "2026-01-08",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
-      "totalBeds": 56,
-      "bor": 71.4
-    },
-    {
-      "date": "2026-01-10",
-      "occA": 14,
-      "occB": 40,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-01-11",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-12",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-13",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-14",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-15",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-16",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-17",
-      "occA": 16,
-      "occB": 0,
-      "totalOcc": 16,
-      "totalBeds": 56,
-      "bor": 28.6
-    },
-    {
-      "date": "2026-01-18",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-21",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-22",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-23",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-24",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-25",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-26",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-27",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-28",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-29",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-30",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-01-31",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-02-01",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-02-02",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-02-03",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-02-04",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-02-05",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-02-06",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
-      "totalBeds": 56,
-      "bor": 71.4
-    },
-    {
-      "date": "2026-02-07",
-      "occA": 0,
-      "occB": 31,
-      "totalOcc": 31,
-      "totalBeds": 56,
-      "bor": 55.4
-    },
-    {
-      "date": "2026-02-08",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-02-09",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-02-10",
-      "occA": 16,
-      "occB": 0,
-      "totalOcc": 16,
-      "totalBeds": 56,
-      "bor": 28.6
-    },
-    {
-      "date": "2026-02-11",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-02-12",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
-      "totalBeds": 56,
-      "bor": 71.4
-    },
-    {
-      "date": "2026-02-13",
-      "occA": 15,
-      "occB": 35,
-      "totalOcc": 50,
-      "totalBeds": 56,
-      "bor": 89.3
-    },
-    {
-      "date": "2026-02-14",
       "occA": 0,
       "occB": 36,
       "totalOcc": 36,
@@ -652,71 +364,71 @@
       "bor": 64.3
     },
     {
-      "date": "2026-02-15",
+      "date": "2026-01-07",
       "occA": 0,
-      "occB": 34,
-      "totalOcc": 34,
+      "occB": 25,
+      "totalOcc": 25,
       "totalBeds": 56,
-      "bor": 60.7
+      "bor": 44.6
     },
     {
-      "date": "2026-02-16",
+      "date": "2026-01-08",
+      "occA": 0,
+      "occB": 33,
+      "totalOcc": 33,
+      "totalBeds": 56,
+      "bor": 58.9
+    },
+    {
+      "date": "2026-01-10",
       "occA": 12,
-      "occB": 35,
-      "totalOcc": 47,
+      "occB": 37,
+      "totalOcc": 49,
       "totalBeds": 56,
-      "bor": 83.9
+      "bor": 87.5
     },
     {
-      "date": "2026-02-17",
+      "date": "2026-01-11",
+      "occA": 14,
+      "occB": 36,
+      "totalOcc": 50,
+      "totalBeds": 56,
+      "bor": 89.3
+    },
+    {
+      "date": "2026-01-12",
       "occA": 11,
-      "occB": 0,
-      "totalOcc": 11,
+      "occB": 31,
+      "totalOcc": 42,
       "totalBeds": 56,
-      "bor": 19.6
+      "bor": 75.0
     },
     {
-      "date": "2026-02-18",
-      "occA": 15,
-      "occB": 30,
+      "date": "2026-01-13",
+      "occA": 12,
+      "occB": 34,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-01-14",
+      "occA": 14,
+      "occB": 31,
       "totalOcc": 45,
       "totalBeds": 56,
       "bor": 80.4
     },
     {
-      "date": "2026-02-19",
-      "occA": 15,
-      "occB": 36,
-      "totalOcc": 51,
-      "totalBeds": 56,
-      "bor": 91.1
-    },
-    {
-      "date": "2026-02-20",
-      "occA": 0,
-      "occB": 37,
-      "totalOcc": 37,
-      "totalBeds": 56,
-      "bor": 66.1
-    },
-    {
-      "date": "2026-02-21",
+      "date": "2026-01-15",
       "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
+      "occB": 29,
+      "totalOcc": 45,
       "totalBeds": 56,
-      "bor": 96.4
+      "bor": 80.4
     },
     {
-      "date": "2026-02-22",
-      "occA": 14,
-      "occB": 36,
-      "totalOcc": 50,
-      "totalBeds": 56,
-      "bor": 89.3
-    },
-    {
-      "date": "2026-02-23",
+      "date": "2026-01-16",
       "occA": 16,
       "occB": 37,
       "totalOcc": 53,
@@ -724,175 +436,23 @@
       "bor": 94.6
     },
     {
-      "date": "2026-02-24",
-      "occA": 0,
-      "occB": 39,
-      "totalOcc": 39,
-      "totalBeds": 56,
-      "bor": 69.6
-    },
-    {
-      "date": "2026-02-25",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-02-26",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-02-27",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-02-28",
-      "occA": 16,
-      "occB": 37,
-      "totalOcc": 53,
-      "totalBeds": 56,
-      "bor": 94.6
-    },
-    {
-      "date": "2026-03-01",
-      "occA": 13,
-      "occB": 38,
-      "totalOcc": 51,
-      "totalBeds": 56,
-      "bor": 91.1
-    },
-    {
-      "date": "2026-03-02",
-      "occA": 14,
-      "occB": 38,
-      "totalOcc": 52,
-      "totalBeds": 56,
-      "bor": 92.9
-    },
-    {
-      "date": "2026-03-03",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-03-04",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-03-05",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-03-06",
-      "occA": 16,
-      "occB": 37,
-      "totalOcc": 53,
-      "totalBeds": 56,
-      "bor": 94.6
-    },
-    {
-      "date": "2026-03-07",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-03-08",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-03-09",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-03-10",
-      "occA": 16,
+      "date": "2026-01-17",
+      "occA": 12,
       "occB": 0,
-      "totalOcc": 16,
+      "totalOcc": 12,
       "totalBeds": 56,
-      "bor": 28.6
+      "bor": 21.4
     },
     {
-      "date": "2026-03-11",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "date": "2026-01-18",
+      "occA": 14,
+      "occB": 29,
+      "totalOcc": 43,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 76.8
     },
     {
-      "date": "2026-03-12",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-03-13",
-      "occA": 16,
-      "occB": 36,
-      "totalOcc": 52,
-      "totalBeds": 56,
-      "bor": 92.9
-    },
-    {
-      "date": "2026-03-14",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-03-15",
-      "occA": 16,
-      "occB": 36,
-      "totalOcc": 52,
-      "totalBeds": 56,
-      "bor": 92.9
-    },
-    {
-      "date": "2026-03-16",
-      "occA": 15,
-      "occB": 35,
-      "totalOcc": 50,
-      "totalBeds": 56,
-      "bor": 89.3
-    },
-    {
-      "date": "2026-03-17",
+      "date": "2026-01-21",
       "occA": 14,
       "occB": 34,
       "totalOcc": 48,
@@ -900,23 +460,455 @@
       "bor": 85.7
     },
     {
-      "date": "2026-03-18",
+      "date": "2026-01-22",
       "occA": 12,
+      "occB": 34,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-01-23",
+      "occA": 13,
+      "occB": 29,
+      "totalOcc": 42,
+      "totalBeds": 56,
+      "bor": 75.0
+    },
+    {
+      "date": "2026-01-24",
+      "occA": 15,
+      "occB": 35,
+      "totalOcc": 50,
+      "totalBeds": 56,
+      "bor": 89.3
+    },
+    {
+      "date": "2026-01-25",
+      "occA": 15,
+      "occB": 36,
+      "totalOcc": 51,
+      "totalBeds": 56,
+      "bor": 91.1
+    },
+    {
+      "date": "2026-01-26",
+      "occA": 10,
+      "occB": 32,
+      "totalOcc": 42,
+      "totalBeds": 56,
+      "bor": 75.0
+    },
+    {
+      "date": "2026-01-27",
+      "occA": 12,
+      "occB": 38,
+      "totalOcc": 50,
+      "totalBeds": 56,
+      "bor": 89.3
+    },
+    {
+      "date": "2026-01-28",
+      "occA": 13,
+      "occB": 35,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-01-29",
+      "occA": 13,
+      "occB": 35,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-01-30",
+      "occA": 10,
       "occB": 31,
+      "totalOcc": 41,
+      "totalBeds": 56,
+      "bor": 73.2
+    },
+    {
+      "date": "2026-01-31",
+      "occA": 15,
+      "occB": 31,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-02-01",
+      "occA": 16,
+      "occB": 34,
+      "totalOcc": 50,
+      "totalBeds": 56,
+      "bor": 89.3
+    },
+    {
+      "date": "2026-02-02",
+      "occA": 8,
+      "occB": 36,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-02-03",
+      "occA": 12,
+      "occB": 32,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-02-04",
+      "occA": 12,
+      "occB": 28,
+      "totalOcc": 40,
+      "totalBeds": 56,
+      "bor": 71.4
+    },
+    {
+      "date": "2026-02-05",
+      "occA": 11,
+      "occB": 33,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-02-06",
+      "occA": 0,
+      "occB": 33,
+      "totalOcc": 33,
+      "totalBeds": 56,
+      "bor": 58.9
+    },
+    {
+      "date": "2026-02-07",
+      "occA": 0,
+      "occB": 25,
+      "totalOcc": 25,
+      "totalBeds": 56,
+      "bor": 44.6
+    },
+    {
+      "date": "2026-02-08",
+      "occA": 15,
+      "occB": 35,
+      "totalOcc": 50,
+      "totalBeds": 56,
+      "bor": 89.3
+    },
+    {
+      "date": "2026-02-09",
+      "occA": 12,
+      "occB": 37,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-02-10",
+      "occA": 12,
+      "occB": 0,
+      "totalOcc": 12,
+      "totalBeds": 56,
+      "bor": 21.4
+    },
+    {
+      "date": "2026-02-11",
+      "occA": 11,
+      "occB": 35,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-02-12",
+      "occA": 0,
+      "occB": 34,
+      "totalOcc": 34,
+      "totalBeds": 56,
+      "bor": 60.7
+    },
+    {
+      "date": "2026-02-13",
+      "occA": 7,
+      "occB": 21,
+      "totalOcc": 28,
+      "totalBeds": 56,
+      "bor": 50.0
+    },
+    {
+      "date": "2026-02-14",
+      "occA": 0,
+      "occB": 30,
+      "totalOcc": 30,
+      "totalBeds": 56,
+      "bor": 53.6
+    },
+    {
+      "date": "2026-02-15",
+      "occA": 0,
+      "occB": 28,
+      "totalOcc": 28,
+      "totalBeds": 56,
+      "bor": 50.0
+    },
+    {
+      "date": "2026-02-16",
+      "occA": 8,
+      "occB": 24,
+      "totalOcc": 32,
+      "totalBeds": 56,
+      "bor": 57.1
+    },
+    {
+      "date": "2026-02-17",
+      "occA": 10,
+      "occB": 0,
+      "totalOcc": 10,
+      "totalBeds": 56,
+      "bor": 17.9
+    },
+    {
+      "date": "2026-02-18",
+      "occA": 12,
+      "occB": 29,
+      "totalOcc": 41,
+      "totalBeds": 56,
+      "bor": 73.2
+    },
+    {
+      "date": "2026-02-19",
+      "occA": 13,
+      "occB": 29,
+      "totalOcc": 42,
+      "totalBeds": 56,
+      "bor": 75.0
+    },
+    {
+      "date": "2026-02-20",
+      "occA": 0,
+      "occB": 31,
+      "totalOcc": 31,
+      "totalBeds": 56,
+      "bor": 55.4
+    },
+    {
+      "date": "2026-02-21",
+      "occA": 13,
+      "occB": 31,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-02-22",
+      "occA": 14,
+      "occB": 34,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-02-23",
+      "occA": 13,
+      "occB": 29,
+      "totalOcc": 42,
+      "totalBeds": 56,
+      "bor": 75.0
+    },
+    {
+      "date": "2026-02-24",
+      "occA": 0,
+      "occB": 34,
+      "totalOcc": 34,
+      "totalBeds": 56,
+      "bor": 60.7
+    },
+    {
+      "date": "2026-02-25",
+      "occA": 14,
+      "occB": 33,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-02-26",
+      "occA": 12,
+      "occB": 34,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-02-27",
+      "occA": 12,
+      "occB": 27,
+      "totalOcc": 39,
+      "totalBeds": 56,
+      "bor": 69.6
+    },
+    {
+      "date": "2026-02-28",
+      "occA": 8,
+      "occB": 32,
+      "totalOcc": 40,
+      "totalBeds": 56,
+      "bor": 71.4
+    },
+    {
+      "date": "2026-03-01",
+      "occA": 11,
+      "occB": 30,
+      "totalOcc": 41,
+      "totalBeds": 56,
+      "bor": 73.2
+    },
+    {
+      "date": "2026-03-02",
+      "occA": 10,
+      "occB": 34,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-03-03",
+      "occA": 13,
+      "occB": 34,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-03-04",
+      "occA": 13,
+      "occB": 35,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-03-05",
+      "occA": 13,
+      "occB": 32,
+      "totalOcc": 45,
+      "totalBeds": 56,
+      "bor": 80.4
+    },
+    {
+      "date": "2026-03-06",
+      "occA": 13,
+      "occB": 30,
       "totalOcc": 43,
       "totalBeds": 56,
       "bor": 76.8
     },
     {
-      "date": "2026-03-19",
-      "occA": 8,
-      "occB": 28,
+      "date": "2026-03-07",
+      "occA": 11,
+      "occB": 36,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-03-08",
+      "occA": 15,
+      "occB": 34,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-03-09",
+      "occA": 13,
+      "occB": 31,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-03-10",
+      "occA": 14,
+      "occB": 0,
+      "totalOcc": 14,
+      "totalBeds": 56,
+      "bor": 25.0
+    },
+    {
+      "date": "2026-03-11",
+      "occA": 13,
+      "occB": 34,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-03-12",
+      "occA": 9,
+      "occB": 37,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-03-13",
+      "occA": 14,
+      "occB": 30,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-03-14",
+      "occA": 12,
+      "occB": 34,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-03-15",
+      "occA": 15,
+      "occB": 30,
+      "totalOcc": 45,
+      "totalBeds": 56,
+      "bor": 80.4
+    },
+    {
+      "date": "2026-03-16",
+      "occA": 11,
+      "occB": 27,
+      "totalOcc": 38,
+      "totalBeds": 56,
+      "bor": 67.9
+    },
+    {
+      "date": "2026-03-17",
+      "occA": 12,
+      "occB": 24,
       "totalOcc": 36,
       "totalBeds": 56,
       "bor": 64.3
     },
     {
-      "date": "2026-03-20",
+      "date": "2026-03-18",
+      "occA": 8,
+      "occB": 24,
+      "totalOcc": 32,
+      "totalBeds": 56,
+      "bor": 57.1
+    },
+    {
+      "date": "2026-03-19",
       "occA": 0,
       "occB": 17,
       "totalOcc": 17,
@@ -924,12 +916,20 @@
       "bor": 30.4
     },
     {
-      "date": "2026-03-21",
+      "date": "2026-03-20",
       "occA": 0,
       "occB": 14,
       "totalOcc": 14,
       "totalBeds": 56,
       "bor": 25.0
+    },
+    {
+      "date": "2026-03-21",
+      "occA": 0,
+      "occB": 8,
+      "totalOcc": 8,
+      "totalBeds": 56,
+      "bor": 14.3
     },
     {
       "date": "2026-03-22",
@@ -942,10 +942,10 @@
     {
       "date": "2026-03-23",
       "occA": 0,
-      "occB": 8,
-      "totalOcc": 8,
+      "occB": 7,
+      "totalOcc": 7,
       "totalBeds": 56,
-      "bor": 14.3
+      "bor": 12.5
     },
     {
       "date": "2026-03-24",
@@ -958,346 +958,346 @@
     {
       "date": "2026-03-25",
       "occA": 0,
-      "occB": 19,
-      "totalOcc": 19,
+      "occB": 17,
+      "totalOcc": 17,
       "totalBeds": 56,
-      "bor": 33.9
+      "bor": 30.4
     },
     {
       "date": "2026-03-26",
       "occA": 0,
-      "occB": 37,
-      "totalOcc": 37,
+      "occB": 30,
+      "totalOcc": 30,
       "totalBeds": 56,
-      "bor": 66.1
+      "bor": 53.6
     },
     {
       "date": "2026-03-27",
       "occA": 9,
-      "occB": 37,
+      "occB": 34,
+      "totalOcc": 43,
+      "totalBeds": 56,
+      "bor": 76.8
+    },
+    {
+      "date": "2026-03-28",
+      "occA": 14,
+      "occB": 36,
+      "totalOcc": 50,
+      "totalBeds": 56,
+      "bor": 89.3
+    },
+    {
+      "date": "2026-03-29",
+      "occA": 13,
+      "occB": 38,
+      "totalOcc": 51,
+      "totalBeds": 56,
+      "bor": 91.1
+    },
+    {
+      "date": "2026-03-30",
+      "occA": 16,
+      "occB": 30,
       "totalOcc": 46,
       "totalBeds": 56,
       "bor": 82.1
     },
     {
-      "date": "2026-03-28",
-      "occA": 15,
-      "occB": 38,
-      "totalOcc": 53,
-      "totalBeds": 56,
-      "bor": 94.6
-    },
-    {
-      "date": "2026-03-29",
-      "occA": 14,
-      "occB": 39,
-      "totalOcc": 53,
-      "totalBeds": 56,
-      "bor": 94.6
-    },
-    {
-      "date": "2026-03-30",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
       "date": "2026-03-31",
       "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
+      "occB": 33,
+      "totalOcc": 33,
       "totalBeds": 56,
-      "bor": 71.4
+      "bor": 58.9
     },
     {
       "date": "2026-04-01",
       "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
+      "occB": 33,
+      "totalOcc": 33,
       "totalBeds": 56,
-      "bor": 71.4
+      "bor": 58.9
     },
     {
       "date": "2026-04-02",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 12,
+      "occB": 34,
+      "totalOcc": 46,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 82.1
     },
     {
       "date": "2026-04-03",
       "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
+      "occB": 38,
+      "totalOcc": 38,
       "totalBeds": 56,
-      "bor": 71.4
+      "bor": 67.9
     },
     {
       "date": "2026-04-04",
-      "occA": 16,
+      "occA": 14,
       "occB": 0,
-      "totalOcc": 16,
+      "totalOcc": 14,
       "totalBeds": 56,
-      "bor": 28.6
+      "bor": 25.0
     },
     {
       "date": "2026-04-05",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 14,
+      "occB": 37,
+      "totalOcc": 51,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 91.1
     },
     {
       "date": "2026-04-06",
       "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
+      "occB": 34,
+      "totalOcc": 34,
       "totalBeds": 56,
-      "bor": 71.4
+      "bor": 60.7
     },
     {
       "date": "2026-04-07",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 11,
+      "occB": 34,
+      "totalOcc": 45,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 80.4
     },
     {
       "date": "2026-04-08",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 13,
+      "occB": 32,
+      "totalOcc": 45,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 80.4
     },
     {
       "date": "2026-04-09",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 15,
+      "occB": 29,
+      "totalOcc": 44,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 78.6
     },
     {
       "date": "2026-04-10",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-04-11",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-12",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
-      "totalBeds": 56,
-      "bor": 71.4
-    },
-    {
-      "date": "2026-04-13",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-14",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-15",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-16",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-17",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-18",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-19",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-20",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-21",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-04-22",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-23",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-24",
-      "occA": 15,
-      "occB": 40,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-04-25",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-26",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-27",
-      "occA": 15,
-      "occB": 0,
-      "totalOcc": 15,
-      "totalBeds": 56,
-      "bor": 26.8
-    },
-    {
-      "date": "2026-04-28",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-04-29",
-      "occA": 16,
-      "occB": 0,
-      "totalOcc": 16,
-      "totalBeds": 56,
-      "bor": 28.6
-    },
-    {
-      "date": "2026-04-30",
-      "occA": 14,
-      "occB": 40,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-05-01",
-      "occA": 0,
-      "occB": 39,
+      "occA": 8,
+      "occB": 31,
       "totalOcc": 39,
       "totalBeds": 56,
       "bor": 69.6
     },
     {
-      "date": "2026-05-02",
-      "occA": 15,
-      "occB": 40,
-      "totalOcc": 55,
+      "date": "2026-04-11",
+      "occA": 14,
+      "occB": 31,
+      "totalOcc": 45,
       "totalBeds": 56,
-      "bor": 98.2
+      "bor": 80.4
+    },
+    {
+      "date": "2026-04-12",
+      "occA": 0,
+      "occB": 31,
+      "totalOcc": 31,
+      "totalBeds": 56,
+      "bor": 55.4
+    },
+    {
+      "date": "2026-04-13",
+      "occA": 12,
+      "occB": 27,
+      "totalOcc": 39,
+      "totalBeds": 56,
+      "bor": 69.6
+    },
+    {
+      "date": "2026-04-14",
+      "occA": 14,
+      "occB": 27,
+      "totalOcc": 41,
+      "totalBeds": 56,
+      "bor": 73.2
+    },
+    {
+      "date": "2026-04-15",
+      "occA": 12,
+      "occB": 20,
+      "totalOcc": 32,
+      "totalBeds": 56,
+      "bor": 57.1
+    },
+    {
+      "date": "2026-04-16",
+      "occA": 14,
+      "occB": 21,
+      "totalOcc": 35,
+      "totalBeds": 56,
+      "bor": 62.5
+    },
+    {
+      "date": "2026-04-17",
+      "occA": 13,
+      "occB": 24,
+      "totalOcc": 37,
+      "totalBeds": 56,
+      "bor": 66.1
+    },
+    {
+      "date": "2026-04-18",
+      "occA": 11,
+      "occB": 25,
+      "totalOcc": 36,
+      "totalBeds": 56,
+      "bor": 64.3
+    },
+    {
+      "date": "2026-04-19",
+      "occA": 14,
+      "occB": 25,
+      "totalOcc": 39,
+      "totalBeds": 56,
+      "bor": 69.6
+    },
+    {
+      "date": "2026-04-20",
+      "occA": 12,
+      "occB": 27,
+      "totalOcc": 39,
+      "totalBeds": 56,
+      "bor": 69.6
+    },
+    {
+      "date": "2026-04-21",
+      "occA": 12,
+      "occB": 28,
+      "totalOcc": 40,
+      "totalBeds": 56,
+      "bor": 71.4
+    },
+    {
+      "date": "2026-04-22",
+      "occA": 12,
+      "occB": 32,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-04-23",
+      "occA": 12,
+      "occB": 26,
+      "totalOcc": 38,
+      "totalBeds": 56,
+      "bor": 67.9
+    },
+    {
+      "date": "2026-04-24",
+      "occA": 13,
+      "occB": 29,
+      "totalOcc": 42,
+      "totalBeds": 56,
+      "bor": 75.0
+    },
+    {
+      "date": "2026-04-25",
+      "occA": 13,
+      "occB": 34,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-04-26",
+      "occA": 14,
+      "occB": 35,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-04-27",
+      "occA": 10,
+      "occB": 0,
+      "totalOcc": 10,
+      "totalBeds": 56,
+      "bor": 17.9
+    },
+    {
+      "date": "2026-04-28",
+      "occA": 13,
+      "occB": 30,
+      "totalOcc": 43,
+      "totalBeds": 56,
+      "bor": 76.8
+    },
+    {
+      "date": "2026-04-29",
+      "occA": 13,
+      "occB": 0,
+      "totalOcc": 13,
+      "totalBeds": 56,
+      "bor": 23.2
+    },
+    {
+      "date": "2026-04-30",
+      "occA": 13,
+      "occB": 32,
+      "totalOcc": 45,
+      "totalBeds": 56,
+      "bor": 80.4
+    },
+    {
+      "date": "2026-05-01",
+      "occA": 0,
+      "occB": 34,
+      "totalOcc": 34,
+      "totalBeds": 56,
+      "bor": 60.7
+    },
+    {
+      "date": "2026-05-02",
+      "occA": 12,
+      "occB": 33,
+      "totalOcc": 45,
+      "totalBeds": 56,
+      "bor": 80.4
     },
     {
       "date": "2026-05-03",
-      "occA": 15,
-      "occB": 40,
-      "totalOcc": 55,
+      "occA": 11,
+      "occB": 37,
+      "totalOcc": 48,
       "totalBeds": 56,
-      "bor": 98.2
+      "bor": 85.7
     },
     {
       "date": "2026-05-04",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 13,
+      "occB": 34,
+      "totalOcc": 47,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 83.9
     },
     {
       "date": "2026-05-05",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 14,
+      "occB": 34,
+      "totalOcc": 48,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 85.7
     },
     {
       "date": "2026-05-06",
-      "occA": 15,
-      "occB": 40,
-      "totalOcc": 55,
+      "occA": 11,
+      "occB": 39,
+      "totalOcc": 50,
       "totalBeds": 56,
-      "bor": 98.2
+      "bor": 89.3
     },
     {
       "date": "2026-05-07",
@@ -1309,766 +1309,70 @@
     },
     {
       "date": "2026-05-08",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
+      "occA": 12,
+      "occB": 29,
+      "totalOcc": 41,
       "totalBeds": 56,
-      "bor": 96.4
+      "bor": 73.2
     },
     {
       "date": "2026-05-09",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 14,
+      "occB": 36,
+      "totalOcc": 50,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 89.3
     },
     {
       "date": "2026-05-10",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 7,
+      "occB": 38,
+      "totalOcc": 45,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 80.4
     },
     {
       "date": "2026-05-11",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 5,
+      "occB": 34,
+      "totalOcc": 39,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 69.6
     },
     {
       "date": "2026-05-12",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 8,
+      "occB": 35,
+      "totalOcc": 43,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 76.8
     },
     {
       "date": "2026-05-13",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
+      "occA": 6,
+      "occB": 28,
+      "totalOcc": 34,
       "totalBeds": 56,
-      "bor": 98.2
+      "bor": 60.7
     },
     {
       "date": "2026-05-14",
-      "occA": 14,
-      "occB": 39,
-      "totalOcc": 53,
-      "totalBeds": 56,
-      "bor": 94.6
-    },
-    {
-      "date": "2026-05-15",
       "occA": 13,
-      "occB": 39,
-      "totalOcc": 52,
-      "totalBeds": 56,
-      "bor": 92.9
-    },
-    {
-      "date": "2026-05-16",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
-      "totalBeds": 56,
-      "bor": 71.4
-    },
-    {
-      "date": "2026-05-17",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-05-18",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-05-19",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-05-20",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-05-21",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-05-22",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-05-23",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-05-24",
-      "occA": 15,
-      "occB": 40,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-05-25",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-05-26",
-      "occA": 15,
-      "occB": 38,
-      "totalOcc": 53,
-      "totalBeds": 56,
-      "bor": 94.6
-    },
-    {
-      "date": "2026-05-27",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-05-28",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-05-29",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-05-30",
-      "occA": 14,
-      "occB": 39,
-      "totalOcc": 53,
-      "totalBeds": 56,
-      "bor": 94.6
-    },
-    {
-      "date": "2026-05-31",
-      "occA": 13,
-      "occB": 40,
-      "totalOcc": 53,
-      "totalBeds": 56,
-      "bor": 94.6
-    },
-    {
-      "date": "2026-06-01",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-06-02",
-      "occA": 16,
-      "occB": 0,
-      "totalOcc": 16,
-      "totalBeds": 56,
-      "bor": 28.6
-    },
-    {
-      "date": "2026-06-03",
-      "occA": 14,
-      "occB": 40,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-06-04",
-      "occA": 15,
-      "occB": 40,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-06-05",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-06-06",
-      "occA": 15,
-      "occB": 0,
-      "totalOcc": 15,
-      "totalBeds": 56,
-      "bor": 26.8
-    },
-    {
-      "date": "2026-06-07",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-06-08",
-      "occA": 15,
-      "occB": 40,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-06-09",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-06-10",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-06-11",
-      "occA": 16,
-      "occB": 0,
-      "totalOcc": 16,
-      "totalBeds": 56,
-      "bor": 28.6
-    },
-    {
-      "date": "2026-06-12",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-06-13",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-06-14",
-      "occA": 15,
-      "occB": 0,
-      "totalOcc": 15,
-      "totalBeds": 56,
-      "bor": 26.8
-    },
-    {
-      "date": "2026-06-15",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-06-16",
-      "occA": 0,
-      "occB": 39,
-      "totalOcc": 39,
-      "totalBeds": 56,
-      "bor": 69.6
-    },
-    {
-      "date": "2026-06-17",
-      "occA": 16,
-      "occB": 37,
-      "totalOcc": 53,
-      "totalBeds": 56,
-      "bor": 94.6
-    },
-    {
-      "date": "2026-06-18",
-      "occA": 14,
-      "occB": 39,
-      "totalOcc": 53,
-      "totalBeds": 56,
-      "bor": 94.6
-    },
-    {
-      "date": "2026-06-19",
-      "occA": 14,
-      "occB": 38,
-      "totalOcc": 52,
-      "totalBeds": 56,
-      "bor": 92.9
-    },
-    {
-      "date": "2026-06-20",
-      "occA": 14,
       "occB": 33,
-      "totalOcc": 47,
-      "totalBeds": 56,
-      "bor": 83.9
-    },
-    {
-      "date": "2026-06-21",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-06-23",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-06-24",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-06-25",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-06-26",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
-      "totalBeds": 56,
-      "bor": 71.4
-    },
-    {
-      "date": "2026-06-27",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-06-28",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-06-29",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-06-30",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-07-01",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-02",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-03",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-04",
-      "occA": 15,
-      "occB": 40,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-07-05",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
-      "totalBeds": 56,
-      "bor": 71.4
-    },
-    {
-      "date": "2026-07-06",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-07",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
-      "totalBeds": 56,
-      "bor": 71.4
-    },
-    {
-      "date": "2026-07-08",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
-      "totalBeds": 56,
-      "bor": 71.4
-    },
-    {
-      "date": "2026-07-09",
-      "occA": 0,
-      "occB": 39,
-      "totalOcc": 39,
-      "totalBeds": 56,
-      "bor": 69.6
-    },
-    {
-      "date": "2026-07-10",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-11",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-07-12",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-13",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-14",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-15",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-16",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-17",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-18",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-19",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-20",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-21",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-22",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-07-23",
-      "occA": 15,
-      "occB": 37,
-      "totalOcc": 52,
-      "totalBeds": 56,
-      "bor": 92.9
-    },
-    {
-      "date": "2026-07-24",
-      "occA": 16,
-      "occB": 0,
-      "totalOcc": 16,
-      "totalBeds": 56,
-      "bor": 28.6
-    },
-    {
-      "date": "2026-07-25",
-      "occA": 12,
-      "occB": 34,
       "totalOcc": 46,
       "totalBeds": 56,
       "bor": 82.1
     },
     {
-      "date": "2026-07-26",
-      "occA": 12,
-      "occB": 35,
-      "totalOcc": 47,
+      "date": "2026-05-15",
+      "occA": 10,
+      "occB": 34,
+      "totalOcc": 44,
       "totalBeds": 56,
-      "bor": 83.9
+      "bor": 78.6
     },
     {
-      "date": "2026-07-27",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-07-28",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-07-29",
-      "occA": 0,
-      "occB": 37,
-      "totalOcc": 37,
-      "totalBeds": 56,
-      "bor": 66.1
-    },
-    {
-      "date": "2026-07-30",
-      "occA": 14,
-      "occB": 38,
-      "totalOcc": 52,
-      "totalBeds": 56,
-      "bor": 92.9
-    },
-    {
-      "date": "2026-07-31",
-      "occA": 15,
-      "occB": 38,
-      "totalOcc": 53,
-      "totalBeds": 56,
-      "bor": 94.6
-    },
-    {
-      "date": "2026-08-01",
-      "occA": 14,
-      "occB": 0,
-      "totalOcc": 14,
-      "totalBeds": 56,
-      "bor": 25.0
-    },
-    {
-      "date": "2026-08-02",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-08-03",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-08-04",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-08-05",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
-      "totalBeds": 56,
-      "bor": 71.4
-    },
-    {
-      "date": "2026-08-06",
-      "occA": 0,
-      "occB": 39,
-      "totalOcc": 39,
-      "totalBeds": 56,
-      "bor": 69.6
-    },
-    {
-      "date": "2026-08-07",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-08-08",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-08-09",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-08-10",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-08-11",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-08-12",
+      "date": "2026-05-16",
       "occA": 0,
       "occB": 36,
       "totalOcc": 36,
@@ -2076,23 +1380,231 @@
       "bor": 64.3
     },
     {
-      "date": "2026-08-13",
+      "date": "2026-05-17",
+      "occA": 13,
+      "occB": 37,
+      "totalOcc": 50,
+      "totalBeds": 56,
+      "bor": 89.3
+    },
+    {
+      "date": "2026-05-18",
+      "occA": 15,
+      "occB": 33,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-05-19",
+      "occA": 11,
+      "occB": 37,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-05-20",
+      "occA": 14,
+      "occB": 30,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-05-21",
+      "occA": 13,
+      "occB": 32,
+      "totalOcc": 45,
+      "totalBeds": 56,
+      "bor": 80.4
+    },
+    {
+      "date": "2026-05-22",
+      "occA": 14,
+      "occB": 36,
+      "totalOcc": 50,
+      "totalBeds": 56,
+      "bor": 89.3
+    },
+    {
+      "date": "2026-05-23",
       "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
+      "occB": 31,
+      "totalOcc": 47,
       "totalBeds": 56,
-      "bor": 98.2
+      "bor": 83.9
     },
     {
-      "date": "2026-08-14",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
+      "date": "2026-05-24",
+      "occA": 13,
+      "occB": 33,
+      "totalOcc": 46,
       "totalBeds": 56,
-      "bor": 71.4
+      "bor": 82.1
     },
     {
-      "date": "2026-08-15",
+      "date": "2026-05-25",
+      "occA": 12,
+      "occB": 32,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-05-26",
+      "occA": 11,
+      "occB": 26,
+      "totalOcc": 37,
+      "totalBeds": 56,
+      "bor": 66.1
+    },
+    {
+      "date": "2026-05-27",
+      "occA": 13,
+      "occB": 36,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-05-28",
+      "occA": 14,
+      "occB": 37,
+      "totalOcc": 51,
+      "totalBeds": 56,
+      "bor": 91.1
+    },
+    {
+      "date": "2026-05-29",
+      "occA": 12,
+      "occB": 36,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-05-30",
+      "occA": 12,
+      "occB": 34,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-05-31",
+      "occA": 13,
+      "occB": 29,
+      "totalOcc": 42,
+      "totalBeds": 56,
+      "bor": 75.0
+    },
+    {
+      "date": "2026-06-01",
+      "occA": 14,
+      "occB": 33,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-06-02",
+      "occA": 12,
+      "occB": 0,
+      "totalOcc": 12,
+      "totalBeds": 56,
+      "bor": 21.4
+    },
+    {
+      "date": "2026-06-03",
+      "occA": 11,
+      "occB": 36,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-06-04",
+      "occA": 13,
+      "occB": 37,
+      "totalOcc": 50,
+      "totalBeds": 56,
+      "bor": 89.3
+    },
+    {
+      "date": "2026-06-05",
+      "occA": 14,
+      "occB": 35,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-06-06",
+      "occA": 12,
+      "occB": 0,
+      "totalOcc": 12,
+      "totalBeds": 56,
+      "bor": 21.4
+    },
+    {
+      "date": "2026-06-07",
+      "occA": 12,
+      "occB": 35,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-06-08",
+      "occA": 12,
+      "occB": 34,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-06-09",
+      "occA": 13,
+      "occB": 29,
+      "totalOcc": 42,
+      "totalBeds": 56,
+      "bor": 75.0
+    },
+    {
+      "date": "2026-06-10",
+      "occA": 13,
+      "occB": 32,
+      "totalOcc": 45,
+      "totalBeds": 56,
+      "bor": 80.4
+    },
+    {
+      "date": "2026-06-11",
+      "occA": 15,
+      "occB": 0,
+      "totalOcc": 15,
+      "totalBeds": 56,
+      "bor": 26.8
+    },
+    {
+      "date": "2026-06-12",
+      "occA": 13,
+      "occB": 36,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-06-13",
+      "occA": 15,
+      "occB": 29,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-06-14",
       "occA": 13,
       "occB": 0,
       "totalOcc": 13,
@@ -2100,191 +1612,215 @@
       "bor": 23.2
     },
     {
-      "date": "2026-08-16",
-      "occA": 14,
-      "occB": 40,
-      "totalOcc": 54,
+      "date": "2026-06-15",
+      "occA": 13,
+      "occB": 34,
+      "totalOcc": 47,
       "totalBeds": 56,
-      "bor": 96.4
+      "bor": 83.9
     },
     {
-      "date": "2026-08-17",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-08-18",
+      "date": "2026-06-16",
       "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
+      "occB": 34,
+      "totalOcc": 34,
       "totalBeds": 56,
-      "bor": 71.4
+      "bor": 60.7
     },
     {
-      "date": "2026-08-19",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "date": "2026-06-17",
+      "occA": 13,
+      "occB": 30,
+      "totalOcc": 43,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 76.8
     },
     {
-      "date": "2026-08-20",
-      "occA": 15,
-      "occB": 40,
-      "totalOcc": 55,
+      "date": "2026-06-18",
+      "occA": 11,
+      "occB": 30,
+      "totalOcc": 41,
       "totalBeds": 56,
-      "bor": 98.2
+      "bor": 73.2
     },
     {
-      "date": "2026-08-21",
-      "occA": 0,
-      "occB": 39,
-      "totalOcc": 39,
+      "date": "2026-06-19",
+      "occA": 10,
+      "occB": 25,
+      "totalOcc": 35,
       "totalBeds": 56,
-      "bor": 69.6
+      "bor": 62.5
     },
     {
-      "date": "2026-08-22",
-      "occA": 16,
-      "occB": 36,
-      "totalOcc": 52,
+      "date": "2026-06-20",
+      "occA": 11,
+      "occB": 30,
+      "totalOcc": 41,
       "totalBeds": 56,
-      "bor": 92.9
+      "bor": 73.2
     },
     {
-      "date": "2026-08-23",
-      "occA": 15,
-      "occB": 0,
-      "totalOcc": 15,
-      "totalBeds": 56,
-      "bor": 26.8
-    },
-    {
-      "date": "2026-08-24",
-      "occA": 15,
-      "occB": 39,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-08-25",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-08-26",
+      "date": "2026-06-21",
       "occA": 14,
-      "occB": 38,
-      "totalOcc": 52,
-      "totalBeds": 56,
-      "bor": 92.9
-    },
-    {
-      "date": "2026-08-27",
-      "occA": 15,
-      "occB": 39,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-08-28",
-      "occA": 16,
       "occB": 36,
-      "totalOcc": 52,
+      "totalOcc": 50,
       "totalBeds": 56,
-      "bor": 92.9
+      "bor": 89.3
     },
     {
-      "date": "2026-08-29",
-      "occA": 15,
-      "occB": 40,
-      "totalOcc": 55,
+      "date": "2026-06-23",
+      "occA": 11,
+      "occB": 35,
+      "totalOcc": 46,
       "totalBeds": 56,
-      "bor": 98.2
+      "bor": 82.1
     },
     {
-      "date": "2026-08-30",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "date": "2026-06-24",
+      "occA": 14,
+      "occB": 36,
+      "totalOcc": 50,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 89.3
     },
     {
-      "date": "2026-08-31",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "date": "2026-06-25",
+      "occA": 12,
+      "occB": 35,
+      "totalOcc": 47,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 83.9
     },
     {
-      "date": "2026-09-01",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
+      "date": "2026-06-26",
+      "occA": 0,
+      "occB": 30,
+      "totalOcc": 30,
       "totalBeds": 56,
-      "bor": 98.2
+      "bor": 53.6
     },
     {
-      "date": "2026-09-02",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-09-03",
-      "occA": 15,
+      "date": "2026-06-27",
+      "occA": 11,
       "occB": 38,
-      "totalOcc": 53,
+      "totalOcc": 49,
       "totalBeds": 56,
-      "bor": 94.6
+      "bor": 87.5
     },
     {
-      "date": "2026-09-04",
+      "date": "2026-06-28",
+      "occA": 14,
+      "occB": 35,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-06-29",
+      "occA": 14,
+      "occB": 32,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-06-30",
       "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occB": 35,
+      "totalOcc": 51,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 91.1
     },
     {
-      "date": "2026-09-05",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "date": "2026-07-01",
+      "occA": 15,
+      "occB": 31,
+      "totalOcc": 46,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 82.1
     },
     {
-      "date": "2026-09-06",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
+      "date": "2026-07-02",
+      "occA": 11,
+      "occB": 36,
+      "totalOcc": 47,
       "totalBeds": 56,
-      "bor": 98.2
+      "bor": 83.9
     },
     {
-      "date": "2026-09-07",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "date": "2026-07-03",
+      "occA": 14,
+      "occB": 35,
+      "totalOcc": 49,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 87.5
     },
     {
-      "date": "2026-09-08",
+      "date": "2026-07-04",
+      "occA": 14,
+      "occB": 35,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-07-05",
+      "occA": 0,
+      "occB": 36,
+      "totalOcc": 36,
+      "totalBeds": 56,
+      "bor": 64.3
+    },
+    {
+      "date": "2026-07-06",
+      "occA": 13,
+      "occB": 38,
+      "totalOcc": 51,
+      "totalBeds": 56,
+      "bor": 91.1
+    },
+    {
+      "date": "2026-07-07",
+      "occA": 0,
+      "occB": 36,
+      "totalOcc": 36,
+      "totalBeds": 56,
+      "bor": 64.3
+    },
+    {
+      "date": "2026-07-08",
+      "occA": 0,
+      "occB": 29,
+      "totalOcc": 29,
+      "totalBeds": 56,
+      "bor": 51.8
+    },
+    {
+      "date": "2026-07-09",
+      "occA": 0,
+      "occB": 33,
+      "totalOcc": 33,
+      "totalBeds": 56,
+      "bor": 58.9
+    },
+    {
+      "date": "2026-07-10",
+      "occA": 12,
+      "occB": 31,
+      "totalOcc": 43,
+      "totalBeds": 56,
+      "bor": 76.8
+    },
+    {
+      "date": "2026-07-11",
+      "occA": 15,
+      "occB": 33,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-07-12",
       "occA": 15,
       "occB": 36,
       "totalOcc": 51,
@@ -2292,319 +1828,439 @@
       "bor": 91.1
     },
     {
-      "date": "2026-09-09",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-09-10",
-      "occA": 0,
-      "occB": 38,
-      "totalOcc": 38,
-      "totalBeds": 56,
-      "bor": 67.9
-    },
-    {
-      "date": "2026-09-11",
+      "date": "2026-07-13",
       "occA": 15,
-      "occB": 39,
-      "totalOcc": 54,
+      "occB": 31,
+      "totalOcc": 46,
       "totalBeds": 56,
-      "bor": 96.4
+      "bor": 82.1
     },
     {
-      "date": "2026-09-12",
-      "occA": 16,
-      "occB": 0,
-      "totalOcc": 16,
+      "date": "2026-07-14",
+      "occA": 12,
+      "occB": 35,
+      "totalOcc": 47,
       "totalBeds": 56,
-      "bor": 28.6
+      "bor": 83.9
     },
     {
-      "date": "2026-09-13",
+      "date": "2026-07-15",
+      "occA": 11,
+      "occB": 33,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-07-16",
       "occA": 15,
+      "occB": 34,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-07-17",
+      "occA": 12,
+      "occB": 31,
+      "totalOcc": 43,
+      "totalBeds": 56,
+      "bor": 76.8
+    },
+    {
+      "date": "2026-07-18",
+      "occA": 13,
+      "occB": 33,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-07-19",
+      "occA": 12,
+      "occB": 34,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-07-20",
+      "occA": 13,
+      "occB": 37,
+      "totalOcc": 50,
+      "totalBeds": 56,
+      "bor": 89.3
+    },
+    {
+      "date": "2026-07-21",
+      "occA": 12,
+      "occB": 37,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-07-22",
+      "occA": 13,
+      "occB": 33,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-07-23",
+      "occA": 15,
+      "occB": 30,
+      "totalOcc": 45,
+      "totalBeds": 56,
+      "bor": 80.4
+    },
+    {
+      "date": "2026-07-24",
+      "occA": 9,
       "occB": 0,
-      "totalOcc": 15,
+      "totalOcc": 9,
       "totalBeds": 56,
-      "bor": 26.8
+      "bor": 16.1
     },
     {
-      "date": "2026-09-14",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-09-15",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-09-16",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-09-17",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-09-18",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-09-19",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-09-20",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-09-21",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-09-22",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-09-23",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-09-24",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-09-25",
-      "occA": 0,
-      "occB": 40,
+      "date": "2026-07-25",
+      "occA": 11,
+      "occB": 29,
       "totalOcc": 40,
       "totalBeds": 56,
       "bor": 71.4
     },
     {
-      "date": "2026-09-26",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
+      "date": "2026-07-26",
+      "occA": 12,
+      "occB": 34,
+      "totalOcc": 46,
       "totalBeds": 56,
-      "bor": 98.2
+      "bor": 82.1
     },
     {
-      "date": "2026-09-27",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
+      "date": "2026-07-27",
+      "occA": 12,
+      "occB": 32,
+      "totalOcc": 44,
       "totalBeds": 56,
-      "bor": 98.2
+      "bor": 78.6
     },
     {
-      "date": "2026-09-28",
-      "occA": 16,
+      "date": "2026-07-28",
+      "occA": 14,
+      "occB": 36,
+      "totalOcc": 50,
+      "totalBeds": 56,
+      "bor": 89.3
+    },
+    {
+      "date": "2026-07-29",
+      "occA": 0,
+      "occB": 31,
+      "totalOcc": 31,
+      "totalBeds": 56,
+      "bor": 55.4
+    },
+    {
+      "date": "2026-07-30",
+      "occA": 12,
+      "occB": 30,
+      "totalOcc": 42,
+      "totalBeds": 56,
+      "bor": 75.0
+    },
+    {
+      "date": "2026-07-31",
+      "occA": 11,
+      "occB": 33,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-08-01",
+      "occA": 13,
       "occB": 0,
-      "totalOcc": 16,
+      "totalOcc": 13,
       "totalBeds": 56,
-      "bor": 28.6
+      "bor": 23.2
     },
     {
-      "date": "2026-09-29",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-09-30",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-10-01",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-10-02",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-10-03",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-10-04",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
-      "totalBeds": 56,
-      "bor": 71.4
-    },
-    {
-      "date": "2026-10-05",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-10-06",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-10-07",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
-      "totalBeds": 56,
-      "bor": 98.2
-    },
-    {
-      "date": "2026-10-08",
-      "occA": 0,
-      "occB": 40,
-      "totalOcc": 40,
-      "totalBeds": 56,
-      "bor": 71.4
-    },
-    {
-      "date": "2026-10-09",
+      "date": "2026-08-02",
       "occA": 15,
-      "occB": 39,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-10-10",
-      "occA": 16,
       "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-10-11",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-10-12",
-      "occA": 16,
-      "occB": 38,
-      "totalOcc": 54,
-      "totalBeds": 56,
-      "bor": 96.4
-    },
-    {
-      "date": "2026-10-13",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-10-14",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-10-15",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-10-16",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
-      "totalBeds": 56,
-      "bor": 100.0
-    },
-    {
-      "date": "2026-10-17",
-      "occA": 16,
-      "occB": 39,
       "totalOcc": 55,
       "totalBeds": 56,
       "bor": 98.2
     },
     {
-      "date": "2026-10-18",
+      "date": "2026-08-03",
+      "occA": 13,
+      "occB": 27,
+      "totalOcc": 40,
+      "totalBeds": 56,
+      "bor": 71.4
+    },
+    {
+      "date": "2026-08-04",
+      "occA": 14,
+      "occB": 33,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-08-05",
+      "occA": 0,
+      "occB": 33,
+      "totalOcc": 33,
+      "totalBeds": 56,
+      "bor": 58.9
+    },
+    {
+      "date": "2026-08-06",
+      "occA": 0,
+      "occB": 31,
+      "totalOcc": 31,
+      "totalBeds": 56,
+      "bor": 55.4
+    },
+    {
+      "date": "2026-08-07",
+      "occA": 9,
+      "occB": 28,
+      "totalOcc": 37,
+      "totalBeds": 56,
+      "bor": 66.1
+    },
+    {
+      "date": "2026-08-08",
+      "occA": 14,
+      "occB": 33,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-08-09",
+      "occA": 15,
+      "occB": 35,
+      "totalOcc": 50,
+      "totalBeds": 56,
+      "bor": 89.3
+    },
+    {
+      "date": "2026-08-10",
+      "occA": 15,
+      "occB": 33,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-08-11",
+      "occA": 15,
+      "occB": 28,
+      "totalOcc": 43,
+      "totalBeds": 56,
+      "bor": 76.8
+    },
+    {
+      "date": "2026-08-12",
+      "occA": 0,
+      "occB": 33,
+      "totalOcc": 33,
+      "totalBeds": 56,
+      "bor": 58.9
+    },
+    {
+      "date": "2026-08-13",
+      "occA": 15,
+      "occB": 36,
+      "totalOcc": 51,
+      "totalBeds": 56,
+      "bor": 91.1
+    },
+    {
+      "date": "2026-08-14",
+      "occA": 0,
+      "occB": 31,
+      "totalOcc": 31,
+      "totalBeds": 56,
+      "bor": 55.4
+    },
+    {
+      "date": "2026-08-15",
+      "occA": 8,
+      "occB": 0,
+      "totalOcc": 8,
+      "totalBeds": 56,
+      "bor": 14.3
+    },
+    {
+      "date": "2026-08-16",
+      "occA": 12,
+      "occB": 34,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-08-17",
+      "occA": 14,
+      "occB": 39,
+      "totalOcc": 53,
+      "totalBeds": 56,
+      "bor": 94.6
+    },
+    {
+      "date": "2026-08-18",
+      "occA": 0,
+      "occB": 36,
+      "totalOcc": 36,
+      "totalBeds": 56,
+      "bor": 64.3
+    },
+    {
+      "date": "2026-08-19",
+      "occA": 10,
+      "occB": 31,
+      "totalOcc": 41,
+      "totalBeds": 56,
+      "bor": 73.2
+    },
+    {
+      "date": "2026-08-20",
+      "occA": 13,
+      "occB": 30,
+      "totalOcc": 43,
+      "totalBeds": 56,
+      "bor": 76.8
+    },
+    {
+      "date": "2026-08-21",
+      "occA": 0,
+      "occB": 33,
+      "totalOcc": 33,
+      "totalBeds": 56,
+      "bor": 58.9
+    },
+    {
+      "date": "2026-08-22",
+      "occA": 13,
+      "occB": 34,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-08-23",
+      "occA": 13,
+      "occB": 0,
+      "totalOcc": 13,
+      "totalBeds": 56,
+      "bor": 23.2
+    },
+    {
+      "date": "2026-08-24",
+      "occA": 13,
+      "occB": 36,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-08-25",
+      "occA": 16,
+      "occB": 35,
+      "totalOcc": 51,
+      "totalBeds": 56,
+      "bor": 91.1
+    },
+    {
+      "date": "2026-08-26",
+      "occA": 11,
+      "occB": 32,
+      "totalOcc": 43,
+      "totalBeds": 56,
+      "bor": 76.8
+    },
+    {
+      "date": "2026-08-27",
+      "occA": 10,
+      "occB": 31,
+      "totalOcc": 41,
+      "totalBeds": 56,
+      "bor": 73.2
+    },
+    {
+      "date": "2026-08-28",
+      "occA": 13,
+      "occB": 28,
+      "totalOcc": 41,
+      "totalBeds": 56,
+      "bor": 73.2
+    },
+    {
+      "date": "2026-08-29",
+      "occA": 11,
+      "occB": 37,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-08-30",
+      "occA": 15,
+      "occB": 40,
+      "totalOcc": 55,
+      "totalBeds": 56,
+      "bor": 98.2
+    },
+    {
+      "date": "2026-08-31",
+      "occA": 14,
+      "occB": 33,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-09-01",
+      "occA": 13,
+      "occB": 34,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-09-02",
+      "occA": 13,
+      "occB": 36,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-09-03",
+      "occA": 14,
+      "occB": 35,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-09-04",
+      "occA": 12,
+      "occB": 33,
+      "totalOcc": 45,
+      "totalBeds": 56,
+      "bor": 80.4
+    },
+    {
+      "date": "2026-09-05",
       "occA": 15,
       "occB": 37,
       "totalOcc": 52,
@@ -2612,117 +2268,461 @@
       "bor": 92.9
     },
     {
-      "date": "2026-10-19",
+      "date": "2026-09-06",
+      "occA": 15,
+      "occB": 33,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-09-07",
+      "occA": 12,
+      "occB": 32,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-09-08",
+      "occA": 9,
+      "occB": 30,
+      "totalOcc": 39,
+      "totalBeds": 56,
+      "bor": 69.6
+    },
+    {
+      "date": "2026-09-09",
+      "occA": 14,
+      "occB": 32,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-09-10",
+      "occA": 0,
+      "occB": 31,
+      "totalOcc": 31,
+      "totalBeds": 56,
+      "bor": 55.4
+    },
+    {
+      "date": "2026-09-11",
+      "occA": 14,
+      "occB": 32,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-09-12",
+      "occA": 13,
+      "occB": 0,
+      "totalOcc": 13,
+      "totalBeds": 56,
+      "bor": 23.2
+    },
+    {
+      "date": "2026-09-13",
+      "occA": 12,
+      "occB": 0,
+      "totalOcc": 12,
+      "totalBeds": 56,
+      "bor": 21.4
+    },
+    {
+      "date": "2026-09-14",
+      "occA": 15,
+      "occB": 32,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-09-15",
+      "occA": 14,
+      "occB": 37,
+      "totalOcc": 51,
+      "totalBeds": 56,
+      "bor": 91.1
+    },
+    {
+      "date": "2026-09-16",
+      "occA": 11,
+      "occB": 30,
+      "totalOcc": 41,
+      "totalBeds": 56,
+      "bor": 73.2
+    },
+    {
+      "date": "2026-09-17",
+      "occA": 12,
+      "occB": 34,
+      "totalOcc": 46,
+      "totalBeds": 56,
+      "bor": 82.1
+    },
+    {
+      "date": "2026-09-18",
+      "occA": 9,
+      "occB": 31,
+      "totalOcc": 40,
+      "totalBeds": 56,
+      "bor": 71.4
+    },
+    {
+      "date": "2026-09-19",
+      "occA": 14,
+      "occB": 34,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-09-20",
+      "occA": 13,
+      "occB": 35,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-09-21",
+      "occA": 15,
+      "occB": 33,
+      "totalOcc": 48,
+      "totalBeds": 56,
+      "bor": 85.7
+    },
+    {
+      "date": "2026-09-22",
+      "occA": 10,
+      "occB": 37,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-09-23",
+      "occA": 10,
+      "occB": 33,
+      "totalOcc": 43,
+      "totalBeds": 56,
+      "bor": 76.8
+    },
+    {
+      "date": "2026-09-24",
+      "occA": 12,
+      "occB": 35,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-09-25",
+      "occA": 0,
+      "occB": 32,
+      "totalOcc": 32,
+      "totalBeds": 56,
+      "bor": 57.1
+    },
+    {
+      "date": "2026-09-26",
+      "occA": 14,
+      "occB": 39,
+      "totalOcc": 53,
+      "totalBeds": 56,
+      "bor": 94.6
+    },
+    {
+      "date": "2026-09-27",
+      "occA": 14,
+      "occB": 35,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-09-28",
+      "occA": 12,
+      "occB": 0,
+      "totalOcc": 12,
+      "totalBeds": 56,
+      "bor": 21.4
+    },
+    {
+      "date": "2026-09-29",
+      "occA": 12,
+      "occB": 32,
+      "totalOcc": 44,
+      "totalBeds": 56,
+      "bor": 78.6
+    },
+    {
+      "date": "2026-09-30",
+      "occA": 15,
+      "occB": 34,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-10-01",
+      "occA": 14,
+      "occB": 33,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-10-02",
+      "occA": 12,
+      "occB": 24,
+      "totalOcc": 36,
+      "totalBeds": 56,
+      "bor": 64.3
+    },
+    {
+      "date": "2026-10-03",
+      "occA": 13,
+      "occB": 36,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-10-04",
+      "occA": 0,
+      "occB": 37,
+      "totalOcc": 37,
+      "totalBeds": 56,
+      "bor": 66.1
+    },
+    {
+      "date": "2026-10-05",
+      "occA": 14,
+      "occB": 33,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-10-06",
+      "occA": 14,
+      "occB": 29,
+      "totalOcc": 43,
+      "totalBeds": 56,
+      "bor": 76.8
+    },
+    {
+      "date": "2026-10-07",
+      "occA": 13,
+      "occB": 32,
+      "totalOcc": 45,
+      "totalBeds": 56,
+      "bor": 80.4
+    },
+    {
+      "date": "2026-10-08",
+      "occA": 0,
+      "occB": 33,
+      "totalOcc": 33,
+      "totalBeds": 56,
+      "bor": 58.9
+    },
+    {
+      "date": "2026-10-09",
+      "occA": 8,
+      "occB": 31,
+      "totalOcc": 39,
+      "totalBeds": 56,
+      "bor": 69.6
+    },
+    {
+      "date": "2026-10-10",
+      "occA": 12,
+      "occB": 39,
+      "totalOcc": 51,
+      "totalBeds": 56,
+      "bor": 91.1
+    },
+    {
+      "date": "2026-10-11",
       "occA": 16,
       "occB": 39,
       "totalOcc": 55,
       "totalBeds": 56,
       "bor": 98.2
+    },
+    {
+      "date": "2026-10-12",
+      "occA": 10,
+      "occB": 28,
+      "totalOcc": 38,
+      "totalBeds": 56,
+      "bor": 67.9
+    },
+    {
+      "date": "2026-10-13",
+      "occA": 14,
+      "occB": 33,
+      "totalOcc": 47,
+      "totalBeds": 56,
+      "bor": 83.9
+    },
+    {
+      "date": "2026-10-14",
+      "occA": 14,
+      "occB": 38,
+      "totalOcc": 52,
+      "totalBeds": 56,
+      "bor": 92.9
+    },
+    {
+      "date": "2026-10-15",
+      "occA": 10,
+      "occB": 35,
+      "totalOcc": 45,
+      "totalBeds": 56,
+      "bor": 80.4
+    },
+    {
+      "date": "2026-10-16",
+      "occA": 15,
+      "occB": 34,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-10-17",
+      "occA": 10,
+      "occB": 33,
+      "totalOcc": 43,
+      "totalBeds": 56,
+      "bor": 76.8
+    },
+    {
+      "date": "2026-10-18",
+      "occA": 13,
+      "occB": 36,
+      "totalOcc": 49,
+      "totalBeds": 56,
+      "bor": 87.5
+    },
+    {
+      "date": "2026-10-19",
+      "occA": 12,
+      "occB": 29,
+      "totalOcc": 41,
+      "totalBeds": 56,
+      "bor": 73.2
     },
     {
       "date": "2026-10-20",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 8,
+      "occB": 34,
+      "totalOcc": 42,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 75.0
     },
     {
       "date": "2026-10-21",
-      "occA": 16,
-      "occB": 40,
-      "totalOcc": 56,
+      "occA": 15,
+      "occB": 34,
+      "totalOcc": 49,
       "totalBeds": 56,
-      "bor": 100.0
+      "bor": 87.5
     },
     {
       "date": "2026-10-22",
-      "occA": 16,
-      "occB": 39,
-      "totalOcc": 55,
+      "occA": 13,
+      "occB": 35,
+      "totalOcc": 48,
       "totalBeds": 56,
-      "bor": 98.2
+      "bor": 85.7
     }
   ],
   "monthly": [
     {
       "month": "2026-01",
-      "avgOcc": 51.5,
-      "avgOccA": 13.4,
-      "avgOccB": 38.1,
-      "avgBor": 91.9,
+      "avgOcc": 42.8,
+      "avgOccA": 11.1,
+      "avgOccB": 31.7,
+      "avgBor": 76.4,
       "daysCounted": 28
     },
     {
       "month": "2026-02",
-      "avgOcc": 46.5,
-      "avgOccA": 11.5,
-      "avgOccB": 35.0,
-      "avgBor": 83.04,
+      "avgOcc": 37.6,
+      "avgOccA": 8.8,
+      "avgOccB": 28.9,
+      "avgBor": 67.16,
       "daysCounted": 28
     },
     {
       "month": "2026-03",
-      "avgOcc": 42.4,
-      "avgOccA": 10.9,
-      "avgOccB": 31.5,
-      "avgBor": 75.75,
+      "avgOcc": 35.2,
+      "avgOccA": 8.8,
+      "avgOccB": 26.5,
+      "avgBor": 62.9,
       "daysCounted": 31
     },
     {
       "month": "2026-04",
-      "avgOcc": 49.7,
-      "avgOccA": 13.7,
-      "avgOccB": 35.9,
-      "avgBor": 88.69,
+      "avgOcc": 37.8,
+      "avgOccA": 10.9,
+      "avgOccB": 26.9,
+      "avgBor": 67.5,
       "daysCounted": 30
     },
     {
       "month": "2026-05",
-      "avgOcc": 52.9,
-      "avgOccA": 14.5,
-      "avgOccB": 38.4,
-      "avgBor": 94.41,
+      "avgOcc": 43.9,
+      "avgOccA": 11.2,
+      "avgOccB": 32.7,
+      "avgBor": 78.34,
       "daysCounted": 31
     },
     {
       "month": "2026-06",
-      "avgOcc": 48.3,
-      "avgOccA": 14.5,
-      "avgOccB": 33.8,
-      "avgBor": 86.21,
+      "avgOcc": 40.6,
+      "avgOccA": 11.9,
+      "avgOccB": 28.7,
+      "avgBor": 72.48,
       "daysCounted": 29
     },
     {
       "month": "2026-07",
-      "avgOcc": 50.8,
-      "avgOccA": 13.0,
-      "avgOccB": 37.8,
-      "avgBor": 90.78,
+      "avgOcc": 43.1,
+      "avgOccA": 10.7,
+      "avgOccB": 32.3,
+      "avgBor": 76.9,
       "daysCounted": 31
     },
     {
       "month": "2026-08",
-      "avgOcc": 47.7,
-      "avgOccA": 12.5,
-      "avgOccB": 35.3,
-      "avgBor": 85.2,
+      "avgOcc": 40.5,
+      "avgOccA": 10.5,
+      "avgOccB": 30.0,
+      "avgBor": 72.24,
       "daysCounted": 31
     },
     {
       "month": "2026-09",
-      "avgOcc": 50.1,
-      "avgOccA": 14.8,
-      "avgOccB": 35.3,
-      "avgBor": 89.52,
+      "avgOcc": 42.2,
+      "avgOccA": 11.9,
+      "avgOccB": 30.3,
+      "avgBor": 75.36,
       "daysCounted": 30
     },
     {
       "month": "2026-10",
-      "avgOcc": 53.8,
-      "avgOccA": 14.5,
-      "avgOccB": 39.4,
-      "avgBor": 96.1,
+      "avgOcc": 44.8,
+      "avgOccA": 11.4,
+      "avgOccB": 33.4,
+      "avgBor": 79.95,
       "daysCounted": 22
     }
   ],
@@ -2909,12 +2909,12 @@
     },
     "availableBeds": 56,
     "totalDays": 291,
-    "totalHP": 14330,
+    "totalHP": 11854,
     "totalDischarges": 2528,
     "overall": {
-      "bor": 87.94,
-      "avlos": 5.67,
-      "toi": 0.78,
+      "bor": 72.74,
+      "avlos": 4.69,
+      "toi": 1.76,
       "bto": 45.14,
       "gdr": 47.07,
       "ndr": 34.02
@@ -2923,15 +2923,15 @@
       {
         "month": "2026-01",
         "days": 28,
-        "hp": 1441,
-        "hpA": 375,
-        "hpB": 1066,
+        "hp": 1198,
+        "hpA": 311,
+        "hpB": 887,
         "discharges": 243,
         "deaths": 11,
         "deathsGt48": 7,
-        "bor": 91.9,
-        "avlos": 5.93,
-        "toi": 0.52,
+        "bor": 76.4,
+        "avlos": 4.93,
+        "toi": 1.52,
         "bto": 4.34,
         "gdr": 45.27,
         "ndr": 28.81
@@ -2939,15 +2939,15 @@
       {
         "month": "2026-02",
         "days": 28,
-        "hp": 1302,
-        "hpA": 322,
-        "hpB": 980,
+        "hp": 1053,
+        "hpA": 245,
+        "hpB": 808,
         "discharges": 249,
         "deaths": 15,
         "deathsGt48": 6,
-        "bor": 83.04,
-        "avlos": 5.23,
-        "toi": 1.07,
+        "bor": 67.16,
+        "avlos": 4.23,
+        "toi": 2.07,
         "bto": 4.45,
         "gdr": 60.24,
         "ndr": 24.1
@@ -2955,15 +2955,15 @@
       {
         "month": "2026-03",
         "days": 31,
-        "hp": 1315,
-        "hpA": 338,
-        "hpB": 977,
+        "hp": 1092,
+        "hpA": 272,
+        "hpB": 820,
         "discharges": 230,
         "deaths": 10,
         "deathsGt48": 4,
-        "bor": 75.75,
-        "avlos": 5.72,
-        "toi": 1.83,
+        "bor": 62.9,
+        "avlos": 4.75,
+        "toi": 2.8,
         "bto": 4.11,
         "gdr": 43.48,
         "ndr": 17.39
@@ -2971,15 +2971,15 @@
       {
         "month": "2026-04",
         "days": 30,
-        "hp": 1490,
-        "hpA": 412,
-        "hpB": 1078,
+        "hp": 1134,
+        "hpA": 328,
+        "hpB": 806,
         "discharges": 356,
         "deaths": 12,
         "deathsGt48": 8,
-        "bor": 88.69,
-        "avlos": 4.19,
-        "toi": 0.53,
+        "bor": 67.5,
+        "avlos": 3.19,
+        "toi": 1.53,
         "bto": 6.36,
         "gdr": 33.71,
         "ndr": 22.47
@@ -2987,15 +2987,15 @@
       {
         "month": "2026-05",
         "days": 31,
-        "hp": 1639,
-        "hpA": 448,
-        "hpB": 1191,
+        "hp": 1360,
+        "hpA": 347,
+        "hpB": 1013,
         "discharges": 324,
         "deaths": 10,
         "deathsGt48": 9,
-        "bor": 94.41,
-        "avlos": 5.06,
-        "toi": 0.3,
+        "bor": 78.34,
+        "avlos": 4.2,
+        "toi": 1.16,
         "bto": 5.79,
         "gdr": 30.86,
         "ndr": 27.78
@@ -3003,15 +3003,15 @@
       {
         "month": "2026-06",
         "days": 29,
-        "hp": 1400,
-        "hpA": 420,
-        "hpB": 980,
+        "hp": 1177,
+        "hpA": 346,
+        "hpB": 831,
         "discharges": 223,
         "deaths": 13,
         "deathsGt48": 10,
-        "bor": 86.21,
-        "avlos": 6.28,
-        "toi": 1.0,
+        "bor": 72.48,
+        "avlos": 5.28,
+        "toi": 2.0,
         "bto": 3.98,
         "gdr": 58.3,
         "ndr": 44.84
@@ -3019,15 +3019,15 @@
       {
         "month": "2026-07",
         "days": 31,
-        "hp": 1576,
-        "hpA": 403,
-        "hpB": 1173,
+        "hp": 1335,
+        "hpA": 333,
+        "hpB": 1002,
         "discharges": 241,
         "deaths": 14,
         "deathsGt48": 12,
-        "bor": 90.78,
-        "avlos": 6.54,
-        "toi": 0.66,
+        "bor": 76.9,
+        "avlos": 5.54,
+        "toi": 1.66,
         "bto": 4.3,
         "gdr": 58.09,
         "ndr": 49.79
@@ -3035,15 +3035,15 @@
       {
         "month": "2026-08",
         "days": 31,
-        "hp": 1479,
-        "hpA": 386,
-        "hpB": 1093,
+        "hp": 1254,
+        "hpA": 324,
+        "hpB": 930,
         "discharges": 225,
         "deaths": 13,
         "deathsGt48": 11,
-        "bor": 85.2,
-        "avlos": 6.57,
-        "toi": 1.14,
+        "bor": 72.24,
+        "avlos": 5.57,
+        "toi": 2.14,
         "bto": 4.02,
         "gdr": 57.78,
         "ndr": 48.89
@@ -3051,15 +3051,15 @@
       {
         "month": "2026-09",
         "days": 30,
-        "hp": 1504,
-        "hpA": 444,
-        "hpB": 1060,
+        "hp": 1266,
+        "hpA": 358,
+        "hpB": 908,
         "discharges": 238,
         "deaths": 11,
         "deathsGt48": 9,
-        "bor": 89.52,
-        "avlos": 6.32,
-        "toi": 0.74,
+        "bor": 75.36,
+        "avlos": 5.32,
+        "toi": 1.74,
         "bto": 4.25,
         "gdr": 46.22,
         "ndr": 37.82
@@ -3067,15 +3067,15 @@
       {
         "month": "2026-10",
         "days": 22,
-        "hp": 1184,
-        "hpA": 318,
-        "hpB": 866,
+        "hp": 985,
+        "hpA": 250,
+        "hpB": 735,
         "discharges": 199,
         "deaths": 10,
         "deathsGt48": 10,
-        "bor": 96.1,
-        "avlos": 5.95,
-        "toi": 0.24,
+        "bor": 79.95,
+        "avlos": 4.95,
+        "toi": 1.24,
         "bto": 3.55,
         "gdr": 50.25,
         "ndr": 50.25
@@ -4906,15 +4906,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 51,
-        "empty": 5,
-        "bor": 91.1,
-        "borA": 93.8,
-        "borB": 90.0,
-        "occA": 15,
-        "occB": 36,
-        "emptyA": 1,
-        "emptyB": 4,
+        "occupied": 39,
+        "empty": 17,
+        "freeBedDetail": "Free Bed:  17 (EG2-A: 3 + 4 ekstra bed, EG2-B: 6 + 4 ekstra bed)",
+        "textFreeA": "3 + 4 ekstra bed",
+        "textFreeB": "6 + 4 ekstra bed",
+        "bor": 69.6,
+        "borA": 56.2,
+        "borB": 75.0,
+        "occA": 9,
+        "occB": 30,
+        "emptyA": 7,
+        "emptyB": 10,
         "dischargedToday": 12,
         "tagCounts": {
           "Pulang Hari Ini": 12,
@@ -6760,15 +6763,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 46,
+        "empty": 10,
+        "freeBedDetail": "Free Bed:  10 (EG2-A: 2 ekstra bed, EG2-B: 4 + 4 ekstra bed)",
+        "textFreeA": "2 ekstra bed",
+        "textFreeB": "4 + 4 ekstra bed",
+        "bor": 82.1,
+        "borA": 87.5,
+        "borB": 80.0,
+        "occA": 14,
+        "occB": 32,
+        "emptyA": 2,
+        "emptyB": 8,
         "dischargedToday": 10,
         "tagCounts": {
           "Bedah / Operasi": 21,
@@ -8478,15 +8484,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 38,
-        "empty": 18,
-        "bor": 67.9,
+        "occupied": 31,
+        "empty": 25,
+        "freeBedDetail": "Free Bed:  25 (EG2-A: 12 + 4 ekstra bed, EG2-B: 5 + 4 ekstra bed)",
+        "textFreeA": "12 + 4 ekstra bed",
+        "textFreeB": "5 + 4 ekstra bed",
+        "bor": 55.4,
         "borA": 0.0,
-        "borB": 95.0,
+        "borB": 77.5,
         "occA": 0,
-        "occB": 38,
+        "occB": 31,
         "emptyA": 16,
-        "emptyB": 2,
+        "emptyB": 9,
         "dischargedToday": 7,
         "tagCounts": {
           "Bedah / Operasi": 14,
@@ -10309,15 +10318,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 54,
-        "empty": 2,
-        "bor": 96.4,
-        "borA": 93.8,
-        "borB": 97.5,
-        "occA": 15,
-        "occB": 39,
-        "emptyA": 1,
-        "emptyB": 1,
+        "occupied": 46,
+        "empty": 10,
+        "freeBedDetail": "Free Bed:  10 (EG2-A: 2 ekstra bed, EG2-B: 4 + 4 ekstra bed)",
+        "textFreeA": "2 ekstra bed",
+        "textFreeB": "4 + 4 ekstra bed",
+        "bor": 82.1,
+        "borA": 87.5,
+        "borB": 80.0,
+        "occA": 14,
+        "occB": 32,
+        "emptyA": 2,
+        "emptyB": 8,
         "dischargedToday": 8,
         "tagCounts": {
           "Pulang Hari Ini": 8,
@@ -11805,14 +11817,17 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 16,
-        "empty": 40,
-        "bor": 28.6,
-        "borA": 100.0,
+        "occupied": 13,
+        "empty": 43,
+        "freeBedDetail": "Free Bed:  43 (EG2-A: 3 ekstra bed, EG2-B: 36 + 4 ekstra bed)",
+        "textFreeA": "3 ekstra bed",
+        "textFreeB": "36 + 4 ekstra bed",
+        "bor": 23.2,
+        "borA": 81.2,
         "borB": 0.0,
-        "occA": 16,
+        "occA": 13,
         "occB": 0,
-        "emptyA": 0,
+        "emptyA": 3,
         "emptyB": 40,
         "dischargedToday": 3,
         "tagCounts": {
@@ -13275,14 +13290,17 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 15,
-        "empty": 41,
-        "bor": 26.8,
-        "borA": 93.8,
+        "occupied": 12,
+        "empty": 44,
+        "freeBedDetail": "Free Bed:  44 (EG2-A: 4 ekstra bed, EG2-B: 36 + 4 ekstra bed)",
+        "textFreeA": "4 ekstra bed",
+        "textFreeB": "36 + 4 ekstra bed",
+        "bor": 21.4,
+        "borA": 75.0,
         "borB": 0.0,
-        "occA": 15,
+        "occA": 12,
         "occB": 0,
-        "emptyA": 1,
+        "emptyA": 4,
         "emptyB": 40,
         "dischargedToday": 3,
         "tagCounts": {
@@ -15108,15 +15126,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 54,
-        "empty": 2,
-        "bor": 96.4,
-        "borA": 100.0,
-        "borB": 95.0,
-        "occA": 16,
-        "occB": 38,
-        "emptyA": 0,
-        "emptyB": 2,
+        "occupied": 47,
+        "empty": 9,
+        "freeBedDetail": "Free Bed:  9 (EG2-A: 1 ekstra bed, EG2-B: 4 + 4 ekstra bed)",
+        "textFreeA": "1 ekstra bed",
+        "textFreeB": "4 + 4 ekstra bed",
+        "bor": 83.9,
+        "borA": 93.8,
+        "borB": 80.0,
+        "occA": 15,
+        "occB": 32,
+        "emptyA": 1,
+        "emptyB": 8,
         "dischargedToday": 7,
         "tagCounts": {
           "Hemodialisa (HD)": 12,
@@ -16976,15 +16997,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 51,
+        "empty": 5,
+        "freeBedDetail": "Free Bed:  5 (EG2-A: 2 ekstra bed, EG2-B: 3 ekstra bed)",
+        "textFreeA": "2 ekstra bed",
+        "textFreeB": "3 ekstra bed",
+        "bor": 91.1,
+        "borA": 87.5,
+        "borB": 92.5,
+        "occA": 14,
+        "occB": 37,
+        "emptyA": 2,
+        "emptyB": 3,
         "dischargedToday": 5,
         "tagCounts": {
           "Hemodialisa (HD)": 13,
@@ -18858,15 +18882,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 55,
-        "empty": 1,
-        "bor": 98.2,
-        "borA": 100.0,
-        "borB": 97.5,
-        "occA": 16,
-        "occB": 39,
-        "emptyA": 0,
-        "emptyB": 1,
+        "occupied": 41,
+        "empty": 15,
+        "freeBedDetail": "Free Bed:  15 (EG2-A: 1 + 4 ekstra bed, EG2-B: 6 + 4 ekstra bed)",
+        "textFreeA": "1 + 4 ekstra bed",
+        "textFreeB": "6 + 4 ekstra bed",
+        "bor": 73.2,
+        "borA": 68.8,
+        "borB": 75.0,
+        "occA": 11,
+        "occB": 30,
+        "emptyA": 5,
+        "emptyB": 10,
         "dischargedToday": 14,
         "tagCounts": {
           "Pulang Hari Ini": 14,
@@ -20663,15 +20690,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 46,
+        "empty": 10,
+        "freeBedDetail": "Free Bed:  10 (EG2-A: 4 ekstra bed, EG2-B: 2 + 4 ekstra bed)",
+        "textFreeA": "4 ekstra bed",
+        "textFreeB": "2 + 4 ekstra bed",
+        "bor": 82.1,
+        "borA": 75.0,
+        "borB": 85.0,
+        "occA": 12,
+        "occB": 34,
+        "emptyA": 4,
+        "emptyB": 6,
         "dischargedToday": 10,
         "tagCounts": {
           "Pulang Hari Ini": 10,
@@ -22489,15 +22519,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 54,
-        "empty": 2,
-        "bor": 96.4,
-        "borA": 100.0,
-        "borB": 95.0,
-        "occA": 16,
-        "occB": 38,
-        "emptyA": 0,
-        "emptyB": 2,
+        "occupied": 40,
+        "empty": 16,
+        "freeBedDetail": "Free Bed:  16 (EG2-A: 3 + 4 ekstra bed, EG2-B: 5 + 4 ekstra bed)",
+        "textFreeA": "3 + 4 ekstra bed",
+        "textFreeB": "5 + 4 ekstra bed",
+        "bor": 71.4,
+        "borA": 56.2,
+        "borB": 77.5,
+        "occA": 9,
+        "occB": 31,
+        "emptyA": 7,
+        "emptyB": 9,
         "dischargedToday": 14,
         "tagCounts": {
           "Pulang Hari Ini": 14,
@@ -24308,15 +24341,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 55,
-        "empty": 1,
-        "bor": 98.2,
-        "borA": 100.0,
-        "borB": 97.5,
-        "occA": 16,
-        "occB": 39,
-        "emptyA": 0,
-        "emptyB": 1,
+        "occupied": 48,
+        "empty": 8,
+        "freeBedDetail": "Free Bed:  8 (EG2-A: 2 ekstra bed, EG2-B: 2 + 4 ekstra bed)",
+        "textFreeA": "2 ekstra bed",
+        "textFreeB": "2 + 4 ekstra bed",
+        "bor": 85.7,
+        "borA": 87.5,
+        "borB": 85.0,
+        "occA": 14,
+        "occB": 34,
+        "emptyA": 2,
+        "emptyB": 6,
         "dischargedToday": 7,
         "tagCounts": {
           "Pulang Hari Ini": 7,
@@ -26118,15 +26154,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 48,
+        "empty": 8,
+        "freeBedDetail": "Free Bed:  8 (EG2-A: 3 ekstra bed, EG2-B: 1 + 4 ekstra bed)",
+        "textFreeA": "3 ekstra bed",
+        "textFreeB": "1 + 4 ekstra bed",
+        "bor": 85.7,
+        "borA": 81.2,
+        "borB": 87.5,
+        "occA": 13,
+        "occB": 35,
+        "emptyA": 3,
+        "emptyB": 5,
         "dischargedToday": 8,
         "tagCounts": {
           "Pulang Hari Ini": 8,
@@ -27946,15 +27985,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 48,
+        "empty": 8,
+        "freeBedDetail": "Free Bed:  8 (EG2-A: 1 ekstra bed, EG2-B: 3 + 4 ekstra bed)",
+        "textFreeA": "1 ekstra bed",
+        "textFreeB": "3 + 4 ekstra bed",
+        "bor": 85.7,
+        "borA": 93.8,
+        "borB": 82.5,
+        "occA": 15,
+        "occB": 33,
+        "emptyA": 1,
+        "emptyB": 7,
         "dischargedToday": 8,
         "tagCounts": {
           "Puasa Pre-Op": 14,
@@ -29748,15 +29790,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 47,
+        "empty": 9,
+        "freeBedDetail": "Free Bed:  9 (EG2-A: 2 + 4 ekstra bed, EG2-B: 3 ekstra bed)",
+        "textFreeA": "2 + 4 ekstra bed",
+        "textFreeB": "3 ekstra bed",
+        "bor": 83.9,
+        "borA": 62.5,
+        "borB": 92.5,
+        "occA": 10,
+        "occB": 37,
+        "emptyA": 6,
+        "emptyB": 3,
         "dischargedToday": 9,
         "tagCounts": {
           "Pulang Hari Ini": 9,
@@ -31532,15 +31577,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 55,
-        "empty": 1,
-        "bor": 98.2,
-        "borA": 100.0,
-        "borB": 97.5,
-        "occA": 16,
-        "occB": 39,
-        "emptyA": 0,
-        "emptyB": 1,
+        "occupied": 43,
+        "empty": 13,
+        "freeBedDetail": "Free Bed:  13 (EG2-A: 2 + 4 ekstra bed, EG2-B: 3 + 4 ekstra bed)",
+        "textFreeA": "2 + 4 ekstra bed",
+        "textFreeB": "3 + 4 ekstra bed",
+        "bor": 76.8,
+        "borA": 62.5,
+        "borB": 82.5,
+        "occA": 10,
+        "occB": 33,
+        "emptyA": 6,
+        "emptyB": 7,
         "dischargedToday": 12,
         "tagCounts": {
           "Rencana Pulang": 6,
@@ -33325,15 +33373,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 47,
+        "empty": 9,
+        "freeBedDetail": "Free Bed:  9 (EG2-A: 4 ekstra bed, EG2-B: 1 + 4 ekstra bed)",
+        "textFreeA": "4 ekstra bed",
+        "textFreeB": "1 + 4 ekstra bed",
+        "bor": 83.9,
+        "borA": 75.0,
+        "borB": 87.5,
+        "occA": 12,
+        "occB": 35,
+        "emptyA": 4,
+        "emptyB": 5,
         "dischargedToday": 9,
         "tagCounts": {
           "Transfusi Darah": 22,
@@ -35027,15 +35078,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 40,
-        "empty": 16,
-        "bor": 71.4,
+        "occupied": 32,
+        "empty": 24,
+        "freeBedDetail": "Free Bed:  24 (EG2-A: 12 + 4 ekstra bed, EG2-B: 4 + 4 ekstra bed)",
+        "textFreeA": "12 + 4 ekstra bed",
+        "textFreeB": "4 + 4 ekstra bed",
+        "bor": 57.1,
         "borA": 0.0,
-        "borB": 100.0,
+        "borB": 80.0,
         "occA": 0,
-        "occB": 40,
+        "occB": 32,
         "emptyA": 16,
-        "emptyB": 0,
+        "emptyB": 8,
         "dischargedToday": 8,
         "tagCounts": {
           "Transfusi Darah": 21,
@@ -36820,14 +36874,17 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 55,
-        "empty": 1,
-        "bor": 98.2,
-        "borA": 100.0,
+        "occupied": 53,
+        "empty": 3,
+        "freeBedDetail": "Free Bed:  3 (EG2-A: 2 ekstra bed, EG2-B: 1 ekstra bed)",
+        "textFreeA": "2 ekstra bed",
+        "textFreeB": "1 ekstra bed",
+        "bor": 94.6,
+        "borA": 87.5,
         "borB": 97.5,
-        "occA": 16,
+        "occA": 14,
         "occB": 39,
-        "emptyA": 0,
+        "emptyA": 2,
         "emptyB": 1,
         "dischargedToday": 2,
         "tagCounts": {
@@ -38652,15 +38709,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 55,
-        "empty": 1,
-        "bor": 98.2,
-        "borA": 100.0,
-        "borB": 97.5,
-        "occA": 16,
-        "occB": 39,
-        "emptyA": 0,
-        "emptyB": 1,
+        "occupied": 49,
+        "empty": 7,
+        "freeBedDetail": "Free Bed:  7 (EG2-A: 2 ekstra bed, EG2-B: 1 + 4 ekstra bed)",
+        "textFreeA": "2 ekstra bed",
+        "textFreeB": "1 + 4 ekstra bed",
+        "bor": 87.5,
+        "borA": 87.5,
+        "borB": 87.5,
+        "occA": 14,
+        "occB": 35,
+        "emptyA": 2,
+        "emptyB": 5,
         "dischargedToday": 6,
         "tagCounts": {
           "Transfusi Darah": 25,
@@ -40172,14 +40232,17 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 16,
-        "empty": 40,
-        "bor": 28.6,
-        "borA": 100.0,
+        "occupied": 12,
+        "empty": 44,
+        "freeBedDetail": "Free Bed:  44 (EG2-A: 4 ekstra bed, EG2-B: 36 + 4 ekstra bed)",
+        "textFreeA": "4 ekstra bed",
+        "textFreeB": "36 + 4 ekstra bed",
+        "bor": 21.4,
+        "borA": 75.0,
         "borB": 0.0,
-        "occA": 16,
+        "occA": 12,
         "occB": 0,
-        "emptyA": 0,
+        "emptyA": 4,
         "emptyB": 40,
         "dischargedToday": 4,
         "tagCounts": {
@@ -42022,15 +42085,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 44,
+        "empty": 12,
+        "freeBedDetail": "Free Bed:  12 (EG2-A: 4 ekstra bed, EG2-B: 4 + 4 ekstra bed)",
+        "textFreeA": "4 ekstra bed",
+        "textFreeB": "4 + 4 ekstra bed",
+        "bor": 78.6,
+        "borA": 75.0,
+        "borB": 80.0,
+        "occA": 12,
+        "occB": 32,
+        "emptyA": 4,
+        "emptyB": 8,
         "dischargedToday": 12,
         "tagCounts": {
           "Rencana Pulang": 8,
@@ -43685,7 +43751,7 @@
           "mrNo": "",
           "gender": "P",
           "age": "57 th",
-          "admissionDate": "29/09/206",
+          "admissionDate": "29/09/0206",
           "los": 664744,
           "insurance": "BPJS Kelas 3",
           "doctor": "DARMAWAN,DR., M.KES.,SP.PD-KGH.FINASIM",
@@ -43883,15 +43949,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 49,
+        "empty": 7,
+        "freeBedDetail": "Free Bed:  7 (EG2-A: 1 ekstra bed, EG2-B: 2 + 4 ekstra bed)",
+        "textFreeA": "1 ekstra bed",
+        "textFreeB": "2 + 4 ekstra bed",
+        "bor": 87.5,
+        "borA": 93.8,
+        "borB": 85.0,
+        "occA": 15,
+        "occB": 34,
+        "emptyA": 1,
+        "emptyB": 6,
         "dischargedToday": 7,
         "tagCounts": {
           "Rencana Pulang": 11,
@@ -45709,15 +45778,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 47,
+        "empty": 9,
+        "freeBedDetail": "Free Bed:  9 (EG2-A: 2 ekstra bed, EG2-B: 3 + 4 ekstra bed)",
+        "textFreeA": "2 ekstra bed",
+        "textFreeB": "3 + 4 ekstra bed",
+        "bor": 83.9,
+        "borA": 87.5,
+        "borB": 82.5,
+        "occA": 14,
+        "occB": 33,
+        "emptyA": 2,
+        "emptyB": 7,
         "dischargedToday": 9,
         "tagCounts": {
           "Pulang Hari Ini": 9,
@@ -47608,15 +47680,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 54,
-        "empty": 2,
-        "bor": 96.4,
-        "borA": 100.0,
-        "borB": 95.0,
-        "occA": 16,
-        "occB": 38,
-        "emptyA": 0,
-        "emptyB": 2,
+        "occupied": 36,
+        "empty": 20,
+        "freeBedDetail": "Free Bed:  20 (EG2-A: 4 ekstra bed, EG2-B: 12 + 4 ekstra bed)",
+        "textFreeA": "4 ekstra bed",
+        "textFreeB": "12 + 4 ekstra bed",
+        "bor": 64.3,
+        "borA": 75.0,
+        "borB": 60.0,
+        "occA": 12,
+        "occB": 24,
+        "emptyA": 4,
+        "emptyB": 16,
         "dischargedToday": 18,
         "tagCounts": {
           "Transfusi Darah": 31,
@@ -49451,15 +49526,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 49,
+        "empty": 7,
+        "freeBedDetail": "Free Bed:  7 (EG2-A: 3 ekstra bed, EG2-B: 4 ekstra bed)",
+        "textFreeA": "3 ekstra bed",
+        "textFreeB": "4 ekstra bed",
+        "bor": 87.5,
+        "borA": 81.2,
+        "borB": 90.0,
+        "occA": 13,
+        "occB": 36,
+        "emptyA": 3,
+        "emptyB": 4,
         "dischargedToday": 7,
         "tagCounts": {
           "Hemodialisa (HD)": 17,
@@ -51164,15 +51242,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 40,
-        "empty": 16,
-        "bor": 71.4,
+        "occupied": 37,
+        "empty": 19,
+        "freeBedDetail": "Free Bed:  19 (EG2-A: 12 + 4 ekstra bed, EG2-B: 3 ekstra bed)",
+        "textFreeA": "12 + 4 ekstra bed",
+        "textFreeB": "3 ekstra bed",
+        "bor": 66.1,
         "borA": 0.0,
-        "borB": 100.0,
+        "borB": 92.5,
         "occA": 0,
-        "occB": 40,
+        "occB": 37,
         "emptyA": 16,
-        "emptyB": 0,
+        "emptyB": 3,
         "dischargedToday": 3,
         "tagCounts": {
           "Transfusi Darah": 24,
@@ -53060,15 +53141,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 55,
-        "empty": 1,
-        "bor": 98.2,
-        "borA": 100.0,
-        "borB": 97.5,
-        "occA": 16,
-        "occB": 39,
-        "emptyA": 0,
-        "emptyB": 1,
+        "occupied": 47,
+        "empty": 9,
+        "freeBedDetail": "Free Bed:  9 (EG2-A: 2 ekstra bed, EG2-B: 3 + 4 ekstra bed)",
+        "textFreeA": "2 ekstra bed",
+        "textFreeB": "3 + 4 ekstra bed",
+        "bor": 83.9,
+        "borA": 87.5,
+        "borB": 82.5,
+        "occA": 14,
+        "occB": 33,
+        "emptyA": 2,
+        "emptyB": 7,
         "dischargedToday": 8,
         "tagCounts": {
           "Hemodialisa (HD)": 15,
@@ -54946,15 +55030,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 55,
-        "empty": 1,
-        "bor": 98.2,
-        "borA": 100.0,
-        "borB": 97.5,
-        "occA": 16,
-        "occB": 39,
-        "emptyA": 0,
-        "emptyB": 1,
+        "occupied": 43,
+        "empty": 13,
+        "freeBedDetail": "Free Bed:  13 (EG2-A: 2 ekstra bed, EG2-B: 7 + 4 ekstra bed)",
+        "textFreeA": "2 ekstra bed",
+        "textFreeB": "7 + 4 ekstra bed",
+        "bor": 76.8,
+        "borA": 87.5,
+        "borB": 72.5,
+        "occA": 14,
+        "occB": 29,
+        "emptyA": 2,
+        "emptyB": 11,
         "dischargedToday": 12,
         "tagCounts": {
           "Hemodialisa (HD)": 14,
@@ -56811,15 +56898,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 55,
-        "empty": 1,
-        "bor": 98.2,
-        "borA": 100.0,
-        "borB": 97.5,
-        "occA": 16,
-        "occB": 39,
-        "emptyA": 0,
-        "emptyB": 1,
+        "occupied": 45,
+        "empty": 11,
+        "freeBedDetail": "Free Bed:  11 (EG2-A: 3 ekstra bed, EG2-B: 4 + 4 ekstra bed)",
+        "textFreeA": "3 ekstra bed",
+        "textFreeB": "4 + 4 ekstra bed",
+        "bor": 80.4,
+        "borA": 81.2,
+        "borB": 80.0,
+        "occA": 13,
+        "occB": 32,
+        "emptyA": 3,
+        "emptyB": 8,
         "dischargedToday": 10,
         "tagCounts": {
           "Pulang Hari Ini": 10,
@@ -58562,15 +58652,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 40,
-        "empty": 16,
-        "bor": 71.4,
+        "occupied": 33,
+        "empty": 23,
+        "freeBedDetail": "Free Bed:  23 (EG2-A: 12 + 4 ekstra bed, EG2-B: 3 + 4 ekstra bed)",
+        "textFreeA": "12 + 4 ekstra bed",
+        "textFreeB": "3 + 4 ekstra bed",
+        "bor": 58.9,
         "borA": 0.0,
-        "borB": 100.0,
+        "borB": 82.5,
         "occA": 0,
-        "occB": 40,
+        "occB": 33,
         "emptyA": 16,
-        "emptyB": 0,
+        "emptyB": 7,
         "dischargedToday": 7,
         "tagCounts": {
           "Onkologi": 10,
@@ -60469,15 +60562,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 54,
-        "empty": 2,
-        "bor": 96.4,
-        "borA": 93.8,
-        "borB": 97.5,
-        "occA": 15,
-        "occB": 39,
-        "emptyA": 1,
-        "emptyB": 1,
+        "occupied": 39,
+        "empty": 17,
+        "freeBedDetail": "Free Bed:  17 (EG2-A: 4 + 4 ekstra bed, EG2-B: 5 + 4 ekstra bed)",
+        "textFreeA": "4 + 4 ekstra bed",
+        "textFreeB": "5 + 4 ekstra bed",
+        "bor": 69.6,
+        "borA": 50.0,
+        "borB": 77.5,
+        "occA": 8,
+        "occB": 31,
+        "emptyA": 8,
+        "emptyB": 9,
         "dischargedToday": 15,
         "tagCounts": {
           "Pulang Hari Ini": 15,
@@ -62357,15 +62453,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 51,
+        "empty": 5,
+        "freeBedDetail": "Free Bed:  5 (EG2-A: 4 ekstra bed, EG2-B: 1 ekstra bed)",
+        "textFreeA": "4 ekstra bed",
+        "textFreeB": "1 ekstra bed",
+        "bor": 91.1,
+        "borA": 75.0,
+        "borB": 97.5,
+        "occA": 12,
+        "occB": 39,
+        "emptyA": 4,
+        "emptyB": 1,
         "dischargedToday": 5,
         "tagCounts": {
           "Transfusi Darah": 40,
@@ -64237,15 +64336,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
+        "occupied": 55,
+        "empty": 1,
+        "freeBedDetail": "Free Bed:  1 (EG2-A: 0 ekstra bed, EG2-B: 1 ekstra bed)",
+        "textFreeA": "0 ekstra bed",
+        "textFreeB": "1 ekstra bed",
+        "bor": 98.2,
         "borA": 100.0,
-        "borB": 100.0,
+        "borB": 97.5,
         "occA": 16,
-        "occB": 40,
+        "occB": 39,
         "emptyA": 0,
-        "emptyB": 0,
+        "emptyB": 1,
         "dischargedToday": 1,
         "tagCounts": {
           "Transfusi Darah": 37,
@@ -66204,15 +66306,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 54,
-        "empty": 2,
-        "bor": 96.4,
-        "borA": 100.0,
-        "borB": 95.0,
-        "occA": 16,
-        "occB": 38,
-        "emptyA": 0,
-        "emptyB": 2,
+        "occupied": 38,
+        "empty": 18,
+        "freeBedDetail": "Free Bed:  18 (EG2-A: 2 + 4 ekstra bed, EG2-B: 8 + 4 ekstra bed)",
+        "textFreeA": "2 + 4 ekstra bed",
+        "textFreeB": "8 + 4 ekstra bed",
+        "bor": 67.9,
+        "borA": 62.5,
+        "borB": 70.0,
+        "occA": 10,
+        "occB": 28,
+        "emptyA": 6,
+        "emptyB": 12,
         "dischargedToday": 16,
         "tagCounts": {
           "Transfusi Darah": 38,
@@ -68110,15 +68215,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 47,
+        "empty": 9,
+        "freeBedDetail": "Free Bed:  9 (EG2-A: 2 ekstra bed, EG2-B: 3 + 4 ekstra bed)",
+        "textFreeA": "2 ekstra bed",
+        "textFreeB": "3 + 4 ekstra bed",
+        "bor": 83.9,
+        "borA": 87.5,
+        "borB": 82.5,
+        "occA": 14,
+        "occB": 33,
+        "emptyA": 2,
+        "emptyB": 7,
         "dischargedToday": 9,
         "tagCounts": {
           "Transfusi Darah": 36,
@@ -70037,15 +70145,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 52,
+        "empty": 4,
+        "freeBedDetail": "Free Bed:  4 (EG2-A: 2 ekstra bed, EG2-B: 2 ekstra bed)",
+        "textFreeA": "2 ekstra bed",
+        "textFreeB": "2 ekstra bed",
+        "bor": 92.9,
+        "borA": 87.5,
+        "borB": 95.0,
+        "occA": 14,
+        "occB": 38,
+        "emptyA": 2,
+        "emptyB": 2,
         "dischargedToday": 4,
         "tagCounts": {
           "Pulang Hari Ini": 4,
@@ -71976,15 +72087,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 45,
+        "empty": 11,
+        "freeBedDetail": "Free Bed:  11 (EG2-A: 2 + 4 ekstra bed, EG2-B: 1 + 4 ekstra bed)",
+        "textFreeA": "2 + 4 ekstra bed",
+        "textFreeB": "1 + 4 ekstra bed",
+        "bor": 80.4,
+        "borA": 62.5,
+        "borB": 87.5,
+        "occA": 10,
+        "occB": 35,
+        "emptyA": 6,
+        "emptyB": 5,
         "dischargedToday": 11,
         "tagCounts": {
           "Pulang Hari Ini": 11,
@@ -73881,15 +73995,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 49,
+        "empty": 7,
+        "freeBedDetail": "Free Bed:  7 (EG2-A: 1 ekstra bed, EG2-B: 2 + 4 ekstra bed)",
+        "textFreeA": "1 ekstra bed",
+        "textFreeB": "2 + 4 ekstra bed",
+        "bor": 87.5,
+        "borA": 93.8,
+        "borB": 85.0,
+        "occA": 15,
+        "occB": 34,
+        "emptyA": 1,
+        "emptyB": 6,
         "dischargedToday": 7,
         "tagCounts": {
           "Bedah / Operasi": 24,
@@ -75757,15 +75874,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 55,
-        "empty": 1,
-        "bor": 98.2,
-        "borA": 100.0,
-        "borB": 97.5,
-        "occA": 16,
-        "occB": 39,
-        "emptyA": 0,
-        "emptyB": 1,
+        "occupied": 43,
+        "empty": 13,
+        "freeBedDetail": "Free Bed:  13 (EG2-A: 2 + 4 ekstra bed, EG2-B: 3 + 4 ekstra bed)",
+        "textFreeA": "2 + 4 ekstra bed",
+        "textFreeB": "3 + 4 ekstra bed",
+        "bor": 76.8,
+        "borA": 62.5,
+        "borB": 82.5,
+        "occA": 10,
+        "occB": 33,
+        "emptyA": 6,
+        "emptyB": 7,
         "dischargedToday": 12,
         "tagCounts": {
           "Pulang Hari Ini": 12,
@@ -77540,15 +77660,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 52,
-        "empty": 4,
-        "bor": 92.9,
-        "borA": 93.8,
-        "borB": 92.5,
-        "occA": 15,
-        "occB": 37,
-        "emptyA": 1,
-        "emptyB": 3,
+        "occupied": 49,
+        "empty": 7,
+        "freeBedDetail": "Free Bed:  7 (EG2-A: 3 ekstra bed, EG2-B: 4 ekstra bed)",
+        "textFreeA": "3 ekstra bed",
+        "textFreeB": "4 ekstra bed",
+        "bor": 87.5,
+        "borA": 81.2,
+        "borB": 90.0,
+        "occA": 13,
+        "occB": 36,
+        "emptyA": 3,
+        "emptyB": 4,
         "dischargedToday": 3,
         "tagCounts": {
           "Pulang Hari Ini": 3,
@@ -79417,15 +79540,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 55,
-        "empty": 1,
-        "bor": 98.2,
-        "borA": 100.0,
-        "borB": 97.5,
-        "occA": 16,
-        "occB": 39,
-        "emptyA": 0,
-        "emptyB": 1,
+        "occupied": 41,
+        "empty": 15,
+        "freeBedDetail": "Free Bed:  15 (EG2-A: 4 ekstra bed, EG2-B: 7 + 4 ekstra bed)",
+        "textFreeA": "4 ekstra bed",
+        "textFreeB": "7 + 4 ekstra bed",
+        "bor": 73.2,
+        "borA": 75.0,
+        "borB": 72.5,
+        "occA": 12,
+        "occB": 29,
+        "emptyA": 4,
+        "emptyB": 11,
         "dischargedToday": 14,
         "tagCounts": {
           "Rencana Pulang": 7,
@@ -81297,15 +81423,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 42,
+        "empty": 14,
+        "freeBedDetail": "Free Bed:  14 (EG2-A: 4 + 4 ekstra bed, EG2-B: 2 + 4 ekstra bed)",
+        "textFreeA": "4 + 4 ekstra bed",
+        "textFreeB": "2 + 4 ekstra bed",
+        "bor": 75.0,
+        "borA": 50.0,
+        "borB": 85.0,
+        "occA": 8,
+        "occB": 34,
+        "emptyA": 8,
+        "emptyB": 6,
         "dischargedToday": 14,
         "tagCounts": {
           "Pulang Hari Ini": 14,
@@ -83115,15 +83244,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 56,
-        "empty": 0,
-        "bor": 100.0,
-        "borA": 100.0,
-        "borB": 100.0,
-        "occA": 16,
-        "occB": 40,
-        "emptyA": 0,
-        "emptyB": 0,
+        "occupied": 49,
+        "empty": 7,
+        "freeBedDetail": "Free Bed:  7 (EG2-A: 1 ekstra bed, EG2-B: 2 + 4 ekstra bed)",
+        "textFreeA": "1 ekstra bed",
+        "textFreeB": "2 + 4 ekstra bed",
+        "bor": 87.5,
+        "borA": 93.8,
+        "borB": 85.0,
+        "occA": 15,
+        "occB": 34,
+        "emptyA": 1,
+        "emptyB": 6,
         "dischargedToday": 7,
         "tagCounts": {
           "Bedah / Operasi": 19,
@@ -84942,15 +85074,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 55,
-        "empty": 1,
-        "bor": 98.2,
-        "borA": 100.0,
-        "borB": 97.5,
-        "occA": 16,
-        "occB": 39,
-        "emptyA": 0,
-        "emptyB": 1,
+        "occupied": 48,
+        "empty": 8,
+        "freeBedDetail": "Free Bed:  8 (EG2-A: 3 ekstra bed, EG2-B: 1 + 4 ekstra bed)",
+        "textFreeA": "3 ekstra bed",
+        "textFreeB": "1 + 4 ekstra bed",
+        "bor": 85.7,
+        "borA": 81.2,
+        "borB": 87.5,
+        "occA": 13,
+        "occB": 35,
+        "emptyA": 3,
+        "emptyB": 5,
         "dischargedToday": 7,
         "tagCounts": {
           "Bedah / Operasi": 23,
@@ -86770,15 +86905,18 @@
       "totalBeds": 56,
       "capacityA": 16,
       "capacityB": 40,
-      "occupied": 55,
-      "empty": 1,
-      "bor": 98.2,
-      "borA": 100.0,
-      "borB": 97.5,
-      "occA": 16,
-      "occB": 39,
-      "emptyA": 0,
-      "emptyB": 1,
+      "occupied": 48,
+      "empty": 8,
+      "freeBedDetail": "Free Bed:  8 (EG2-A: 3 ekstra bed, EG2-B: 1 + 4 ekstra bed)",
+      "textFreeA": "3 ekstra bed",
+      "textFreeB": "1 + 4 ekstra bed",
+      "bor": 85.7,
+      "borA": 81.2,
+      "borB": 87.5,
+      "occA": 13,
+      "occB": 35,
+      "emptyA": 3,
+      "emptyB": 5,
       "dischargedToday": 7,
       "tagCounts": {
         "Bedah / Operasi": 23,

@@ -4519,7 +4519,7 @@ function initWhatsAppMessengerSystem() {
         text = 'Test Boss';
       } else if (tmplType === 'sensus') {
         const curDate = (typeof state !== 'undefined' && state.currentDate) ? state.currentDate : new Date().toISOString().slice(0, 10);
-        const dayData = (typeof state !== 'undefined' && state.data && state.data[curDate]) ? state.data[curDate] : null;
+        const dayData = (typeof state !== 'undefined' && state.data && state.data.recentDays) ? (state.data.recentDays[curDate] || state.data.today) : null;
         let pxAwal = 54, pxBaru = 1, pxPindah = '-', pxMeninggal = '-', pxPulang = 6;
         let pxSkrg = 49, freeBed = 7, bor = '87.5%';
         let textFreeA = '2 ekstra bed', textFreeB = '1 + 4 ekstra bed';
