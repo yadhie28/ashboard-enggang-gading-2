@@ -4616,5 +4616,94 @@ function initWhatsAppMessengerSystem() {
       dispatchWhatsApp(appUrl, '📱 Membuka Aplikasi WhatsApp Desktop ke Kepala Ruang. Tekan Enter untuk kirim!');
     });
   }
+
+  // Gateway Settings & Direct Background Sending (Fonnte / Wablas)
+  const gwTokenInput = document.getElementById('waGatewayTokenInput');
+  const gwSaveBtn = document.getElementById('saveGatewayTokenBtn');
+  const gwSendBtn = document.getElementById('sendViaGatewayBtn');
+  const gwNotice = document.getElementById('gatewayStatusNotice');
+
+  const savedToken = localStorage.getItem('eg2_fonnte_token') || '';
+  if (gwTokenInput && savedToken) {
+    gwTokenInput.value = savedToken;
+    if (gwNotice) {
+      gwNotice.textContent = '✅ Token Fonnte aktif! Anda dapat mengirim pesan 100% otomatis tanpa buka browser.';
+      gwNotice.style.color = '#15803d';
+    }
+  }
+
+  if (gwSaveBtn && gwTokenInput) {
+    gwSaveBtn.addEventListener('click', () => {
+      const token = gwTokenInput.value.trim();
+      if (!token) {
+        localStorage.removeItem('eg2_fonnte_token');
+        showToast('Token Fonnte telah dihapus.', 'info');
+        if (gwNotice) {
+          gwNotice.textContent = 'Token tersimpan akan mengirimkan pesan otomatis dari nomor bot mana pun langsung ke +6281284070082.';
+          gwNotice.style.color = 'var(--text-muted, #64748b)';
+        }
+        return;
+      }
+      localStorage.setItem('eg2_fonnte_token', token);
+      showToast('✅ Token Fonnte berhasil disimpan di browser!', 'success');
+      if (gwNotice) {
+        gwNotice.textContent = '✅ Token Fonnte aktif! Anda dapat mengirim pesan 100% otomatis tanpa buka browser.';
+        gwNotice.style.color = '#15803d';
+      }
+    });
+  }
+
+  if (gwSendBtn && messageInput) {
+    gwSendBtn.addEventListener('click', async () => {
+      const token = (gwTokenInput ? gwTokenInput.value.trim() : '') || localStorage.getItem('eg2_fonnte_token') || '';
+      if (!token) {
+        showToast('⚠️ Masukkan API Token Fonnte terlebih dahulu!', 'warning');
+        if (gwTokenInput) gwTokenInput.focus();
+        return;
+      }
+      const msg = messageInput.value.trim() || 'Test Boss';
+      showToast('⚡ Mengirim pesan otomatis via Gateway Fonnte...', 'info');
+
+      try {
+        let sent = false;
+        // Coba via server lokal terlebih dahulu jika aktif
+        try {
+          const srvRes = await fetch('/api/whatsapp/send-gateway', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phone: TARGET_PHONE, message: msg, token: token, provider: 'fonnte' })
+          });
+          const json = await srvRes.json();
+          if (json.status === 'success' || (json.response && json.response.status)) {
+            sent = true;
+          }
+        } catch (e) {}
+
+        // Fallback langsung panggil API Fonnte dari browser
+        if (!sent) {
+          const fd = new FormData();
+          fd.append('target', TARGET_PHONE);
+          fd.append('message', msg);
+          fd.append('countryCode', '62');
+          const directRes = await fetch('https://api.fonnte.com/send', {
+            method: 'POST',
+            headers: { 'Authorization': token },
+            body: fd
+          });
+          const resJson = await directRes.json();
+          if (resJson.status) {
+            sent = true;
+          } else {
+            throw new Error(resJson.reason || resJson.detail || 'Pengiriman gateway gagal');
+          }
+        }
+
+        showToast('🎉 Pesan WhatsApp BERHASIL terkirim ke Kepala Ruang (+6281284070082)!', 'success');
+        closeModal();
+      } catch (err) {
+        showToast('❌ Gagal mengirim via Gateway: ' + err.message, 'error');
+      }
+    });
+  }
 }
 
