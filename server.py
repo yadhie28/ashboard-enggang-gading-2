@@ -390,6 +390,31 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"status": "error", "error": str(e)}).encode("utf-8"))
                 return
 
+        elif self.path == "/api/whatsapp/send-gateway":
+            try:
+                content_length = int(self.headers.get('Content-Length', 0))
+                body = self.rfile.read(content_length).decode('utf-8') if content_length > 0 else '{}'
+                data = json.loads(body) if body else {}
+
+                from send_whatsapp import send_via_gateway, DEFAULT_RECIPIENT, DEFAULT_MESSAGE
+                phone = data.get("phone", DEFAULT_RECIPIENT["phone"])
+                message = data.get("message", DEFAULT_MESSAGE)
+                token = data.get("token")
+                provider = data.get("provider", "fonnte")
+
+                res = send_via_gateway(phone=phone, message=message, token=token, provider=provider)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "error": str(e)}).encode("utf-8"))
+                return
+
         self.send_response(404)
         self.end_headers()
 

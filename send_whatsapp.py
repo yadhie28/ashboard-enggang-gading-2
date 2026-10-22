@@ -131,16 +131,110 @@ def send_whatsapp_local(phone: str = None, message: str = None, mode: str = "web
 
     return result
 
+GATEWAY_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "wa_gateway_config.json")
+
+def load_gateway_config() -> dict:
+    """Memuat konfigurasi gateway API jika tersimpan."""
+    if os.path.exists(GATEWAY_CONFIG_PATH):
+        try:
+            with open(GATEWAY_CONFIG_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {"provider": "fonnte", "token": os.getenv("FONNTE_TOKEN", "")}
+
+def save_gateway_config(provider: str, token: str) -> None:
+    """Menyimpan konfigurasi gateway API lokal."""
+    with open(GATEWAY_CONFIG_PATH, "w", encoding="utf-8") as f:
+        json.dump({"provider": provider, "token": token}, f, indent=2)
+
+def send_via_gateway(phone: str, message: str, token: str = None, provider: str = "fonnte") -> dict:
+    """
+    Mengirim pesan WhatsApp 100% otomatis di latar belakang melalui Gateway API (Fonnte/Wablas).
+    Pesan dapat dikirim dari nomor apa pun yang terhubung ke gateway.
+    """
+    target_phone = normalize_phone_number(phone)
+    active_token = token or load_gateway_config().get("token") or os.getenv("FONNTE_TOKEN", "")
+
+    if not active_token:
+        return {
+            "status": "error",
+            "error": "API Token Gateway belum diisi. Masukkan token Fonnte / Wablas untuk pengiriman otomatis di latar belakang."
+        }
+
+    import urllib.request
+
+    if provider == "fonnte":
+        url = "https://api.fonnte.com/send"
+        data = urllib.parse.urlencode({
+            "target": target_phone,
+            "message": message,
+            "countryCode": "62"
+        }).encode("utf-8")
+        req = urllib.request.Request(url, data=data, headers={"Authorization": active_token})
+        try:
+            with urllib.request.urlopen(req, timeout=15) as res:
+                body = res.read().decode("utf-8")
+                return {"status": "success", "provider": "fonnte", "response": json.loads(body)}
+        except Exception as e:
+            return {"status": "error", "provider": "fonnte", "error": str(e)}
+
+    elif provider == "wablas":
+        url = "https://jakarta.wablas.com/api/send-message"
+        data = urllib.parse.urlencode({
+            "phone": target_phone,
+            "message": message
+        }).encode("utf-8")
+        req = urllib.request.Request(url, data=data, headers={"Authorization": active_token})
+        try:
+            with urllib.request.urlopen(req, timeout=15) as res:
+                body = res.read().decode("utf-8")
+                return {"status": "success", "provider": "wablas", "response": json.loads(body)}
+        except Exception as e:
+            return {"status": "error", "provider": "wablas", "error": str(e)}
+
+    return {"status": "error", "error": f"Provider '{provider}' tidak didukung."}
+
+
 def main():
     parser = argparse.ArgumentParser(description="Kirim Pesan WhatsApp ke Kepala Ruang Enggang Gading 2")
     parser.add_argument("-m", "--message", default=DEFAULT_MESSAGE, help="Isi pesan (default: 'Test Boss')")
     parser.add_argument("-p", "--phone", default=DEFAULT_RECIPIENT["phone"], help="Nomor tujuan (default: 6281284070082)")
     parser.add_argument("--mode", choices=["web", "app", "universal"], default="web", help="Mode peluncuran: web (WhatsApp Web langsung), app (Aplikasi Desktop), universal (wa.me)")
-    parser.add_argument("--no-open", action="store_true", help="Hanya tampilkan link tanpa membuka browser/aplikasi")
-    parser.add_argument("--json", action="store_true", help="Output format JSON")
-    
+    parser.add_argument("--gateway", choices=["fonnte", "wablas"], help="Kirim melalui Gateway API otomatis di background (dari nomor bot mana pun)")
+    parser.add_argument("--token", help="API Token untuk gateway Fonnte / Wablas")
+    parser.add_argument("--save-token", action="store_true", help="Simpan token gateway ke wa_gateway_config.json")
+
     args = parser.parse_args()
-    
+
+    if args.save_token and args.token:
+        save_gateway_config(args.gateway or "fonnte", args.token)
+        print(f"Token gateway {args.gateway or 'fonnte'} berhasil disimpan ke wa_gateway_config.json!")
+
+    # Jika mode gateway dipilih atau token tersedia
+    if args.gateway or args.token:
+        gw_res = send_via_gateway(
+            phone=args.phone,
+            message=args.message,
+            token=args.token,
+            provider=args.gateway or "fonnte"
+        )
+        if args.json:
+            print(json.dumps(gw_res, indent=2, ensure_ascii=False))
+        else:
+            print("=" * 68)
+            print(" PENGIRIMAN VIA WHATSAPP GATEWAY (OTOMATIS BACKGROUND)")
+            print("=" * 68)
+            print(f" Provider : {gw_res.get('provider', args.gateway or 'fonnte').upper()}")
+            print(f" Target   : +{args.phone}")
+            print(f" Status   : {gw_res.get('status')}")
+            if gw_res.get("status") == "success":
+                print(" Hasil    : [BERHASIL TERKIRIM] Pesan langsung masuk ke WhatsApp tujuan.")
+            else:
+                print(f" Error    : {gw_res.get('error')}")
+            print("=" * 68)
+        return
+
     res = send_whatsapp_local(
         phone=args.phone,
         message=args.message,
