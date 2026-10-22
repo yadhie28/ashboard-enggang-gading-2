@@ -4563,31 +4563,57 @@ function initWhatsAppMessengerSystem() {
     });
   }
 
-  // Send via WhatsApp
+  const sendAppBtn = document.getElementById('sendWhatsAppAppBtn');
+
+  // Helper to dispatch message via specific URL
+  function dispatchWhatsApp(url, toastMsg) {
+    const msg = messageInput ? (messageInput.value.trim() || 'Test Boss') : 'Test Boss';
+    // Auto copy to clipboard as safeguard
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(msg).catch(() => {});
+    }
+
+    if (url.startsWith('whatsapp://')) {
+      window.location.href = url;
+    } else {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    showToast(toastMsg, 'success');
+
+    // Also dispatch to local server API if running
+    try {
+      fetch('/api/whatsapp/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: TARGET_PHONE,
+          message: msg,
+          open_browser: false
+        })
+      }).catch(() => {});
+    } catch (e) {}
+
+    closeModal();
+  }
+
+  // Send via Direct WhatsApp Web
   if (sendBtn && messageInput) {
     sendBtn.addEventListener('click', () => {
       const msg = messageInput.value.trim() || 'Test Boss';
       const encodedMsg = encodeURIComponent(msg);
-      const waUrl = `https://wa.me/${TARGET_PHONE}?text=${encodedMsg}`;
+      const webUrl = `https://web.whatsapp.com/send?phone=${TARGET_PHONE}&text=${encodedMsg}`;
+      dispatchWhatsApp(webUrl, '🟢 Membuka WhatsApp Web langsung ke chat Kepala Ruang. Tekan Enter untuk kirim!');
+    });
+  }
 
-      // Open WhatsApp web or native desktop/mobile app
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
-      showToast('🚀 Mengirim pesan WhatsApp ke Kepala Ruang (+6281284070082)...', 'success');
-
-      // Also dispatch to local server API if available
-      try {
-        fetch('/api/whatsapp/send', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            phone: TARGET_PHONE,
-            message: msg,
-            open_browser: false
-          })
-        }).catch(() => {});
-      } catch (e) {}
-
-      closeModal();
+  // Send via Native WhatsApp App (Desktop / Mobile)
+  if (sendAppBtn && messageInput) {
+    sendAppBtn.addEventListener('click', () => {
+      const msg = messageInput.value.trim() || 'Test Boss';
+      const encodedMsg = encodeURIComponent(msg);
+      const appUrl = `whatsapp://send?phone=${TARGET_PHONE}&text=${encodedMsg}`;
+      dispatchWhatsApp(appUrl, '📱 Membuka Aplikasi WhatsApp Desktop ke Kepala Ruang. Tekan Enter untuk kirim!');
     });
   }
 }

@@ -375,9 +375,9 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
                 from send_whatsapp import send_whatsapp_local, DEFAULT_RECIPIENT, DEFAULT_MESSAGE
                 phone = data.get("phone", DEFAULT_RECIPIENT["phone"])
                 message = data.get("message", DEFAULT_MESSAGE)
+                mode = data.get("mode", "web")
                 open_client = data.get("open", True)
-                
-                res = send_whatsapp_local(phone=phone, message=message, launch_browser=open_client)
+                res = send_whatsapp_local(phone=phone, message=message, mode=mode, launch_browser=open_client)
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
                 self.end_headers()
