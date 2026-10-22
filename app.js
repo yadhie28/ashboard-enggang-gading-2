@@ -749,7 +749,9 @@ function createBedCard(pt) {
   let statusClass = 'card-occupied';
   if (pt.isEmpty) {
     statusClass = 'card-empty';
-  } else if (pt.isDischargedToday || (pt.tags && pt.tags.some(t => t.label.toLowerCase().includes('pulang')))) {
+  } else if (pt.isDeceased || pt.status === 'Meninggal') {
+    statusClass = 'card-deceased';
+  } else if (pt.isDischargedToday || pt.status === 'Pulang Hari Ini') {
     statusClass = 'card-discharge';
   } else if (pt.tags) {
     if (pt.tags.some(t => t.label.includes('Hemodialisa'))) statusClass = 'card-hd';
@@ -798,7 +800,9 @@ function createBedCard(pt) {
     <div class="bed-card-header">
       <span class="bed-number-badge">BED ${pt.bed}</span>
       <div class="bed-header-right">
-        ${pt.isDischargedToday ? '<span class="status-chip chip-success" style="font-size:0.68rem; padding:0.18rem 0.5rem; font-weight:800; letter-spacing:0.02em;">PULANG HARI INI</span>' : ''}
+        ${pt.isDeceased || pt.status === 'Meninggal' 
+          ? '<span class="status-chip chip-danger" style="background:#dc2626; color:#fff; font-size:0.68rem; padding:0.18rem 0.5rem; font-weight:800; letter-spacing:0.02em;">MENINGGAL</span>' 
+          : (pt.isDischargedToday || pt.status === 'Pulang Hari Ini' ? '<span class="status-chip chip-success" style="font-size:0.68rem; padding:0.18rem 0.5rem; font-weight:800; letter-spacing:0.02em;">PULANG HARI INI</span>' : '')}
         <span class="los-pill">LOS: ${pt.los}h</span>
         <span class="insurance-pill">${pt.insurance}</span>
       </div>
@@ -4531,13 +4535,11 @@ function initWhatsAppMessengerSystem() {
           let deceasedCount = 0;
 
           allBeds.forEach(b => {
-            const isEmp = b.isEmpty || (b.name && (b.name.toLowerCase().includes('kosong') || b.name.toLowerCase().includes('rusak')));
-            const col = (b.dischargeColor || '').toUpperCase();
-            if (isEmp) {
-              // bed kosong fisik
-            } else if (col && (col.includes('FF0000') || col.includes('CC0000') || col.includes('E06666'))) {
+            if (b.isEmpty) {
+              // kosong fisik
+            } else if (b.isDeceased || b.status === 'Meninggal') {
               deceasedCount++;
-            } else if (col || b.isDischargedToday || b.status === 'Pulang Hari Ini') {
+            } else if (b.isDischargedToday || b.status === 'Pulang Hari Ini') {
               dischargedCount++;
             } else {
               activeCount++;
@@ -4546,25 +4548,21 @@ function initWhatsAppMessengerSystem() {
 
           let activeA = 0;
           (dayData.eg2a || []).forEach(b => {
-            const isEmp = b.isEmpty || (b.name && (b.name.toLowerCase().includes('kosong') || b.name.toLowerCase().includes('rusak')));
-            const col = (b.dischargeColor || '').toUpperCase();
-            if (!isEmp && !col && !b.isDischargedToday && b.status !== 'Pulang Hari Ini') {
+            if (!b.isEmpty && !b.isDischargedToday && !b.isDeceased && b.status !== 'Pulang Hari Ini' && b.status !== 'Meninggal') {
               activeA++;
             }
           });
 
           let activeB = 0;
           (dayData.eg2b || []).forEach(b => {
-            const isEmp = b.isEmpty || (b.name && (b.name.toLowerCase().includes('kosong') || b.name.toLowerCase().includes('rusak')));
-            const col = (b.dischargeColor || '').toUpperCase();
-            if (!isEmp && !col && !b.isDischargedToday && b.status !== 'Pulang Hari Ini') {
+            if (!b.isEmpty && !b.isDischargedToday && !b.isDeceased && b.status !== 'Pulang Hari Ini' && b.status !== 'Meninggal') {
               activeB++;
             }
           });
 
           // Logika Pergeseran Bed (Ekstra bed selalu dikosongkan lebih dulu saat standar pulang)
           if (activeA >= 12) {
-            const extraEmptyA = 4 - (activeA - 12);
+            const extraEmptyA = Math.max(0, 4 - (activeA - 12));
             textFreeA = `${extraEmptyA} ekstra bed`;
           } else {
             const stdEmptyA = 12 - activeA;
@@ -4572,15 +4570,15 @@ function initWhatsAppMessengerSystem() {
           }
 
           if (activeB >= 36) {
-            const extraEmptyB = 4 - (activeB - 36);
+            const extraEmptyB = Math.max(0, 4 - (activeB - 36));
             textFreeB = `${extraEmptyB} ekstra bed`;
           } else {
             const stdEmptyB = 36 - activeB;
             textFreeB = `${stdEmptyB} + 4 ekstra bed`;
           }
 
-          pxSkrg = activeCount || 49;
-          pxPulang = dischargedCount || 6;
+          pxSkrg = activeA + activeB;
+          pxPulang = dischargedCount;
           pxMeninggal = deceasedCount > 0 ? deceasedCount : '-';
           freeBed = (16 - activeA) + (40 - activeB);
           bor = `${((pxSkrg / 56) * 100).toFixed(1)}%`;

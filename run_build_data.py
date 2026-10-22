@@ -15,8 +15,9 @@ CAPACITY_EG2A = 16
 CAPACITY_EG2B = 40
 TOTAL_CAPACITY = 56
 
-HEADER_COLORS = {'FF6AA84F', 'FF356854', 'FF38761D'}
+HEADER_COLORS = {'FF6AA84F', 'FF356854', 'FF38761D', 'FF274E13', 'FF0C343D'}
 IGNORE_COLORS = {'FFFFFFFF', 'FFF8F9FA', 'FFF6F8F9', 'FFF3F3F3', None}
+RED_FILL_COLORS = {'FFFF0000', 'FFCC0000', 'FFA61C00', 'FFCC4125', 'FFE06666', 'FFDD7E6B'}
 
 def normalize_doctor_name(raw_name):
     if not raw_name or raw_name == "-" or len(str(raw_name).strip()) < 3:
@@ -120,10 +121,12 @@ def load_style_fills(z):
         fcol = fill_colors[fid] if fid < len(fill_colors) else None
         if fcol:
             rgb = fcol.get('rgb')
+            if rgb:
+                rgb = str(rgb).upper()
             theme = fcol.get('theme')
             if rgb and rgb not in IGNORE_COLORS and rgb not in HEADER_COLORS:
                 xf_to_color[i] = rgb
-            elif theme and theme not in ['0']:
+            elif theme and str(theme) not in ['0']:
                 xf_to_color[i] = f'theme:{theme}'
             else:
                 xf_to_color[i] = None
@@ -247,21 +250,40 @@ def parse_patient_row_enhanced(r, room_type, current_iso_date):
     except:
         pass
 
-    # Color detection for discharge
+    # Color detection for discharge & death
     is_colored = bool(r.get("_isColored"))
     color_hex = r.get("_colors", [None])[0] if r.get("_colors") else None
+    
     is_discharged = False
+    is_deceased = False
+    is_active = False
     
     tags = []
     combined_notes = f"{diagnosa_raw}\n{pagi}\n{sore}\n{malam}".upper()
-    
+    has_death_note = any(k in combined_notes for k in [
+        "MENINGGAL JAM", "MENINGGAL PUKUL", "EXIT JAM", "EXIT PUKUL", 
+        "WAFAT JAM", "WAFAT PUKUL", "MENINGGAL DI RUANGAN", "PX MENINGGAL", 
+        "PASIEN MENINGGAL", "DEATH"
+    ])
+
     if not is_empty:
-        if is_colored or any(k in combined_notes for k in ["PULANG HARI INI", "ACC BLPL", "ACC PULANG", "ACC RAWAT JALAN", "KRS HARI INI"]):
+        # 1. Pasien Meninggal: Arsiran merah pekat atau tertulis catatan meninggal
+        if (is_colored and color_hex in RED_FILL_COLORS) or has_death_note:
+            is_deceased = True
+            status = "Meninggal"
+            tags.append({"label": "Meninggal", "color": "red"})
+        # 2. Pasien Pulang Hari Ini: Arsiran warna selain merah (orange, hijau, peach, dll)
+        elif is_colored:
             is_discharged = True
             status = "Pulang Hari Ini"
             tags.append({"label": "Pulang Hari Ini", "color": "emerald"})
-        elif any(k in combined_notes for k in ["PULANG", "BLPL", "KRS", "RAJAL"]):
-            tags.append({"label": "Rencana Pulang", "color": "green"})
+        # 3. Pasien Aktif Dirawat: Sel tanpa arsiran warna (putih/polos)
+        else:
+            is_active = True
+            status = "Dirawat"
+            # Deteksi rencana pulang di shift mendatang (tetap aktif dirawat)
+            if any(k in combined_notes for k in ["PULANG", "BLPL", "KRS", "ACC RAWAT JALAN", "RAJAL", "ACC PULANG", "ACC BLPL", "RENCANA PULANG"]):
+                tags.append({"label": "Rencana Pulang", "color": "green"})
 
     if any(k in combined_notes for k in ["HD", "HEMODIALISA", "CDL", "CIMINO"]):
         tags.append({"label": "Hemodialisa (HD)", "color": "purple"})
@@ -297,7 +319,9 @@ def parse_patient_row_enhanced(r, room_type, current_iso_date):
         "room": room_type,
         "status": status,
         "isEmpty": is_empty,
+        "isActive": is_active,
         "isDischargedToday": is_discharged,
+        "isDeceased": is_deceased,
         "dischargeColor": color_hex,
         "name": clean_name if not is_empty else ("Bed Rusak (BAU)" if "Rusak" in status else "Bed Kosong"),
         "mrNo": mr_no,
@@ -361,7 +385,10 @@ def normalize_wing_beds(patients_raw, wing_name, target_capacity):
                 "room": wing_name,
                 "status": "Kosong",
                 "isEmpty": True,
+                "isActive": False,
                 "isDischargedToday": False,
+                "isDeceased": False,
+                "dischargeColor": None,
                 "name": "Bed Kosong",
                 "mrNo": "",
                 "gender": "-",
@@ -450,9 +477,10 @@ def run():
 
             patients_a = normalize_wing_beds(raw_patients_a, "EG2A", CAPACITY_EG2A)
             patients_b = normalize_wing_beds(raw_patients_b, "EG2B", CAPACITY_EG2B)
-            # Pasien aktif = Pasien tanpa warna (tidak kosong dan bukan pasien pulang)
-            occ_a = len([p for p in patients_a if not p["isEmpty"] and not p.get("isDischargedToday")])
-            occ_b = len([p for p in patients_b if not p["isEmpty"] and not p.get("isDischargedToday")])
+            
+            # Pasien aktif = Pasien tanpa warna (tidak kosong dan bukan pasien pulang/meninggal)
+            occ_a = len([p for p in patients_a if p.get("isActive")])
+            occ_b = len([p for p in patients_b if p.get("isActive")])
             tot_occ = occ_a + occ_b
             bor = round((tot_occ / TOTAL_CAPACITY) * 100, 1)
 
@@ -476,25 +504,24 @@ def run():
                     curr_p_keys.add(pkey)
                     total_unique_patients.add(pkey)
 
-                    if p.get("isDischargedToday"):
+                    if p.get("isDeceased"):
+                        deaths_today += 1
+                        if p.get("los", 0) >= 2:
+                            death_gt48_today += 1
+                    elif p.get("isDischargedToday"):
                         discharges_from_color += 1
 
-                    doc = p["doctorPrimary"]
-                    if doc and doc != "-" and len(doc) > 3:
-                        doctor_patients[doc].add(pkey)
-                    cat = p["category"]
-                    cat_counts[cat] = cat_counts.get(cat, 0) + 1
-                    ins = clean_insurance_name(p["insurance"])
-                    insurance_counts[ins] = insurance_counts.get(ins, 0) + 1
-                    diag_raw = p.get("diagnosis", "")
-                    if diag_raw and diag_raw != "-" and len(diag_raw) > 2:
-                        patient_diagnoses_text[pkey].add(diag_raw.upper())
-
-                    notes = (p["notes"]["pagi"] + " " + p["notes"]["sore"] + " " + p["notes"]["malam"]).upper()
-                    if any(k in notes for k in ["MENINGGAL JAM", "MENINGGAL PUKUL", "EXIT JAM", "EXIT PUKUL", "WAFAT JAM", "WAFAT PUKUL", "MENINGGAL DI RUANGAN", "PX MENINGGAL", "PASIEN MENINGGAL", "DEATH"]):
-                        deaths_today += 1
-                        if p["los"] >= 2:
-                            death_gt48_today += 1
+                    if p.get("isActive"):
+                        doc = p["doctorPrimary"]
+                        if doc and doc != "-" and len(doc) > 3:
+                            doctor_patients[doc].add(pkey)
+                        cat = p["category"]
+                        cat_counts[cat] = cat_counts.get(cat, 0) + 1
+                        ins = clean_insurance_name(p["insurance"])
+                        insurance_counts[ins] = insurance_counts.get(ins, 0) + 1
+                        diag_raw = p.get("diagnosis", "")
+                        if diag_raw and diag_raw != "-" and len(diag_raw) > 2:
+                            patient_diagnoses_text[pkey].add(diag_raw.upper())
 
             # Discharges calculation: prioritize exact color fill
             if discharges_from_color > 0:
@@ -546,6 +573,7 @@ def run():
                         "emptyA": max(0, CAPACITY_EG2A - occ_a),
                         "emptyB": max(0, CAPACITY_EG2B - occ_b),
                         "dischargedToday": discharges_today,
+                        "deathsToday": deaths_today,
                         "tagCounts": tag_counts
                     }
                 }
