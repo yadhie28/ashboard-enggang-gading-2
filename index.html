@@ -88,6 +88,13 @@
         <button class="btn btn-secondary btn-icon" id="printHandoverBtn" title="Cetak Laporan Operan Jaga Shift (SBAR)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
         </button>
+
+        <!-- WhatsApp Messenger Karu (+6281284070082) -->
+        <button class="btn btn-icon btn-whatsapp-header" id="openWhatsAppModalBtn" title="Kirim Pesan WhatsApp ke Kepala Ruang (+6281284070082)" aria-label="WhatsApp Karu">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.64c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.5-1.4-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.29z"/>
+          </svg>
+        </button>
       </div>
     </div>
   </header>
@@ -1273,6 +1280,91 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
           <span>Simpan ke Kronologi</span>
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       WHATSAPP MESSENGER MODAL - KEPALA RUANG ENGGANG GADING 2
+       ======================================================================== -->
+  <div class="modal-overlay" id="whatsAppModal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="whatsAppModalTitle">
+    <div class="modal-dialog modal-dialog-md">
+      <div class="modal-header" style="background: linear-gradient(135deg, rgba(37, 211, 102, 0.12), rgba(18, 140, 126, 0.08)); border-bottom: 1.5px solid rgba(37, 211, 102, 0.3);">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div style="width: 40px; height: 40px; border-radius: 50%; background: #25D366; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; box-shadow: 0 2px 6px rgba(37, 211, 102, 0.4);">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.64c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.5-1.4-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.29z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 id="whatsAppModalTitle" class="modal-title" style="font-size: 1.15rem; margin: 0; color: #128C7E;">WhatsApp Messenger Karu</h2>
+            <p class="caption-text" style="margin: 2px 0 0 0;">Kirim Pesan Langsung ke Kepala Ruang Enggang Gading 2</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="whatsAppModalCloseBtn" aria-label="Tutup Modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Target Info Card -->
+        <div style="background: rgba(37, 211, 102, 0.08); border: 1.2px solid rgba(37, 211, 102, 0.25); border-radius: 8px; padding: 0.85rem 1rem; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+              <div style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.05em; color: #075E54; font-weight: 700;">Penerima Resmi:</div>
+              <div style="font-size: 0.95rem; font-weight: 800; color: #128C7E; margin-top: 2px;">Ns. Rusmulyadi, S.Kep.,M.A.R.S</div>
+              <div style="font-size: 0.78rem; color: var(--text-secondary, #334155);">Kepala Ruang Enggang Gading 2 &bull; RSUD Dr. Soedarso</div>
+            </div>
+            <div style="text-align: right;">
+              <span class="badge" style="background: #25D366; color: #ffffff; font-weight: 700; font-size: 0.85rem; padding: 4px 10px; border-radius: 20px; display: inline-flex; align-items: center; gap: 5px;">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/></svg>
+                +62 812-8407-0082
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Template Selector -->
+        <div style="margin-bottom: 0.85rem;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--text-primary, #334155); margin-bottom: 0.35rem;">Pilih Template Pesan Cepat:</label>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+            <button type="button" class="btn btn-sm btn-outline-wa wa-tmpl-btn active" data-tmpl="test" style="font-size: 0.78rem; padding: 0.35rem 0.65rem;">
+              ⚡ Test Boss
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-wa wa-tmpl-btn" data-tmpl="sensus" style="font-size: 0.78rem; padding: 0.35rem 0.65rem;">
+              📊 Ringkasan Sensus
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-wa wa-tmpl-btn" data-tmpl="operan" style="font-size: 0.78rem; padding: 0.35rem 0.65rem;">
+              📋 Operan Jaga Shift
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-wa wa-tmpl-btn" data-tmpl="kritis" style="font-size: 0.78rem; padding: 0.35rem 0.65rem;">
+              ⚠️ Lapor Pasien Kritis
+            </button>
+          </div>
+        </div>
+
+        <!-- Message Textarea -->
+        <div style="margin-bottom: 1rem;">
+          <label for="whatsAppMessageInput" style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--text-primary, #334155); margin-bottom: 0.35rem;">
+            Isi Pesan WhatsApp:
+          </label>
+          <textarea id="whatsAppMessageInput" rows="4" style="width: 100%; border-radius: 6px; border: 1.2px solid var(--border-color, #cbd5e1); background: var(--bg-card, #ffffff); color: var(--text-primary, #1e293b); padding: 0.65rem 0.85rem; font-family: inherit; font-size: 0.9rem; line-height: 1.45; resize: vertical;" placeholder="Tuliskan pesan untuk Kepala Ruang...">Test Boss</textarea>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px; font-size: 0.75rem; color: var(--text-muted, #64748b);">
+            <span>Target: <strong>+6281284070082</strong></span>
+            <span id="waCharCount">9 karakter</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 0.5rem; justify-content: flex-end; align-items: center; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary btn-sm" id="copyWhatsAppTextBtn" style="font-size: 0.82rem; padding: 0.45rem 0.85rem;">
+            📋 Salin Pesan
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="sendWhatsAppDirectBtn" style="background: #25D366; border-color: #25D366; font-size: 0.85rem; font-weight: 700; padding: 0.45rem 1.15rem; display: inline-flex; align-items: center; gap: 6px;">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.64c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.5-1.4-1.75-.14-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.23-.17-.48-.29z"/>
+            </svg>
+            Kirim via WhatsApp ➔
+          </button>
+        </div>
       </div>
     </div>
   </div>

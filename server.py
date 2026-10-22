@@ -334,6 +334,25 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
                     self.wfile.write(f.read())
                 return
 
+        elif self.path == "/api/whatsapp/info":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            info = {
+                "recipient": {
+                    "name": "Ns. Rusmulyadi, S.Kep.,M.A.R.S",
+                    "role": "Kepala Ruang Enggang Gading 2",
+                    "hospital": "RSUD Dr. Soedarso Pontianak",
+                    "phone": "6281284070082",
+                    "phoneFormatted": "+62 812-8407-0082"
+                },
+                "defaultMessage": "Test Boss",
+                "defaultUrl": "https://wa.me/6281284070082?text=Test%20Boss",
+                "status": "ready"
+            }
+            self.wfile.write(json.dumps(info, ensure_ascii=False).encode("utf-8"))
+            return
+
         return super().do_GET()
 
     def do_POST(self):
@@ -346,6 +365,30 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
             return
+
+        elif self.path == "/api/whatsapp/send":
+            try:
+                content_length = int(self.headers.get('Content-Length', 0))
+                body = self.rfile.read(content_length).decode('utf-8') if content_length > 0 else '{}'
+                data = json.loads(body) if body else {}
+                
+                from send_whatsapp import send_whatsapp_local, DEFAULT_RECIPIENT, DEFAULT_MESSAGE
+                phone = data.get("phone", DEFAULT_RECIPIENT["phone"])
+                message = data.get("message", DEFAULT_MESSAGE)
+                open_client = data.get("open", True)
+                
+                res = send_whatsapp_local(phone=phone, message=message, launch_browser=open_client)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "error": str(e)}).encode("utf-8"))
+                return
 
         self.send_response(404)
         self.end_headers()

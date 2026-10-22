@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
   initSyncSchedule();
   loadData();
+  initWhatsAppMessengerSystem();
 });
 
 // Theme Management
@@ -4438,3 +4439,149 @@ function exportChronologyWord(patientKey) {
     showToast('Gagal mengunduh dokumen Word: ' + err.message, 'error');
   }
 }
+
+// ==========================================================================
+// WHATSAPP MESSENGER SYSTEM - KEPALA RUANG ENGGANG GADING 2 (+6281284070082)
+// ==========================================================================
+
+function initWhatsAppMessengerSystem() {
+  const modal = document.getElementById('whatsAppModal');
+  const openBtn = document.getElementById('openWhatsAppModalBtn');
+  const closeBtn = document.getElementById('whatsAppModalCloseBtn');
+  const sendBtn = document.getElementById('sendWhatsAppDirectBtn');
+  const copyBtn = document.getElementById('copyWhatsAppTextBtn');
+  const messageInput = document.getElementById('whatsAppMessageInput');
+  const charCounter = document.getElementById('waCharCount');
+  const tmplButtons = document.querySelectorAll('.wa-tmpl-btn');
+
+  const TARGET_PHONE = '6281284070082'; // Ns. Rusmulyadi, S.Kep.,M.A.R.S (Kepala Ruang Enggang Gading 2)
+
+  if (!modal || !openBtn) return;
+
+  function updateCharCount() {
+    if (charCounter && messageInput) {
+      charCounter.textContent = `${messageInput.value.length} karakter`;
+    }
+  }
+
+  function openModal() {
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    if (messageInput) {
+      updateCharCount();
+      setTimeout(() => {
+        messageInput.focus();
+        messageInput.select();
+      }, 50);
+    }
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  openBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal();
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  }
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.style.display === 'flex') {
+      closeModal();
+    }
+  });
+
+  if (messageInput) {
+    messageInput.addEventListener('input', updateCharCount);
+  }
+
+  // Quick Template Handlers
+  tmplButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      tmplButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const tmplType = btn.getAttribute('data-tmpl');
+      let text = 'Test Boss';
+
+      if (tmplType === 'test') {
+        text = 'Test Boss';
+      } else if (tmplType === 'sensus') {
+        const tgl = (typeof state !== 'undefined' && state.currentDate)
+          ? formatIndonesianDate(state.currentDate)
+          : 'Hari Ini';
+        const total = (typeof state !== 'undefined' && state.patients)
+          ? state.patients.length
+          : 0;
+        text = `Yth. Kepala Ruang Enggang Gading 2,\n\nLaporan Ringkasan Sensus Pelayanan Rawat Inap Enggang Gading 2:\n📅 Tanggal: ${tgl}\n👥 Total Pasien Aktif: ${total} orang\n\nDemikian laporan ringkas kami sampaikan. Terima kasih.`;
+      } else if (tmplType === 'operan') {
+        const total = (typeof state !== 'undefined' && state.patients)
+          ? state.patients.length
+          : 0;
+        text = `Yth. Kepala Ruang Enggang Gading 2,\n\nLaporan Operan Jaga Shift Enggang Gading 2:\n• Shift: Pagi / Sore / Malam\n• Jumlah Pasien Saat Ini: ${total} orang\n• Pasien Perhatian Khusus / Risti: Terpantau stabil\n• Kondisi Ruangan: Aman & Terkendali.\n\nDemikian laporan operan jaga shift kami sampaikan.`;
+      } else if (tmplType === 'kritis') {
+        text = `🚨 PEMBERITAHUAN SEGERA / EMERGENCY 🚨\n\nYth. Ns. Rusmulyadi, S.Kep.,M.A.R.S (Kepala Ruang Enggang Gading 2)\n\nMohon petunjuk & arahan, terdapat pasien dengan perburukan kondisi / kriteria khusus di Ruang Enggang Gading 2:\n- Bed / Kamar: ...\n- Nama Pasien: ...\n- Kondisi / Tanda Vital: ...\n- Tindakan Sementara: ...\n\nMohon instruksi lebih lanjut. Terima kasih.`;
+      }
+
+      if (messageInput) {
+        messageInput.value = text;
+        updateCharCount();
+        messageInput.focus();
+      }
+    });
+  });
+
+  // Copy Message to Clipboard
+  if (copyBtn && messageInput) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(messageInput.value);
+        showToast('📋 Pesan berhasil disalin ke clipboard!', 'success');
+      } catch (err) {
+        messageInput.select();
+        document.execCommand('copy');
+        showToast('📋 Pesan berhasil disalin ke clipboard!', 'success');
+      }
+    });
+  }
+
+  // Send via WhatsApp
+  if (sendBtn && messageInput) {
+    sendBtn.addEventListener('click', () => {
+      const msg = messageInput.value.trim() || 'Test Boss';
+      const encodedMsg = encodeURIComponent(msg);
+      const waUrl = `https://wa.me/${TARGET_PHONE}?text=${encodedMsg}`;
+
+      // Open WhatsApp web or native desktop/mobile app
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+      showToast('🚀 Mengirim pesan WhatsApp ke Kepala Ruang (+6281284070082)...', 'success');
+
+      // Also dispatch to local server API if available
+      try {
+        fetch('/api/whatsapp/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            phone: TARGET_PHONE,
+            message: msg,
+            open_browser: false
+          })
+        }).catch(() => {});
+      } catch (e) {}
+
+      closeModal();
+    });
+  }
+}
+

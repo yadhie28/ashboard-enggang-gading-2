@@ -4604,3 +4604,47 @@ body::before {
   height: 60px !important;
 }
 
+/* ==========================================================================
+   WHATSAPP MESSENGER QUICK ACTION STYLES
+   ========================================================================== */
+.btn-whatsapp-header {
+  background: #25D366 !important;
+  color: #ffffff !important;
+  border-color: #25D366 !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.btn-whatsapp-header:hover {
+  background: #1ebe5d !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+}
+
+.btn-whatsapp-header svg {
+  fill: currentColor;
+}
+
+.btn-outline-wa {
+  border: 1.2px solid rgba(37, 211, 102, 0.4);
+  background: transparent;
+  color: #075E54;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-outline-wa:hover {
+  background: rgba(37, 211, 102, 0.12);
+  border-color: #25D366;
+  color: #128C7E;
+}
+
+.btn-outline-wa.active {
+  background: #25D366;
+  color: #ffffff;
+  border-color: #25D366;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(37, 211, 102, 0.35);
+}
+
+
