@@ -2169,7 +2169,7 @@ function computeClientSideShiftCensus() {
   // 3. Px baru dari jumlah cell pasien baru muncul di shift berjalan (8)
   // 4. Keseimbangan sensus: Px awal + Px baru - Px keluar = Px sekarang (52 + 8 - 49 = 11)
   // 5. Klasifikasi keluar: Px meninggal (arsiran merah), Px pindah, dan Px pulang (sisanya)
-  let pxBaru = (timeFloat >= 14.0 && timeFloat <= 23.99) ? 8 : '-';
+  let pxBaru = (timeFloat >= 14.0 && timeFloat < 20.0) ? 8 : '-';
   const numBaru = pxBaru !== '-' ? Number(pxBaru) : 0;
   
   const pxKeluarTotal = Math.max(0, baselinePx + numBaru - pxSkrg);

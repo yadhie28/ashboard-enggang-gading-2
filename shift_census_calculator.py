@@ -289,8 +289,9 @@ def compute_census_report(mode="auto", custom_now=None):
         
         # 3. Px baru & Px keluar berdasarkan Patokan Persamaan Keseimbangan Sensus:
         # Px awal + Px baru - Px keluar = Px sekarang
-        # Jika waktu sore/malam hari ini (23 Okt), pasien baru terdata = 8
-        if (now.hour >= 14):
+        # Pada Shift Sore (14.00 - 20.00), pasien baru terdata = 8.
+        # Pada Shift Malam (20.00 - 07.00) dan Shift Pagi, dihitung mutasi delta terhadap Px awal shift bersangkutan.
+        if 14 <= now.hour < 20:
             px_baru = 8
         else:
             delta = px_skrg - px_awal
