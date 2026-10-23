@@ -5,22 +5,30 @@ Dashboard pemantauan sensus pasien rawat inap real-time, denah keterisian bed di
 
 ---
 
-## 🌐 Akses Online 24/7 & Repositori
+## 🚀 Cara Cepat Membuka Dashboard Sewaktu-waktu
+
+### 🖱️ Opsi 1: Klik Ganda (Double-Click) dari Desktop Mac
+1. Temukan ikon file **`Buka_Dashboard_Enggang_Gading_2.command`** di **Desktop** Mac Anda (atau di dalam folder proyek).
+2. Klik ganda berkas tersebut.
+3. Server lokal akan aktif dan peramban (browser) otomatis terbuka menampilkan dashboard di `http://localhost:3000`.
+
+### 🌐 Opsi 2: Buka Online Langsung (Tanpa Komputer / dari Smartphone & HP Mana Saja)
 - **Tautan Live Netlify**: [https://heroic-travesseiro-ef2369.netlify.app](https://heroic-travesseiro-ef2369.netlify.app)
 - **Repositori GitHub**: [https://github.com/yadhie28/ashboard-enggang-gading-2.git](https://github.com/yadhie28/ashboard-enggang-gading-2.git)
-- **Akses Lokal**: `http://localhost:3000` (saat server lokal berjalan)
+
+### 💻 Opsi 3: Buka di Antigravity IDE / VS Code
+Buka menu **File > Open Folder...** lalu pilih direktori:
+`/Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2`
+Atur folder ini sebagai **Active Workspace**.
 
 ---
 
 ## 📁 Lokasi Proyek & Direktori Kerja
 - **Path Proyek Utama**: `/Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2/`
 - **Cadangan ZIP Terbaru**: 
-  - `~/Documents/dashboard-enggang-gading-2.zip`
   - `~/Downloads/dashboard-enggang-gading-2.zip`
+  - `~/Documents/dashboard-enggang-gading-2.zip`
 - **Cadangan GitHub**: Sinkron otomatis dengan remote branch `main`
-
-> 💡 **Rekomendasi Workspace**:
-> Di Antigravity IDE / VS Code, Anda disarankan membuka folder kerja `/Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2` sebagai **Active Workspace** agar dapat langsung diedit kapan saja.
 
 ---
 
