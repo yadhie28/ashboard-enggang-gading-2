@@ -250,9 +250,22 @@ def execute_sync(trigger_type="manual"):
         sync_state["is_syncing"] = False
         sync_lock.release()
 
+def sync_and_send_census(trigger_name, mode):
+    res = execute_sync(trigger_type=trigger_name)
+    if res.get("success"):
+        try:
+            from shift_census_calculator import compute_census_report
+            from send_whatsapp import send_via_gateway, DEFAULT_RECIPIENT
+            rep = compute_census_report(mode=mode)
+            print(f"[SCHEDULER] Mengirim laporan sensus WA ({rep['note']})...")
+            gw = send_via_gateway(phone=DEFAULT_RECIPIENT["phone"], message=rep["message"], provider="fonnte")
+            print(f"[SCHEDULER] Hasil kirim sensus WA: {gw.get('status')}")
+        except Exception as ex:
+            print(f"[SCHEDULER WARN] Gagal kirim sensus WA otomatis: {ex}")
+
 def auto_sync_scheduler_worker():
     """Background daemon thread checking schedule every 10 seconds."""
-    print("[SCHEDULER] Auto-Sync Scheduler aktif untuk jam 07:00, 14:00, dan 21:00 WIB.")
+    print("[SCHEDULER] Auto-Sync Scheduler aktif untuk jam 07:00, 14:00, dan 20:00 WIB.")
     last_triggered_slot = None
 
     while True:
@@ -266,8 +279,9 @@ def auto_sync_scheduler_worker():
                     slot_key = f"{now.strftime('%Y-%m-%d')}_{current_hour}:{current_minute}"
                     if last_triggered_slot != slot_key:
                         last_triggered_slot = slot_key
-                        print(f"\n[SCHEDULER TRIGGER] Memulai Auto-Sync {s['name']} ({s['desc']}) pada {now.strftime('%H:%M:%S')}...")
-                        threading.Thread(target=execute_sync, args=(f"auto_{s['name'].lower().replace(' ', '_')}",), daemon=True).start()
+                        mode = "shift_07" if current_hour == 7 else ("shift_14" if current_hour == 14 else "shift_20")
+                        print(f"\n[SCHEDULER TRIGGER] Memulai Auto-Sync & Sensus WA {s['name']} ({s['desc']}) pada {now.strftime('%H:%M:%S')}...")
+                        threading.Thread(target=sync_and_send_census, args=(f"auto_{s['name'].lower().replace(' ', '_')}", mode), daemon=True).start()
                     break
 
             time.sleep(10)
@@ -413,6 +427,68 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header("Content-Type", "application/json; charset=utf-8")
                 self.end_headers()
                 self.wfile.write(json.dumps({"status": "error", "error": str(e)}).encode("utf-8"))
+                return
+
+        elif self.path == "/api/realtime-sync-wa":
+            try:
+                print("[API] Menerima instruksi penarikan data real-time & kirim sensus WA...")
+                sync_res = execute_sync(trigger_type="realtime_wa_button")
+                if not sync_res.get("success"):
+                    self.send_response(500)
+                    self.send_header("Content-Type", "application/json; charset=utf-8")
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"success": False, "error": sync_res.get("error")}).encode("utf-8"))
+                    return
+
+                from shift_census_calculator import compute_census_report
+                from send_whatsapp import send_via_gateway, DEFAULT_RECIPIENT
+
+                report = compute_census_report(mode="realtime")
+                gw_res = send_via_gateway(
+                    phone=DEFAULT_RECIPIENT["phone"],
+                    message=report["message"],
+                    provider="fonnte"
+                )
+
+                response_payload = {
+                    "success": True,
+                    "message": report["message"],
+                    "note": report["note"],
+                    "stats": report["stats"],
+                    "timestamp": report["timestamp"],
+                    "recipient": DEFAULT_RECIPIENT,
+                    "wa_status": gw_res.get("status"),
+                    "wa_response": gw_res
+                }
+
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps(response_payload, ensure_ascii=False).encode("utf-8"))
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+                return
+
+        elif self.path == "/api/census/current":
+            try:
+                from shift_census_calculator import compute_census_report
+                from send_whatsapp import DEFAULT_RECIPIENT
+                report = compute_census_report(mode="auto")
+                report["recipient"] = DEFAULT_RECIPIENT
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps(report, ensure_ascii=False).encode("utf-8"))
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
                 return
 
         self.send_response(404)

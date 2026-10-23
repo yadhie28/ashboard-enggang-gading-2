@@ -64,13 +64,22 @@
           </button>
         </div>
 
-        <!-- Shift Auto-Sync Widget (07.00, 14.00, 21.00) -->
+        <!-- Tombol Eksekusi Pengambilan Data Real-Time & Kirim Sensus WA -->
+        <button class="btn btn-wa-realtime" id="btnRealtimeSyncWA" title="Eksekusi penarikan data real-time dari spreadsheet, susun laporan sensus dengan pembanding shift terakhir (07.00 / 14.00 / 20.00), dan langsung kirimkan via WhatsApp ke Kepala Ruang">
+          <span class="btn-wa-icon">⚡</span>
+          <div class="btn-wa-text-col">
+            <span class="btn-wa-main-title">Tarik Real-Time &amp; Kirim WA</span>
+            <span class="btn-wa-sub-title">Pembanding Shift Terakhir</span>
+          </div>
+        </button>
+
+        <!-- Shift Auto-Sync Widget (07.00, 14.00, 20.00) -->
         <div class="sync-widget" id="syncWidget">
           <button class="btn btn-primary btn-sm btn-sync-action" id="syncSheetsBtn" title="Tarik data terbaru dari Google Spreadsheet sekarang (Sinkron Manual)">
             <svg class="sync-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
             <span id="syncBtnText">Sinkron Data</span>
           </button>
-          <button class="btn-sync-schedule-pill" id="openSyncModalBtn" title="Jadwal Tarik Otomatis Tiap Shift: 07:00, 14:00, 21:00 WIB. Klik untuk info detail &amp; riwayat.">
+          <button class="btn-sync-schedule-pill" id="openSyncModalBtn" title="Jadwal Tarik Otomatis Tiap Shift: 07:00, 14:00, 20:00 WIB. Klik untuk info detail &amp; riwayat.">
             <span class="sync-schedule-icon">⏱️</span>
             <div class="sync-schedule-text-col">
               <span class="sync-schedule-tag">Auto-Sync Shift</span>

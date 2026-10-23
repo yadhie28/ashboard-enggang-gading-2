@@ -10,7 +10,15 @@ months_id = {
 }
 
 def extract_date_from_sheet(z, sheet_info, ss):
-    # First try reading row 1, 2, 3 in the worksheet
+    s_name = sheet_info["name"]
+    # 1. Prioritize explicit 8 digits DDMMYYYY in sheet name (e.g. "JUMAT 23102026" or "EG 2B 23102026")
+    m8 = re.search(r"(\d{2})(\d{2})(2026)", s_name)
+    if m8:
+        d, mth, y = int(m8.group(1)), int(m8.group(2)), int(m8.group(3))
+        try: return date(y, mth, d).isoformat()
+        except: pass
+
+    # 2. Try reading row 1, 2, 3 in the worksheet
     xml_data = z.read(sheet_info["filename"])
     root = ET.fromstring(xml_data)
     ns = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
@@ -50,16 +58,6 @@ def extract_date_from_sheet(z, sheet_info, ss):
                 return date(int(m2.group(3)), mth, d).isoformat()
             except:
                 pass
-
-    # Fallback to sheet name
-    # e.g. "EG 2B 18102026"
-    s_name = sheet_info["name"]
-    # If 8 digits DDMMYYYY
-    m8 = re.search(r"(\d{2})(\d{2})(2026)", s_name)
-    if m8:
-        d, mth, y = int(m8.group(1)), int(m8.group(2)), int(m8.group(3))
-        try: return date(y, mth, d).isoformat()
-        except: pass
         
     # If 7 digits e.g. 1102026 -> 01/10/2026 or 1/1/2026?
     # Usually in sheet name: "KAMIS 112026" is 1/1/2026

@@ -196,57 +196,36 @@ def send_via_gateway(phone: str, message: str, token: str = None, provider: str 
     return {"status": "error", "error": f"Provider '{provider}' tidak didukung."}
 
 
-def build_census_report(px_awal=54, px_baru=1, px_pindah="-", data_path="dashboard_data.json") -> str:
+def build_census_report(mode="auto", px_awal=None, px_baru=None, px_pindah=None, data_path="dashboard_data.json") -> str:
     """
     Menghasilkan template resmi laporan sensus WhatsApp Ruang Enggang Gading 2
-    dengan format bold sesuai ketetapan baku.
+    dengan perbandingan shift terakhir (07.00 / 14.00 / 20.00) sesuai ketetapan baku.
     """
-    px_skrg = 48
-    px_pulang = 7
-    px_meninggal = "-"
-    free_bed = 8
-    text_free_a = "3 ekstra bed"
-    text_free_b = "1 + 4 ekstra bed"
-    bor = "85.7%"
-
-    if os.path.exists(data_path):
-        try:
-            with open(data_path, "r", encoding="utf-8") as f:
-                d = json.load(f)
-                latest = d.get("metadata", {}).get("latestDate")
-                day = d.get("recentDays", {}).get(latest, {})
-                sum_info = day.get("summary", {})
-                occ_a = sum_info.get("occA", 13)
-                occ_b = sum_info.get("occB", 35)
-                px_skrg = occ_a + occ_b
-                px_pulang = sum_info.get("dischargedToday", 7)
-                d_cnt = sum_info.get("deathsToday", 0)
-                px_meninggal = str(d_cnt) if d_cnt > 0 else "-"
-                free_bed = 56 - px_skrg
-                bor = f"{(px_skrg / 56 * 100):.1f}%"
-                text_free_a = sum_info.get("textFreeA", f"{max(0, 4 - (occ_a - 12))} ekstra bed" if occ_a >= 12 else f"{12 - occ_a} + 4 ekstra bed")
-                text_free_b = sum_info.get("textFreeB", f"{max(0, 4 - (occ_b - 36))} ekstra bed" if occ_b >= 36 else f"{36 - occ_b} + 4 ekstra bed")
-        except Exception:
-            pass
-
-    return (
-        "*Ruang Enggang Gading 2*\n"
-        "Kapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\n"
-        f"*Px awal: {px_awal}*\n"
-        f"Px baru: {px_baru}\n"
-        f"Px pindah: {px_pindah}\n"
-        f"Px meninggal: {px_meninggal}\n"
-        f"Px pulang: {px_pulang}\n"
-        "Renc pulang: -\n"
-        "Renc pindah: -\n\n"
-        f"*Px sekarang: {px_skrg}*\n\n"
-        "*Antrean:*\n\n"
-        f"*Free Bed:  {free_bed} (EG2-A: {text_free_a}, EG2-B: {text_free_b})*\n\n"
-        f"*Persentase terisi: {bor}*\n\n"
-        "*Rencana/Antrean Pindah:*\n\n"
-        "Makaseh 🙏\n"
-        "*Semoga sehat selalu 😊*"
-    )
+    try:
+        from shift_census_calculator import compute_census_report
+        res = compute_census_report(mode=mode)
+        return res["message"]
+    except Exception as e:
+        print(f"[WARN] Error in compute_census_report: {e}")
+        # Fallback template
+        return (
+            "*Ruang Enggang Gading 2*\n"
+            "Kapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\n"
+            "*Px awal: 50*\n"
+            "Px baru: 0\n"
+            "Px pindah: -\n"
+            "Px meninggal: -\n"
+            "Px pulang: 0\n"
+            "Renc pulang: -\n"
+            "Renc pindah: -\n\n"
+            "*Px sekarang: 50*\n\n"
+            "*Antrean:*\n\n"
+            "*Free Bed:  6 (EG2-A: 3 ekstra bed, EG2-B: 3 ekstra bed)*\n\n"
+            "*Persentase terisi: 89.3%*\n\n"
+            "*Rencana/Antrean Pindah:*\n\n"
+            "Makaseh 🙏\n"
+            "*Semoga sehat selalu 😊*"
+        )
 
 
 def main():

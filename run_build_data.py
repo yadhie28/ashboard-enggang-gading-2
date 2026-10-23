@@ -463,8 +463,14 @@ def run():
             is_recent = (idx >= len(all_dates) - 45)
             
             raw_patients_a = []
-            if dt in date_map_a:
-                rows_a = parse_worksheet_with_colors(z_a, date_map_a[dt]["filename"], ss_a, fa_map)
+            target_info_a = date_map_a.get(dt)
+            if not target_info_a:
+                valid_prev_a = [d for d in date_map_a.keys() if d <= dt]
+                if valid_prev_a:
+                    target_info_a = date_map_a[max(valid_prev_a)]
+
+            if target_info_a:
+                rows_a = parse_worksheet_with_colors(z_a, target_info_a["filename"], ss_a, fa_map)
                 header_passed = False
                 for r_idx in sorted(rows_a.keys()):
                     r = rows_a[r_idx]
@@ -477,8 +483,14 @@ def run():
                         if pt: raw_patients_a.append(pt)
 
             raw_patients_b = []
-            if dt in date_map_b:
-                rows_b = parse_worksheet_with_colors(z_b, date_map_b[dt]["filename"], ss_b, fb_map)
+            target_info_b = date_map_b.get(dt)
+            if not target_info_b:
+                valid_prev_b = [d for d in date_map_b.keys() if d <= dt]
+                if valid_prev_b:
+                    target_info_b = date_map_b[max(valid_prev_b)]
+
+            if target_info_b:
+                rows_b = parse_worksheet_with_colors(z_b, target_info_b["filename"], ss_b, fb_map)
                 header_passed = False
                 for r_idx in sorted(rows_b.keys()):
                     r = rows_b[r_idx]

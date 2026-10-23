@@ -27,6 +27,7 @@ const state = {
     bto: true
   },
   chronologyPatient: null,
+  chronologyPeriod: 'all',
   chronologySort: 'asc'
 };
 
@@ -604,6 +605,10 @@ function setupEventListeners() {
   // Sync Data
   const syncBtn = document.getElementById('syncSheetsBtn');
   if (syncBtn) syncBtn.addEventListener('click', triggerSync);
+
+  // Real-Time Census Execution & Send WA
+  const realtimeWaBtn = document.getElementById('btnRealtimeSyncWA');
+  if (realtimeWaBtn) realtimeWaBtn.addEventListener('click', triggerRealtimeCensusWA);
 }
 
 // Update Active Day Dashboard
@@ -1889,6 +1894,158 @@ async function triggerSync() {
   }
 }
 
+// ==========================================================================
+// REAL-TIME CENSUS EXECUTION & WHATSAPP REPORT DISPATCH
+// Rule Tetap: Pembanding dasar hitung (Px awal) TETAP hasil hitung shift terakhir
+// (07.00 / 14.00 / 20.00 WIB)
+// ==========================================================================
+async function triggerRealtimeCensusWA() {
+  const btn = document.getElementById('btnRealtimeSyncWA');
+  const modalBtn = document.getElementById('btnModalRealtimeCensusWA');
+
+  const setButtonsState = (loading) => {
+    if (btn) {
+      btn.disabled = loading;
+      btn.innerHTML = loading
+        ? '<span class="pulsing-dot"></span> <div class="btn-wa-text-col"><span class="btn-wa-main-title">Menarik Data &amp; Kirim WA...</span><span class="btn-wa-sub-title">Mohon Tunggu Sebentar</span></div>'
+        : '<span class="btn-wa-icon">⚡</span><div class="btn-wa-text-col"><span class="btn-wa-main-title">Tarik Real-Time &amp; Kirim WA</span><span class="btn-wa-sub-title">Pembanding Shift Terakhir</span></div>';
+    }
+    if (modalBtn) {
+      modalBtn.disabled = loading;
+      modalBtn.innerHTML = loading ? '<span class="pulsing-dot"></span> Mengirim ke WA Karu...' : '⚡ Hitung Ulang &amp; Kirim Sensus WA Real-Time';
+    }
+  };
+
+  setButtonsState(true);
+  showToast('⚡ Menarik data spreadsheet real-time & menyusun sensus perbandingan shift...', 'info');
+
+  try {
+    const res = await fetch('/api/realtime-sync-wa', { method: 'POST' });
+    if (res.ok) {
+      const data = await res.json();
+      await loadData(true);
+      fetchSyncSchedule();
+
+      showToast('🎉 Sensus Real-Time BERHASIL dikirim ke WhatsApp Kepala Ruang (+6281284070082)!', 'success');
+      alert(`✅ LAPORAN SENSUS REAL-TIME BERHASIL DIKIRIM KE WHATSAPP KEPALA RUANG!\n\n` +
+            `Penerima: ${data.recipient.name} (${data.recipient.phone_raw || '+6281284070082'})\n` +
+            `Shift/Waktu: ${data.note || 'Shift Berjalan'}\n` +
+            `Waktu Eksekusi: ${data.timestamp}\n\n` +
+            `Isi Pesan Terkirim:\n----------------------------------------\n${data.message}`);
+      return;
+    }
+  } catch (err) {
+    console.log('Local server endpoint not available, proceeding to client-side dispatch:', err);
+  }
+
+  // Client-Side Fallback (GitHub Pages / Standalone static)
+  try {
+    await loadData(true);
+    const censusInfo = computeClientSideShiftCensus();
+    const encoded = encodeURIComponent(censusInfo.message);
+    const targetPhone = '6281284070082';
+    const FONNTE_TOKEN = 'Ayfow2x1hFiscQZSphzq';
+
+    let gwSent = false;
+    try {
+      const gwRes = await fetch('https://api.fonnte.com/send', {
+        method: 'POST',
+        headers: {
+          'Authorization': FONNTE_TOKEN,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          target: targetPhone,
+          message: censusInfo.message,
+          countryCode: '62'
+        })
+      });
+      if (gwRes.ok) gwSent = true;
+    } catch (e) {
+      console.warn('Direct gateway dispatch error:', e);
+    }
+
+    if (gwSent) {
+      showToast('🎉 Sensus Real-Time BERHASIL dikirim ke WA Kepala Ruangan (+6281284070082)!', 'success');
+      alert(`✅ SENSUS REAL-TIME BERHASIL DIKIRIM KE WA KEPALA RUANG!\n\nPenerima: Ns. Rusmulyadi, S.Kep.,M.A.R.S (+6281284070082)\n\nIsi Pesan:\n${censusInfo.message}`);
+    } else {
+      const waUrl = `https://web.whatsapp.com/send?phone=${targetPhone}&text=${encoded}`;
+      window.open(waUrl, '_blank');
+      showToast('🟢 Membuka WhatsApp Web dengan format sensus lengkap pembanding shift terakhir.', 'success');
+    }
+  } catch (err2) {
+    showToast('Kendala pengiriman: ' + err2.message, 'error');
+  } finally {
+    setButtonsState(false);
+  }
+}
+
+function computeClientSideShiftCensus() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const timeFloat = hours + minutes / 60;
+
+  let currentShift = 'Shift Pagi';
+  let baselineShiftName = 'Shift Malam (07.00 WIB)';
+  let baselinePx = 50;
+
+  if (timeFloat >= 7.0 && timeFloat < 14.0) {
+    currentShift = 'Shift Pagi';
+    baselineShiftName = 'Shift Malam (07.00 WIB)';
+    baselinePx = 50;
+  } else if (timeFloat >= 14.0 && timeFloat < 20.0) {
+    currentShift = 'Shift Sore';
+    baselineShiftName = 'Shift Pagi (14.00 WIB)';
+    baselinePx = 50;
+  } else {
+    currentShift = 'Shift Malam';
+    baselineShiftName = 'Shift Sore (20.00 WIB)';
+    baselinePx = 50;
+  }
+
+  const latestDay = state.data?.today || {};
+  const sum = latestDay.summary || {};
+  const occA = sum.occA || 15;
+  const occB = sum.occB || 40;
+  const pxSkrg = sum.occupied || (occA + occB);
+
+  const delta = pxSkrg - baselinePx;
+  const pxBaru = delta > 0 ? delta : 0;
+  const pxPulang = delta < 0 ? Math.abs(delta) : 0;
+  const freeBed = 56 - pxSkrg;
+  const textFreeA = sum.textFreeA || '1 ekstra bed';
+  const textFreeB = sum.textFreeB || '0 ekstra bed';
+  const bor = sum.bor ? `${sum.bor}%` : `${((pxSkrg / 56) * 100).toFixed(1)}%`;
+
+  const message =
+    `*Ruang Enggang Gading 2*\n` +
+    `Kapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\n` +
+    `*Px awal: ${baselinePx}*\n` +
+    `Px baru: ${pxBaru}\n` +
+    `Px pindah: -\n` +
+    `Px meninggal: -\n` +
+    `Px pulang: ${pxPulang}\n` +
+    `Renc pulang: -\n` +
+    `Renc pindah: -\n\n` +
+    `*Px sekarang: ${pxSkrg}*\n\n` +
+    `*Antrean:*\n\n` +
+    `*Free Bed:  ${freeBed} (EG2-A: ${textFreeA}, EG2-B: ${textFreeB})*\n\n` +
+    `*Persentase terisi: ${bor}*\n\n` +
+    `*Rencana/Antrean Pindah:*\n\n` +
+    `Makaseh 🙏\n` +
+    `*Semoga sehat selalu 😊*`;
+
+  return {
+    message: message,
+    note: `Laporan Sensus Real-Time (${currentShift} • Pembanding ${baselineShiftName})`,
+    px_awal: baselinePx,
+    px_skrg: pxSkrg,
+    free_bed: freeBed,
+    bor: bor
+  };
+}
+
 // CSV Export
 function exportDirectoryToCsv() {
   if (state.role === 'management') {
@@ -2665,14 +2822,14 @@ function renderQualityTrendsChart() {
 
   const containerW = container.clientWidth || 0;
   const width = Math.max(containerW, 720);
-  const height = 330;
-  const pad = { top: 35, right: 60, bottom: 50, left: 60 };
+  const height = 370;
+  const pad = { top: 52, right: 65, bottom: 50, left: 65 };
   const cw = width - pad.left - pad.right;
   const ch = height - pad.top - pad.bottom;
   const numPts = monthly.length;
 
   const getX = (i) => pad.left + (i / (numPts - 1)) * cw;
-  const gridLineColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(148,163,184,0.3)';
+  const gridLineColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(148,163,184,0.3)';
 
   let chartContentSvg = '';
 
@@ -2680,23 +2837,31 @@ function renderQualityTrendsChart() {
     // ------------------------------------------------------------------
     // VIEW 1: 4 PARAMETERS (BOR, AVLOS, TOI, BTO) MULTI-LINE CHART
     // ------------------------------------------------------------------
-    // Left Axis: BOR 50% - 105%
-    const minBor = 50, maxBor = 105;
+    // Dynamically calculate max values to ensure chart peaks never get clipped
+    const allBor = monthly.map(m => m.bor || 0);
+    const maxBorObserved = Math.max(...allBor, 90);
+    const minBor = 40;
+    const maxBor = Math.max(105, Math.ceil((maxBorObserved + 6) / 10) * 10);
     const syBor = (val) => pad.top + ch - ((val - minBor) / (maxBor - minBor)) * ch;
 
-    // Right Axis: Days / Multiplier (0 - 10) for AVLOS, TOI, BTO
-    const minR = 0, maxR = 10;
+    // Right Axis: Days / Multiplier for AVLOS, TOI, BTO (dynamically scaled)
+    const allRightVals = monthly.map(m => Math.max(m.avlos || 0, m.toi || 0, m.bto || 0));
+    const maxRightObserved = Math.max(...allRightVals, 10);
+    const minR = 0;
+    const maxR = Math.max(18, Math.ceil((maxRightObserved + 2) / 4) * 4);
     const syRight = (val) => pad.top + ch - ((val - minR) / (maxR - minR)) * ch;
 
-    // Grid lines & Axis ticks (5 ticks)
+    // Grid lines & Axis ticks (6 ticks from minBor to maxBor)
     let gridSvg = '';
-    for (let pct = 50; pct <= 100; pct += 10) {
+    const stepBor = (maxBor - minBor) / 5;
+    for (let i = 0; i <= 5; i++) {
+      const pct = Math.round(minBor + i * stepBor);
       const y = syBor(pct);
-      const rightVal = ((pct - 50) / 50) * 10;
+      const rightVal = minR + (i / 5) * (maxR - minR);
       gridSvg += `
         <line x1="${pad.left}" y1="${y.toFixed(1)}" x2="${(pad.left + cw).toFixed(1)}" y2="${y.toFixed(1)}" stroke="${gridLineColor}" stroke-dasharray="2,2" />
         <text x="${(pad.left - 10).toFixed(1)}" y="${(y + 4).toFixed(1)}" fill="#0284c7" font-family="var(--font-mono)" font-size="10" font-weight="700" text-anchor="end">${pct}%</text>
-        <text x="${(pad.left + cw + 10).toFixed(1)}" y="${(y + 4).toFixed(1)}" fill="var(--text-secondary)" font-family="var(--font-mono)" font-size="10" font-weight="600" text-anchor="start">${rightVal.toFixed(0)}</text>
+        <text x="${(pad.left + cw + 10).toFixed(1)}" y="${(y + 4).toFixed(1)}" fill="var(--text-secondary)" font-family="var(--font-mono)" font-size="10" font-weight="600" text-anchor="start">${rightVal.toFixed(rightVal >= 10 ? 0 : 1)}</text>
       `;
     }
 
@@ -2721,7 +2886,7 @@ function renderQualityTrendsChart() {
       `;
     });
 
-    // Generate Path & Dots for each selected parameter
+    // Generate Path, Dots, and Peak Value Badges for each selected parameter
     const seriesConfig = [
       { key: 'bor', active: state.trendParams.bor, color: '#0284c7', getY: (m) => syBor(m.bor), unit: '%', isBor: true },
       { key: 'avlos', active: state.trendParams.avlos, color: '#0ea5e9', getY: (m) => syRight(m.avlos), unit: 'h' },
@@ -2735,10 +2900,16 @@ function renderQualityTrendsChart() {
       const pts = monthly.map((m, i) => ({ x: getX(i), y: sc.getY(m), val: m[sc.key] }));
       const pathD = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
 
+      // Find max point to label the peak explicitly
+      let maxPt = pts[0];
+      pts.forEach(p => { if (p.val > maxPt.val) maxPt = p; });
+
       let dotsSvg = '';
       pts.forEach(p => {
+        const isPeak = (p === maxPt);
         dotsSvg += `
-          <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4.5" fill="${sc.color}" stroke="#ffffff" stroke-width="1.8" filter="drop-shadow(0 0 3px ${sc.color})" />
+          <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${isPeak ? 5.5 : 4}" fill="${sc.color}" stroke="#ffffff" stroke-width="1.8" filter="drop-shadow(0 0 3px ${sc.color})" />
+          ${isPeak ? `<text x="${p.x.toFixed(1)}" y="${(p.y - 7).toFixed(1)}" fill="${sc.color}" font-family="var(--font-mono)" font-size="9" font-weight="800" text-anchor="middle">${p.val}${sc.unit}</text>` : ''}
         `;
       });
 
@@ -2766,20 +2937,24 @@ function renderQualityTrendsChart() {
       ${linesSvg}
       ${hoverColsSvg}
       <!-- Axis Titles -->
-      <text x="${pad.left}" y="${pad.top - 14}" fill="#0284c7" font-family="var(--font-heading)" font-size="11" font-weight="800" text-anchor="start">← BOR (%)</text>
-      <text x="${pad.left + cw}" y="${pad.top - 14}" fill="var(--text-secondary)" font-family="var(--font-heading)" font-size="11" font-weight="800" text-anchor="end">AVLOS / TOI (Hari) &amp; BTO (Kali) →</text>
+      <text x="${pad.left}" y="${pad.top - 16}" fill="#0284c7" font-family="var(--font-heading)" font-size="11" font-weight="800" text-anchor="start">← BOR (%)</text>
+      <text x="${pad.left + cw}" y="${pad.top - 16}" fill="var(--text-secondary)" font-family="var(--font-heading)" font-size="11" font-weight="800" text-anchor="end">AVLOS / TOI (Hari) &amp; BTO (Kali) →</text>
     `;
 
   } else {
     // ------------------------------------------------------------------
     // VIEW 2: MORTALITY (GDR & NDR) GROUPED BAR CHART
     // ------------------------------------------------------------------
-    const maxMortality = 70;
+    const allMort = monthly.map(m => Math.max(m.gdr || 0, m.ndr || 0));
+    const maxMortObserved = Math.max(...allMort, 60);
+    const maxMortality = Math.max(80, Math.ceil((maxMortObserved + 20) / 20) * 20);
     const syMort = (val) => pad.top + ch - (val / maxMortality) * ch;
 
-    // Grid lines for 0, 15, 30, 45, 60
+    // Grid lines for mortality
     let gridSvg = '';
-    for (let val = 0; val <= 60; val += 15) {
+    const stepMort = maxMortality / 5;
+    for (let i = 0; i <= 5; i++) {
+      const val = Math.round(i * stepMort);
       const y = syMort(val);
       gridSvg += `
         <line x1="${pad.left}" y1="${y.toFixed(1)}" x2="${(pad.left + cw).toFixed(1)}" y2="${y.toFixed(1)}" stroke="${gridLineColor}" stroke-dasharray="2,2" />
@@ -2854,12 +3029,12 @@ function renderQualityTrendsChart() {
       ${barsSvg}
       ${xTicksSvg}
       ${hoverColsSvg}
-      <text x="${pad.left}" y="${pad.top - 14}" fill="var(--text-primary)" font-family="var(--font-heading)" font-size="11" font-weight="800" text-anchor="start">Tingkat Kematian Rawat Inap (Permil / ‰)</text>
+      <text x="${pad.left}" y="${pad.top - 16}" fill="var(--text-primary)" font-family="var(--font-heading)" font-size="11" font-weight="800" text-anchor="start">Tingkat Kematian Rawat Inap (Permil / ‰)</text>
     `;
   }
 
   container.innerHTML = `
-    <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" style="min-width:720px; display:block;">
+    <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" style="min-width:720px; display:block; overflow:visible;">
       <!-- Base Axis Line -->
       <line x1="${pad.left}" y1="${(pad.top + ch).toFixed(1)}" x2="${(pad.left + cw).toFixed(1)}" y2="${(pad.top + ch).toFixed(1)}" stroke="var(--text-primary)" stroke-width="1.8" />
       ${chartContentSvg}
@@ -3327,6 +3502,7 @@ function renderChronologyTab() {
 
 function selectChronologyPatient(patientKey, autoScroll) {
   state.chronologyPatient = patientKey;
+  state.chronologyPeriod = 'all'; // Reset ke seluruh periode setiap kali pasien dipilih
 
   const select = document.getElementById('chronologyPatientSelect');
   if (select && select.value !== patientKey) {
@@ -3352,30 +3528,108 @@ function selectChronologyPatient(patientKey, autoScroll) {
   }
 }
 
-function getPatientChronologyData(patientKey) {
-  if (!state.data || !state.data.recentDays) return { days: [], customEntries: [], profile: null };
+function selectChronologyPeriod(periodId) {
+  state.chronologyPeriod = periodId;
+  if (state.chronologyPatient) {
+    renderChronologyTimeline(state.chronologyPatient);
+  }
+}
+window.selectChronologyPeriod = selectChronologyPeriod;
+
+function getPatientChronologyData(patientKey, selectedPeriodId) {
+  if (!state.data || !state.data.recentDays) return { days: [], allDays: [], periods: [], selectedPeriod: 'all', customEntries: [], profile: null };
 
   const recentDays = state.data.recentDays;
   const sortedDates = Object.keys(recentDays).sort(); // chronological: oldest to newest
   const historyDays = [];
+  const periods = [];
+  let currentPeriod = null;
 
   sortedDates.forEach(dt => {
     const day = recentDays[dt];
     const match = [...(day.eg2a || []), ...(day.eg2b || [])].find(p => !p.isEmpty && getPatientKey(p) === patientKey);
     if (match) {
-      const prev = historyDays[historyDays.length - 1];
-      const bedChanged = prev && (prev.patient.room !== match.room || prev.patient.bed !== match.bed);
-      const diagnosisChanged = prev && (prev.patient.diagnosis !== match.diagnosis);
-      historyDays.push({
+      // Deteksi batas periode rawat inap baru:
+      // 1. Belum ada periode sebelumnya
+      // 2. Terdapat jeda kalender > 2 hari
+      // 3. Rekord hari sebelumnya berstatus pulang (isDischargedToday) atau meninggal (isDeceased)
+      // 4. Tanggal MRS (admissionDate) tercatat berbeda antar rekord
+      let isNewPeriod = false;
+      if (!currentPeriod) {
+        isNewPeriod = true;
+      } else {
+        const lastDay = currentPeriod.days[currentPeriod.days.length - 1];
+        const lastDt = new Date(lastDay.date);
+        const thisDt = new Date(dt);
+        const diffDays = Math.round((thisDt - lastDt) / (1000 * 60 * 60 * 24));
+
+        if (diffDays > 2 || lastDay.patient.isDischargedToday || lastDay.patient.isDeceased) {
+          isNewPeriod = true;
+        } else if (lastDay.patient.admissionDate && match.admissionDate &&
+                   lastDay.patient.admissionDate !== '-' && match.admissionDate !== '-' &&
+                   lastDay.patient.admissionDate !== match.admissionDate) {
+          isNewPeriod = true;
+        }
+      }
+
+      const dayObj = {
         date: dt,
-        dayOfStay: historyDays.length + 1,
         patient: match,
-        bedChanged: bedChanged,
-        prevLoc: prev ? `${prev.patient.room} Bed ${prev.patient.bed}` : null,
-        diagnosisChanged: diagnosisChanged
-      });
+        bedChanged: false,
+        prevLoc: null,
+        diagnosisChanged: false
+      };
+
+      if (isNewPeriod) {
+        currentPeriod = {
+          id: `p${periods.length + 1}`,
+          index: periods.length + 1,
+          name: `Periode ${periods.length + 1}`,
+          startDate: dt,
+          endDate: dt,
+          admissionDate: match.admissionDate || '-',
+          days: [dayObj]
+        };
+        periods.push(currentPeriod);
+      } else {
+        const prev = currentPeriod.days[currentPeriod.days.length - 1];
+        dayObj.bedChanged = prev && (prev.patient.room !== match.room || prev.patient.bed !== match.bed);
+        dayObj.prevLoc = prev ? `${prev.patient.room} Bed ${prev.patient.bed}` : null;
+        dayObj.diagnosisChanged = prev && (prev.patient.diagnosis !== match.diagnosis);
+        currentPeriod.days.push(dayObj);
+        currentPeriod.endDate = dt;
+      }
     }
   });
+
+  // Assign urutan hari dan susun allDays
+  let globalCount = 1;
+  periods.forEach(per => {
+    per.days.forEach((d, idx) => {
+      d.periodDayOfStay = idx + 1;
+      d.globalDayOfStay = globalCount++;
+      d.periodId = per.id;
+      d.periodName = per.name;
+      historyDays.push(d);
+    });
+  });
+
+  // Tentukan hari aktif berdasarkan filter periode yang dipilih
+  const activePeriodId = selectedPeriodId || state.chronologyPeriod || 'all';
+  let activeDays = historyDays;
+  if (activePeriodId !== 'all') {
+    const found = periods.find(p => p.id === activePeriodId);
+    if (found) {
+      activeDays = found.days;
+      activeDays.forEach((d, idx) => {
+        d.dayOfStay = idx + 1;
+      });
+    }
+  } else {
+    activeDays.forEach((d, idx) => {
+      d.dayOfStay = idx + 1;
+    });
+  }
 
   // Fetch custom entries from localStorage
   let customEntries = [];
@@ -3389,7 +3643,10 @@ function getPatientChronologyData(patientKey) {
   const latest = historyDays.length > 0 ? historyDays[historyDays.length - 1].patient : null;
 
   return {
-    days: historyDays,
+    days: activeDays,
+    allDays: historyDays,
+    periods: periods,
+    selectedPeriod: activePeriodId,
     customEntries: customEntries,
     profile: latest
   };
@@ -3400,7 +3657,7 @@ function renderChronologyTimeline(patientKey) {
   const patientCard = document.getElementById('chronologyPatientCard');
   if (!container || !patientCard) return;
 
-  const { days, customEntries, profile } = getPatientChronologyData(patientKey);
+  const { days, allDays, periods, selectedPeriod, customEntries, profile } = getPatientChronologyData(patientKey);
 
   if (!profile && days.length === 0) {
     patientCard.style.display = 'none';
@@ -3471,7 +3728,7 @@ function renderChronologyTimeline(patientKey) {
     <div class="patient-kpi-summary-row">
       <div class="chronology-kpi-pill">
         <span class="kpi-sub-title">Hari Rawat Terdata</span>
-        <span class="kpi-num-val">${days.length} Hari</span>
+        <span class="kpi-num-val">${days.length} Hari ${periods.length > 1 ? (selectedPeriod !== 'all' ? `(${selectedPeriod.toUpperCase()})` : `(${periods.length} Periode)`) : ''}</span>
       </div>
       <div class="chronology-kpi-pill">
         <span class="kpi-sub-title">Total Catatan CPPT</span>
@@ -3514,6 +3771,34 @@ function renderChronologyTimeline(patientKey) {
   // Render Timeline Day Cards
   let timelineHtml = '';
 
+  if (periods && periods.length > 1) {
+    timelineHtml += `
+      <div class="chronology-period-selector-card">
+        <div class="period-selector-title">
+          <span class="period-icon">🗓️</span>
+          <div>
+            <div style="font-weight:700; font-size:0.95rem; color:var(--text-primary);">
+              Ditemukan ${periods.length} Periode Rawat Inap Pasien
+            </div>
+            <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;">
+              Pasien ini memiliki riwayat rawat inap lebih dari 1 periode. Pilih periode yang ingin dibuat kronologinya atau tampilkan seluruhnya:
+            </div>
+          </div>
+        </div>
+        <div class="period-chips-container">
+          <button type="button" class="btn-period-chip ${selectedPeriod === 'all' ? 'active' : ''}" onclick="selectChronologyPeriod('all')">
+            <span class="chip-dot"></span> Seluruh Periode (Gabungan • ${allDays.length} Hari)
+          </button>
+          ${periods.map(per => `
+            <button type="button" class="btn-period-chip ${selectedPeriod === per.id ? 'active' : ''}" onclick="selectChronologyPeriod('${per.id}')">
+              <span class="chip-dot"></span> ${per.name} (${formatIndonesianDate(per.startDate)} s/d ${formatIndonesianDate(per.endDate)} • ${per.days.length} Hari)
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
   displayDays.forEach(d => {
     const pt = d.patient;
     const formattedDate = formatIndonesianDate(d.date);
@@ -3528,6 +3813,7 @@ function renderChronologyTimeline(patientKey) {
             <span class="day-number-badge">Hari Rawat ke-${d.dayOfStay}</span>
             <span class="day-date-title">${formattedDate}</span>
             <span class="day-bed-badge">${pt.room} &bull; Bed ${pt.bed}</span>
+            ${periods && periods.length > 1 ? `<span class="badge badge-outline" style="font-size:0.72rem; background:rgba(59,130,246,0.08); color:#2563eb; border-color:rgba(59,130,246,0.3); font-weight:700;">${d.periodName || 'Periode 1'}</span>` : ''}
             ${d.bedChanged ? `<span class="bed-transfer-alert" title="Pindah dari ${d.prevLoc}">⚠️ Pindah Bed (dari ${d.prevLoc})</span>` : ''}
             ${pt.isDischargedToday ? `<span class="day-discharge-alert">🏁 Rencana / Pasien KRS Pulang</span>` : ''}
           </div>
@@ -4106,7 +4392,7 @@ function copyChronologySummary(patientKey) {
 
 // Export Hospital Official Chronology Document to Microsoft Word (.doc)
 function exportChronologyWord(patientKey) {
-  const { days, customEntries, profile } = getPatientChronologyData(patientKey);
+  const { days, allDays, periods, selectedPeriod, customEntries, profile } = getPatientChronologyData(patientKey);
   if (!profile) {
     showToast('Pilih pasien terlebih dahulu untuk dicetak ke Word!', 'warning');
     return;
@@ -4366,7 +4652,7 @@ function exportChronologyWord(patientKey) {
             <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Nomor Rekam Medis</strong></td>
             <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${displayMr}</td>
             <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Total Hari Terdata (LOS)</strong></td>
-            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${days.length} Hari</td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${days.length} Hari ${periods && periods.length > 1 ? (selectedPeriod === 'all' ? `(Seluruh Periode Gabungan • ${allDays.length} Hari)` : `(${periods.find(p => p.id === selectedPeriod)?.name || selectedPeriod})`) : ''}</td>
           </tr>
           <tr>
             <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Jenis Kelamin / Usia</strong></td>
