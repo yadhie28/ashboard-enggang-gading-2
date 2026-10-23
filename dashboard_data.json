@@ -13,7 +13,7 @@
       "Enggang Gading 2A (16 Bed)",
       "Enggang Gading 2B (40 Bed)"
     ],
-    "lastUpdated": "23-10-2026 05:59:13",
+    "lastUpdated": "23-10-2026 06:03:21",
     "latestDate": "2026-10-23",
     "totalDatesRecorded": 294,
     "dateRange": "2026-01-01 s/d 2026-10-23",
@@ -90130,7 +90130,7 @@
           "insurance": "BPJS Kelas 3",
           "doctor": "MIA PURNAMA, DR, M.BIOMED, SP.M(K)VR.",
           "doctorPrimary": "MIA PURNAMA, DR, M.BIOMED, SP.M(K)VR",
-          "diagnosis": "OS emulsified silicon oil",
+          "diagnosis": "OS ATTACHED RETINA + GAS FILLED EYE",
           "category": "Lain-lain",
           "notes": {
             "pagi": "dr.Mia,Sp.M:\n- R/ Op OS pro operasi vitrectomi dg GA Besok Jumat 23/10/2026 di OK IBS =>> SEDANG OP\n- Lapor Grup OK IBS (+)\n- SPO SIMRS (+), INPUT IBS (+), Abb. 20 (+), TF Set (+), MALAM PUASAKAN (+)\n- Ro Thorax (+)\n- Hasil lab lengkap pre op (+)\n- Co Jantung/dr.Infan,Sp.JP u/ Tol. Op via Poli (+) a/i: \n* HT \n* ACC OP RESIKO RINGAN \n* TARGET TD < 160MMHG \n* AMLODIPINE 5MG\n- Co IPD/dr.Apriani,Sp.PD u/ Tol. Op via Poli (+) a/i:\n* Toleransi OP moderate Risk\n* Saran evaluasi TD<150/90mmHg pre OP\n* Obs. TD (Jam 06:00 = 161/106 mmHg)\n* Cek GDS/HARI (GDP: 123) =>> Levemir 0-0-4 ui\n* Konsul ulang IPD dr. Apriani untuk GDS nya (+) a/i: Candesartan 1x16mg & Amlodipn 1x10mg =>> RESEP (-)\n- Co Anastesi /dr.Putri,Sp.An u/ Tol. Op via Poli: acc op Ga asa 3\n- Co Anastesi/dr.Malla,Sp.An u/ Tol. Op via Ruangan (+) a/i oke acc\n- Lapor PB dr.Mia (+) a/i: Hasil Cek DR & GDS (Kamis 22/10/2026) (HB:  12.1 PLT: 302 WBC:  7.84 GDS: 202) =>> ADA HASIL LAPOR DR.MIA (+)",
@@ -90528,12 +90528,12 @@
           "admissionDate": "17/10/2026",
           "los": 7,
           "insurance": "BPJS Kelas 3",
-          "doctor": "IVAN LUMBAN TORUAN, DR, SP.PD- KHOM\n\nCo dr.Dini,Sp.N",
+          "doctor": "IVAN LUMBAN TORUAN, DR, SP.PD- KHOM\n\nCo dr.Pandu,Sp.N",
           "doctorPrimary": "IVAN LUMBAN TORUAN, DR, SP.PD-KHOM",
           "diagnosis": "Syndrome Geriatri Obs dyspneu Hipokalemia OMSK\nPJK stabil (normal EF, EF 56%), HHD",
           "category": "Lain-lain",
           "notes": {
-            "pagi": "- Kel: Saat ini klinis sesak tidak ada. Badan lemah, tidak mau makan. Keluar nanah dari kedua telinga. \n- Riw: Os sudah berbaring lama selam 2 tahun, ada luka di pinggang sedikit. Tungkai kiri amputatum karena operasi (tabrakan). Stroke (+)\n- Koreksi Drip KCL 1 fls dalam RL 500 cc habis dalam 12 jam (+) SELESAI =>> Hasil Cek elektrolit ulang (Na: 133.87 K:  3.55 Cl:  98.95 Ca Ion:  1.04)\n\ndr.Ivan,Sp.PD-KHOM visite tanggal 21/10/2026:\n- IVFD Bfluid : Asering (1:2 kolf/hari)\n- Levofloxacyn 1x500mg IV, Lansoprazole 1x30mg IV, Mecobalamin 2x500mg IV, Curcuma 3x2 tab PO, As. Folat 1x5mg PO, Nace 3x200mg PO, Ambroxol Syr 3x10 cc PO\n- (+) Selecoxib 1x200mg PO, Fenobarbital 3x30 =>> RESEP (+)\n- Ro thorax (Tanggal 15/10/2026) \"Aortosclerosis\"\n- USG Abdomen (Rabu 21/10/2026) \"Cholelithiasis. Retensi fecal material, suspek fecalith\"\n- CT Scan Kepala Non Kontras (Tanggal 08/07/2026) \"Multiple old ischemic infark di frontalis kanan dan occipital kanan, Sinusitis sphenoid, Sugestif atrophy cerebri\"\n- GV (Luka dekub) o/ TWC =>> Jumat 23/10/2026 (+)\n- Co Sp.N/dr.Dini,Sp.N dengan Syndrome Geriatri + Atrofi (+) Balasan (-)\n\ndr.Temi,Sp.JP via Poli Jantung Tanggal 20/10/2026:\n- SSH ECHO (Selasa 20/10/2026)\n- EKG: SR dengan Q di II, III, dan aVF Echo: EF 56% / TAPSE 1.9 / LVH konsentrik / global normokinetik / trace MR, trace TR\n- Saran tambahan terapi: CPG 1x75 mg, Atorvastatin 1x20 mg malam =>> RESEP (+)\n\ndr.Saiful,Sp.THT visite tanggal Selasa 20/10/2026:\n- Co THT/dr.Saiful,Sp.THT dengan OMSK & Stridor (+) \n- Tetes Telinga Rico Otic drop 3x4 tts =>> Keluarga sudah di KIE Cara pemberian (+) sudah di mulai",
+            "pagi": "- Kel: Saat ini klinis sesak tidak ada. Badan lemah, tidak mau makan. Keluar nanah dari kedua telinga. \n- Riw: Os sudah berbaring lama selam 2 tahun, ada luka di pinggang sedikit. Tungkai kiri amputatum karena operasi (tabrakan). Stroke (+)\n- Koreksi Drip KCL 1 fls dalam RL 500 cc habis dalam 12 jam (+) SELESAI =>> Hasil Cek elektrolit ulang (Na: 133.87 K:  3.55 Cl:  98.95 Ca Ion:  1.04)\n\ndr.Ivan,Sp.PD-KHOM visite tanggal 21/10/2026:\n- IVFD Bfluid : Asering (1:2 kolf/hari)\n- Levofloxacyn 1x500mg IV, Lansoprazole 1x30mg IV, Mecobalamin 2x500mg IV, Curcuma 3x2 tab PO, As. Folat 1x5mg PO, Nace 3x200mg PO, Ambroxol Syr 3x10 cc PO\n- (+) Selecoxib 1x200mg PO, Fenobarbital 3x30 =>> RESEP (+)\n- Ro thorax (Tanggal 15/10/2026) \"Aortosclerosis\"\n- USG Abdomen (Rabu 21/10/2026) \"Cholelithiasis. Retensi fecal material, suspek fecalith\"\n- CT Scan Kepala Non Kontras (Tanggal 08/07/2026) \"Multiple old ischemic infark di frontalis kanan dan occipital kanan, Sinusitis sphenoid, Sugestif atrophy cerebri\"\n- GV (Luka dekub) o/ TWC =>> Jumat 23/10/2026 (+)\n- Co Sp.N/dr.Pandu,Sp.N dengan Syndrome Geriatri + Atrofi (+) Balasan (-)\n\ndr.Temi,Sp.JP via Poli Jantung Tanggal 20/10/2026:\n- SSH ECHO (Selasa 20/10/2026)\n- EKG: SR dengan Q di II, III, dan aVF Echo: EF 56% / TAPSE 1.9 / LVH konsentrik / global normokinetik / trace MR, trace TR\n- Saran tambahan terapi: CPG 1x75 mg, Atorvastatin 1x20 mg malam =>> RESEP (+)\n\ndr.Saiful,Sp.THT visite tanggal Selasa 20/10/2026:\n- Co THT/dr.Saiful,Sp.THT dengan OMSK & Stridor (+) \n- Tetes Telinga Rico Otic drop 3x4 tts =>> Keluarga sudah di KIE Cara pemberian (+) sudah di mulai",
             "sore": "",
             "malam": ""
           },
@@ -92062,7 +92062,7 @@
         "insurance": "BPJS Kelas 3",
         "doctor": "MIA PURNAMA, DR, M.BIOMED, SP.M(K)VR.",
         "doctorPrimary": "MIA PURNAMA, DR, M.BIOMED, SP.M(K)VR",
-        "diagnosis": "OS emulsified silicon oil",
+        "diagnosis": "OS ATTACHED RETINA + GAS FILLED EYE",
         "category": "Lain-lain",
         "notes": {
           "pagi": "dr.Mia,Sp.M:\n- R/ Op OS pro operasi vitrectomi dg GA Besok Jumat 23/10/2026 di OK IBS =>> SEDANG OP\n- Lapor Grup OK IBS (+)\n- SPO SIMRS (+), INPUT IBS (+), Abb. 20 (+), TF Set (+), MALAM PUASAKAN (+)\n- Ro Thorax (+)\n- Hasil lab lengkap pre op (+)\n- Co Jantung/dr.Infan,Sp.JP u/ Tol. Op via Poli (+) a/i: \n* HT \n* ACC OP RESIKO RINGAN \n* TARGET TD < 160MMHG \n* AMLODIPINE 5MG\n- Co IPD/dr.Apriani,Sp.PD u/ Tol. Op via Poli (+) a/i:\n* Toleransi OP moderate Risk\n* Saran evaluasi TD<150/90mmHg pre OP\n* Obs. TD (Jam 06:00 = 161/106 mmHg)\n* Cek GDS/HARI (GDP: 123) =>> Levemir 0-0-4 ui\n* Konsul ulang IPD dr. Apriani untuk GDS nya (+) a/i: Candesartan 1x16mg & Amlodipn 1x10mg =>> RESEP (-)\n- Co Anastesi /dr.Putri,Sp.An u/ Tol. Op via Poli: acc op Ga asa 3\n- Co Anastesi/dr.Malla,Sp.An u/ Tol. Op via Ruangan (+) a/i oke acc\n- Lapor PB dr.Mia (+) a/i: Hasil Cek DR & GDS (Kamis 22/10/2026) (HB:  12.1 PLT: 302 WBC:  7.84 GDS: 202) =>> ADA HASIL LAPOR DR.MIA (+)",
@@ -92460,12 +92460,12 @@
         "admissionDate": "17/10/2026",
         "los": 7,
         "insurance": "BPJS Kelas 3",
-        "doctor": "IVAN LUMBAN TORUAN, DR, SP.PD- KHOM\n\nCo dr.Dini,Sp.N",
+        "doctor": "IVAN LUMBAN TORUAN, DR, SP.PD- KHOM\n\nCo dr.Pandu,Sp.N",
         "doctorPrimary": "IVAN LUMBAN TORUAN, DR, SP.PD-KHOM",
         "diagnosis": "Syndrome Geriatri Obs dyspneu Hipokalemia OMSK\nPJK stabil (normal EF, EF 56%), HHD",
         "category": "Lain-lain",
         "notes": {
-          "pagi": "- Kel: Saat ini klinis sesak tidak ada. Badan lemah, tidak mau makan. Keluar nanah dari kedua telinga. \n- Riw: Os sudah berbaring lama selam 2 tahun, ada luka di pinggang sedikit. Tungkai kiri amputatum karena operasi (tabrakan). Stroke (+)\n- Koreksi Drip KCL 1 fls dalam RL 500 cc habis dalam 12 jam (+) SELESAI =>> Hasil Cek elektrolit ulang (Na: 133.87 K:  3.55 Cl:  98.95 Ca Ion:  1.04)\n\ndr.Ivan,Sp.PD-KHOM visite tanggal 21/10/2026:\n- IVFD Bfluid : Asering (1:2 kolf/hari)\n- Levofloxacyn 1x500mg IV, Lansoprazole 1x30mg IV, Mecobalamin 2x500mg IV, Curcuma 3x2 tab PO, As. Folat 1x5mg PO, Nace 3x200mg PO, Ambroxol Syr 3x10 cc PO\n- (+) Selecoxib 1x200mg PO, Fenobarbital 3x30 =>> RESEP (+)\n- Ro thorax (Tanggal 15/10/2026) \"Aortosclerosis\"\n- USG Abdomen (Rabu 21/10/2026) \"Cholelithiasis. Retensi fecal material, suspek fecalith\"\n- CT Scan Kepala Non Kontras (Tanggal 08/07/2026) \"Multiple old ischemic infark di frontalis kanan dan occipital kanan, Sinusitis sphenoid, Sugestif atrophy cerebri\"\n- GV (Luka dekub) o/ TWC =>> Jumat 23/10/2026 (+)\n- Co Sp.N/dr.Dini,Sp.N dengan Syndrome Geriatri + Atrofi (+) Balasan (-)\n\ndr.Temi,Sp.JP via Poli Jantung Tanggal 20/10/2026:\n- SSH ECHO (Selasa 20/10/2026)\n- EKG: SR dengan Q di II, III, dan aVF Echo: EF 56% / TAPSE 1.9 / LVH konsentrik / global normokinetik / trace MR, trace TR\n- Saran tambahan terapi: CPG 1x75 mg, Atorvastatin 1x20 mg malam =>> RESEP (+)\n\ndr.Saiful,Sp.THT visite tanggal Selasa 20/10/2026:\n- Co THT/dr.Saiful,Sp.THT dengan OMSK & Stridor (+) \n- Tetes Telinga Rico Otic drop 3x4 tts =>> Keluarga sudah di KIE Cara pemberian (+) sudah di mulai",
+          "pagi": "- Kel: Saat ini klinis sesak tidak ada. Badan lemah, tidak mau makan. Keluar nanah dari kedua telinga. \n- Riw: Os sudah berbaring lama selam 2 tahun, ada luka di pinggang sedikit. Tungkai kiri amputatum karena operasi (tabrakan). Stroke (+)\n- Koreksi Drip KCL 1 fls dalam RL 500 cc habis dalam 12 jam (+) SELESAI =>> Hasil Cek elektrolit ulang (Na: 133.87 K:  3.55 Cl:  98.95 Ca Ion:  1.04)\n\ndr.Ivan,Sp.PD-KHOM visite tanggal 21/10/2026:\n- IVFD Bfluid : Asering (1:2 kolf/hari)\n- Levofloxacyn 1x500mg IV, Lansoprazole 1x30mg IV, Mecobalamin 2x500mg IV, Curcuma 3x2 tab PO, As. Folat 1x5mg PO, Nace 3x200mg PO, Ambroxol Syr 3x10 cc PO\n- (+) Selecoxib 1x200mg PO, Fenobarbital 3x30 =>> RESEP (+)\n- Ro thorax (Tanggal 15/10/2026) \"Aortosclerosis\"\n- USG Abdomen (Rabu 21/10/2026) \"Cholelithiasis. Retensi fecal material, suspek fecalith\"\n- CT Scan Kepala Non Kontras (Tanggal 08/07/2026) \"Multiple old ischemic infark di frontalis kanan dan occipital kanan, Sinusitis sphenoid, Sugestif atrophy cerebri\"\n- GV (Luka dekub) o/ TWC =>> Jumat 23/10/2026 (+)\n- Co Sp.N/dr.Pandu,Sp.N dengan Syndrome Geriatri + Atrofi (+) Balasan (-)\n\ndr.Temi,Sp.JP via Poli Jantung Tanggal 20/10/2026:\n- SSH ECHO (Selasa 20/10/2026)\n- EKG: SR dengan Q di II, III, dan aVF Echo: EF 56% / TAPSE 1.9 / LVH konsentrik / global normokinetik / trace MR, trace TR\n- Saran tambahan terapi: CPG 1x75 mg, Atorvastatin 1x20 mg malam =>> RESEP (+)\n\ndr.Saiful,Sp.THT visite tanggal Selasa 20/10/2026:\n- Co THT/dr.Saiful,Sp.THT dengan OMSK & Stridor (+) \n- Tetes Telinga Rico Otic drop 3x4 tts =>> Keluarga sudah di KIE Cara pemberian (+) sudah di mulai",
           "sore": "",
           "malam": ""
         },
