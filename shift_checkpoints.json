@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-23 12:45:13",
+  "last_updated": "2026-10-23 13:14:24",
   "checkpoints": {
     "2026-10-22_20:00": {
       "date": "2026-10-22",
@@ -17,13 +17,13 @@
       "date": "2026-10-23",
       "shift": "07:00",
       "shift_name": "Shift Malam",
-      "px_skrg": 50,
-      "occ_a": 13,
+      "px_skrg": 52,
+      "occ_a": 15,
       "occ_b": 37,
-      "free_bed": 6,
-      "text_free_a": "3 ekstra bed",
+      "free_bed": 4,
+      "text_free_a": "1 ekstra bed",
       "text_free_b": "3 ekstra bed",
-      "bor": "89.3%"
+      "bor": "92.9%"
     }
   }
 }

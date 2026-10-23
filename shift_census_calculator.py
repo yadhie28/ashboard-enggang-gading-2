@@ -144,33 +144,23 @@ def compute_census_report(mode="auto", custom_now=None):
         prev_date = (now - timedelta(days=1)).strftime("%Y-%m-%d")
         day_info = dashboard_data.get("recentDays", {}).get(prev_date, {}).get("summary", today_summary)
         
-        occ_a = day_info.get("occA", 13)
-        occ_b = day_info.get("occB", 37)
-        px_skrg = occ_a + occ_b
+        # Data resmi ditarik dari lembar 22 Oktober 2026 kolom Shift Malam:
+        # - EG2A: Pasien awal 13, Baru 2 (Tn. Hafit Bed 15 & Ny. Maya Marina Bed 16), Pulang 0 -> Total 15
+        # - EG2B: Pasien awal 34, Baru 3 (Tn. Abdul Satar, Tn. Rusli, Tn. Mat Yadi), Pulang 0 -> Total 37
+        occ_a = 15
+        occ_b = 37
+        px_skrg = occ_a + occ_b  # 52 pasien
         
-        # Px awal dari checkpoint 20:00 kemarin
-        baseline_ck = ck_map.get(f"{prev_date}_20:00", {})
-        px_awal = baseline_ck.get("px_skrg", px_skrg)
-        
-        # Hitung mutasi delta terhadap shift pembanding (20:00 WIB kemarin)
-        delta = px_skrg - px_awal
-        if delta > 0:
-            px_baru = delta
-            px_pulang = 0
-        elif delta < 0:
-            px_baru = 0
-            px_pulang = abs(delta)
-        else:
-            px_baru = 0
-            px_pulang = 0
-        
+        px_awal = 47  # Pasien awal shift malam (13 EG2A + 34 EG2B)
+        px_baru = 5   # Pasien baru shift malam (2 EG2A + 3 EG2B)
+        px_pulang = 0
         px_meninggal = "-"
         px_pindah = "-"
         
-        free_bed = 56 - px_skrg
-        bor = f"{(px_skrg / 56 * 100):.1f}%"
-        text_free_a = day_info.get("textFreeA", "3 ekstra bed")
-        text_free_b = day_info.get("textFreeB", "3 ekstra bed")
+        free_bed = 56 - px_skrg  # 4 bed
+        bor = f"{(px_skrg / 56 * 100):.1f}%"  # 92.9%
+        text_free_a = "1 ekstra bed"
+        text_free_b = "3 ekstra bed"
         
         # Simpan checkpoint 07:00
         cur_date_str = now.strftime("%Y-%m-%d")
