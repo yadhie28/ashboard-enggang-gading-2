@@ -440,6 +440,9 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
                     self.wfile.write(json.dumps({"success": False, "error": sync_res.get("error")}).encode("utf-8"))
                     return
 
+                import importlib
+                import shift_census_calculator
+                importlib.reload(shift_census_calculator)
                 from shift_census_calculator import compute_census_report
                 from send_whatsapp import send_via_gateway, DEFAULT_RECIPIENT
 

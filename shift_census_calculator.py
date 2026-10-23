@@ -137,6 +137,30 @@ def compute_census_report(mode="auto", custom_now=None):
 
     today_summary = dashboard_data.get("today", {}).get("summary", {})
     
+    def fmt_metric(val):
+        """
+        Format metrik sensus WhatsApp:
+        Jika nilai yang ditemukan nihil / tidak ada / 0 / None / '', isi format dengan '-', bukan '0'.
+        Hanya tampilkan angka jika > 0.
+        """
+        if val is None or val == "" or val == "-" or str(val).strip() == "-":
+            return "-"
+        try:
+            num = int(val)
+            if num <= 0:
+                return "-"
+            return str(num)
+        except (ValueError, TypeError):
+            if str(val).strip() in ["0", "nihil", "none", "null"]:
+                return "-"
+            return str(val).strip()
+
+    # Inisialisasi default metrik mutasi
+    px_pindah = "-"
+    px_meninggal = "-"
+    renc_pulang = "-"
+    renc_pindah = "-"
+
     # CASE 1: Laporan Khusus Jam 07.00 WIB (Akhir Shift Malam Kemarin)
     if mode == "shift_07" or (mode == "auto" and now.hour == 7 and now.minute <= 15):
         # Data ditarik dari kolom shift malam tanggal kemarin
@@ -153,9 +177,11 @@ def compute_census_report(mode="auto", custom_now=None):
         
         px_awal = 47  # Pasien awal shift malam (13 EG2A + 34 EG2B)
         px_baru = 5   # Pasien baru shift malam (2 EG2A + 3 EG2B)
-        px_pulang = 0
+        px_pulang = "-"  # Nihil / tidak ada -> '-' (bukan 0)
         px_meninggal = "-"
         px_pindah = "-"
+        renc_pulang = "-"
+        renc_pindah = "-"
         
         free_bed = 56 - px_skrg  # 4 bed
         bor = f"{(px_skrg / 56 * 100):.1f}%"  # 92.9%
@@ -191,7 +217,7 @@ def compute_census_report(mode="auto", custom_now=None):
         px_skrg = occ_a + occ_b
         
         # Cari checkpoint shift terakhir sebagai pembanding dasar hitung
-        baseline_px = 50  # Default fallback ke 07:00 WIB
+        baseline_px = 52  # Default baseline ke 07:00 WIB (52 pasien)
         baseline_key = None
         
         if sinfo["baseline_shift"] == "07:00":
@@ -203,12 +229,12 @@ def compute_census_report(mode="auto", custom_now=None):
             baseline_key = f"{prev_date_str}_20:00"
             
         if baseline_key and baseline_key in ck_map:
-            baseline_px = ck_map[baseline_key].get("px_skrg", 50)
+            baseline_px = ck_map[baseline_key].get("px_skrg", 52)
         else:
             # Cari checkpoint terdekat yang ada sebelum waktu sekarang
             available_keys = sorted(ck_map.keys())
             if available_keys:
-                baseline_px = ck_map[available_keys[-1]].get("px_skrg", 50)
+                baseline_px = ck_map[available_keys[-1]].get("px_skrg", 52)
                 
         px_awal = baseline_px
         
@@ -216,16 +242,18 @@ def compute_census_report(mode="auto", custom_now=None):
         delta = px_skrg - px_awal
         if delta > 0:
             px_baru = delta
-            px_pulang = 0
+            px_pulang = "-"
         elif delta < 0:
-            px_baru = 0
+            px_baru = "-"
             px_pulang = abs(delta)
         else:
-            px_baru = 0
-            px_pulang = 0
+            px_baru = "-"
+            px_pulang = "-"
             
         px_pindah = "-"
         px_meninggal = "-"
+        renc_pulang = "-"
+        renc_pindah = "-"
         
         free_bed = 56 - px_skrg
         bor = f"{(px_skrg / 56 * 100):.1f}%"
@@ -234,17 +262,25 @@ def compute_census_report(mode="auto", custom_now=None):
         
         shift_header_note = f"Laporan Sensus Real-Time ({sinfo['current_shift']} • Pembanding {sinfo['baseline_name']})"
 
+    # Format nilai-nilai mutasi: jika 0 / nihil / tidak ada -> '-'
+    f_px_baru = fmt_metric(px_baru)
+    f_px_pindah = fmt_metric(px_pindah)
+    f_px_meninggal = fmt_metric(px_meninggal)
+    f_px_pulang = fmt_metric(px_pulang)
+    f_renc_pulang = fmt_metric(renc_pulang)
+    f_renc_pindah = fmt_metric(renc_pindah)
+
     # Format Pesan WhatsApp Baku
     wa_message = (
         "*Ruang Enggang Gading 2*\n"
         "Kapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\n"
         f"*Px awal: {px_awal}*\n"
-        f"Px baru: {px_baru}\n"
-        f"Px pindah: {px_pindah}\n"
-        f"Px meninggal: {px_meninggal}\n"
-        f"Px pulang: {px_pulang}\n"
-        "Renc pulang: -\n"
-        "Renc pindah: -\n\n"
+        f"Px baru: {f_px_baru}\n"
+        f"Px pindah: {f_px_pindah}\n"
+        f"Px meninggal: {f_px_meninggal}\n"
+        f"Px pulang: {f_px_pulang}\n"
+        f"Renc pulang: {f_renc_pulang}\n"
+        f"Renc pindah: {f_renc_pindah}\n\n"
         f"*Px sekarang: {px_skrg}*\n\n"
         "*Antrean:*\n\n"
         f"*Free Bed:  {free_bed} (EG2-A: {text_free_a}, EG2-B: {text_free_b})*\n\n"
@@ -259,10 +295,12 @@ def compute_census_report(mode="auto", custom_now=None):
         "note": shift_header_note,
         "stats": {
             "px_awal": px_awal,
-            "px_baru": px_baru,
-            "px_pindah": px_pindah,
-            "px_meninggal": px_meninggal,
-            "px_pulang": px_pulang,
+            "px_baru": f_px_baru,
+            "px_pindah": f_px_pindah,
+            "px_meninggal": f_px_meninggal,
+            "px_pulang": f_px_pulang,
+            "renc_pulang": f_renc_pulang,
+            "renc_pindah": f_renc_pindah,
             "px_skrg": px_skrg,
             "free_bed": free_bed,
             "text_free_a": text_free_a,

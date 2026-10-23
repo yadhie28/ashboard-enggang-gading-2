@@ -237,6 +237,53 @@
           </div>
         </div>
       </section>
+
+      <!-- Real-Time Census & WA Gateway Banner -->
+      <div class="realtime-census-action-banner" id="realtimeCensusActionBanner">
+        <div class="rcb-glow-accent"></div>
+        <div class="rcb-content">
+          <div class="rcb-info-col">
+            <div class="rcb-badge-row">
+              <span class="rcb-badge-pulse"><span class="pulse-dot"></span> LIVE SPREADSHEET</span>
+              <span class="rcb-badge-rule">RULE BAKU: Pembanding Akhir Shift Terakhir</span>
+              <span class="rcb-badge-target" title="Nomor Resmi WhatsApp Kepala Ruang">📱 Karu: +6281284070082</span>
+            </div>
+            <h3 class="rcb-title">Eksekusi Penarikan Sensus Real-Time &amp; Kirim WA Kepala Ruang</h3>
+            <p class="rcb-desc">
+              Tarik data real-time langsung dari Google Spreadsheet EG2A &amp; EG2B, susun laporan sensus mutasi berdasar pembanding akhir shift terakhir 
+              <strong>(07.00 / 14.00 / 20.00 WIB)</strong>, lalu kirimkan otomatis ke WhatsApp Kepala Ruang Enggang Gading 2.
+            </p>
+            <div class="rcb-meta-chips" id="rcbMetaChips">
+              <div class="rcb-chip">
+                <span class="rcb-chip-label">Dasar Pembanding:</span>
+                <strong class="rcb-chip-value" id="rcbChipBaseline">Shift Malam (07.00 WIB) &bull; Px Awal: 52</strong>
+              </div>
+              <div class="rcb-chip">
+                <span class="rcb-chip-label">Sensus Real-Time:</span>
+                <strong class="rcb-chip-value" id="rcbChipCurrent">Px Sekarang: 54 &bull; Delta (+2 Baru)</strong>
+              </div>
+              <div class="rcb-chip">
+                <span class="rcb-chip-label">Format Baku:</span>
+                <strong class="rcb-chip-value">Nihil / 0 diisi '-' (Bukan 0)</strong>
+              </div>
+            </div>
+          </div>
+          <div class="rcb-action-col">
+            <button class="btn btn-wa-banner-action" id="btnBannerRealtimeSyncWA" title="Klik untuk eksekusi penarikan data real-time spreadsheet dan kirim laporan sensus ke WA Karu">
+              <span class="btn-wa-banner-icon">⚡</span>
+              <div class="btn-wa-banner-texts">
+                <span class="btn-wa-banner-title">Eksekusi &amp; Kirim Sensus WA</span>
+                <span class="btn-wa-banner-sub">Tarik Spreadsheet &bull; Hitung Mutasi &bull; Kirim WA</span>
+              </div>
+              <span class="btn-wa-banner-arrow">&rarr;</span>
+            </button>
+            <div class="rcb-helper-text">
+              Penerima: <strong>Ns. Rusmulyadi, S.Kep.,M.A.R.S</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Wing Selector Subtabs -->
       <div class="wing-selection-bar">
         <div class="wing-toggle-group">
@@ -1298,6 +1345,143 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
           <span>Simpan ke Kronologi</span>
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: STATUS EKSEKUSI SENSUS REAL-TIME & DISPATCH WHATSAPP KARU
+       ======================================================================== -->
+  <div class="modal-overlay" id="modalRealtimeCensusResult" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="censusResultTitle">
+    <div class="modal-dialog modal-dialog-lg modal-census-result-card">
+      <div class="modal-header header-census-result">
+        <div class="header-left-col">
+          <div class="modal-header-icon pulse-emerald">⚡</div>
+          <div>
+            <h2 id="censusResultTitle" class="modal-title">Sensus Real-Time &amp; Dispatch WA Karu</h2>
+            <p class="modal-subtitle">Ruang Enggang Gading 2 &bull; RSUD Dr. Soedarso Pontianak</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="modalCensusResultCloseBtn" aria-label="Tutup Modal">&times;</button>
+      </div>
+
+      <div class="modal-body modal-census-result-body">
+        <!-- Live Progress Status Steps -->
+        <div class="census-stepper-box" id="censusStepperBox">
+          <div class="stepper-step active" id="stepFetchSheets">
+            <span class="step-num" id="stepNum1"><span class="step-spinner"></span></span>
+            <div class="step-text">
+              <strong>1. Tarik Spreadsheet Real-Time</strong>
+              <small id="stepSub1">Mengunduh file EG2A &amp; EG2B...</small>
+            </div>
+          </div>
+          <div class="stepper-arrow">&rarr;</div>
+          <div class="stepper-step" id="stepCalculateCensus">
+            <span class="step-num" id="stepNum2">2</span>
+            <div class="step-text">
+              <strong>2. Hitung Sensus Berbasis Shift</strong>
+              <small id="stepSub2">Pembanding akhir shift terakhir</small>
+            </div>
+          </div>
+          <div class="stepper-arrow">&rarr;</div>
+          <div class="stepper-step" id="stepSendWA">
+            <span class="step-num" id="stepNum3">3</span>
+            <div class="step-text">
+              <strong>3. Kirim WhatsApp Gateway</strong>
+              <small id="stepSub3">Karu (+6281284070082)</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Success Banner -->
+        <div class="census-dispatch-status-banner" id="censusDispatchStatusBanner" style="display:none;">
+          <div class="cdsb-icon">🎉</div>
+          <div class="cdsb-content">
+            <h4 id="cdsbTitle">Laporan Sensus Real-Time Berhasil Terkirim ke WhatsApp Karu!</h4>
+            <p id="cdsbSubtitle">Pesan WhatsApp telah diterima gateway dan dikirimkan ke Kepala Ruang Enggang Gading 2.</p>
+            <div class="cdsb-meta">
+              <span>📱 Tujuan: <strong id="cdsbPhone">+6281284070082 (Ns. Rusmulyadi, S.Kep.,M.A.R.S)</strong></span>
+              <span>⏱️ Waktu Eksekusi: <strong id="cdsbTime">--:--:--</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rule & Baseline Info Callout -->
+        <div class="census-rule-callout">
+          <div class="crc-icon">📌</div>
+          <div class="crc-content">
+            <strong>Rule Tetap Penghitungan Sensus:</strong> Kapanpun data ditarik (sewaktu-waktu atau terjadwal), dasar pembanding hitung <code>Px awal</code> tetap hasil hitung akhir shift terakhir yang telah ditutup (07.00 / 14.00 / 20.00 WIB). Nilai mutasi yang nihil diisi format <code>-</code> (bukan 0).
+          </div>
+        </div>
+
+        <!-- Metric Grid Breakdown -->
+        <div class="census-metrics-grid" id="censusMetricsGrid">
+          <div class="cm-card cm-card-primary">
+            <span class="cm-label">Px Awal</span>
+            <strong class="cm-val" id="cmValPxAwal">--</strong>
+            <span class="cm-sub" id="cmSubPxAwal">Shift Pembanding</span>
+          </div>
+          <div class="cm-card cm-card-accent">
+            <span class="cm-label">Px Baru</span>
+            <strong class="cm-val text-emerald" id="cmValPxBaru">--</strong>
+            <span class="cm-sub">Pasien Baru Masuk</span>
+          </div>
+          <div class="cm-card">
+            <span class="cm-label">Px Pulang</span>
+            <strong class="cm-val" id="cmValPxPulang">--</strong>
+            <span class="cm-sub">KRS / Pulang</span>
+          </div>
+          <div class="cm-card">
+            <span class="cm-label">Px Pindah</span>
+            <strong class="cm-val" id="cmValPxPindah">-</strong>
+            <span class="cm-sub">Mutasi Ruangan</span>
+          </div>
+          <div class="cm-card">
+            <span class="cm-label">Px Meninggal</span>
+            <strong class="cm-val" id="cmValPxMeninggal">-</strong>
+            <span class="cm-sub">Meninggal</span>
+          </div>
+          <div class="cm-card cm-card-highlight">
+            <span class="cm-label">Px Sekarang</span>
+            <strong class="cm-val text-indigo" id="cmValPxSkrg">--</strong>
+            <span class="cm-sub">Total Rawat Aktif</span>
+          </div>
+          <div class="cm-card cm-card-success">
+            <span class="cm-label">Free Bed</span>
+            <strong class="cm-val text-emerald" id="cmValFreeBed">--</strong>
+            <span class="cm-sub" id="cmSubFreeBed">EG2-A: -- | EG2-B: --</span>
+          </div>
+          <div class="cm-card">
+            <span class="cm-label">BOR</span>
+            <strong class="cm-val" id="cmValBor">--%</strong>
+            <span class="cm-sub">Tingkat Hunian</span>
+          </div>
+        </div>
+
+        <!-- WhatsApp Formatted Message Preview Box -->
+        <div class="census-message-preview-container">
+          <div class="cmpc-header">
+            <span class="cmpc-title">Preview Pesan Terkirim ke WhatsApp Karu:</span>
+            <span class="cmpc-badge">Format Baku RSUD Dr. Soedarso</span>
+          </div>
+          <pre class="census-message-preview-text" id="censusMessagePreviewText">Memuat format pesan sensus...</pre>
+        </div>
+
+        <!-- Action Buttons Footer -->
+        <div class="census-result-footer">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnCopyCensusResultWA">
+            📋 Salin Pesan
+          </button>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline-wa btn-sm" id="btnOpenWebWA">
+            💬 Buka Obrolan WhatsApp ↗
+          </a>
+          <button type="button" class="btn btn-primary btn-sm" id="btnRealtimeRepeat">
+            ⚡ Eksekusi Ulang Real-Time
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnCloseCensusResult">
+            Tutup
+          </button>
+        </div>
       </div>
     </div>
   </div>

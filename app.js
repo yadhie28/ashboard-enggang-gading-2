@@ -606,9 +606,14 @@ function setupEventListeners() {
   const syncBtn = document.getElementById('syncSheetsBtn');
   if (syncBtn) syncBtn.addEventListener('click', triggerSync);
 
-  // Real-Time Census Execution & Send WA
+  // Real-Time Census Execution & Send WA (Header & Banner)
   const realtimeWaBtn = document.getElementById('btnRealtimeSyncWA');
   if (realtimeWaBtn) realtimeWaBtn.addEventListener('click', triggerRealtimeCensusWA);
+
+  const bannerRealtimeWaBtn = document.getElementById('btnBannerRealtimeSyncWA');
+  if (bannerRealtimeWaBtn) bannerRealtimeWaBtn.addEventListener('click', triggerRealtimeCensusWA);
+
+  initRealtimeCensusResultModal();
 }
 
 // Update Active Day Dashboard
@@ -633,8 +638,9 @@ function updateDashboard() {
     }
   }
 
-  // Update KPIs
+  // Update KPIs & Real-Time Banner Chips
   updateKpiMetrics(dayData);
+  updateRealtimeBannerChips();
 
   // Render Beds
   renderBedGrids(dayData);
@@ -1899,39 +1905,137 @@ async function triggerSync() {
 // Rule Tetap: Pembanding dasar hitung (Px awal) TETAP hasil hitung shift terakhir
 // (07.00 / 14.00 / 20.00 WIB)
 // ==========================================================================
-async function triggerRealtimeCensusWA() {
-  const btn = document.getElementById('btnRealtimeSyncWA');
-  const modalBtn = document.getElementById('btnModalRealtimeCensusWA');
+// Helper format metrik WhatsApp: jika 0 / nihil / tidak ada / '-' -> tampilkan '-', selain itu tampilkan angka
+function formatMetricWA(val) {
+  if (val === null || val === undefined || val === '' || val === '-' || String(val).trim() === '-') {
+    return '-';
+  }
+  const num = Number(val);
+  if (!isNaN(num) && num <= 0) {
+    return '-';
+  }
+  if (String(val).trim() === '0') {
+    return '-';
+  }
+  return String(val).trim();
+}
 
-  const setButtonsState = (loading) => {
-    if (btn) {
-      btn.disabled = loading;
-      btn.innerHTML = loading
-        ? '<span class="pulsing-dot"></span> <div class="btn-wa-text-col"><span class="btn-wa-main-title">Menarik Data &amp; Kirim WA...</span><span class="btn-wa-sub-title">Mohon Tunggu Sebentar</span></div>'
-        : '<span class="btn-wa-icon">⚡</span><div class="btn-wa-text-col"><span class="btn-wa-main-title">Tarik Real-Time &amp; Kirim WA</span><span class="btn-wa-sub-title">Pembanding Shift Terakhir</span></div>';
+async function triggerRealtimeCensusWA() {
+  const btnHeader = document.getElementById('btnRealtimeSyncWA');
+  const btnBanner = document.getElementById('btnBannerRealtimeSyncWA');
+  const modal = document.getElementById('modalRealtimeCensusResult');
+  const step1 = document.getElementById('stepFetchSheets');
+  const step2 = document.getElementById('stepCalculateCensus');
+  const step3 = document.getElementById('stepSendWA');
+  const stepNum1 = document.getElementById('stepNum1');
+  const stepNum2 = document.getElementById('stepNum2');
+  const stepNum3 = document.getElementById('stepNum3');
+  const bannerStatus = document.getElementById('censusDispatchStatusBanner');
+  const previewText = document.getElementById('censusMessagePreviewText');
+
+  // Buka modal interaktif dan reset stepper
+  if (modal) modal.style.display = 'flex';
+  if (bannerStatus) bannerStatus.style.display = 'none';
+
+  const resetStepper = () => {
+    if (step1) {
+      step1.className = 'stepper-step active';
+      if (stepNum1) stepNum1.innerHTML = '<span class="step-spinner"></span>';
     }
-    if (modalBtn) {
-      modalBtn.disabled = loading;
-      modalBtn.innerHTML = loading ? '<span class="pulsing-dot"></span> Mengirim ke WA Karu...' : '⚡ Hitung Ulang &amp; Kirim Sensus WA Real-Time';
+    if (step2) {
+      step2.className = 'stepper-step';
+      if (stepNum2) stepNum2.textContent = '2';
+    }
+    if (step3) {
+      step3.className = 'stepper-step';
+      if (stepNum3) stepNum3.textContent = '3';
+    }
+    if (previewText) {
+      previewText.textContent = '⚡ Sedang menarik data spreadsheet real-time & menyusun sensus berdasar pembanding shift terakhir...';
     }
   };
 
-  setButtonsState(true);
-  showToast('⚡ Menarik data spreadsheet real-time & menyusun sensus perbandingan shift...', 'info');
+  const setButtonsLoading = (loading) => {
+    if (btnHeader) {
+      btnHeader.disabled = loading;
+      btnHeader.innerHTML = loading
+        ? '<span class="pulsing-dot"></span> <div class="btn-wa-text-col"><span class="btn-wa-main-title">Menarik Data &amp; Kirim WA...</span><span class="btn-wa-sub-title">Mohon Tunggu Sebentar</span></div>'
+        : '<span class="btn-wa-icon">⚡</span><div class="btn-wa-text-col"><span class="btn-wa-main-title">Tarik Real-Time &amp; Kirim WA</span><span class="btn-wa-sub-title">Pembanding Shift Terakhir</span></div>';
+    }
+    if (btnBanner) {
+      btnBanner.disabled = loading;
+      btnBanner.innerHTML = loading
+        ? '<span class="step-spinner"></span> <div class="btn-wa-banner-texts"><span class="btn-wa-banner-title">Sedang Menarik Spreadsheet &amp; Mengirim WA...</span><span class="btn-wa-banner-sub">Mohon tunggu proses sinkronisasi</span></div>'
+        : '<span class="btn-wa-banner-icon">⚡</span><div class="btn-wa-banner-texts"><span class="btn-wa-banner-title">Eksekusi &amp; Kirim Sensus WA</span><span class="btn-wa-banner-sub">Tarik Spreadsheet &bull; Hitung Mutasi &bull; Kirim WA</span></div><span class="btn-wa-banner-arrow">&rarr;</span>';
+    }
+  };
+
+  resetStepper();
+  setButtonsLoading(true);
+  showToast('⚡ Mengunduh data Google Spreadsheet real-time & memproses sensus...', 'info');
 
   try {
     const res = await fetch('/api/realtime-sync-wa', { method: 'POST' });
     if (res.ok) {
       const data = await res.json();
+
+      // Tandai semua tahapan stepper selesai
+      if (step1) {
+        step1.className = 'stepper-step completed';
+        if (stepNum1) stepNum1.textContent = '✓';
+      }
+      if (step2) {
+        step2.className = 'stepper-step completed';
+        if (stepNum2) stepNum2.textContent = '✓';
+      }
+      if (step3) {
+        step3.className = 'stepper-step completed';
+        if (stepNum3) stepNum3.textContent = '✓';
+      }
+
+      // Tampilkan banner sukses
+      if (bannerStatus) bannerStatus.style.display = 'flex';
+      const cdsbTime = document.getElementById('cdsbTime');
+      const cdsbPhone = document.getElementById('cdsbPhone');
+      if (cdsbTime) cdsbTime.textContent = `${data.timestamp} WIB`;
+      if (cdsbPhone) cdsbPhone.textContent = `${data.recipient.phone_raw || '+6281284070082'} (${data.recipient.name})`;
+
+      // Isi kartu-kartu metrik hasil sensus
+      const stats = data.stats || {};
+      const elAwal = document.getElementById('cmValPxAwal');
+      const elBaru = document.getElementById('cmValPxBaru');
+      const elPulang = document.getElementById('cmValPxPulang');
+      const elPindah = document.getElementById('cmValPxPindah');
+      const elMeninggal = document.getElementById('cmValPxMeninggal');
+      const elSkrg = document.getElementById('cmValPxSkrg');
+      const elFree = document.getElementById('cmValFreeBed');
+      const elSubFree = document.getElementById('cmSubFreeBed');
+      const elBor = document.getElementById('cmValBor');
+
+      if (elAwal) elAwal.textContent = stats.px_awal ?? '--';
+      if (elBaru) elBaru.textContent = formatMetricWA(stats.px_baru);
+      if (elPulang) elPulang.textContent = formatMetricWA(stats.px_pulang);
+      if (elPindah) elPindah.textContent = formatMetricWA(stats.px_pindah);
+      if (elMeninggal) elMeninggal.textContent = formatMetricWA(stats.px_meninggal);
+      if (elSkrg) elSkrg.textContent = stats.px_skrg ?? '--';
+      if (elFree) elFree.textContent = stats.free_bed ?? '--';
+      if (elSubFree) elSubFree.textContent = `EG2-A: ${stats.text_free_a} | EG2-B: ${stats.text_free_b}`;
+      if (elBor) elBor.textContent = stats.bor ?? '--%';
+
+      // Preview teks pesan WhatsApp
+      if (previewText) previewText.textContent = data.message;
+
+      // Link buka obrolan WA
+      const webBtn = document.getElementById('btnOpenWebWA');
+      if (webBtn) {
+        webBtn.href = `https://web.whatsapp.com/send?phone=${data.recipient.phone}&text=${encodeURIComponent(data.message)}`;
+      }
+
       await loadData(true);
       fetchSyncSchedule();
+      updateRealtimeBannerChips();
 
       showToast('🎉 Sensus Real-Time BERHASIL dikirim ke WhatsApp Kepala Ruang (+6281284070082)!', 'success');
-      alert(`✅ LAPORAN SENSUS REAL-TIME BERHASIL DIKIRIM KE WHATSAPP KEPALA RUANG!\n\n` +
-            `Penerima: ${data.recipient.name} (${data.recipient.phone_raw || '+6281284070082'})\n` +
-            `Shift/Waktu: ${data.note || 'Shift Berjalan'}\n` +
-            `Waktu Eksekusi: ${data.timestamp}\n\n` +
-            `Isi Pesan Terkirim:\n----------------------------------------\n${data.message}`);
       return;
     }
   } catch (err) {
@@ -1942,9 +2046,17 @@ async function triggerRealtimeCensusWA() {
   try {
     await loadData(true);
     const censusInfo = computeClientSideShiftCensus();
-    const encoded = encodeURIComponent(censusInfo.message);
     const targetPhone = '6281284070082';
     const FONNTE_TOKEN = 'Ayfow2x1hFiscQZSphzq';
+
+    if (step1) {
+      step1.className = 'stepper-step completed';
+      if (stepNum1) stepNum1.textContent = '✓';
+    }
+    if (step2) {
+      step2.className = 'stepper-step completed';
+      if (stepNum2) stepNum2.textContent = '✓';
+    }
 
     let gwSent = false;
     try {
@@ -1965,18 +2077,57 @@ async function triggerRealtimeCensusWA() {
       console.warn('Direct gateway dispatch error:', e);
     }
 
+    if (step3) {
+      step3.className = 'stepper-step completed';
+      if (stepNum3) stepNum3.textContent = '✓';
+    }
+
+    if (bannerStatus) bannerStatus.style.display = 'flex';
+    const cdsbTime = document.getElementById('cdsbTime');
+    const cdsbPhone = document.getElementById('cdsbPhone');
+    if (cdsbTime) cdsbTime.textContent = `${new Date().toLocaleTimeString('id-ID')} WIB`;
+    if (cdsbPhone) cdsbPhone.textContent = `+6281284070082 (Ns. Rusmulyadi, S.Kep.,M.A.R.S)`;
+
+    // Populate Metrics
+    const elAwal = document.getElementById('cmValPxAwal');
+    const elBaru = document.getElementById('cmValPxBaru');
+    const elPulang = document.getElementById('cmValPxPulang');
+    const elPindah = document.getElementById('cmValPxPindah');
+    const elMeninggal = document.getElementById('cmValPxMeninggal');
+    const elSkrg = document.getElementById('cmValPxSkrg');
+    const elFree = document.getElementById('cmValFreeBed');
+    const elSubFree = document.getElementById('cmSubFreeBed');
+    const elBor = document.getElementById('cmValBor');
+
+    if (elAwal) elAwal.textContent = censusInfo.px_awal;
+    if (elBaru) elBaru.textContent = censusInfo.px_baru;
+    if (elPulang) elPulang.textContent = censusInfo.px_pulang;
+    if (elPindah) elPindah.textContent = censusInfo.px_pindah;
+    if (elMeninggal) elMeninggal.textContent = censusInfo.px_meninggal;
+    if (elSkrg) elSkrg.textContent = censusInfo.px_skrg;
+    if (elFree) elFree.textContent = censusInfo.free_bed;
+    if (elSubFree) elSubFree.textContent = `EG2-A: ${censusInfo.text_free_a} | EG2-B: ${censusInfo.text_free_b}`;
+    if (elBor) elBor.textContent = censusInfo.bor;
+
+    if (previewText) previewText.textContent = censusInfo.message;
+
+    const webBtn = document.getElementById('btnOpenWebWA');
+    if (webBtn) {
+      webBtn.href = `https://web.whatsapp.com/send?phone=${targetPhone}&text=${encodeURIComponent(censusInfo.message)}`;
+    }
+
+    updateRealtimeBannerChips();
+
     if (gwSent) {
-      showToast('🎉 Sensus Real-Time BERHASIL dikirim ke WA Kepala Ruangan (+6281284070082)!', 'success');
-      alert(`✅ SENSUS REAL-TIME BERHASIL DIKIRIM KE WA KEPALA RUANG!\n\nPenerima: Ns. Rusmulyadi, S.Kep.,M.A.R.S (+6281284070082)\n\nIsi Pesan:\n${censusInfo.message}`);
+      showToast('🎉 Sensus Real-Time BERHASIL dikirim ke WA Karu (+6281284070082)!', 'success');
     } else {
-      const waUrl = `https://web.whatsapp.com/send?phone=${targetPhone}&text=${encoded}`;
-      window.open(waUrl, '_blank');
-      showToast('🟢 Membuka WhatsApp Web dengan format sensus lengkap pembanding shift terakhir.', 'success');
+      window.open(webBtn.href, '_blank');
+      showToast('🟢 Membuka WhatsApp Web dengan format sensus pembanding shift terakhir.', 'success');
     }
   } catch (err2) {
-    showToast('Kendala pengiriman: ' + err2.message, 'error');
+    showToast('Kendala eksekusi sensus: ' + err2.message, 'error');
   } finally {
-    setButtonsState(false);
+    setButtonsLoading(false);
   }
 }
 
@@ -1988,16 +2139,16 @@ function computeClientSideShiftCensus() {
 
   let currentShift = 'Shift Pagi';
   let baselineShiftName = 'Shift Malam (07.00 WIB)';
-  let baselinePx = 50;
+  let baselinePx = 52; // Baseline resmi 07.00 WIB (52 pasien)
 
   if (timeFloat >= 7.0 && timeFloat < 14.0) {
     currentShift = 'Shift Pagi';
     baselineShiftName = 'Shift Malam (07.00 WIB)';
-    baselinePx = 50;
+    baselinePx = 52;
   } else if (timeFloat >= 14.0 && timeFloat < 20.0) {
     currentShift = 'Shift Sore';
     baselineShiftName = 'Shift Pagi (14.00 WIB)';
-    baselinePx = 50;
+    baselinePx = 54;
   } else {
     currentShift = 'Shift Malam';
     baselineShiftName = 'Shift Sore (20.00 WIB)';
@@ -2006,28 +2157,34 @@ function computeClientSideShiftCensus() {
 
   const latestDay = state.data?.today || {};
   const sum = latestDay.summary || {};
-  const occA = sum.occA || 15;
+  const occA = sum.occA || 14;
   const occB = sum.occB || 40;
   const pxSkrg = sum.occupied || (occA + occB);
 
   const delta = pxSkrg - baselinePx;
-  const pxBaru = delta > 0 ? delta : 0;
-  const pxPulang = delta < 0 ? Math.abs(delta) : 0;
+  const pxBaru = delta > 0 ? delta : '-';
+  const pxPulang = delta < 0 ? Math.abs(delta) : '-';
+  const pxPindah = '-';
+  const pxMeninggal = '-';
+  const rencPulang = '-';
+  const rencPindah = '-';
+
   const freeBed = 56 - pxSkrg;
-  const textFreeA = sum.textFreeA || '1 ekstra bed';
+  const textFreeA = sum.textFreeA || '2 ekstra bed';
   const textFreeB = sum.textFreeB || '0 ekstra bed';
   const bor = sum.bor ? `${sum.bor}%` : `${((pxSkrg / 56) * 100).toFixed(1)}%`;
 
+  // Format Pesan WhatsApp Baku - Jika nihil/0 diisi '-' (bukan 0)
   const message =
     `*Ruang Enggang Gading 2*\n` +
     `Kapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\n` +
     `*Px awal: ${baselinePx}*\n` +
-    `Px baru: ${pxBaru}\n` +
-    `Px pindah: -\n` +
-    `Px meninggal: -\n` +
-    `Px pulang: ${pxPulang}\n` +
-    `Renc pulang: -\n` +
-    `Renc pindah: -\n\n` +
+    `Px baru: ${formatMetricWA(pxBaru)}\n` +
+    `Px pindah: ${formatMetricWA(pxPindah)}\n` +
+    `Px meninggal: ${formatMetricWA(pxMeninggal)}\n` +
+    `Px pulang: ${formatMetricWA(pxPulang)}\n` +
+    `Renc pulang: ${formatMetricWA(rencPulang)}\n` +
+    `Renc pindah: ${formatMetricWA(rencPindah)}\n\n` +
     `*Px sekarang: ${pxSkrg}*\n\n` +
     `*Antrean:*\n\n` +
     `*Free Bed:  ${freeBed} (EG2-A: ${textFreeA}, EG2-B: ${textFreeB})*\n\n` +
@@ -2040,10 +2197,78 @@ function computeClientSideShiftCensus() {
     message: message,
     note: `Laporan Sensus Real-Time (${currentShift} • Pembanding ${baselineShiftName})`,
     px_awal: baselinePx,
+    px_baru: formatMetricWA(pxBaru),
+    px_pulang: formatMetricWA(pxPulang),
+    px_pindah: formatMetricWA(pxPindah),
+    px_meninggal: formatMetricWA(pxMeninggal),
+    renc_pulang: formatMetricWA(rencPulang),
+    renc_pindah: formatMetricWA(rencPindah),
     px_skrg: pxSkrg,
     free_bed: freeBed,
+    text_free_a: textFreeA,
+    text_free_b: textFreeB,
     bor: bor
   };
+}
+
+function updateRealtimeBannerChips() {
+  const elBase = document.getElementById('rcbChipBaseline');
+  const elCur = document.getElementById('rcbChipCurrent');
+  if (!elBase && !elCur) return;
+
+  const census = computeClientSideShiftCensus();
+  if (elBase) {
+    const shiftPart = census.note.includes('Pembanding ') ? census.note.split('Pembanding ')[1].replace(')', '') : 'Shift Malam (07.00 WIB)';
+    elBase.textContent = `${shiftPart} • Px Awal: ${census.px_awal}`;
+  }
+  if (elCur) {
+    const deltaStr = census.px_baru !== '-'
+      ? `+${census.px_baru} Baru`
+      : census.px_pulang !== '-'
+        ? `-${census.px_pulang} Pulang`
+        : 'Tetap';
+    elCur.textContent = `Px Sekarang: ${census.px_skrg} • Delta (${deltaStr})`;
+  }
+}
+
+function initRealtimeCensusResultModal() {
+  const modal = document.getElementById('modalRealtimeCensusResult');
+  const closeBtn = document.getElementById('modalCensusResultCloseBtn');
+  const closeBtn2 = document.getElementById('btnCloseCensusResult');
+  const repeatBtn = document.getElementById('btnRealtimeRepeat');
+  const copyBtn = document.getElementById('btnCopyCensusResultWA');
+  const previewText = document.getElementById('censusMessagePreviewText');
+
+  const closeModal = () => {
+    if (modal) modal.style.display = 'none';
+  };
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (closeBtn2) closeBtn2.addEventListener('click', closeModal);
+  if (repeatBtn) repeatBtn.addEventListener('click', () => triggerRealtimeCensusWA());
+
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+      closeModal();
+    }
+  });
+
+  if (copyBtn && previewText) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(previewText.textContent);
+        showToast('📋 Format Pesan Sensus berhasil disalin ke clipboard!', 'success');
+      } catch (e) {
+        showToast('Gagal menyalin pesan: ' + e.message, 'error');
+      }
+    });
+  }
 }
 
 // CSV Export
@@ -4808,69 +5033,9 @@ function initWhatsAppMessengerSystem() {
       if (tmplType === 'test') {
         text = 'Test Boss';
       } else if (tmplType === 'sensus') {
-        const curDate = (typeof state !== 'undefined' && state.currentDate) ? state.currentDate : new Date().toISOString().slice(0, 10);
-        const dayData = (typeof state !== 'undefined' && state.data && state.data.recentDays) ? (state.data.recentDays[curDate] || state.data.today) : null;
-        let pxAwal = 54, pxBaru = 1, pxPindah = '-', pxMeninggal = '-', pxPulang = 6;
-        let pxSkrg = 49, freeBed = 7, bor = '87.5%';
-        let textFreeA = '2 ekstra bed', textFreeB = '1 + 4 ekstra bed';
-
-        if (dayData && (dayData.eg2a || dayData.eg2b)) {
-          const allBeds = [...(dayData.eg2a || []), ...(dayData.eg2b || [])];
-          let activeCount = 0;
-          let dischargedCount = 0;
-          let deceasedCount = 0;
-
-          allBeds.forEach(b => {
-            if (b.isEmpty) {
-              // kosong fisik
-            } else if (b.isDeceased || b.status === 'Meninggal') {
-              deceasedCount++;
-            } else if (b.isDischargedToday || b.status === 'Pulang Hari Ini') {
-              dischargedCount++;
-            } else {
-              activeCount++;
-            }
-          });
-
-          let activeA = 0;
-          (dayData.eg2a || []).forEach(b => {
-            if (!b.isEmpty && !b.isDischargedToday && !b.isDeceased && b.status !== 'Pulang Hari Ini' && b.status !== 'Meninggal') {
-              activeA++;
-            }
-          });
-
-          let activeB = 0;
-          (dayData.eg2b || []).forEach(b => {
-            if (!b.isEmpty && !b.isDischargedToday && !b.isDeceased && b.status !== 'Pulang Hari Ini' && b.status !== 'Meninggal') {
-              activeB++;
-            }
-          });
-
-          // Logika Pergeseran Bed (Ekstra bed selalu dikosongkan lebih dulu saat standar pulang)
-          if (activeA >= 12) {
-            const extraEmptyA = Math.max(0, 4 - (activeA - 12));
-            textFreeA = `${extraEmptyA} ekstra bed`;
-          } else {
-            const stdEmptyA = 12 - activeA;
-            textFreeA = `${stdEmptyA} + 4 ekstra bed`;
-          }
-
-          if (activeB >= 36) {
-            const extraEmptyB = Math.max(0, 4 - (activeB - 36));
-            textFreeB = `${extraEmptyB} ekstra bed`;
-          } else {
-            const stdEmptyB = 36 - activeB;
-            textFreeB = `${stdEmptyB} + 4 ekstra bed`;
-          }
-
-          pxSkrg = activeA + activeB;
-          pxPulang = dischargedCount;
-          pxMeninggal = deceasedCount > 0 ? deceasedCount : '-';
-          freeBed = (16 - activeA) + (40 - activeB);
-          bor = `${((pxSkrg / 56) * 100).toFixed(1)}%`;
-        }
-
-        text = `*Ruang Enggang Gading 2*\nKapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\n*Px awal: ${pxAwal}*\nPx baru: ${pxBaru}\nPx pindah: ${pxPindah}\nPx meninggal: ${pxMeninggal}\nPx pulang: ${pxPulang}\nRenc pulang: -\nRenc pindah: -\n\n*Px sekarang: ${pxSkrg}*\n\n*Antrean:*\n\n*Free Bed:  ${freeBed} (EG2-A: ${textFreeA}, EG2-B: ${textFreeB})*\n\n*Persentase terisi: ${bor}*\n\n*Rencana/Antrean Pindah:*\n\nMakaseh 🙏\n*Semoga sehat selalu 😊*`;
+        const census = computeClientSideShiftCensus();
+        text = census.message;
+      }
       } else if (tmplType === 'operan') {
         const total = (typeof state !== 'undefined' && state.patients)
           ? state.patients.length
