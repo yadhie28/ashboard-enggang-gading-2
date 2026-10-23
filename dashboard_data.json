@@ -13,7 +13,7 @@
       "Enggang Gading 2A (16 Bed)",
       "Enggang Gading 2B (40 Bed)"
     ],
-    "lastUpdated": "23-10-2026 13:33:24",
+    "lastUpdated": "23-10-2026 13:47:46",
     "latestDate": "2026-10-23",
     "totalDatesRecorded": 294,
     "dateRange": "2026-01-01 s/d 2026-10-23",
@@ -89144,7 +89144,7 @@
           "category": "Onkologi & Hematologi",
           "notes": {
             "pagi": "",
-            "sore": "PB VIA IGD PUKUL 18.30\n\nDatang dengan keluhan : Kontrol pro operasi (R) liver resection, badan lemah, pucat pasien hcc dengan hbsag reaktif.\n\nPlanning via poly bedah digestif  : Rawat pro transfusi dan persiapan (R) hepatectomy/ anatomical (R) liver resection. Jadwal (-)\nplanning via igd : - ivfd nacl 0.9% 20tpm - tranfusi prc s/d 10. \n\nRiw : Pasien sudah 1 Minggu di Rawat di IGD Sudarso (Karena menunggu Ruang Kelas 1) , Sudah Pernah Pasang NGT via IGD dilepaskan atas permintaan pasien.\n\nHasil lab via Poli (+) Hasil, Hb : 6,9g/dL\nTahap 1 Tanggal 16/10/2026, Menggurus PRC 3 Colf , 3 Colf PRC Via IGD  (+) Cek lab ulang (+) Hasil,Hb : 8,5g/dL\nTahap 2, Tanggal 20/10/2026 , Mengurus Kembali PRC 4 Colf, 4 Colf PRC via IGD (+)\n\nBesok Sabtu, tgl 24/10/2026 Cek DR Ulang (-) input (-)\nCek Lab Persiapan Op via Poli (+) \n\nThorax pa (+) SSH\nCT. SC Abd (+) SSH .\n\nLapor pb (+)",
+            "sore": "PB VIA IGD PUKUL 18.30\n\nDatang dengan keluhan : Kontrol pro operasi (R) liver resection, badan lemah, pucat pasien hcc dengan hbsag reaktif.\n\nPlanning via poly bedah digestif  : Rawat pro transfusi dan persiapan (R) hepatectomy/ anatomical (R) liver resection. Jadwal (-)\nplanning via igd : - ivfd nacl 0.9% 20tpm - tranfusi prc s/d 10. \n\nRiw : Pasien sudah 1 Minggu di Rawat di IGD Sudarso (Karena menunggu Ruang Kelas 1) , Sudah Pernah Pasang NGT via IGD dilepaskan atas permintaan pasien.\n\nHasil lab via Poli (+) Hasil, Hb : 6,9g/dL\nTahap 1 Tanggal 16/10/2026, Menggurus PRC 3 Colf , 3 Colf PRC Via IGD  (+) Cek lab ulang (+) Hasil,Hb : 8,5g/dL\nTahap 2, Tanggal 20/10/2026 , Mengurus Kembali PRC 4 Colf, 4 Colf PRC via IGD (+)\n\nBesok Sabtu, tgl 24/10/2026 Cek DR Ulang (-) input (-)\nCek Lab Persiapan Op via Poli (+) \n\nThorax pa (+) SSH\nCT. SC Abd (+) SSH .\n\nLapor pb (+) \n\ndr. Zainul visite, tgl 23/10/2026 (+) a/i\nBesok Sabtu, USG abd . Malam Puasakan (-) Lapor OK IGD (+)\nCek lab post TF 7 colf . \nDiit Lunak . lapor kk diah gizi (+)",
             "malam": ""
           },
           "tags": [
@@ -89155,6 +89155,10 @@
             {
               "label": "Bedah / Operasi",
               "color": "orange"
+            },
+            {
+              "label": "Puasa Pre-Op",
+              "color": "amber"
             }
           ]
         },
@@ -89789,7 +89793,7 @@
           "category": "Penyakit Dalam (Metabolik)",
           "notes": {
             "pagi": "- Kel: BAB cair 2x , ampas + lemas + nafsu makan + BAK dbn mual muntah - Pasien riwayat b20 rutin 4 bulan mengkonsumsi ARV ambil di polklinik soedarsdo\nR/ Thorax pa (+) SSH\n\ndr. decky visite 22/10/26 : \n- HB = 6,6 rencana tranfusi prc 4 unit =>> Kolf ke 3  (+), 1 di UTD\n- Kalium = 1.98 ==>> Ivf ns 500+kcl 25/8 jam (4 siklus) => Kolf 3 Terpasang jam 10.00 (+)pagi ini  lanjut siklus 4 \n- rencana cek elektrolit Dl albumin post koreksi 4 siklus KCL \n- Diatab 4x2 =>> K/P\n- Cefotaxime 3x1 H2, Metronidazole 3x500 mg iv, Omeprazole 1x40 mg, Ksr 4x600 mg, kotrimoksasol 1x 960 mg, ca gluconas 2x1, fluconazole 1x 150 mg , tracetate 2x 10 cc\n- Arv lanjut (TLD 1x1)\n- (+) nebu ns 3% 2cc/8 jam, gabaxa 1x1\n- extra loperamid 2 mg \n- cek TCM => POT Dengan Pasien, Form di Satus\n\nKonsul Mata dr.Pramudia (+)\n- Floxa 6x1 tetes (Kosong di Apotik)\n- Cendo mycos zalp 3x1 => dimasukkan kedalam mata\n\nKonsul dr alvin SpBTKV untuk psg cvc ( bila sudah terpasang lapor)",
-            "sore": "- Kel: BAB cair 2x , ampas + lemas + nafsu makan + BAK dbn mual muntah - Pasien riwayat b20 rutin 4 bulan mengkonsumsi ARV ambil di polklinik soedarsdo\nR/ Thorax pa (+) SSH\n\ndr. decky visite 22/10/26 : \n- HB = 6,6 rencana tranfusi prc 4 unit =>> Kolf ke 3  (+), sdg tranfusi kolf ke 4 \n- Kalium = 1.98 ==>> Ivf ns 500+kcl 25/8 jam (4 siklus) => Kolf 3 Terpasang jam 10.00 (+)  pagi ini  lanjut siklus 4 => sdg terpasang\n- Sabtu tgl 24/10/2026  cek elektrolit Dl albumin post TF dan koreksi 4 siklus KCL \n- Diatab 4x2 =>> K/P\n- Cefotaxime 3x1 H2, Metronidazole 3x500 mg iv, Omeprazole 1x40 mg, Ksr 4x600 mg, kotrimoksasol 1x 960 mg, ca gluconas 2x1, fluconazole 1x 150 mg , tracetate 2x 10 cc\n- Arv lanjut (TLD 1x1)\n- (+) nebu ns 3% 2cc/8 jam, gabaxa 1x1\n- extra loperamid 2 mg \n- cek TCM => POT Dengan Pasien, Form di Satus\n\nKonsul Mata dr.Pramudia (+)\n- Floxa 6x1 tetes (Kosong di Apotik)\n- Cendo mycos zalp 3x1 => dimasukkan kedalam mata\n\nKonsul dr alvin SpBTKV untuk psg cvc ( bila sudah terpasang lapor)",
+            "sore": "- Kel: BAB cair 2x , ampas + lemas + nafsu makan + BAK dbn mual muntah - Pasien riwayat b20 rutin 4 bulan mengkonsumsi ARV ambil di polklinik soedarsdo\nR/ Thorax pa (+) SSH\n\ndr. decky visite 22/10/26 : \n- HB = 6,6 rencana tranfusi prc 4 unit =>> Kolf ke 3  (+), sdg tranfusi kolf ke 4 \n- Kalium = 1.98 ==>> Ivf ns 500+kcl 25/8 jam (4 siklus) => Kolf 3 Terpasang jam 10.00 (+)  pagi ini  lanjut siklus 4 => sdg terpasang (+) selesai jam 18.00\n- Sabtu tgl 24/10/2026  cek elektrolit, DR , albumin post TF dan koreksi 4 siklus KCL \n- Diatab 4x2 =>> K/P\n- Cefotaxime 3x1 H2, Metronidazole 3x500 mg iv, Omeprazole 1x40 mg, Ksr 4x600 mg, kotrimoksasol 1x 960 mg, ca gluconas 2x1, fluconazole 1x 150 mg , tracetate 2x 10 cc\n- Arv lanjut (TLD 1x1)\n- (+) nebu ns 3% 2cc/8 jam, gabaxa 1x1\n- extra loperamid 2 mg \n- cek TCM => POT Dengan Pasien, Form di Satus\n\nKonsul Mata dr.Pramudia (+)\n- Floxa 6x1 tetes (Kosong di Apotik)\n- Cendo mycos zalp 3x1 => dimasukkan kedalam mata\n\nKonsul dr alvin SpBTKV untuk psg cvc ( bila sudah terpasang lapor)",
             "malam": ""
           },
           "tags": [
@@ -90431,7 +90435,7 @@
           "category": "Nefrologi & Urologi",
           "notes": {
             "pagi": "- Kel: Gelisah Kaki kiri bengkak merah Jari tengah kanan ada bisul dan bengkak?\n\ndr.Decky,Sp.PD visite tanggal 22/10/2026:\n- Ivf ns 500/12 jam \n- Omeprazole 1x40 mg Ceftriaxone 1x2 gr H2 Metronidazole 3x500 mg iv H2 Pct 3x1 gr Nocid 3x2 \n- R/ Transfusi PRC 5 kolf (Trabsfusi prc/24 jam) =>> 1 kolf (+) DI IGD, Sedang TF kolf ke-2, Sisa 3 kolf di UTD\n- premed furosemid 1 amp bila TD> 100 \n- Obs. TD ( jam 13:21 = 118/75 mmHg)\n- Rawat bersama dr gerald SpB (+)\n- Pasang DC (-) =>> PX MENOLAK, TTD (-)\n- Hasil cek DL Post Tranfusi PRC 1 kolf , UR/CR, elektrolit (Tanggal 23/10/2026) (HB:5.5 PLT: 325 WBC; 8.75 UR: 204.9 CR: 5.95 eGFR:  11 Na: 136.50 K:  5.51 Cl: 107.80 Ca Ion: 1.29) =>> Lapor dr.Decky (+) a/i: Co dr Sony SpPD-KGH untuk pertimbangan HD (+) Balasan (-)\n\ndr.Gerald,Sp.B via IGD: \n- perbaikan KU dulu\n- GV (Luka Kaki kiri) o/ TWC =>> Kamis 22/10/2026 (+) =>> Selanjutnya Besok Sabtu 24/10/2026 (-)",
-            "sore": "- Kel: Gelisah Kaki kiri bengkak merah Jari tengah kanan ada bisul dan bengkak?\n\ndr.Decky,Sp.PD visite tanggal 22/10/2026:\n- Ivf ns 500/12 jam \n- Omeprazole 1x40 mg Ceftriaxone 1x2 gr H2 Metronidazole 3x500 mg iv H2 Pct 3x1 gr Nocid 3x2 \n- R/ Transfusi PRC 5 kolf (Trabsfusi prc/24 jam) =>> kolf ke-2(+) selesai jam 16.00, Sisa 3 kolf di UTD\n- premed furosemid 1 amp bila TD> 100 \n- Obs. TD ( jam 13:21 = 118/75 mmHg, jam 17.00 = 149/68 SPo : 99 %)\n- Pasang DC (-) =>> PX MENOLAK, TTD (-)\n- Hasil cek DL Post Tranfusi PRC 1 kolf , UR/CR, elektrolit (Tanggal 23/10/2026) (HB:5.5 PLT: 325 WBC; 8.75 UR: 204.9 CR: 5.95 eGFR:  11 Na: 136.50 K:  5.51 Cl: 107.80 Ca Ion: 1.29) =>> Lapor dr.Decky (+) a/i: Co dr Sony SpPD-KGH untuk pertimbangan HD (+)\n\nCo dr. Sony (+)  a/i :\n- Acc, Edukasi HD ya (-) tunggu keluarga \n- cek AGD (+) SSH\n\ndr.Gerald,Sp.B via IGD: \n- perbaikan KU dulu\n- GV (Luka Kaki kiri) o/ TWC =>> Kamis 22/10/2026 (+) =>> Selanjutnya Besok Sabtu 24/10/2026 (-)",
+            "sore": "- Kel: Gelisah Kaki kiri bengkak merah Jari tengah kanan ada bisul dan bengkak?\n\ndr.Decky,Sp.PD visite tanggal 22/10/2026:\n- Ivf ns 500/12 jam \n- Omeprazole 1x40 mg Ceftriaxone 1x2 gr H2 Metronidazole 3x500 mg iv H2 Pct 3x1 gr Nocid 3x2 \n- R/ Transfusi PRC 5 kolf (Trabsfusi prc/24 jam) =>> kolf ke-2(+) selesai jam 16.00, Sisa 3 kolf di UTD\n- premed furosemid 1 amp bila TD> 100 \n- Obs. TD ( jam 13:21 = 118/75 mmHg, jam 17.00 = 149/68 SPo : 99 %)\n- Pasang DC (-) =>> PX MENOLAK, TTD (-)\n- Hasil cek DL Post Tranfusi PRC 1 kolf , UR/CR, elektrolit (Tanggal 23/10/2026) (HB:5.5 PLT: 325 WBC; 8.75 UR: 204.9 CR: 5.95 eGFR:  11 Na: 136.50 K:  5.51 Cl: 107.80 Ca Ion: 1.29) =>> Lapor dr.Decky (+) a/i: Co dr Sony SpPD-KGH untuk pertimbangan HD (+)\n\nCo dr. Sony (+)  a/i :\n- Acc, Edukasi HD ya (-) tunggu keluarga \n- cek AGD (+) SSH\n- Besok sabtu 24/10/26  daftarkan HD Cito ya...Asidosis Berat, daftar kak maja (+) \n\ndr.Gerald,Sp.B via IGD: \n- perbaikan KU dulu\n- GV (Luka Kaki kiri) o/ TWC =>> Kamis 22/10/2026 (+) =>> Selanjutnya Besok Sabtu 24/10/2026 (-)",
             "malam": ""
           },
           "tags": [
@@ -90764,7 +90768,7 @@
           "Bedah / Operasi": 20,
           "Transfusi Darah": 25,
           "Onkologi": 15,
-          "Puasa Pre-Op": 6,
+          "Puasa Pre-Op": 7,
           "Rencana Pulang": 9,
           "Pulang Hari Ini": 6,
           "Hemodialisa (HD)": 10
@@ -91098,7 +91102,7 @@
         "category": "Onkologi & Hematologi",
         "notes": {
           "pagi": "",
-          "sore": "PB VIA IGD PUKUL 18.30\n\nDatang dengan keluhan : Kontrol pro operasi (R) liver resection, badan lemah, pucat pasien hcc dengan hbsag reaktif.\n\nPlanning via poly bedah digestif  : Rawat pro transfusi dan persiapan (R) hepatectomy/ anatomical (R) liver resection. Jadwal (-)\nplanning via igd : - ivfd nacl 0.9% 20tpm - tranfusi prc s/d 10. \n\nRiw : Pasien sudah 1 Minggu di Rawat di IGD Sudarso (Karena menunggu Ruang Kelas 1) , Sudah Pernah Pasang NGT via IGD dilepaskan atas permintaan pasien.\n\nHasil lab via Poli (+) Hasil, Hb : 6,9g/dL\nTahap 1 Tanggal 16/10/2026, Menggurus PRC 3 Colf , 3 Colf PRC Via IGD  (+) Cek lab ulang (+) Hasil,Hb : 8,5g/dL\nTahap 2, Tanggal 20/10/2026 , Mengurus Kembali PRC 4 Colf, 4 Colf PRC via IGD (+)\n\nBesok Sabtu, tgl 24/10/2026 Cek DR Ulang (-) input (-)\nCek Lab Persiapan Op via Poli (+) \n\nThorax pa (+) SSH\nCT. SC Abd (+) SSH .\n\nLapor pb (+)",
+          "sore": "PB VIA IGD PUKUL 18.30\n\nDatang dengan keluhan : Kontrol pro operasi (R) liver resection, badan lemah, pucat pasien hcc dengan hbsag reaktif.\n\nPlanning via poly bedah digestif  : Rawat pro transfusi dan persiapan (R) hepatectomy/ anatomical (R) liver resection. Jadwal (-)\nplanning via igd : - ivfd nacl 0.9% 20tpm - tranfusi prc s/d 10. \n\nRiw : Pasien sudah 1 Minggu di Rawat di IGD Sudarso (Karena menunggu Ruang Kelas 1) , Sudah Pernah Pasang NGT via IGD dilepaskan atas permintaan pasien.\n\nHasil lab via Poli (+) Hasil, Hb : 6,9g/dL\nTahap 1 Tanggal 16/10/2026, Menggurus PRC 3 Colf , 3 Colf PRC Via IGD  (+) Cek lab ulang (+) Hasil,Hb : 8,5g/dL\nTahap 2, Tanggal 20/10/2026 , Mengurus Kembali PRC 4 Colf, 4 Colf PRC via IGD (+)\n\nBesok Sabtu, tgl 24/10/2026 Cek DR Ulang (-) input (-)\nCek Lab Persiapan Op via Poli (+) \n\nThorax pa (+) SSH\nCT. SC Abd (+) SSH .\n\nLapor pb (+) \n\ndr. Zainul visite, tgl 23/10/2026 (+) a/i\nBesok Sabtu, USG abd . Malam Puasakan (-) Lapor OK IGD (+)\nCek lab post TF 7 colf . \nDiit Lunak . lapor kk diah gizi (+)",
           "malam": ""
         },
         "tags": [
@@ -91109,6 +91113,10 @@
           {
             "label": "Bedah / Operasi",
             "color": "orange"
+          },
+          {
+            "label": "Puasa Pre-Op",
+            "color": "amber"
           }
         ]
       },
@@ -91743,7 +91751,7 @@
         "category": "Penyakit Dalam (Metabolik)",
         "notes": {
           "pagi": "- Kel: BAB cair 2x , ampas + lemas + nafsu makan + BAK dbn mual muntah - Pasien riwayat b20 rutin 4 bulan mengkonsumsi ARV ambil di polklinik soedarsdo\nR/ Thorax pa (+) SSH\n\ndr. decky visite 22/10/26 : \n- HB = 6,6 rencana tranfusi prc 4 unit =>> Kolf ke 3  (+), 1 di UTD\n- Kalium = 1.98 ==>> Ivf ns 500+kcl 25/8 jam (4 siklus) => Kolf 3 Terpasang jam 10.00 (+)pagi ini  lanjut siklus 4 \n- rencana cek elektrolit Dl albumin post koreksi 4 siklus KCL \n- Diatab 4x2 =>> K/P\n- Cefotaxime 3x1 H2, Metronidazole 3x500 mg iv, Omeprazole 1x40 mg, Ksr 4x600 mg, kotrimoksasol 1x 960 mg, ca gluconas 2x1, fluconazole 1x 150 mg , tracetate 2x 10 cc\n- Arv lanjut (TLD 1x1)\n- (+) nebu ns 3% 2cc/8 jam, gabaxa 1x1\n- extra loperamid 2 mg \n- cek TCM => POT Dengan Pasien, Form di Satus\n\nKonsul Mata dr.Pramudia (+)\n- Floxa 6x1 tetes (Kosong di Apotik)\n- Cendo mycos zalp 3x1 => dimasukkan kedalam mata\n\nKonsul dr alvin SpBTKV untuk psg cvc ( bila sudah terpasang lapor)",
-          "sore": "- Kel: BAB cair 2x , ampas + lemas + nafsu makan + BAK dbn mual muntah - Pasien riwayat b20 rutin 4 bulan mengkonsumsi ARV ambil di polklinik soedarsdo\nR/ Thorax pa (+) SSH\n\ndr. decky visite 22/10/26 : \n- HB = 6,6 rencana tranfusi prc 4 unit =>> Kolf ke 3  (+), sdg tranfusi kolf ke 4 \n- Kalium = 1.98 ==>> Ivf ns 500+kcl 25/8 jam (4 siklus) => Kolf 3 Terpasang jam 10.00 (+)  pagi ini  lanjut siklus 4 => sdg terpasang\n- Sabtu tgl 24/10/2026  cek elektrolit Dl albumin post TF dan koreksi 4 siklus KCL \n- Diatab 4x2 =>> K/P\n- Cefotaxime 3x1 H2, Metronidazole 3x500 mg iv, Omeprazole 1x40 mg, Ksr 4x600 mg, kotrimoksasol 1x 960 mg, ca gluconas 2x1, fluconazole 1x 150 mg , tracetate 2x 10 cc\n- Arv lanjut (TLD 1x1)\n- (+) nebu ns 3% 2cc/8 jam, gabaxa 1x1\n- extra loperamid 2 mg \n- cek TCM => POT Dengan Pasien, Form di Satus\n\nKonsul Mata dr.Pramudia (+)\n- Floxa 6x1 tetes (Kosong di Apotik)\n- Cendo mycos zalp 3x1 => dimasukkan kedalam mata\n\nKonsul dr alvin SpBTKV untuk psg cvc ( bila sudah terpasang lapor)",
+          "sore": "- Kel: BAB cair 2x , ampas + lemas + nafsu makan + BAK dbn mual muntah - Pasien riwayat b20 rutin 4 bulan mengkonsumsi ARV ambil di polklinik soedarsdo\nR/ Thorax pa (+) SSH\n\ndr. decky visite 22/10/26 : \n- HB = 6,6 rencana tranfusi prc 4 unit =>> Kolf ke 3  (+), sdg tranfusi kolf ke 4 \n- Kalium = 1.98 ==>> Ivf ns 500+kcl 25/8 jam (4 siklus) => Kolf 3 Terpasang jam 10.00 (+)  pagi ini  lanjut siklus 4 => sdg terpasang (+) selesai jam 18.00\n- Sabtu tgl 24/10/2026  cek elektrolit, DR , albumin post TF dan koreksi 4 siklus KCL \n- Diatab 4x2 =>> K/P\n- Cefotaxime 3x1 H2, Metronidazole 3x500 mg iv, Omeprazole 1x40 mg, Ksr 4x600 mg, kotrimoksasol 1x 960 mg, ca gluconas 2x1, fluconazole 1x 150 mg , tracetate 2x 10 cc\n- Arv lanjut (TLD 1x1)\n- (+) nebu ns 3% 2cc/8 jam, gabaxa 1x1\n- extra loperamid 2 mg \n- cek TCM => POT Dengan Pasien, Form di Satus\n\nKonsul Mata dr.Pramudia (+)\n- Floxa 6x1 tetes (Kosong di Apotik)\n- Cendo mycos zalp 3x1 => dimasukkan kedalam mata\n\nKonsul dr alvin SpBTKV untuk psg cvc ( bila sudah terpasang lapor)",
           "malam": ""
         },
         "tags": [
@@ -92385,7 +92393,7 @@
         "category": "Nefrologi & Urologi",
         "notes": {
           "pagi": "- Kel: Gelisah Kaki kiri bengkak merah Jari tengah kanan ada bisul dan bengkak?\n\ndr.Decky,Sp.PD visite tanggal 22/10/2026:\n- Ivf ns 500/12 jam \n- Omeprazole 1x40 mg Ceftriaxone 1x2 gr H2 Metronidazole 3x500 mg iv H2 Pct 3x1 gr Nocid 3x2 \n- R/ Transfusi PRC 5 kolf (Trabsfusi prc/24 jam) =>> 1 kolf (+) DI IGD, Sedang TF kolf ke-2, Sisa 3 kolf di UTD\n- premed furosemid 1 amp bila TD> 100 \n- Obs. TD ( jam 13:21 = 118/75 mmHg)\n- Rawat bersama dr gerald SpB (+)\n- Pasang DC (-) =>> PX MENOLAK, TTD (-)\n- Hasil cek DL Post Tranfusi PRC 1 kolf , UR/CR, elektrolit (Tanggal 23/10/2026) (HB:5.5 PLT: 325 WBC; 8.75 UR: 204.9 CR: 5.95 eGFR:  11 Na: 136.50 K:  5.51 Cl: 107.80 Ca Ion: 1.29) =>> Lapor dr.Decky (+) a/i: Co dr Sony SpPD-KGH untuk pertimbangan HD (+) Balasan (-)\n\ndr.Gerald,Sp.B via IGD: \n- perbaikan KU dulu\n- GV (Luka Kaki kiri) o/ TWC =>> Kamis 22/10/2026 (+) =>> Selanjutnya Besok Sabtu 24/10/2026 (-)",
-          "sore": "- Kel: Gelisah Kaki kiri bengkak merah Jari tengah kanan ada bisul dan bengkak?\n\ndr.Decky,Sp.PD visite tanggal 22/10/2026:\n- Ivf ns 500/12 jam \n- Omeprazole 1x40 mg Ceftriaxone 1x2 gr H2 Metronidazole 3x500 mg iv H2 Pct 3x1 gr Nocid 3x2 \n- R/ Transfusi PRC 5 kolf (Trabsfusi prc/24 jam) =>> kolf ke-2(+) selesai jam 16.00, Sisa 3 kolf di UTD\n- premed furosemid 1 amp bila TD> 100 \n- Obs. TD ( jam 13:21 = 118/75 mmHg, jam 17.00 = 149/68 SPo : 99 %)\n- Pasang DC (-) =>> PX MENOLAK, TTD (-)\n- Hasil cek DL Post Tranfusi PRC 1 kolf , UR/CR, elektrolit (Tanggal 23/10/2026) (HB:5.5 PLT: 325 WBC; 8.75 UR: 204.9 CR: 5.95 eGFR:  11 Na: 136.50 K:  5.51 Cl: 107.80 Ca Ion: 1.29) =>> Lapor dr.Decky (+) a/i: Co dr Sony SpPD-KGH untuk pertimbangan HD (+)\n\nCo dr. Sony (+)  a/i :\n- Acc, Edukasi HD ya (-) tunggu keluarga \n- cek AGD (+) SSH\n\ndr.Gerald,Sp.B via IGD: \n- perbaikan KU dulu\n- GV (Luka Kaki kiri) o/ TWC =>> Kamis 22/10/2026 (+) =>> Selanjutnya Besok Sabtu 24/10/2026 (-)",
+          "sore": "- Kel: Gelisah Kaki kiri bengkak merah Jari tengah kanan ada bisul dan bengkak?\n\ndr.Decky,Sp.PD visite tanggal 22/10/2026:\n- Ivf ns 500/12 jam \n- Omeprazole 1x40 mg Ceftriaxone 1x2 gr H2 Metronidazole 3x500 mg iv H2 Pct 3x1 gr Nocid 3x2 \n- R/ Transfusi PRC 5 kolf (Trabsfusi prc/24 jam) =>> kolf ke-2(+) selesai jam 16.00, Sisa 3 kolf di UTD\n- premed furosemid 1 amp bila TD> 100 \n- Obs. TD ( jam 13:21 = 118/75 mmHg, jam 17.00 = 149/68 SPo : 99 %)\n- Pasang DC (-) =>> PX MENOLAK, TTD (-)\n- Hasil cek DL Post Tranfusi PRC 1 kolf , UR/CR, elektrolit (Tanggal 23/10/2026) (HB:5.5 PLT: 325 WBC; 8.75 UR: 204.9 CR: 5.95 eGFR:  11 Na: 136.50 K:  5.51 Cl: 107.80 Ca Ion: 1.29) =>> Lapor dr.Decky (+) a/i: Co dr Sony SpPD-KGH untuk pertimbangan HD (+)\n\nCo dr. Sony (+)  a/i :\n- Acc, Edukasi HD ya (-) tunggu keluarga \n- cek AGD (+) SSH\n- Besok sabtu 24/10/26  daftarkan HD Cito ya...Asidosis Berat, daftar kak maja (+) \n\ndr.Gerald,Sp.B via IGD: \n- perbaikan KU dulu\n- GV (Luka Kaki kiri) o/ TWC =>> Kamis 22/10/2026 (+) =>> Selanjutnya Besok Sabtu 24/10/2026 (-)",
           "malam": ""
         },
         "tags": [
@@ -92718,7 +92726,7 @@
         "Bedah / Operasi": 20,
         "Transfusi Darah": 25,
         "Onkologi": 15,
-        "Puasa Pre-Op": 6,
+        "Puasa Pre-Op": 7,
         "Rencana Pulang": 9,
         "Pulang Hari Ini": 6,
         "Hemodialisa (HD)": 10
