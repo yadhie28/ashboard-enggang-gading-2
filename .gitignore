@@ -7,3 +7,5 @@ dashboard-enggang-gading-2.zip
 .DS_Store
 *.log
 wa_gateway_config.json
+*.xlsx
+*.xlsx.tmp
