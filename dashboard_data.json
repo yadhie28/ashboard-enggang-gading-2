@@ -13,7 +13,7 @@
       "Enggang Gading 2A (16 Bed)",
       "Enggang Gading 2B (40 Bed)"
     ],
-    "lastUpdated": "23-10-2026 06:26:13",
+    "lastUpdated": "23-10-2026 06:56:21",
     "latestDate": "2026-10-23",
     "totalDatesRecorded": 294,
     "dateRange": "2026-01-01 s/d 2026-10-23",
@@ -89574,7 +89574,7 @@
           "diagnosis": "ckd on hd pro avshunt",
           "category": "Nefrologi & Urologi",
           "notes": {
-            "pagi": "Post av shunt Kamis 22/10/26 DI OK IBS ( tangan kiri)\nInstruksi Post op\n  blpl 4 jam post op obat pulang cefadroxil 2 x 500 mg, asam mefenamat 3x 1 tab =>> sudah di input\n\nDaftar HD  JUM'AT TGL. 23/10/26 (+) => Post HD Cek, Ur, Cr => BLPL",
+            "pagi": "Post av shunt Kamis 22/10/26 DI OK IBS ( tangan kiri)\nInstruksi Post op\n  blpl 4 jam post op obat pulang cefadroxil 2 x 500 mg, asam mefenamat 3x 1 tab =>> sudah di input\n\nDaftar HD  JUM'AT TGL. 23/10/26 (+) => Post HD Cek, Ur, Cr => BLPL\nPASIEN MASIH MUAL DAN MUNTAH DI HD",
             "sore": "",
             "malam": ""
           },
@@ -89993,11 +89993,15 @@
           "diagnosis": "Ca mammae on kemoterapi, anemia",
           "category": "Onkologi & Hematologi",
           "notes": {
-            "pagi": "- Kel: Nyeri perut (+), nyeri pinggang hingga kaki (+), lemas (+).\n- Riw: pasien pro kemo ulang, riw ca mamae\n- Inj. Epodion 10000 1x di IGD (+) Tanggal 21/10/2026\n\ndr. Eko,Sp.B(Onk) visite tanggal 22/10/2026:\n- R/ Tranfusi PRC 2 kolf (Urus 3 kolf) =>> 2 kolf (+), sisa 1 kolf SEDANG DIURUS\n- Jika HB < 10 =>> urus prc 1 kolf lagi\n- Hasil cek DR post Tranfusi PRC 2 kolf (HB: 11.4 PLT: 546 WBC:  8.46)",
+            "pagi": "- Kel: Nyeri perut (+), nyeri pinggang hingga kaki (+), lemas (+).\n- Riw: pasien pro kemo ulang, riw ca mamae\n- Inj. Epodion 10000 1x di IGD (+) Tanggal 21/10/2026\n\ndr. Eko,Sp.B(Onk) visite tanggal 22/10/2026:\n- R/ Tranfusi PRC 2 kolf (Urus 3 kolf) =>> 2 kolf (+), sedang TF kolf ke-3\n- Hasil cek DR post Tranfusi PRC 2 kolf (HB: 11.4 PLT: 546 WBC:  8.46)\n- Besok Sabtu 24/10/2026 cek DR ulang post TF Kolf ke-4 (-)\n- BLPL Jika Target Tercapai dan Lanjut Kemoterapi Via Poli =>> Resep & Resume Pulang (-)",
             "sore": "",
             "malam": ""
           },
           "tags": [
+            {
+              "label": "Rencana Pulang",
+              "color": "green"
+            },
             {
               "label": "Transfusi Darah",
               "color": "red"
@@ -90033,7 +90037,7 @@
           "diagnosis": "DMDF wg III pedis D DM tipe 2",
           "category": "Penyakit Dalam (Metabolik)",
           "notes": {
-            "pagi": "- Kel: Hidung mampet Sulit tidur + Pusing berkurang\n- Riw. DM (+), minum obat oral.\n- Ro Thorax (Tanggal 11/10/2026) \"Radiografi thorax dalam batas normal\"\n\ndr.Gerald,Sp.B visite tanggal 16/10/2026:\n- Post OP debridement  Sabtu 17/10/2026  di OK IGD (POD 6)\n- IVFD RL 20 tpm \n- cefotaxime 3x1 g metronidazole 3x500mg omeprazole 1x40mg, CTM 2x1 =\n- drip tko/8jam \n- Hasil Kultur dasar luka sampel di SIMRS (+) \n- Rawat luka o/ TWC =>> Jumat 23/10/2026 (+)\n- Lapor dr.Gerald,Sp.B apakah boleh pulang (+) a/i: BLPL =>> Resume Pulang (-), Obat Pulang (Co amoxiclav 3x1, Dexketoprofen 2x1, Salep gentamycin 2x1)\n\ndr.Muhardani Iqbal,Sp.PD visite tanggal 19/10/2026: \n- Inj Ketorolac 30 mg iv , Inj PCT 1 gr iv , Inj Ranitidin 2x1 amp iv, gabapentin 1x300mg, flunarizin 2x10mg\n- Lanjut Sesuai Bedah\n- Cek GDS/hari (Pagi = 173 mg/dL) =>>  inj. lantus xr 1x32 IU & inj. novorapid 3x24 iu\n- Lapor dr.Muhardani Iqbal px BLPL dari dr.Gerald & tanya obat pulang IPD (+) Balasan (-)",
+            "pagi": "- Kel: Hidung mampet Sulit tidur + Pusing berkurang\n- Riw. DM (+), minum obat oral.\n- Ro Thorax (Tanggal 11/10/2026) \"Radiografi thorax dalam batas normal\"\n\ndr.Gerald,Sp.B visite tanggal 16/10/2026:\n- Post OP debridement  Sabtu 17/10/2026  di OK IGD (POD 6)\n- IVFD RL 20 tpm \n- cefotaxime 3x1 g metronidazole 3x500mg omeprazole 1x40mg, CTM 2x1 =\n- drip tko/8jam \n- Hasil Kultur dasar luka sampel di SIMRS (+) \n- Rawat luka o/ TWC =>> Jumat 23/10/2026 (+)\n- Lapor dr.Gerald,Sp.B apakah boleh pulang (+) a/i: BLPL =>> Resume Pulang (-), Obat Pulang (Co amoxiclav 3x1, Dexketoprofen 2x1, Salep gentamycin 2x1) di SIMRS (+), Kontrol Poli Senin 26/10/2026\n\ndr.Muhardani Iqbal,Sp.PD visite tanggal 19/10/2026: \n- Inj Ketorolac 30 mg iv , Inj PCT 1 gr iv , Inj Ranitidin 2x1 amp iv, gabapentin 1x300mg, flunarizin 2x10mg\n- Lanjut Sesuai Bedah\n- Cek GDS/hari (Pagi = 173 mg/dL)\n- Lapor dr.Muhardani Iqbal px BLPL dari dr.Gerald & tanya obat pulang IPD (+) a/i: Obat Pulang (Inj. Lantus 1x24 iu & Inj. Novorapid 3x18 iu)",
             "sore": "",
             "malam": ""
           },
@@ -90137,7 +90141,7 @@
           "diagnosis": "OS ATTACHED RETINA + GAS FILLED EYE",
           "category": "Lain-lain",
           "notes": {
-            "pagi": "dr.Mia,Sp.M:\n- Post op operasi vitrectomi dg GA Besok Jumat 23/10/2026 di OK IBS (+) selesai jam 12:30\n- Ro Thorax (+)\n- Obs. TD (Jam 06:00 = 161/106 mmHg)\n- Cek GDS/HARI (GDP: 123) =>> Levemir 0-0-4 ui\n- Candesartan 1x16mg & Amlodipn 1x10mg =>> RESEP (-)\nInstruksi Post Op dr.Mia:\n- OS POST VPP + MP + ED + EL + SO EXCHANGE TO GAS C3F8 \n- TH/ LEVOFLOXACIN 1X500MG PO, PCT 3X500 MG PO =>> RESEP (-)\n- FLOXA 1 TETES TIAP 3 JAM OS, P PRED 1 TETES TIAP 3 JAM OS =>> RESEP (-)\n- TIDUR TELUNGKUP 12 JAM / HARI (SELAMA 2 MINGGU) =>> KIE (-)\n- BESOK SABTU 24/10/2026 PULANG =>> RESUME & RESEP PULANG, KONTROL POLI MATA 30/10/2026\n\nSTATUS MASIH DI OK IBS",
+            "pagi": "dr.Mia,Sp.M:\n- Post op operasi vitrectomi dg GA Besok Jumat 23/10/2026 di OK IBS (+) selesai jam 12:30\n- Ro Thorax di Px (+)\n- Obs. TD (Jam 06:00 = 161/106 mmHg)\n- Cek GDS/HARI (GDP: 123) =>> Levemir 0-0-4 ui\n- Candesartan 1x16mg & Amlodipn 1x10mg =>> RESEP (-)\nInstruksi Post Op dr.Mia:\n- OS POST VPP + MP + ED + EL + SO EXCHANGE TO GAS C3F8 \n- TH/ LEVOFLOXACIN 1X500MG PO, PCT 3X500 MG PO =>> RESEP DI PX (+)\n- FLOXA 1 TETES TIAP 3 JAM OS =>> RESEP BELI DILUAR DI PX (+)\n- P PRED 1 TETES TIAP 3 JAM OS =>> RESEP DI PX (+)\n- TIDUR TELUNGKUP 12 JAM / HARI (SELAMA 2 MINGGU) =>> KIE (+)\n- BESOK SABTU 24/10/2026 PULANG =>> RESUME PULANG DI STATYS (+), KONTROL POLI MATA 30/10/2026",
             "sore": "",
             "malam": ""
           },
@@ -90173,7 +90177,7 @@
           "diagnosis": "abdominal pain trombositopenia susp. dengue fever",
           "category": "Lain-lain",
           "notes": {
-            "pagi": "- Kel: Nyeri kepala Batuk kuat, dahak kuning Nyeri tenggorokan Mual (+) Nyeri perut\n- Hasil Troponin I:  <= 0.006  ng/mL\n- inj. ondancetron 3x1\n\ndr.Danar,Sp.PD-KGH via IGD:\n- Inf rl 20-30ttm\n- Pct tab 3x1, Inj.lanso 1amp/24jam\n- Cek trombosit/hari =>> Kamis 22/10/2026 (HB:  11.4 PLT:101 WBC: 3.35) =>> Jumat 23/10/2026 (HB:  11.2 PLT: 117 WBC:  3.84) =>> Selanjutnya Sabtu\n- Hasil Cek igm igg dengue (Tanggal 21/10/2026): NR\n- Lapor PB dr.Danar & hasil lab Tanggal 21/10/2026 (+) Balasan (-)\n- Lapor dr.Danar keluhan batuk berdahak & Hasil Trombosit Tanggal 22/10/2026 (+) Balasan (-)",
+            "pagi": "- Kel: Nyeri kepala Batuk kuat, dahak kuning Nyeri tenggorokan Mual (+) Nyeri perut\n- Hasil Troponin I:  <= 0.006  ng/mL\n- inj. ondancetron 3x1\n\ndr.Danar,Sp.PD-KGH via IGD:\n- Inf rl 20-30ttm\n- Pct tab 3x1, Inj.lanso 1amp/24jam\n- Cek trombosit/hari =>> Kamis 22/10/2026 (HB:  11.4 PLT:101 WBC: 3.35) =>> Jumat 23/10/2026 (HB:  11.2 PLT: 117 WBC:  3.84) =>> Selanjutnya Sabtu 24/10/2026 (-)\n- Hasil Cek igm igg dengue (Tanggal 21/10/2026): NR\n- Lapor PB dr.Danar & hasil lab Tanggal 21/10/2026 (+) Balasan (-)\n- Lapor dr.Danar keluhan batuk berdahak & Hasil Trombosit Tanggal 23/10/2026 (+) Balasan (-)",
             "sore": "",
             "malam": ""
           },
@@ -90200,7 +90204,7 @@
           "diagnosis": "Hematemesis \nTB Paru Relaps on OAT Bln Ke-6",
           "category": "Pulmonologi / Paru",
           "notes": {
-            "pagi": "- Kel: Batuk berdahak bercampur darah +\n- RPD: pasien tb dalam pengobatan terakhir 6 bulan di tanggal 22/10/26 dari pkm saigon\n- RPO: Riwayat makan obat nyeri dan jamu-jamuan disangkal\n\ndr.Darmawan,Sp.PD-KGH visite tanggal 23/10/2026:\n- IVFD RL 20 tpm\n- Asam tranexamat 3x500 mg iv, Vit K 3x10 mg iv, Omz 2x40 mg iv, Sukralfat 3x15 cx, Cefotaxime 3x1 gr iv, NACE 3x200mg PO \n- Azithromycin 1x500 mg po =>> STOP\n- Jika K/U Baik =>> BLPL =>> Resep & Resume Pulang (-)\n\ndr.Pradana,Sp,P visite tanggal 21/10/2026:\n- pasien tb klinis, di bulan keenam, bta di bulan kedua tetap negatif\n- boleh rawat ruang biasa sesuai dpjp\n- salbutamol 3x2mg\n- codein 3x10mg =>> STOP\n- Edukasi (+)\n- SSH cek BTA akhir pengobatan (Kamis 22/10/2026)\n- Saran Kontrol Poli Paru Jika Sudah Pulang, untuk pencegahan batuk memberat\n- Lapor dr.Pradana apakah pasien bisa Rawat Jalan sambil nunggu Hasil BTA (+) a/i: BLPL =>> Obat pulang Sedang di tanya ke dr.Pradana,Sp.P (-), Kontrol Poli Paru Jumat 30/10/2026",
+            "pagi": "- Kel: Batuk berdahak bercampur darah +\n- RPD: pasien tb dalam pengobatan terakhir 6 bulan di tanggal 22/10/26 dari pkm saigon\n- RPO: Riwayat makan obat nyeri dan jamu-jamuan disangkal\n\ndr.Darmawan,Sp.PD-KGH visite tanggal 23/10/2026:\n- IVFD RL 20 tpm\n- Asam tranexamat 3x500 mg iv, Vit K 3x10 mg iv, Omz 2x40 mg iv, Sukralfat 3x15 cx, Cefotaxime 3x1 gr iv, NACE 3x200mg PO \n- Azithromycin 1x500 mg po =>> STOP\n- Jika K/U Baik =>> BLPL =>> Resep & Resume Pulang (-)\n- Lapor dr.Darmawan minta obat pulang + Vitamin + keluhan BAK Sering / 1 jam (+) Balasan (-)\n- Jumat 23/10/2026 cek UR/CR ulang (-) INPUT (+)\n\ndr.Pradana,Sp,P visite tanggal 21/10/2026:\n- pasien tb klinis, di bulan keenam, bta di bulan kedua tetap negatif\n- boleh rawat ruang biasa sesuai dpjp\n- salbutamol 3x2mg\n- codein 3x10mg =>> STOP\n- Edukasi (+)\n- SSH cek BTA akhir pengobatan (Kamis 22/10/2026)\n- Saran Kontrol Poli Paru Jika Sudah Pulang, untuk pencegahan batuk memberat\n- Lapor dr.Pradana apakah pasien bisa Rawat Jalan sambil nunggu Hasil BTA (+) a/i: BLPL =>> Obat pulang Sedang di tanya ke dr.Pradana,Sp.P (-), Kontrol Poli Paru Jumat 30/10/2026",
             "sore": "",
             "malam": ""
           },
@@ -90408,10 +90412,10 @@
           "isDischargedToday": false,
           "isDeceased": false,
           "dischargeColor": null,
-          "name": "Tn. Deni Gustiansyah NO. HP KELUARGA: 085753540660",
+          "name": "Tn. Deni Gustiansyah NO. HP KELUARGA: 085753540660 (REKAN PASIEN)",
           "mrNo": "00304982",
           "gender": "L",
-          "age": "",
+          "age": "081345789756 th",
           "admissionDate": "20/10/2026",
           "los": 4,
           "insurance": "BPJS Kelas 3",
@@ -90420,7 +90424,7 @@
           "diagnosis": "Cellulitis gout tophaceous kronik Anemia AKI dd CKD",
           "category": "Nefrologi & Urologi",
           "notes": {
-            "pagi": "- Kel: Gelisah Kaki kiri bengkak merah Jari tengah kanan ada bisul dan bengkak?\n\ndr.Decky,Sp.PD visite tanggal 22/10/2026:\n- Ivf ns 500/12 jam \n- Omeprazole 1x40 mg Ceftriaxone 1x2 gr H2 Metronidazole 3x500 mg iv H2 Pct 3x1 gr Nocid 3x2 \n- HB: 5.5. R/ Transfusi PRC 5 kolf (prc/24 jam) =>> 1 kolf (+) DI IGD, Sisa 1 kolf di UTD, Sisa 2 kolf di PMI\n- premed furosemid 1 amp bila TD> 100 \n- Obs. TD ( jam 13:21 = 118/75 mmHg)\n- Rawat bersama dr gerald SpB (+)\n- Pasang DC (-) =>> PX MENOLAK, TTD (-)\n- Hasil cek DL, UR/CR, elektrolit (Tanggal 23/10/2026) (HB:5.5 PLT: 325 WBC; 8.75 UR: 204.9 CR: 5.95 eGFR:  11 Na: 136.50 K:  5.51 Cl: 107.80 Ca Ion: 1.29) =>> Lapor dr.Decky (+) Balasan (-)\n\ndr.Gerald,Sp.B via IGD: \n- perbaikan KU dulu\n- GV (Luka Kaki kiri) o/ TWC =>> Kamis 22/10/2026 (+) =>> Selanjutnya Besok Sabtu 24/10/2026 (-)",
+            "pagi": "- Kel: Gelisah Kaki kiri bengkak merah Jari tengah kanan ada bisul dan bengkak?\n\ndr.Decky,Sp.PD visite tanggal 22/10/2026:\n- Ivf ns 500/12 jam \n- Omeprazole 1x40 mg Ceftriaxone 1x2 gr H2 Metronidazole 3x500 mg iv H2 Pct 3x1 gr Nocid 3x2 \n- HB: 5.5. R/ Transfusi PRC 5 kolf (prc/24 jam) =>> 1 kolf (+) DI IGD, Sedang TF kolf ke-2, Sisa 3 kolf di UTD\n- premed furosemid 1 amp bila TD> 100 \n- Obs. TD ( jam 13:21 = 118/75 mmHg)\n- Rawat bersama dr gerald SpB (+)\n- Pasang DC (-) =>> PX MENOLAK, TTD (-)\n- Hasil cek DL, UR/CR, elektrolit (Tanggal 23/10/2026) (HB:5.5 PLT: 325 WBC; 8.75 UR: 204.9 CR: 5.95 eGFR:  11 Na: 136.50 K:  5.51 Cl: 107.80 Ca Ion: 1.29) =>> Lapor dr.Decky (+) Balasan (-)\n\ndr.Gerald,Sp.B via IGD: \n- perbaikan KU dulu\n- GV (Luka Kaki kiri) o/ TWC =>> Kamis 22/10/2026 (+) =>> Selanjutnya Besok Sabtu 24/10/2026 (-)",
             "sore": "",
             "malam": ""
           },
@@ -90717,7 +90721,7 @@
           "diagnosis": "appendicitis perforasi",
           "category": "Bedah Digestif & Gastro",
           "notes": {
-            "pagi": "dr.Djajono,Sp.B:\n- Post op Digestif Apendektomi Perforasi (Laparotomi) Kamis 22/10/2026 (+) Selesai Jumat 23/10/2026 jam 00:34 (POD 1)\nInstruksi post op dr.Djajono,Sp.B:\n- inf RL : D5 (2 : 2 kolf/hari)\n- cefotaxim 3x1 ranitidine 2x1 paracetamol 3x1 peinlos 2x8oomg \n- tidak boleh duduk s/d jam 23.00",
+            "pagi": "dr.Djajono,Sp.B:\n- Post op Digestif Apendektomi Perforasi (Laparotomi) Kamis 22/10/2026 (+) Selesai Jumat 23/10/2026 jam 00:34 (POD 1)\nInstruksi post op dr.Djajono,Sp.B:\n- inf RL : D5 (2 : 2 kolf/hari)\n- cefotaxim 3x1 ranitidine 2x1 paracetamol 3x1 peinlos 2x8oomg \n- tidak boleh duduk s/d jam 23.00 =>> KIE (+)",
             "sore": "",
             "malam": ""
           },
@@ -90757,7 +90761,7 @@
           "Transfusi Darah": 24,
           "Onkologi": 14,
           "Puasa Pre-Op": 4,
-          "Rencana Pulang": 15,
+          "Rencana Pulang": 16,
           "Hemodialisa (HD)": 9
         }
       }
@@ -91519,7 +91523,7 @@
         "diagnosis": "ckd on hd pro avshunt",
         "category": "Nefrologi & Urologi",
         "notes": {
-          "pagi": "Post av shunt Kamis 22/10/26 DI OK IBS ( tangan kiri)\nInstruksi Post op\n  blpl 4 jam post op obat pulang cefadroxil 2 x 500 mg, asam mefenamat 3x 1 tab =>> sudah di input\n\nDaftar HD  JUM'AT TGL. 23/10/26 (+) => Post HD Cek, Ur, Cr => BLPL",
+          "pagi": "Post av shunt Kamis 22/10/26 DI OK IBS ( tangan kiri)\nInstruksi Post op\n  blpl 4 jam post op obat pulang cefadroxil 2 x 500 mg, asam mefenamat 3x 1 tab =>> sudah di input\n\nDaftar HD  JUM'AT TGL. 23/10/26 (+) => Post HD Cek, Ur, Cr => BLPL\nPASIEN MASIH MUAL DAN MUNTAH DI HD",
           "sore": "",
           "malam": ""
         },
@@ -91938,11 +91942,15 @@
         "diagnosis": "Ca mammae on kemoterapi, anemia",
         "category": "Onkologi & Hematologi",
         "notes": {
-          "pagi": "- Kel: Nyeri perut (+), nyeri pinggang hingga kaki (+), lemas (+).\n- Riw: pasien pro kemo ulang, riw ca mamae\n- Inj. Epodion 10000 1x di IGD (+) Tanggal 21/10/2026\n\ndr. Eko,Sp.B(Onk) visite tanggal 22/10/2026:\n- R/ Tranfusi PRC 2 kolf (Urus 3 kolf) =>> 2 kolf (+), sisa 1 kolf SEDANG DIURUS\n- Jika HB < 10 =>> urus prc 1 kolf lagi\n- Hasil cek DR post Tranfusi PRC 2 kolf (HB: 11.4 PLT: 546 WBC:  8.46)",
+          "pagi": "- Kel: Nyeri perut (+), nyeri pinggang hingga kaki (+), lemas (+).\n- Riw: pasien pro kemo ulang, riw ca mamae\n- Inj. Epodion 10000 1x di IGD (+) Tanggal 21/10/2026\n\ndr. Eko,Sp.B(Onk) visite tanggal 22/10/2026:\n- R/ Tranfusi PRC 2 kolf (Urus 3 kolf) =>> 2 kolf (+), sedang TF kolf ke-3\n- Hasil cek DR post Tranfusi PRC 2 kolf (HB: 11.4 PLT: 546 WBC:  8.46)\n- Besok Sabtu 24/10/2026 cek DR ulang post TF Kolf ke-4 (-)\n- BLPL Jika Target Tercapai dan Lanjut Kemoterapi Via Poli =>> Resep & Resume Pulang (-)",
           "sore": "",
           "malam": ""
         },
         "tags": [
+          {
+            "label": "Rencana Pulang",
+            "color": "green"
+          },
           {
             "label": "Transfusi Darah",
             "color": "red"
@@ -91978,7 +91986,7 @@
         "diagnosis": "DMDF wg III pedis D DM tipe 2",
         "category": "Penyakit Dalam (Metabolik)",
         "notes": {
-          "pagi": "- Kel: Hidung mampet Sulit tidur + Pusing berkurang\n- Riw. DM (+), minum obat oral.\n- Ro Thorax (Tanggal 11/10/2026) \"Radiografi thorax dalam batas normal\"\n\ndr.Gerald,Sp.B visite tanggal 16/10/2026:\n- Post OP debridement  Sabtu 17/10/2026  di OK IGD (POD 6)\n- IVFD RL 20 tpm \n- cefotaxime 3x1 g metronidazole 3x500mg omeprazole 1x40mg, CTM 2x1 =\n- drip tko/8jam \n- Hasil Kultur dasar luka sampel di SIMRS (+) \n- Rawat luka o/ TWC =>> Jumat 23/10/2026 (+)\n- Lapor dr.Gerald,Sp.B apakah boleh pulang (+) a/i: BLPL =>> Resume Pulang (-), Obat Pulang (Co amoxiclav 3x1, Dexketoprofen 2x1, Salep gentamycin 2x1)\n\ndr.Muhardani Iqbal,Sp.PD visite tanggal 19/10/2026: \n- Inj Ketorolac 30 mg iv , Inj PCT 1 gr iv , Inj Ranitidin 2x1 amp iv, gabapentin 1x300mg, flunarizin 2x10mg\n- Lanjut Sesuai Bedah\n- Cek GDS/hari (Pagi = 173 mg/dL) =>>  inj. lantus xr 1x32 IU & inj. novorapid 3x24 iu\n- Lapor dr.Muhardani Iqbal px BLPL dari dr.Gerald & tanya obat pulang IPD (+) Balasan (-)",
+          "pagi": "- Kel: Hidung mampet Sulit tidur + Pusing berkurang\n- Riw. DM (+), minum obat oral.\n- Ro Thorax (Tanggal 11/10/2026) \"Radiografi thorax dalam batas normal\"\n\ndr.Gerald,Sp.B visite tanggal 16/10/2026:\n- Post OP debridement  Sabtu 17/10/2026  di OK IGD (POD 6)\n- IVFD RL 20 tpm \n- cefotaxime 3x1 g metronidazole 3x500mg omeprazole 1x40mg, CTM 2x1 =\n- drip tko/8jam \n- Hasil Kultur dasar luka sampel di SIMRS (+) \n- Rawat luka o/ TWC =>> Jumat 23/10/2026 (+)\n- Lapor dr.Gerald,Sp.B apakah boleh pulang (+) a/i: BLPL =>> Resume Pulang (-), Obat Pulang (Co amoxiclav 3x1, Dexketoprofen 2x1, Salep gentamycin 2x1) di SIMRS (+), Kontrol Poli Senin 26/10/2026\n\ndr.Muhardani Iqbal,Sp.PD visite tanggal 19/10/2026: \n- Inj Ketorolac 30 mg iv , Inj PCT 1 gr iv , Inj Ranitidin 2x1 amp iv, gabapentin 1x300mg, flunarizin 2x10mg\n- Lanjut Sesuai Bedah\n- Cek GDS/hari (Pagi = 173 mg/dL)\n- Lapor dr.Muhardani Iqbal px BLPL dari dr.Gerald & tanya obat pulang IPD (+) a/i: Obat Pulang (Inj. Lantus 1x24 iu & Inj. Novorapid 3x18 iu)",
           "sore": "",
           "malam": ""
         },
@@ -92082,7 +92090,7 @@
         "diagnosis": "OS ATTACHED RETINA + GAS FILLED EYE",
         "category": "Lain-lain",
         "notes": {
-          "pagi": "dr.Mia,Sp.M:\n- Post op operasi vitrectomi dg GA Besok Jumat 23/10/2026 di OK IBS (+) selesai jam 12:30\n- Ro Thorax (+)\n- Obs. TD (Jam 06:00 = 161/106 mmHg)\n- Cek GDS/HARI (GDP: 123) =>> Levemir 0-0-4 ui\n- Candesartan 1x16mg & Amlodipn 1x10mg =>> RESEP (-)\nInstruksi Post Op dr.Mia:\n- OS POST VPP + MP + ED + EL + SO EXCHANGE TO GAS C3F8 \n- TH/ LEVOFLOXACIN 1X500MG PO, PCT 3X500 MG PO =>> RESEP (-)\n- FLOXA 1 TETES TIAP 3 JAM OS, P PRED 1 TETES TIAP 3 JAM OS =>> RESEP (-)\n- TIDUR TELUNGKUP 12 JAM / HARI (SELAMA 2 MINGGU) =>> KIE (-)\n- BESOK SABTU 24/10/2026 PULANG =>> RESUME & RESEP PULANG, KONTROL POLI MATA 30/10/2026\n\nSTATUS MASIH DI OK IBS",
+          "pagi": "dr.Mia,Sp.M:\n- Post op operasi vitrectomi dg GA Besok Jumat 23/10/2026 di OK IBS (+) selesai jam 12:30\n- Ro Thorax di Px (+)\n- Obs. TD (Jam 06:00 = 161/106 mmHg)\n- Cek GDS/HARI (GDP: 123) =>> Levemir 0-0-4 ui\n- Candesartan 1x16mg & Amlodipn 1x10mg =>> RESEP (-)\nInstruksi Post Op dr.Mia:\n- OS POST VPP + MP + ED + EL + SO EXCHANGE TO GAS C3F8 \n- TH/ LEVOFLOXACIN 1X500MG PO, PCT 3X500 MG PO =>> RESEP DI PX (+)\n- FLOXA 1 TETES TIAP 3 JAM OS =>> RESEP BELI DILUAR DI PX (+)\n- P PRED 1 TETES TIAP 3 JAM OS =>> RESEP DI PX (+)\n- TIDUR TELUNGKUP 12 JAM / HARI (SELAMA 2 MINGGU) =>> KIE (+)\n- BESOK SABTU 24/10/2026 PULANG =>> RESUME PULANG DI STATYS (+), KONTROL POLI MATA 30/10/2026",
           "sore": "",
           "malam": ""
         },
@@ -92118,7 +92126,7 @@
         "diagnosis": "abdominal pain trombositopenia susp. dengue fever",
         "category": "Lain-lain",
         "notes": {
-          "pagi": "- Kel: Nyeri kepala Batuk kuat, dahak kuning Nyeri tenggorokan Mual (+) Nyeri perut\n- Hasil Troponin I:  <= 0.006  ng/mL\n- inj. ondancetron 3x1\n\ndr.Danar,Sp.PD-KGH via IGD:\n- Inf rl 20-30ttm\n- Pct tab 3x1, Inj.lanso 1amp/24jam\n- Cek trombosit/hari =>> Kamis 22/10/2026 (HB:  11.4 PLT:101 WBC: 3.35) =>> Jumat 23/10/2026 (HB:  11.2 PLT: 117 WBC:  3.84) =>> Selanjutnya Sabtu\n- Hasil Cek igm igg dengue (Tanggal 21/10/2026): NR\n- Lapor PB dr.Danar & hasil lab Tanggal 21/10/2026 (+) Balasan (-)\n- Lapor dr.Danar keluhan batuk berdahak & Hasil Trombosit Tanggal 22/10/2026 (+) Balasan (-)",
+          "pagi": "- Kel: Nyeri kepala Batuk kuat, dahak kuning Nyeri tenggorokan Mual (+) Nyeri perut\n- Hasil Troponin I:  <= 0.006  ng/mL\n- inj. ondancetron 3x1\n\ndr.Danar,Sp.PD-KGH via IGD:\n- Inf rl 20-30ttm\n- Pct tab 3x1, Inj.lanso 1amp/24jam\n- Cek trombosit/hari =>> Kamis 22/10/2026 (HB:  11.4 PLT:101 WBC: 3.35) =>> Jumat 23/10/2026 (HB:  11.2 PLT: 117 WBC:  3.84) =>> Selanjutnya Sabtu 24/10/2026 (-)\n- Hasil Cek igm igg dengue (Tanggal 21/10/2026): NR\n- Lapor PB dr.Danar & hasil lab Tanggal 21/10/2026 (+) Balasan (-)\n- Lapor dr.Danar keluhan batuk berdahak & Hasil Trombosit Tanggal 23/10/2026 (+) Balasan (-)",
           "sore": "",
           "malam": ""
         },
@@ -92145,7 +92153,7 @@
         "diagnosis": "Hematemesis \nTB Paru Relaps on OAT Bln Ke-6",
         "category": "Pulmonologi / Paru",
         "notes": {
-          "pagi": "- Kel: Batuk berdahak bercampur darah +\n- RPD: pasien tb dalam pengobatan terakhir 6 bulan di tanggal 22/10/26 dari pkm saigon\n- RPO: Riwayat makan obat nyeri dan jamu-jamuan disangkal\n\ndr.Darmawan,Sp.PD-KGH visite tanggal 23/10/2026:\n- IVFD RL 20 tpm\n- Asam tranexamat 3x500 mg iv, Vit K 3x10 mg iv, Omz 2x40 mg iv, Sukralfat 3x15 cx, Cefotaxime 3x1 gr iv, NACE 3x200mg PO \n- Azithromycin 1x500 mg po =>> STOP\n- Jika K/U Baik =>> BLPL =>> Resep & Resume Pulang (-)\n\ndr.Pradana,Sp,P visite tanggal 21/10/2026:\n- pasien tb klinis, di bulan keenam, bta di bulan kedua tetap negatif\n- boleh rawat ruang biasa sesuai dpjp\n- salbutamol 3x2mg\n- codein 3x10mg =>> STOP\n- Edukasi (+)\n- SSH cek BTA akhir pengobatan (Kamis 22/10/2026)\n- Saran Kontrol Poli Paru Jika Sudah Pulang, untuk pencegahan batuk memberat\n- Lapor dr.Pradana apakah pasien bisa Rawat Jalan sambil nunggu Hasil BTA (+) a/i: BLPL =>> Obat pulang Sedang di tanya ke dr.Pradana,Sp.P (-), Kontrol Poli Paru Jumat 30/10/2026",
+          "pagi": "- Kel: Batuk berdahak bercampur darah +\n- RPD: pasien tb dalam pengobatan terakhir 6 bulan di tanggal 22/10/26 dari pkm saigon\n- RPO: Riwayat makan obat nyeri dan jamu-jamuan disangkal\n\ndr.Darmawan,Sp.PD-KGH visite tanggal 23/10/2026:\n- IVFD RL 20 tpm\n- Asam tranexamat 3x500 mg iv, Vit K 3x10 mg iv, Omz 2x40 mg iv, Sukralfat 3x15 cx, Cefotaxime 3x1 gr iv, NACE 3x200mg PO \n- Azithromycin 1x500 mg po =>> STOP\n- Jika K/U Baik =>> BLPL =>> Resep & Resume Pulang (-)\n- Lapor dr.Darmawan minta obat pulang + Vitamin + keluhan BAK Sering / 1 jam (+) Balasan (-)\n- Jumat 23/10/2026 cek UR/CR ulang (-) INPUT (+)\n\ndr.Pradana,Sp,P visite tanggal 21/10/2026:\n- pasien tb klinis, di bulan keenam, bta di bulan kedua tetap negatif\n- boleh rawat ruang biasa sesuai dpjp\n- salbutamol 3x2mg\n- codein 3x10mg =>> STOP\n- Edukasi (+)\n- SSH cek BTA akhir pengobatan (Kamis 22/10/2026)\n- Saran Kontrol Poli Paru Jika Sudah Pulang, untuk pencegahan batuk memberat\n- Lapor dr.Pradana apakah pasien bisa Rawat Jalan sambil nunggu Hasil BTA (+) a/i: BLPL =>> Obat pulang Sedang di tanya ke dr.Pradana,Sp.P (-), Kontrol Poli Paru Jumat 30/10/2026",
           "sore": "",
           "malam": ""
         },
@@ -92353,10 +92361,10 @@
         "isDischargedToday": false,
         "isDeceased": false,
         "dischargeColor": null,
-        "name": "Tn. Deni Gustiansyah NO. HP KELUARGA: 085753540660",
+        "name": "Tn. Deni Gustiansyah NO. HP KELUARGA: 085753540660 (REKAN PASIEN)",
         "mrNo": "00304982",
         "gender": "L",
-        "age": "",
+        "age": "081345789756 th",
         "admissionDate": "20/10/2026",
         "los": 4,
         "insurance": "BPJS Kelas 3",
@@ -92365,7 +92373,7 @@
         "diagnosis": "Cellulitis gout tophaceous kronik Anemia AKI dd CKD",
         "category": "Nefrologi & Urologi",
         "notes": {
-          "pagi": "- Kel: Gelisah Kaki kiri bengkak merah Jari tengah kanan ada bisul dan bengkak?\n\ndr.Decky,Sp.PD visite tanggal 22/10/2026:\n- Ivf ns 500/12 jam \n- Omeprazole 1x40 mg Ceftriaxone 1x2 gr H2 Metronidazole 3x500 mg iv H2 Pct 3x1 gr Nocid 3x2 \n- HB: 5.5. R/ Transfusi PRC 5 kolf (prc/24 jam) =>> 1 kolf (+) DI IGD, Sisa 1 kolf di UTD, Sisa 2 kolf di PMI\n- premed furosemid 1 amp bila TD> 100 \n- Obs. TD ( jam 13:21 = 118/75 mmHg)\n- Rawat bersama dr gerald SpB (+)\n- Pasang DC (-) =>> PX MENOLAK, TTD (-)\n- Hasil cek DL, UR/CR, elektrolit (Tanggal 23/10/2026) (HB:5.5 PLT: 325 WBC; 8.75 UR: 204.9 CR: 5.95 eGFR:  11 Na: 136.50 K:  5.51 Cl: 107.80 Ca Ion: 1.29) =>> Lapor dr.Decky (+) Balasan (-)\n\ndr.Gerald,Sp.B via IGD: \n- perbaikan KU dulu\n- GV (Luka Kaki kiri) o/ TWC =>> Kamis 22/10/2026 (+) =>> Selanjutnya Besok Sabtu 24/10/2026 (-)",
+          "pagi": "- Kel: Gelisah Kaki kiri bengkak merah Jari tengah kanan ada bisul dan bengkak?\n\ndr.Decky,Sp.PD visite tanggal 22/10/2026:\n- Ivf ns 500/12 jam \n- Omeprazole 1x40 mg Ceftriaxone 1x2 gr H2 Metronidazole 3x500 mg iv H2 Pct 3x1 gr Nocid 3x2 \n- HB: 5.5. R/ Transfusi PRC 5 kolf (prc/24 jam) =>> 1 kolf (+) DI IGD, Sedang TF kolf ke-2, Sisa 3 kolf di UTD\n- premed furosemid 1 amp bila TD> 100 \n- Obs. TD ( jam 13:21 = 118/75 mmHg)\n- Rawat bersama dr gerald SpB (+)\n- Pasang DC (-) =>> PX MENOLAK, TTD (-)\n- Hasil cek DL, UR/CR, elektrolit (Tanggal 23/10/2026) (HB:5.5 PLT: 325 WBC; 8.75 UR: 204.9 CR: 5.95 eGFR:  11 Na: 136.50 K:  5.51 Cl: 107.80 Ca Ion: 1.29) =>> Lapor dr.Decky (+) Balasan (-)\n\ndr.Gerald,Sp.B via IGD: \n- perbaikan KU dulu\n- GV (Luka Kaki kiri) o/ TWC =>> Kamis 22/10/2026 (+) =>> Selanjutnya Besok Sabtu 24/10/2026 (-)",
           "sore": "",
           "malam": ""
         },
@@ -92662,7 +92670,7 @@
         "diagnosis": "appendicitis perforasi",
         "category": "Bedah Digestif & Gastro",
         "notes": {
-          "pagi": "dr.Djajono,Sp.B:\n- Post op Digestif Apendektomi Perforasi (Laparotomi) Kamis 22/10/2026 (+) Selesai Jumat 23/10/2026 jam 00:34 (POD 1)\nInstruksi post op dr.Djajono,Sp.B:\n- inf RL : D5 (2 : 2 kolf/hari)\n- cefotaxim 3x1 ranitidine 2x1 paracetamol 3x1 peinlos 2x8oomg \n- tidak boleh duduk s/d jam 23.00",
+          "pagi": "dr.Djajono,Sp.B:\n- Post op Digestif Apendektomi Perforasi (Laparotomi) Kamis 22/10/2026 (+) Selesai Jumat 23/10/2026 jam 00:34 (POD 1)\nInstruksi post op dr.Djajono,Sp.B:\n- inf RL : D5 (2 : 2 kolf/hari)\n- cefotaxim 3x1 ranitidine 2x1 paracetamol 3x1 peinlos 2x8oomg \n- tidak boleh duduk s/d jam 23.00 =>> KIE (+)",
           "sore": "",
           "malam": ""
         },
@@ -92702,7 +92710,7 @@
         "Transfusi Darah": 24,
         "Onkologi": 14,
         "Puasa Pre-Op": 4,
-        "Rencana Pulang": 15,
+        "Rencana Pulang": 16,
         "Hemodialisa (HD)": 9
       }
     }
