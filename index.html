@@ -926,27 +926,42 @@
 
         <!-- Patient Selection Control Panel -->
         <div class="chronology-patient-picker">
-          <div class="picker-search-col">
-            <label for="chronologySearchInput" class="picker-label">Pencarian Pasien (No. RM / Nama):</label>
-            <div class="input-with-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <input type="text" id="chronologySearchInput" placeholder="Ketik No. RM atau Nama Pasien..." autocomplete="off">
+          <div class="picker-inputs-row">
+            <div class="picker-search-col">
+              <label for="chronologySearchInput" class="picker-label">Pencarian Pasien (No. RM / Nama):</label>
+              <div class="input-with-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="chronologySearchInput" placeholder="Ketik No. RM atau Nama Pasien..." autocomplete="off">
+              </div>
+              <div id="chronologySearchResults" class="search-dropdown-menu" style="display:none;"></div>
             </div>
-            <div id="chronologySearchResults" class="search-dropdown-menu" style="display:none;"></div>
+
+            <div class="picker-dropdown-col">
+              <label for="chronologyPatientSelect" class="picker-label">Atau Pilih Pasien Dari Master / Sensus:</label>
+              <select id="chronologyPatientSelect">
+                <option value="">-- Pilih Pasien Ruang Enggang Gading 2 --</option>
+              </select>
+            </div>
           </div>
 
-          <div class="picker-dropdown-col">
-            <label for="chronologyPatientSelect" class="picker-label">Atau Pilih Pasien Dari Master / Sensus:</label>
-            <select id="chronologyPatientSelect">
-              <option value="">-- Pilih Pasien Ruang Enggang Gading 2 --</option>
-            </select>
-          </div>
-
-          <div class="picker-sort-col">
-            <label class="picker-label">Urutan Kronologi:</label>
-            <div class="btn-group-toggle">
-              <button class="btn-toggle active" id="sortChronologyAsc" title="Dari Hari Pertama Rawat ke Terakhir">Hari 1 &rarr; Akhir</button>
-              <button class="btn-toggle" id="sortChronologyDesc" title="Dari Hari Terbaru ke Hari Pertama">Terbaru &rarr; Hari 1</button>
+          <!-- Bar Khusus Urutan Kronologi (Jelas terlihat, tidak di pinggir terjepit) -->
+          <div class="picker-sort-bar">
+            <div class="picker-sort-group">
+              <span class="picker-sort-label">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg>
+                <strong>URUTAN KRONOLOGI:</strong>
+              </span>
+              <div class="btn-group-toggle">
+                <button class="btn-toggle active" id="sortChronologyAsc" title="Dari Hari Pertama Rawat ke Terakhir">
+                  <span>📅 Hari 1 &rarr; Terakhir (Kronologis)</span>
+                </button>
+                <button class="btn-toggle" id="sortChronologyDesc" title="Dari Hari Terbaru ke Hari Pertama">
+                  <span>⏱️ Hari Terbaru &rarr; Hari 1 (Terbalik)</span>
+                </button>
+              </div>
+            </div>
+            <div class="picker-sort-hint">
+              <span>💡 Atur urutan alur waktu catatan perjalanan klinis pasien</span>
             </div>
           </div>
         </div>

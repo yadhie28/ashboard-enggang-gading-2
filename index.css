@@ -3985,15 +3985,22 @@ body::before {
 
 /* Patient Picker Control Bar */
 .chronology-patient-picker {
-  display: grid;
-  grid-template-columns: 1.6fr 1.6fr 1fr;
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-md);
-  padding: 1.15rem 1.4rem;
-  align-items: end;
+  padding: 1.25rem 1.4rem;
   position: relative;
+  box-shadow: var(--shadow-sm);
+}
+
+.picker-inputs-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  align-items: end;
 }
 
 .picker-label {
@@ -4052,11 +4059,77 @@ body::before {
   color: var(--text-muted);
 }
 
-.picker-sort-col .btn-group-toggle {
+
+/* Dedicated Prominent Bar for Urutan Kronologi */
+.picker-sort-bar {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  padding-top: 0.95rem;
+  border-top: 1px solid var(--border-light);
+  background: transparent;
+}
+
+.picker-sort-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.picker-sort-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+  background: rgba(14, 165, 233, 0.09);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border-left: 3.5px solid var(--accent-primary);
+}
+
+.picker-sort-group .btn-group-toggle {
+  display: inline-flex;
   border-radius: var(--radius-sm);
   overflow: hidden;
-  border: 1px solid var(--border-medium);
+  border: 1.5px solid var(--accent-primary);
+  box-shadow: 0 1px 4px rgba(14, 165, 233, 0.15);
+}
+
+.picker-sort-group .btn-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: var(--bg-surface-elevated);
+  color: var(--text-secondary);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.picker-sort-group .btn-toggle:hover {
+  background: rgba(14, 165, 233, 0.12);
+  color: var(--accent-primary);
+}
+
+.picker-sort-group .btn-toggle.active {
+  background: var(--accent-primary);
+  color: #ffffff;
+}
+
+.picker-sort-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
 }
 
 .btn-toggle {
@@ -4592,11 +4665,8 @@ body::before {
 
 /* Responsive adjustments for Chronology */
 @media (max-width: 1024px) {
-  .chronology-patient-picker {
+  .picker-inputs-row {
     grid-template-columns: 1fr 1fr;
-  }
-  .picker-sort-col {
-    grid-column: span 2;
   }
   .timeline-shifts-grid {
     grid-template-columns: 1fr;
@@ -4607,11 +4677,12 @@ body::before {
 }
 
 @media (max-width: 768px) {
-  .chronology-patient-picker {
+  .picker-inputs-row {
     grid-template-columns: 1fr;
   }
-  .picker-sort-col {
-    grid-column: span 1;
+  .picker-sort-bar {
+    flex-direction: column;
+    align-items: flex-start;
   }
   .soap-inputs-grid {
     grid-template-columns: 1fr;
