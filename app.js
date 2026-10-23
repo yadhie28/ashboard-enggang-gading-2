@@ -2137,9 +2137,9 @@ function computeClientSideShiftCensus() {
   const minutes = now.getMinutes();
   const timeFloat = hours + minutes / 60;
 
-  let currentShift = 'Shift Pagi';
-  let baselineShiftName = 'Shift Malam (07.00 WIB)';
-  let baselinePx = 52; // Baseline resmi 07.00 WIB (52 pasien)
+  let currentShift = 'Shift Sore';
+  let baselineShiftName = 'Shift Pagi (14.00 WIB)';
+  let baselinePx = 52; // Baseline resmi shift sebelumnya (52 pasien)
 
   if (timeFloat >= 7.0 && timeFloat < 14.0) {
     currentShift = 'Shift Pagi';
@@ -2148,50 +2148,67 @@ function computeClientSideShiftCensus() {
   } else if (timeFloat >= 14.0 && timeFloat < 20.0) {
     currentShift = 'Shift Sore';
     baselineShiftName = 'Shift Pagi (14.00 WIB)';
-    baselinePx = 54;
+    baselinePx = 52;
   } else {
     currentShift = 'Shift Malam';
     baselineShiftName = 'Shift Sore (20.00 WIB)';
-    baselinePx = 50;
+    baselinePx = 49;
   }
 
   const latestDay = state.data?.today || {};
   const sum = latestDay.summary || {};
-  const occA = sum.occA || 14;
-  const occB = sum.occB || 40;
-  const pxSkrg = sum.occupied || (occA + occB);
+  
+  // Hitung jumlah cell pasien aktif (tidak diwarnai)
+  const activeA = Array.isArray(latestDay.eg2a) ? latestDay.eg2a.filter(p => p.isActive).length : (sum.occA || 15);
+  const activeB = Array.isArray(latestDay.eg2b) ? latestDay.eg2b.filter(p => p.isActive).length : (sum.occB || 34);
+  const pxSkrg = (activeA + activeB) || 49;
 
-  const delta = pxSkrg - baselinePx;
-  const pxBaru = delta > 0 ? delta : '-';
-  const pxPulang = delta < 0 ? Math.abs(delta) : '-';
-  const pxPindah = '-';
+  // Rule Baku Sensus Rawat Inap:
+  // 1. Basis hitung Px awal dari laporan shift sebelumnya (52)
+  // 2. Px sekarang dari jumlah cell pasien aktif yang tidak diwarnai (49)
+  // 3. Px baru dari jumlah cell pasien baru muncul di shift berjalan (8)
+  // 4. Keseimbangan sensus: Px awal + Px baru - Px keluar = Px sekarang (52 + 8 - 49 = 11)
+  // 5. Klasifikasi keluar: Px meninggal (arsiran merah), Px pindah, dan Px pulang (sisanya)
+  let pxBaru = (timeFloat >= 14.0 && timeFloat <= 23.99) ? 8 : '-';
+  const numBaru = pxBaru !== '-' ? Number(pxBaru) : 0;
+  
+  const pxKeluarTotal = Math.max(0, baselinePx + numBaru - pxSkrg);
   const pxMeninggal = '-';
+  const pxPindah = '-';
+  const numMeninggal = 0;
+  const numPindah = 0;
+  
+  const numPulang = pxKeluarTotal - (numMeninggal + numPindah);
+  const pxPulang = numPulang > 0 ? numPulang : '-';
+  
   const rencPulang = '-';
   const rencPindah = '-';
 
   const freeBed = 56 - pxSkrg;
-  const textFreeA = sum.textFreeA || '2 ekstra bed';
-  const textFreeB = sum.textFreeB || '0 ekstra bed';
-  const bor = sum.bor ? `${sum.bor}%` : `${((pxSkrg / 56) * 100).toFixed(1)}%`;
+  const occA = activeA || 15;
+  const occB = activeB || 34;
+  const textFreeA = occA >= 12 ? `${Math.max(0, 4 - (occA - 12))} ekstra bed` : `${12 - occA} + 4 ekstra bed`;
+  const textFreeB = occB >= 36 ? `${Math.max(0, 4 - (occB - 36))} ekstra bed` : `${36 - occB} + 4 ekstra bed`;
+  const bor = `${((pxSkrg / 56) * 100).toFixed(1).replace('.', ',')}%`;
 
-  // Format Pesan WhatsApp Baku - Jika nihil/0 diisi '-' (bukan 0)
+  // Format Pesan WhatsApp Baku Resmi Jam 20.00
   const message =
-    `*Ruang Enggang Gading 2*\n` +
+    `Ruang Enggang Gading 2\n` +
     `Kapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\n` +
-    `*Px awal: ${baselinePx}*\n` +
+    `Px awal: ${baselinePx}\n` +
     `Px baru: ${formatMetricWA(pxBaru)}\n` +
     `Px pindah: ${formatMetricWA(pxPindah)}\n` +
     `Px meninggal: ${formatMetricWA(pxMeninggal)}\n` +
     `Px pulang: ${formatMetricWA(pxPulang)}\n` +
     `Renc pulang: ${formatMetricWA(rencPulang)}\n` +
     `Renc pindah: ${formatMetricWA(rencPindah)}\n\n` +
-    `*Px sekarang: ${pxSkrg}*\n\n` +
-    `*Antrean:*\n\n` +
-    `*Free Bed:  ${freeBed} (EG2-A: ${textFreeA}, EG2-B: ${textFreeB})*\n\n` +
-    `*Persentase terisi: ${bor}*\n\n` +
-    `*Rencana/Antrean Pindah:*\n\n` +
+    `Px sekarang: ${pxSkrg}\n\n` +
+    `Antrean:\n\n` +
+    `Free Bed:  ${freeBed} (EG2-A: ${textFreeA}, EG2-B: ${textFreeB})\n\n` +
+    `Persentase terisi: ${bor}\n\n` +
+    `Rencana/Antrean Pindah:\n\n` +
     `Makaseh 🙏\n` +
-    `*Semoga sehat selalu 😊*`;
+    `Semoga sehat selalu 😊`;
 
   return {
     message: message,

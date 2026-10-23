@@ -16,6 +16,15 @@ log() {
     echo "$msg" >> "$LOG_FILE"
 }
 
+# Prevent concurrent execution between cron and launchd
+LOCKFILE="/tmp/auto_sync_eg2.lock"
+if [ -e "$LOCKFILE" ] && kill -0 "$(cat "$LOCKFILE")" 2>/dev/null; then
+    log "[INFO] Sinkronisasi lain sedang berjalan (PID $(cat "$LOCKFILE")). Keluar untuk mencegah konflik berkas."
+    exit 0
+fi
+echo $$ > "$LOCKFILE"
+trap 'rm -f "$LOCKFILE"' EXIT INT TERM
+
 echo "==================================================================" >> "$LOG_FILE"
 log "=== [AUTO-SYNC START] Memulai Penarikan Spreadsheet Google Sheets ==="
 

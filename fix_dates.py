@@ -69,11 +69,12 @@ def extract_date_from_sheet(z, sheet_info, ss):
 
     return None
 
-with zipfile.ZipFile("EG2A.xlsx", "r") as z:
-    ss = parse_shared_strings(z)
-    sheets = get_sheets_info(z)
-    for s in sheets[:5] + sheets[-5:]:
-        if "MASTER" in s["name"].upper(): continue
-        dt = extract_date_from_sheet(z, s, ss)
-        print(f"Sheet: {s['name']} -> Date: {dt}")
+if __name__ == "__main__":
+    with zipfile.ZipFile("EG2A.xlsx", "r") as z:
+        ss = parse_shared_strings(z)
+        sheets = get_sheets_info(z)
+        for s in sheets[:5] + sheets[-5:]:
+            if "MASTER" in s["name"].upper(): continue
+            dt = extract_date_from_sheet(z, s, ss)
+            print(f"Sheet: {s['name']} -> Date: {dt}")
 

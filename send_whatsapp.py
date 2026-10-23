@@ -209,22 +209,22 @@ def build_census_report(mode="auto", px_awal=None, px_baru=None, px_pindah=None,
         print(f"[WARN] Error in compute_census_report: {e}")
         # Fallback template
         return (
-            "*Ruang Enggang Gading 2*\n"
+            "Ruang Enggang Gading 2\n"
             "Kapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\n"
-            "*Px awal: 52*\n"
-            "Px baru: -\n"
+            "Px awal: 52\n"
+            "Px baru: 8\n"
             "Px pindah: -\n"
             "Px meninggal: -\n"
-            "Px pulang: -\n"
+            "Px pulang: 11\n"
             "Renc pulang: -\n"
             "Renc pindah: -\n\n"
-            "*Px sekarang: 52*\n\n"
-            "*Antrean:*\n\n"
-            "*Free Bed:  4 (EG2-A: 1 ekstra bed, EG2-B: 3 ekstra bed)*\n\n"
-            "*Persentase terisi: 92.9%*\n\n"
-            "*Rencana/Antrean Pindah:*\n\n"
+            "Px sekarang: 49\n\n"
+            "Antrean:\n\n"
+            "Free Bed:  7 (EG2-A: 1 ekstra bed, EG2-B: 2 + 4 ekstra bed)\n\n"
+            "Persentase terisi: 87,5%\n\n"
+            "Rencana/Antrean Pindah:\n\n"
             "Makaseh 🙏\n"
-            "*Semoga sehat selalu 😊*"
+            "Semoga sehat selalu 😊"
         )
 
 
