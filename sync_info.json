@@ -1,6 +1,14 @@
 {
-  "last_sync": "2026-10-21 11:40:36",
-  "last_status": "success",
-  "last_message": "Auto-Sync Berhasil (Jadwal Terjadwal)",
-  "sync_count": 3
+  "last_sync": "2026-10-23 14:02:34",
+  "last_status": "error",
+  "last_message": "Gagal: Command '['/Library/Developer/CommandLineTools/usr/bin/python3', '/Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2/run_build_data.py']' returned non-zero exit status 1.",
+  "sync_count": 3,
+  "history": [
+    {
+      "timestamp": "2026-10-23 14:02:34",
+      "trigger": "auto_shift_sore",
+      "status": "error",
+      "error": "Command '['/Library/Developer/CommandLineTools/usr/bin/python3', '/Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2/run_build_data.py']' returned non-zero exit status 1."
+    }
+  ]
 }
