@@ -13,7 +13,7 @@
       "Enggang Gading 2A (16 Bed)",
       "Enggang Gading 2B (40 Bed)"
     ],
-    "lastUpdated": "25-10-2026 10:32:49",
+    "lastUpdated": "25-10-2026 20:01:08",
     "latestDate": "2026-10-25",
     "totalDatesRecorded": 296,
     "dateRange": "2026-01-01 s/d 2026-10-25",
@@ -2683,10 +2683,10 @@
     {
       "date": "2026-10-25",
       "occA": 16,
-      "occB": 35,
-      "totalOcc": 51,
+      "occB": 36,
+      "totalOcc": 52,
       "totalBeds": 56,
-      "bor": 91.1
+      "bor": 92.9
     }
   ],
   "monthly": [
@@ -2764,10 +2764,10 @@
     },
     {
       "month": "2026-10",
-      "avgOcc": 52.7,
+      "avgOcc": 52.8,
       "avgOccA": 15.4,
       "avgOccB": 37.4,
-      "avgBor": 94.14,
+      "avgBor": 94.21,
       "daysCounted": 25
     }
   ],
@@ -2918,11 +2918,11 @@
         "count": 126
       }
     ],
-    "totalPatients": 2601,
+    "totalPatients": 2602,
     "insurances": [
       {
         "name": "BPJS Kelas 3",
-        "count": 11808
+        "count": 11809
       },
       {
         "name": "BPJS Kelas 2",
@@ -2954,10 +2954,10 @@
     },
     "availableBeds": 56,
     "totalDays": 296,
-    "totalHP": 14839,
+    "totalHP": 14840,
     "totalDischarges": 1425,
     "overall": {
-      "bor": 89.52,
+      "bor": 89.53,
       "avlos": 10.41,
       "toi": 1.22,
       "bto": 25.45,
@@ -3112,14 +3112,14 @@
       {
         "month": "2026-10",
         "days": 25,
-        "hp": 1318,
+        "hp": 1319,
         "hpA": 384,
-        "hpB": 934,
+        "hpB": 935,
         "discharges": 120,
         "deaths": 11,
         "deathsGt48": 11,
-        "bor": 94.14,
-        "avlos": 10.98,
+        "bor": 94.21,
+        "avlos": 10.99,
         "toi": 0.68,
         "bto": 2.14,
         "gdr": 91.67,
@@ -39417,7 +39417,7 @@
           "mrNo": "",
           "gender": "P",
           "age": "57 th",
-          "admissionDate": "29/09/206",
+          "admissionDate": "29/09/0206",
           "los": 664743,
           "insurance": "BPJS Kelas 3",
           "doctor": "DARMAWAN,DR., M.KES.,SP.PD-KGH.FINASIM",
@@ -41398,7 +41398,7 @@
           "mrNo": "",
           "gender": "P",
           "age": "57 th",
-          "admissionDate": "29/09/206",
+          "admissionDate": "29/09/0206",
           "los": 664744,
           "insurance": "BPJS Kelas 3",
           "doctor": "DARMAWAN,DR., M.KES.,SP.PD-KGH.FINASIM",
@@ -89060,7 +89060,7 @@
           "category": "Penyakit Dalam (Metabolik)",
           "notes": {
             "pagi": "- Keluhan : Lemah \n \ndr. Kenny Visite 22/10/2026 a/i:\n- Konsul TWC untuk nekorotmi lokal\n- GV / 2 Hr = GV Oleh Twc Jum'at 23/10/2026 (+) Selanjutnya Senin 26/10/2026 (-)\n\ndr Decki visit 22/10/2026 \n- Cek GDS/shift = Jam 06.00 : 215\n- Inf. Nacl + Kcl 1 Flash siklus 2 (+) ==> (Na  123.70, K  2.46, Cl 91.10, Ca 1.1) ==>  SIKLUS KE 3 (+)\n- Sabtu tgl 24/10/2026 , cek elektrolit (+) lapor dr (+) a/i:  Ivf ns 500+kcl 25/8 jam (Cek ulang elektrolit setelah 4 siklus) \n- sedang terpasang KCL 1 flash + inf nacl 500 ml kolf ke 1 (+)\n- Human albumin 25% 100 cc/24 jam =>> KE 2 (+)  \n- SABTU 24/10/26 CEK ALBUMIN POST TRANSFUSI ALBUMIN KE 2 (+) hsl 2,36, lapor dr (+) a/i Albumin infus lanjut\n- albumin kolf ke 3 (+) \n- minggu 25/10/2026 cek albumin post TF albumin 3 flash (+)  lapor (+) balasan a/i  : Lapor GD jam 18 \n- Rabu 21/10/226 cek Kultur darah (+) Hasil (+) \n- Rabu 21/10/226 cek procalcitonin (+) Hasil disimrs\n- Kamis, 22/10/2026 cek elektrolit, DR, albumin (+) Hasil (+) Lapor (+) Balasan:\n* Cefotaxim Stop Metro lanjut\n* Levofloxavin 1x750, Laktulosa 3x10 cc\n* Cek Kultur pus Jumat 23/10/2026 (+) SSH\n- Hb : 6,7 = Rencana Tranfusi 4 Kolf (per 24 jam) =>>  kolf 1 (+),  sisa 3 di UTD\n- BESOK PAGI TOLONG PASANG TRANFUSI KOLF KE 2 => sedang terpasang kolf 2\n- terpasang NGT (+) \n\n\ndr. Risa visite 23/10/2026:\n- kultur push (+)\n- cek D-DIMER  sabtu 24/10/2026 (+)  1251.39. lapor dr (+)\n\n- tgl 22/10/26 os mngeluh nyeri seluruh dada tembus k blkang, lemas, pusing => lpor dr jaga (+) dr winda : Boleh tambah : \n- Mecobalamin 2x500mcg\n- curcuma 3x2tab\n- Parasetamol 500mg PO (ekstra)\n\n=> Pasien mengeluh nyeri dada tembus kebelakang, 23/10/2026 pukul 19.00 . Lapor dr decky (+) balasan : EKG kak\n=> pukul 21.30 dr Jaga, dr dodi visite (+) a/i Xtra ISDN 5mg, sudah dimulai (+)\n=> Pukul 02.00 dini hari pasien kembali mengeluh nyeri dada tembus kebelakang, Sulit Bernafas, Lapor dr Jaga, dr rizky (+) a/i EKG dan GDS, Xtra Inj Omz. sudah dimulai (+)\nEKG (+) GDS pukul 02.00 234.",
-            "sore": "- Keluhan : Lemah \n \ndr. Kenny Visite 22/10/2026 a/i:\n- Konsul TWC untuk nekorotmi lokal\n- GV / 2 Hr = GV Oleh Twc Jum'at 23/10/2026 (+) Selanjutnya Senin 26/10/2026 (-)\n\ndr Decki visit 22/10/2026 \n- Cek GDS/shift = Jam 06.00 : 215\n- Inf. Nacl + Kcl 1 Flash siklus 2 (+) ==> (Na  123.70, K  2.46, Cl 91.10, Ca 1.1) ==>  SIKLUS KE 3 (+)\n- Sabtu tgl 24/10/2026 , cek elektrolit (+) lapor dr (+) a/i:  Ivf ns 500+kcl 25/8 jam (Cek ulang elektrolit setelah 4 siklus) \n- sedang terpasang KCL 1 flash + inf nacl 500 ml kolf ke 1 (+)\n- Human albumin 25% 100 cc/24 jam =>> KE 2 (+)  \n- SABTU 24/10/26 CEK ALBUMIN POST TRANSFUSI ALBUMIN KE 2 (+) hsl 2,36, lapor dr (+) a/i Albumin infus lanjut\n- albumin kolf ke 3 (+) \n- minggu 25/10/2026 cek albumin post TF albumin 3 flash (+)  lapor (+) balasan a/i  : Lapor GD jam 18 \n- Rabu 21/10/226 cek Kultur darah (+) Hasil (+) \n- Rabu 21/10/226 cek procalcitonin (+) Hasil disimrs\n- Kamis, 22/10/2026 cek elektrolit, DR, albumin (+) Hasil (+) Lapor (+) Balasan:\n* Cefotaxim Stop Metro lanjut\n* Levofloxavin 1x750, Laktulosa 3x10 cc\n* Cek Kultur pus Jumat 23/10/2026 (+) SSH\n- Hb : 6,7 = Rencana Tranfusi 4 Kolf (per 24 jam) =>>  kolf 1 (+),  sisa 3 di UTD\n- BESOK PAGI TOLONG PASANG TRANFUSI KOLF KE 2 => sedang terpasang kolf 2\n- terpasang NGT (+) \n\n\ndr. Risa visite 23/10/2026:\n- kultur push (+)\n- cek D-DIMER  sabtu 24/10/2026 (+)  1251.39. lapor dr (+)\n\n- tgl 22/10/26 os mngeluh nyeri seluruh dada tembus k blkang, lemas, pusing => lpor dr jaga (+) dr winda : Boleh tambah : \n- Mecobalamin 2x500mcg\n- curcuma 3x2tab\n- Parasetamol 500mg PO (ekstra)\n\n=> Pasien mengeluh nyeri dada tembus kebelakang, 23/10/2026 pukul 19.00 . Lapor dr decky (+) balasan : EKG kak\n=> pukul 21.30 dr Jaga, dr dodi visite (+) a/i Xtra ISDN 5mg, sudah dimulai (+)\n=> Pukul 02.00 dini hari pasien kembali mengeluh nyeri dada tembus kebelakang, Sulit Bernafas, Lapor dr Jaga, dr rizky (+) a/i EKG dan GDS, Xtra Inj Omz. sudah dimulai (+)\nEKG (+) GDS pukul 02.00 234.",
+            "sore": "- Keluhan : Lemah \n \ndr. Kenny Visite 22/10/2026 a/i:\n- Konsul TWC untuk nekorotmi lokal\n- GV / 2 Hr = GV Oleh Twc Jum'at 23/10/2026 (+) Selanjutnya Senin 26/10/2026 (-)\n\ndr Decki visit 22/10/2026 \n- Cek GDS/shift = Jam 06.00 : 215\n- Inf. Nacl + Kcl 1 Flash siklus 2 (+) ==> (Na  123.70, K  2.46, Cl 91.10, Ca 1.1) ==>  SIKLUS KE 3 (+)\n- Sabtu tgl 24/10/2026 , cek elektrolit (+) lapor dr (+) a/i:  Ivf ns 500+kcl 25/8 jam (Cek ulang elektrolit setelah 4 siklus) \n- sedang terpasang KCL 1 flash + inf nacl 500 ml kolf ke 1 (+)\n- Human albumin 25% 100 cc/24 jam =>> KE 2 (+)  \n- SABTU 24/10/26 CEK ALBUMIN POST TRANSFUSI ALBUMIN KE 2 (+) hsl 2,36, lapor dr (+) a/i Albumin infus lanjut\n- albumin kolf ke 3 (+) \n- minggu 25/10/2026 cek albumin post TF albumin 3 flash (+)  lapor (+) balasan a/i  : Lapor GD jam 18 \n- GDS JAM 18.00 = 231, LAPOR DR (+) a/i Levemir 1x10, Cek GD bsk pagi\n- Rabu 21/10/226 cek Kultur darah (+) Hasil (+) \n- Rabu 21/10/226 cek procalcitonin (+) Hasil disimrs\n- Kamis, 22/10/2026 cek elektrolit, DR, albumin (+) Hasil (+) Lapor (+) Balasan:\n* Cefotaxim Stop Metro lanjut\n* Levofloxavin 1x750, Laktulosa 3x10 cc\n* Cek Kultur pus Jumat 23/10/2026 (+) SSH\n- Hb : 6,7 = Rencana Tranfusi 4 Kolf (per 24 jam) =>>  sedang terpasang kolf 2, selesai jam 17.45. darah sisa 2 di utd\n- terpasang NGT (+) \n\n\ndr. Risa visite 23/10/2026:\n- kultur push (+)\n- cek D-DIMER  sabtu 24/10/2026 (+)  1251.39. lapor dr (+)\n\n- tgl 22/10/26 os mngeluh nyeri seluruh dada tembus k blkang, lemas, pusing => lpor dr jaga (+) dr winda : Boleh tambah : \n- Mecobalamin 2x500mcg\n- curcuma 3x2tab\n- Parasetamol 500mg PO (ekstra)\n\n=> Pasien mengeluh nyeri dada tembus kebelakang, 23/10/2026 pukul 19.00 . Lapor dr decky (+) balasan : EKG kak\n=> pukul 21.30 dr Jaga, dr dodi visite (+) a/i Xtra ISDN 5mg, sudah dimulai (+)\n=> Pukul 02.00 dini hari pasien kembali mengeluh nyeri dada tembus kebelakang, Sulit Bernafas, Lapor dr Jaga, dr rizky (+) a/i EKG dan GDS, Xtra Inj Omz. sudah dimulai (+)\nEKG (+) GDS pukul 02.00 234.\n- MALAM TOLONG INJEKSI LEVEMIR 1X10 IU",
             "malam": ""
           },
           "tags": [
@@ -89096,7 +89096,7 @@
           "category": "Nefrologi & Urologi",
           "notes": {
             "pagi": "PB VIA IGD PUKUL 19.00\n\n- kel : badan lemah, keringat dingin. tidak hd sudah 2 minggu.\n- Riw HD : Selasa & Jumat di RS YARSI . \n- therapy via IGD : - ivfd nacl 0.9% 250cc -- challange test - o2 3lpm - inj. ranitidin - tranfusi s/d hb 10\n- GDS/HARI: 217\n\ndr. sonny via igd (+) a/i -\n- Hasil lab via igd (+) Hb 7.9g/dL\n- R/Transfusi PRC 2 KOLF, 1 colf via igd (+) Sisa 1 Colf di UTDRS.\n- Lapor pb (+) a/i =>> sabtu 24/10/2026 HD , Antri kak maja (+) \n- MINGGU 25/10/2026 CEK DR, UR, CR POST HD (+) lapor (+) balasan a/i : Levemir 1x 10 U jam 22",
-            "sore": "PB VIA IGD PUKUL 19.00\n\n- kel : badan lemah, keringat dingin. tidak hd sudah 2 minggu.\n- Riw HD : Selasa & Jumat di RS YARSI . \n- therapy via IGD : - ivfd nacl 0.9% 250cc -- challange test - o2 3lpm - inj. ranitidin - tranfusi s/d hb 10\n- GDS/HARI: 217\n\ndr. sonny via igd (+) a/i -\n- Hasil lab via igd (+) Hb 7.9g/dL\n- R/Transfusi PRC 2 KOLF, 1 colf via igd (+) Sisa 1 Colf di UTDRS.\n- Lapor pb (+) a/i =>> sabtu 24/10/2026 HD , Antri kak maja (+) \n- MINGGU 25/10/2026 CEK DR, UR, CR POST HD (+) lapor (+) balasan a/i : Levemir 1x 10 U jam 22",
+            "sore": "PB VIA IGD PUKUL 19.00\n\n- kel : badan lemah, keringat dingin. tidak hd sudah 2 minggu.\n- Riw HD : Selasa & Jumat di RS YARSI . \n- therapy via IGD : - ivfd nacl 0.9% 250cc -- challange test - o2 3lpm - inj. ranitidin - tranfusi s/d hb 10\n- GDS/HARI: 217\n\ndr. sonny via igd (+) a/i -\n- Hasil lab via igd (+) Hb 7.9g/dL\n- R/Transfusi PRC 2 KOLF, 1 colf via igd (+) Sisa 1 Colf di UTDRS.\n- Lapor pb (+) a/i =>> sabtu 24/10/2026 HD , Antri kak maja (+) \n- MINGGU 25/10/2026 CEK DR, UR, CR POST HD (+) lapor (+) balasan a/i : Levemir 1x 10 U jam 22\n\n- SENIN 26/10/2026 GV",
             "malam": ""
           },
           "tags": [
@@ -89254,7 +89254,7 @@
           "category": "Nefrologi & Urologi",
           "notes": {
             "pagi": "- kel:  os membawa surat pengantar dari poli dengan : hipoalbumin dyslipidemia os keluhan Bengkak seluruh badan sejak 1 minggu ini \n- riw ginjal Sebelumnya , Sesak - , bab bak baik\n- therapy via igd : pemvlon inf albumin 20-25% 1 botol /hari injj furosemide 1 amp atorvastatin 1x20 mg spironolakton 1x25mg vip albumin 2x1\n\ndr. danar via igd (+) balasan : \n- pemvlon\n- inf albumin 20-25% 1 botol /hari \n- injj furosemide 1 amp\n- atorvastatin 1x20 mg\n- spironolakton 1x25mg\n- vip albumin 2x1\n- Alb 1.85\n- R/Transfusi alb 1 botol/hari =>>Alb colf 2 (+) \n- Sabtu tgl 24/10/2026 Cek albumin (+)  1.95. lapor dr (+) blsn (-)\n- minggu lanjut albumin kolf ke 3 (-) sedang terpasang \n- R/USG ABD ulang Hari SENIN TGL 26/10/2026 .",
-            "sore": "- kel:  os membawa surat pengantar dari poli dengan : hipoalbumin dyslipidemia os keluhan Bengkak seluruh badan sejak 1 minggu ini \n- riw ginjal Sebelumnya , Sesak - , bab bak baik\n- therapy via igd : pemvlon inf albumin 20-25% 1 botol /hari injj furosemide 1 amp atorvastatin 1x20 mg spironolakton 1x25mg vip albumin 2x1\n\ndr. danar via igd (+) balasan : \n- pemvlon\n- inf albumin 20-25% 1 botol /hari \n- injj furosemide 1 amp\n- atorvastatin 1x20 mg\n- spironolakton 1x25mg\n- vip albumin 2x1\n- Alb 1.85\n- R/Transfusi alb 1 botol/hari =>>Alb colf 2 (+) \n- Sabtu tgl 24/10/2026 Cek albumin (+)  1.95. lapor dr (+) blsn (-)\n- minggu lanjut albumin kolf ke 3 (+)  =>> SENIN 26/10/2026 CEK ALBUMIN ULANG \n- R/USG ABD ulang Hari SENIN TGL 26/10/2026 . MALAM PUASAKAN (-)\n- INFUS HIPO",
+            "sore": "- kel:  os membawa surat pengantar dari poli dengan : hipoalbumin dyslipidemia os keluhan Bengkak seluruh badan sejak 1 minggu ini \n- riw ginjal Sebelumnya , Sesak - , bab bak baik\n- therapy via igd : pemvlon inf albumin 20-25% 1 botol /hari injj furosemide 1 amp atorvastatin 1x20 mg spironolakton 1x25mg vip albumin 2x1\n\ndr. danar via igd (+) balasan : \n- pemvlon\n- inf albumin 20-25% 1 botol /hari \n- injj furosemide 1 amp\n- atorvastatin 1x20 mg\n- spironolakton 1x25mg\n- vip albumin 2x1\n- Alb 1.85\n- R/Transfusi alb 1 botol/hari =>>Alb colf 2 (+) \n- Sabtu tgl 24/10/2026 Cek albumin (+)  1.95. lapor dr (+) blsn (-)\n- minggu lanjut albumin kolf ke 3 (+)  =>> SENIN 26/10/2026 CEK ALBUMIN ULANG \n- R/USG ABD ulang Hari SENIN TGL 26/10/2026 . MALAM PUASAKAN (-)",
             "malam": ""
           },
           "tags": [
@@ -89322,7 +89322,7 @@
           "category": "Nefrologi & Urologi",
           "notes": {
             "pagi": "PB IGD pk 11.35\n\nkeluhan : os keluhan lemah tidak nafsu makan sejak 1 minggu ini , demam + bab bak baik , riw penyakit disangkal\nth igd : Koreksi Hiperkalemia: Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit D40 2 flacon + insulin 8 iu bolus iv Ventolin inhalasi extra 1x Kalitake 3x1 sach koreksi natrium : nacl 3 % 500cc habis dalam 12 jam pct drip 500 mg inj ratnidin 1a\n\ndr. Darmawan via igd :\nCandesartan 1x16 mg po\nClonidin 3x0.15 mg po\nCefotaxime 3x1 gr iv\nNovorapid 3x10 iu sc\nLain2 lanjut\nHd terakhir kapan?\nTtv dan kesadaran? Video klinis? \n\n(lapor ulang) :\n\nCek ur cr 2 hari lg => senin 26/10/2026\n\nLapor PB (+)",
-            "sore": "PB IGD pk 11.35\n\nkeluhan : os keluhan lemah tidak nafsu makan sejak 1 minggu ini , demam + bab bak baik , riw penyakit disangkal\nth igd : Koreksi Hiperkalemia: Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit D40 2 flacon + insulin 8 iu bolus iv Ventolin inhalasi extra 1x Kalitake 3x1 sach\n\n-  koreksi natrium : nacl 3 % 500cc habis dalam 12 jam pct drip 500 mg inj ratnidin 1a\n- SDG TERPASANG INFUS 3%\n- SENIN 26/10/2026 CEK ELEKTROLIT POST KOREKSI NS 3% (-)\n- Cek ur cr 2 hari lg => senin 26/10/2026\ndr. Darmawan via igd :\nCandesartan 1x16 mg po\nClonidin 3x0.15 mg po\nCefotaxime 3x1 gr iv\nNovorapid 3x10 iu sc\nLain2 lanjut\nHd terakhir kapan?\nTtv dan kesadaran? Video klinis? \n\n(lapor ulang) :\nLapor PB (+)",
+            "sore": "PB IGD pk 11.35\n\nkeluhan : os keluhan lemah tidak nafsu makan sejak 1 minggu ini , demam + bab bak baik , riw penyakit disangkal\nth igd : Koreksi Hiperkalemia: Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit D40 2 flacon + insulin 8 iu bolus iv Ventolin inhalasi extra 1x Kalitake 3x1 sach\n\n-  koreksi natrium : nacl 3 % 500cc habis dalam 12 jam pct drip 500 mg inj ratnidin 1a\n- SDG TERPASANG INFUS 3%\n- SENIN 26/10/2026 CEK ELEKTROLIT POST KOREKSI NS 3% (-)\n- Cek ur cr 2 hari lg => senin 26/10/2026\ndr. Darmawan via igd :\nCandesartan 1x16 mg po\nClonidin 3x0.15 mg po\nCefotaxime 3x1 gr iv\nNovorapid 3x10 iu sc\nLain2 lanjut\nHd terakhir kapan?\nTtv dan kesadaran? Video klinis? \nHASIL LAB TGL 24/10/2026 ( HB :12.1. LEUKOSIT : 39.57, trombosit : 758, ur : 288.7. cr : 9.33, eGFR: 4), ELEKTROLIT ( Natrium (Na) 122.59, Kalium (K) HH 7.82, Klorida (Cl) 97.92, Kalsium (Ca Ion) 1.25)\n- TD SORE SUDAH COBA PASANG DC TP TDK BISA TERPASANG, MLM TOLONG COBA PASANG PAKAI SELANG KATETER UK KECIL\n(lapor ulang) :\nLapor PB (+)\n- JIKA MALAM ADA TEMPAT BETIRAI DI EG 2B, TOLONG PINDAHKAN",
             "malam": ""
           },
           "tags": [
@@ -89358,10 +89358,15 @@
           "category": "Lain-lain",
           "notes": {
             "pagi": "- Kel:  kulit merah seluruh badan mau menerusan injeksi fraizeron, seluruh badan patch eritem skuama tebaal\n- terapi via poli : ranap pro inj frraizeron\n- lapor pb & Hasil lab (+) , Rencana Visit siang hbs dari RSA\n\ndr. retno visit 24/10/2026 : \n- konsul IPD \n- Atorvastatin 1x20mg\n- inj. Fraizeron 2 amp (+) \n- lapor kak diah gizi (+) \n- cek gds/hr\n\nkonsul ipd dr. iqbal (+) a/i:\n- Diet DM,\n- Inj. Levemir 1x20 iu, Inj. Novorapid 3x14 iu, \n- cek GDS/HARI: 173",
-            "sore": "- Kel:  kulit merah seluruh badan mau menerusan injeksi fraizeron, seluruh badan patch eritem skuama tebaal\n- terapi via poli : ranap pro inj frraizeron\n- lapor pb & Hasil lab (+) , Rencana Visit siang hbs dari RSA\n\ndr. retno visit 24/10/2026 : \n- konsul IPD \n- Atorvastatin 1x20mg\n- inj. Fraizeron 2 amp (+) \n- lapor kak diah gizi (+) \n- cek gds/hr\n\nkonsul ipd dr. iqbal (+) a/i:\n- Diet DM,\n- Inj. Levemir 1x20 iu, Inj. Novorapid 3x14 iu, \n- cek GDS/HARI: 173",
+            "sore": "- Kel:  kulit merah seluruh badan mau menerusan injeksi fraizeron, seluruh badan patch eritem skuama tebaal\n- terapi via poli : ranap pro inj frraizeron\n- lapor pb & Hasil lab (+) , Rencana Visit siang hbs dari RSA\n\ndr. retno visit 25/10/2026 : \n- konsul IPD \n- Atorvastatin 1x20mg\n- inj. Fraizeron 2 amp (+) \n- lapor kak diah gizi (+) \n- BESTALIN 1X1 MALAM CETIRIZIN 1X1 PAGI IKAN GABUS 3X1 ( OBAT RUTIN POLI LANJUTKAN )\n- JIKA BAIK BESOK BLPL, DAN JIKA DARI IPD ACC PULANG\n- KONTROL POLI KULIT KAMIS 29/10/2026\n- cek gds/hr\n\nkonsul ipd dr. iqbal (+) a/i:\n- Diet DM,\n- Inj. Levemir 1x20 iu, Inj. Novorapid 3x14 iu, \n- cek GDS/HARI: 173",
             "malam": ""
           },
-          "tags": []
+          "tags": [
+            {
+              "label": "Rencana Pulang",
+              "color": "green"
+            }
+          ]
         },
         {
           "bed": "16",
@@ -89385,7 +89390,7 @@
           "category": "Lain-lain",
           "notes": {
             "pagi": "- Kel: penyakit kambuh gatal nyeri, seluruh badan bula multipel krusta.\n- Therapyy via poli : Inj MP 2x1/2 amp, Ceftriaxone 1x1 .\n- Intruksi via IGD:  Cek Lab SGOT/SGPT , Alb, Kolesterol, HDL, LDL .PROTEIN TOTAL, cek dr, gds, hba1c, ur cr (+) hsl di simrs, lapor dr (+) a/i Injeksi cefriaxon 2x\n\ndr. retno visit 24/10/2026 : \n- injeksi methyl prednisolon 2x62,125\n- imuran 1x1 \n- kloderma fusycom 2x\n- cetirizin 1x1 \n- vip albumin 3x1\n- atorvastatin 1x20mg mlm",
-            "sore": "- Kel: penyakit kambuh gatal nyeri, seluruh badan bula multipel krusta.\n- Therapyy via poli : Inj MP 2x1/2 amp, Ceftriaxone 1x1 .\n- Intruksi via IGD:  Cek Lab SGOT/SGPT , Alb, Kolesterol, HDL, LDL .PROTEIN TOTAL, cek dr, gds, hba1c, ur cr (+) hsl di simrs, lapor dr (+) a/i Injeksi cefriaxon 2x\n\ndr. retno visit 24/10/2026 : \n- injeksi methyl prednisolon 2x62,125\n- imuran 1x1 \n- kloderma fusycom 2x\n- cetirizin 1x1 \n- vip albumin 3x1\n- atorvastatin 1x20mg mlm",
+            "sore": "- Kel: penyakit kambuh gatal nyeri, seluruh badan bula multipel krusta.\n- Therapyy via poli : Inj MP 2x1/2 amp, Ceftriaxone 1x1 .\n- Intruksi via IGD:  Cek Lab SGOT/SGPT , Alb, Kolesterol, HDL, LDL .PROTEIN TOTAL, cek dr, gds, hba1c, ur cr (+) hsl di simrs, lapor dr (+) a/i Injeksi cefriaxon 2x\n\ndr. retno visit 25/10/2026 : \n- injeksi methyl prednisolon 2x62,125\n- imuran 1x1 \n- kloderma fusycom 2x\n- cetirizin 1x1 \n- vip albumin 3x1\n- atorvastatin 1x20mg mlm\n- personal hygiene\n- MANDI \n- TERAPI LANJUT",
             "malam": ""
           },
           "tags": [
@@ -89419,7 +89424,7 @@
           "category": "Nefrologi & Urologi",
           "notes": {
             "pagi": "Keluhan :  pasien saat ini mengeluh Mual (+), nyeri uluhati terasa begah. pasien riwayat DM tipe 2, biasa konsul dengan dok sony, sp.pd - obat rutin metformin 2x500mg 1 bulan terakhir, kedua tungkai bawah semakin membengkak (+)\n\ndr. Decky via IGD : \n- Ivf ns 500/24 jam\n- Omeprazole 1x40 mg\n- Human albumin 25% 100 cc/24 jam => (Alb: 1.57) post TF Albumin botol k-1 => TF Albumin botol k-2 (+) selesai jam 12.50\n- Besok Senin, 26/10/2026 cek albumin post botol k-2\n- Furosemid 2x20 mg iv\n- Levemir 1x12\n- Novorapid 3x8\n- Cek GD tiap pagi\n- pasien menolak insulin =>> TTD penolakan (+)\n- ganti Sitagliptin 1x100, Fonylin 1x1",
-            "sore": "Keluhan :  pasien saat ini mengeluh Mual (+), nyeri uluhati terasa begah. pasien riwayat DM tipe 2, biasa konsul dengan dok sony, sp.pd - obat rutin metformin 2x500mg 1 bulan terakhir, kedua tungkai bawah semakin membengkak (+)\n\ndr. Decky via IGD : \n- Ivf ns 500/24 jam\n- Omeprazole 1x40 mg\n- Human albumin 25% 100 cc/24 jam => (Alb: 1.57) post TF Albumin botol k-1 => TF Albumin botol k-2 (+) selesai jam 12.50\n- Besok Senin, 26/10/2026 cek albumin post botol k-2\n- Furosemid 2x20 mg iv\n- Levemir 1x12\n- Novorapid 3x8\n- Cek GD tiap pagi\n- pasien menolak insulin =>> TTD penolakan (+)\n- ganti Sitagliptin 1x100, Fonylin 1x1",
+            "sore": "Keluhan :  pasien saat ini mengeluh Mual (+), nyeri uluhati terasa begah. pasien riwayat DM tipe 2, biasa konsul dengan dok sony, sp.pd - obat rutin metformin 2x500mg 1 bulan terakhir, kedua tungkai bawah semakin membengkak (+)\n\ndr. Decky via IGD : \n- Ivf ns 500/24 jam\n- Omeprazole 1x40 mg\n- Human albumin 25% 100 cc/24 jam => (Alb: 1.57) post TF Albumin botol k-1 => TF Albumin botol k-2 (+) selesai jam 12.50\n- Besok Senin, 26/10/2026 cek albumin post botol k-2\n- Furosemid 2x20 mg iv\n- Levemir 1x12\n- Novorapid 3x8\n- Cek GD tiap pagi\n- pasien menolak insulin =>> TTD penolakan (+)\n- ganti Sitagliptin 1x100, Fonylin 1x1\nMalam Pasang Inf",
             "malam": ""
           },
           "tags": [
@@ -89515,7 +89520,7 @@
           "category": "Onkologi & Hematologi",
           "notes": {
             "pagi": "- Kel : sesak memberat 2hari ini, perut membesar, sulit BAB, Bak lancar (+) rujukan dari rs rubini mempawah, susp.tumor rectum (+) ascites (+)\n- Th IGD : Inf. RL 20 tpm Inj. Ranitidin 2x1amp inj. Ondan 3x4mg inj. furosemide 3x1amp \n- USG Abdomen : Di status\n- Ronsen Thorax (+)\n\ndr. denny via Telpon : \n- Pro Laparatomi eksplorasi OK IGD minggu 25-10-2026 Pkl 12 siang\n- SPO (+) , Lapor OK IGD (+) INPUT (+) abocat 20 (+) , TF Set (+) Puasa (+)\n- Antri ICU (+), T4 (+)\n- Konsul IPD Dr darmawan (+) balasan (+) : Toleransi operasi: risiko sedang, Ns 3% 500 cc per 24 jam, Threeway dengan ns 0.9 500 cc per 12 jam => sdg terpasang NS 3% k-2\n- Konsul Jantung Dr Temi (+) balasan (+) : Acc operasi, toleransi sedang\n- Konsul ulang anastesi Dr Mala (+) : Pesan icu, Darah min 2 prc, Koreksi natrium : nac 3 % 1 kolf dlm 24 jam\n- Siap Darah PRC 2 Kolf ada di UTD\n- Lab Minggu 18/10/26 ==> (HB = 12.3, WBC = 10.82, PLT = 613)\n- Konsul btkv untuk efusinya\n- Flett Enema (+)\n- Lab kamis, 22/10/26 => (Na = 125.10, Kalium = 4.75, Klorida = 82.30, Kalsium = 1.01) \n- Minggu, 25/10/2026 cek elektrolit post koreksi (+) Hasil di SIMRS\n\ninstruksi dr. hengky via IGD\n- Tak ade efusi/ minimal banget\n- Dari btkv konservatif\n\nSEDANG OP",
-            "sore": "- Kel : sesak memberat 2hari ini, perut membesar, sulit BAB, Bak lancar (+) rujukan dari rs rubini mempawah, susp.tumor rectum (+) ascites (+)\n- Th IGD : Inf. RL 20 tpm Inj. Ranitidin 2x1amp inj. Ondan 3x4mg inj. furosemide 3x1amp \n- USG Abdomen : Di status\n- Ronsen Thorax (+)\n\ndr. denny via Telpon : \n- Pro Laparatomi eksplorasi OK IGD minggu 25-10-2026 Pkl 12 siang\n- SPO (+) , Lapor OK IGD (+) INPUT (+) abocat 20 (+) , TF Set (+) Puasa (+)\n- Antri ICU (+), T4 (+)\n- Konsul IPD Dr darmawan (+) balasan (+) : Toleransi operasi: risiko sedang, Ns 3% 500 cc per 24 jam, Threeway dengan ns 0.9 500 cc per 12 jam => sdg terpasang NS 3% k-2\n- Konsul Jantung Dr Temi (+) balasan (+) : Acc operasi, toleransi sedang\n- Konsul ulang anastesi Dr Mala (+) : Pesan icu, Darah min 2 prc, Koreksi natrium : nac 3 % 1 kolf dlm 24 jam\n- Siap Darah PRC 2 Kolf ada di UTD\n- Lab Minggu 18/10/26 ==> (HB = 12.3, WBC = 10.82, PLT = 613)\n- Konsul btkv untuk efusinya\n- Flett Enema (+)\n- Lab kamis, 22/10/26 => (Na = 125.10, Kalium = 4.75, Klorida = 82.30, Kalsium = 1.01) \n- Minggu, 25/10/2026 cek elektrolit post koreksi (+) Hasil di SIMRS\n\ninstruksi dr. hengky via IGD\n- Tak ade efusi/ minimal banget\n- Dari btkv konservatif\n\nSEDANG OP",
+            "sore": "- Kel : sesak memberat 2hari ini, perut membesar, sulit BAB, Bak lancar (+) rujukan dari rs rubini mempawah, susp.tumor rectum (+) ascites (+)\n- Th IGD : Inf. RL 20 tpm Inj. Ranitidin 2x1amp inj. Ondan 3x4mg inj. furosemide 3x1amp \n- USG Abdomen : Di status\n- Ronsen Thorax (+)\n\ndr. denny via Telpon : \n- Post op Laparatomi eksplorasi OK IGD minggu 25-10-2026 \n- SPO (+) , Lapor OK IGD (+) INPUT (+) abocat 20 (+) , TF Set (+) Puasa (+)\n- Antri ICU (+), T4 (+)\nIntruksi Post Op: \n- Inf B Fluid 1000cc/24 jam \n- Inj Ceftriaxon 2x1 gr \n- Inj Metronidazole 3x500mg \n- Inj Peinloss 3x1 amp \n- Inj Lanzoprazole 2x1 amp \n- Inj Kalnex 3x500mg \n- NGT klem 3:1 Diet susu 6x50cc via ora (Belum dimulai)\n- Siap Darah PRC 2 Kolf ada di UTD=> Besok cek dr Post op\n- Lab Minggu 18/10/26 ==> (HB = 12.3, WBC = 10.82, PLT = 613)\n- Konsul btkv untuk efusinya\n- Flett Enema (+)\n- Lab kamis, 22/10/26 => (Na = 125.10, Kalium = 4.75, Klorida = 82.30, Kalsium = 1.01) \n- Minggu, 25/10/2026 cek elektrolit post koreksi (+) Hasil di SIMRS\n\ninstruksi dr. hengky via IGD\n- Tak ade efusi/ minimal banget\n- Dari btkv konservatif",
             "malam": ""
           },
           "tags": [
@@ -89555,7 +89560,7 @@
           "category": "Onkologi & Hematologi",
           "notes": {
             "pagi": "- Kel : Rujukkan dari dr Ivan dengan badan terasa lemah tidak bisa digerakkan\n- Riw : ca paru on cemo, hiponatremia PRO CARBOPLATIN/PACLITAXWL ke 3\n\ndr. Ivan visit 23/10/26 : \n- Lab Rabu, 21/10/26 => (hb = 10.3, wbc = 7.39, plt = 109, Na = 129.85, Kalium = 2.37)\n- Inf, Nacl 3% : Nacl 100 + Kcl : B.Fluid => sdg terpasang inf NACL 3% => selesai lanjut Nacl + KCL (-)\n- (+) Lanso 1x30, Meco 2x500, Tracetat 2x15, As.Folat 1x5, Curcuma 3x2, KSR 2x2, NACE 3x200 , Dexa 2x1 (3hari) selanjutnya 1x1 => Resep (+)",
-            "sore": "- Kel : Rujukkan dari dr Ivan dengan badan terasa lemah tidak bisa digerakkan\n- Riw : ca paru on cemo, hiponatremia PRO CARBOPLATIN/PACLITAXWL ke 3\n\ndr. Ivan visit 23/10/26 : \n- Lab Rabu, 21/10/26 => (hb = 10.3, wbc = 7.39, plt = 109, Na = 129.85, Kalium = 2.37)\n- Inf, Nacl 3% : Nacl 100 + Kcl : B.Fluid => sdg terpasang inf NACL 3% => selesai lanjut Nacl + KCL (-)\n- (+) Lanso 1x30, Meco 2x500, Tracetat 2x15, As.Folat 1x5, Curcuma 3x2, KSR 2x2, NACE 3x200 , Dexa 2x1 (3hari) selanjutnya 1x1 => Resep (+)",
+            "sore": "- Kel : Rujukkan dari dr Ivan dengan badan terasa lemah tidak bisa digerakkan\n- Riw : ca paru on cemo, hiponatremia PRO CARBOPLATIN/PACLITAXWL ke 3\n\ndr. Ivan visit 23/10/26 : \n- Lab Rabu, 21/10/26 => (hb = 10.3, wbc = 7.39, plt = 109, Na = 129.85, Kalium = 2.37)\n- Inf, Nacl 3% : Nacl 100 + Kcl : B.Fluid => sdg terpasang inf NACL + KCL => Selesai cek Elektrolit\n- (+) Lanso 1x30, Meco 2x500, Tracetat 2x15, As.Folat 1x5, Curcuma 3x2, KSR 2x2, NACE 3x200 , Dexa 2x1 (3hari) selanjutnya 1x1 => Resep (+)",
             "malam": ""
           },
           "tags": [
@@ -89749,7 +89754,7 @@
           "category": "Nefrologi & Urologi",
           "notes": {
             "pagi": "- Kel : pasien kejang, seperti kelonjotan. kejang tadi malam 1x, < 1 menit hari ini 2x, < 1 menit badan terasa lemah, nafsu makan menurun pasien riw. Diabetic Foot, sudah pernah amputasi, saat ini masih perawatan luka riw. CKD, sudah 3 minggu selesai HD\n\n- Hb: 5.8 , R/ PRC 3 kolf di IGD (+) => SELESAI\n- Sabtu, 24/10/2026 Cek DR, Ur/Cr POST TF 3 kolf (+) Hasil (+) => Lapor dr. Darmawan (+) BALASAN (-)\n\ndr. Darmawan via IGD :\n- Ns3% 500 cc per 24 jam\n- Jalur 2: NS 0.9 500 + KCl 25 meq per 24 jam (sedang terpasang) \n- Ksr 3x600 mg po\n- Novorapid 3x14 iu sc\n- Lantus 1x 12 iu ac\n- Cefotaxime 3x1 gr iv\n- Metronidazole 3x500 mg iv\n- PRC 750 cc bertahap\n- Konsul dr.Dini,SpN\n- Lapor PB dr. Darmawan (+) : lanjut\n- Lapor dr. Darmawan pasien tidak bisa tidur dan gelisah (+) BALASAN (-)\n\ndr. Dini via IGD :\n- Inj phenitoin 2x100mg >> naik jadi 3x100mg\n- As folat 2x1\n- Inj mecobalamin 3x500mcg\n- Lapor PB dr. Dini (+) balasan (+) : Naik jadi 3x100mg. Bolus diazepam 1 amp pelan banget saat kejang.. hentikan injeksi jika kejang berhenti\n\n- Sabtu sore 24/10/2026 GV (+) \n- Senin, 26/10/2026 GV luka TWC (-)",
-            "sore": "- Kel : pasien kejang, seperti kelonjotan. kejang tadi malam 1x, < 1 menit hari ini 2x, < 1 menit badan terasa lemah, nafsu makan menurun pasien riw. Diabetic Foot, sudah pernah amputasi, saat ini masih perawatan luka riw. CKD, sudah 3 minggu selesai HD\n\n- Hb: 5.8 , R/ PRC 3 kolf di IGD (+) => SELESAI\n- Sabtu, 24/10/2026 Cek DR, Ur/Cr POST TF 3 kolf (+) Hasil (+) => Lapor dr. Darmawan (+) BALASAN (-)\n\ndr. Darmawan via IGD :\n- Ns3% 500 cc per 24 jam\n- Jalur 2: NS 0.9 500 + KCl 25 meq per 24 jam (sedang terpasang) \n- Ksr 3x600 mg po\n- Novorapid 3x14 iu sc\n- Lantus 1x 12 iu ac\n- Cefotaxime 3x1 gr iv\n- Metronidazole 3x500 mg iv\n- PRC 750 cc bertahap\n- Konsul dr.Dini,SpN\n- Lapor PB dr. Darmawan (+) : lanjut\n- Lapor dr. Darmawan pasien tidak bisa tidur dan gelisah (+) BALASAN (-)\n\ndr. Dini via IGD :\n- Inj phenitoin 2x100mg >> naik jadi 3x100mg\n- As folat 2x1\n- Inj mecobalamin 3x500mcg\n- Lapor PB dr. Dini (+) balasan (+) : Naik jadi 3x100mg. Bolus diazepam 1 amp pelan banget saat kejang.. hentikan injeksi jika kejang berhenti\n\n- Sabtu sore 24/10/2026 GV (+) \n- Senin, 26/10/2026 GV luka TWC (-)",
+            "sore": "- Kel : pasien kejang, seperti kelonjotan. kejang tadi malam 1x, < 1 menit hari ini 2x, < 1 menit badan terasa lemah, nafsu makan menurun pasien riw. Diabetic Foot, sudah pernah amputasi, saat ini masih perawatan luka riw. CKD, sudah 3 minggu selesai HD\n\n- Hb: 5.8 , R/ PRC 3 kolf di IGD (+) => SELESAI\n- Sabtu, 24/10/2026 Cek DR, Ur/Cr POST TF 3 kolf (+) Hasil (+) => Lapor dr. Darmawan (+) BALASAN (-)\n\ndr. Darmawan via IGD :\n- Ns3% 500 cc per 24 jam\n- Jalur 2: NS 0.9 500 + KCl 25 meq per 24 jam (sedang terpasang) \n- Ksr 3x600 mg po\n- Novorapid 3x14 iu sc\n- Lantus 1x 12 iu ac\n- Cefotaxime 3x1 gr iv\n- Metronidazole 3x500 mg iv\n- PRC 750 cc bertahap\n- Konsul dr.Dini,SpN\n- Lapor PB dr. Darmawan (+) : lanjut\n- Lapor dr. Darmawan pasien tidak bisa tidur dan gelisah a/i Lantus 1x14 iu\nAlprazolam 1x0.5 mg po\n\ndr. Dini via IGD :\n- Inj phenitoin 2x100mg >> naik jadi 3x100mg\n- As folat 2x1\n- Inj mecobalamin 3x500mcg\n- Lapor PB dr. Dini (+) balasan (+) : Naik jadi 3x100mg. Bolus diazepam 1 amp pelan banget saat kejang.. hentikan injeksi jika kejang berhenti\n\n- Sabtu sore 24/10/2026 GV (+) \n- Senin, 26/10/2026 GV luka TWC (-)",
             "malam": ""
           },
           "tags": [
@@ -89785,7 +89790,7 @@
           "category": "Lain-lain",
           "notes": {
             "pagi": "Keluhan : BAB cair, muntah, sesak kadang-kadang \ndr. Ivan via IGD a/i :\n- Therapy suportif",
-            "sore": "Keluhan : BAB cair, muntah, sesak kadang-kadang \ndr. Ivan via IGD a/i :\n- Therapy suportif",
+            "sore": "Keluhan : BAB cair, muntah, sesak kadang-kadang \ndr. Ivan via IGD a/i :\n- Therapy suportif \n- lapor dr jaga, dr dodi u/ keluhan pasien sesak dan gelisah a/i Inj Furosemid 1 amp",
             "malam": ""
           },
           "tags": []
@@ -89829,38 +89834,29 @@
         {
           "bed": "14",
           "room": "EG2B",
-          "status": "Meninggal",
+          "status": "Dirawat",
           "isEmpty": false,
-          "isActive": false,
+          "isActive": true,
           "isDischargedToday": false,
-          "isDeceased": true,
-          "dischargeColor": "FFFF0000",
-          "name": "Tn. Solihin",
-          "mrNo": "00302401",
-          "gender": "L",
+          "isDeceased": false,
+          "dischargeColor": null,
+          "name": "U/ Pasien E.g 2a yang Gelisah",
+          "mrNo": "",
+          "gender": "P",
           "age": "",
-          "admissionDate": "20/10/2026",
-          "los": 6,
+          "admissionDate": "",
+          "los": 1,
           "insurance": "BPJS Kelas 3",
-          "doctor": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK\n\nDr. Pradana Sp.P",
-          "doctorPrimary": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK",
-          "diagnosis": "Obs Dyspnoe ec Tumor Paru dextra\n\nca paru metas leher",
-          "category": "Onkologi & Hematologi",
+          "doctor": "",
+          "doctorPrimary": "-",
+          "diagnosis": "",
+          "category": "Lain-lain",
           "notes": {
-            "pagi": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi",
-            "sore": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi\n\nMeninggal jam 16.50",
+            "pagi": "",
+            "sore": "",
             "malam": ""
           },
-          "tags": [
-            {
-              "label": "Meninggal",
-              "color": "red"
-            },
-            {
-              "label": "Onkologi",
-              "color": "pink"
-            }
-          ]
+          "tags": []
         },
         {
           "bed": "15",
@@ -89964,38 +89960,29 @@
         {
           "bed": "18",
           "room": "EG2B",
-          "status": "Pulang Hari Ini",
+          "status": "Dirawat",
           "isEmpty": false,
-          "isActive": false,
-          "isDischargedToday": true,
+          "isActive": true,
+          "isDischargedToday": false,
           "isDeceased": false,
-          "dischargeColor": "FFF4CCCC",
-          "name": "Ny. Murni",
-          "mrNo": "00284224",
-          "gender": "P",
+          "dischargeColor": null,
+          "name": "Sdr. Jaka",
+          "mrNo": "00305552",
+          "gender": "L",
           "age": "",
-          "admissionDate": "20/10/2026",
-          "los": 6,
+          "admissionDate": "24/10/2026",
+          "los": 2,
           "insurance": "BPJS Kelas 3",
-          "doctor": "JOHANNES MANURUNG, DR. SP.BS\n\nDARMAWAN,DR., M.KES.,SP.PD-KGH.FINASIM\n\ndr. Martha",
-          "doctorPrimary": "JOHANNES MANURUNG, DR. SP.BS",
-          "diagnosis": "Hydrocephalus post revisi VP shunt (POD 3)",
+          "doctor": "dr. Darmawan, Sp. PD",
+          "doctorPrimary": "DARMAWAN, DR., M.KES., SP.PD-KGH. FINASIM",
+          "diagnosis": "Syok Hipovolemik",
           "category": "Lain-lain",
           "notes": {
-            "pagi": "BLPL JAM 12.00\n\n- Kel : cenderung mengantuk (saat ini membuka mata spontan), tidak dapat merespon keluarga, kontak mata (-), makan minum sulit masuk \n- RPD : riw. hydrocephalus post op revisi VP shunt oleh dr. Johannes, sp.BS pada Jumat, 16 Oktober 2026\n- HB : 10.3 , WBC :  17.62,  UR : 67.8, CR : 1.39 , eGFR : 43\n\nAsisten Dr johanes Visite 25/10/2026\n- Kons raber peny dalam( ginjal bermasalah), saya konservatif, teruskan th igd, ruang biasa\ntherapy lanjut\n- Sudah visit ke Pasien => Keluarga tidak ada. Di Telp 4x tidak di angkat\n- AFF NGT => Diit Bubut Oral => blm bisa mami via oral\n- BLPL => Resume pulang di SIMRS, Obat pulang mengikuti IPD \n\nDr Darmawan Via IGD :\n- Cefotaxime 3x1 gr iv\n- Candesartan 1x8 mg po\n- Bisoprolol 1x2.5 mg po\n- Nac 3x200 mg po\n- Bicnat 3x500 mg po\n- Asam folat 3x1 mg po\n- Cek ur cr per 2 hari\n* Kamis, 22/10/2026 (Ur = 52.1, Cr = 0.82, eGFR = 81) \n* Sabtu 24/10/2026 (Ur =  44.4, Cr =  0.91, eGFR =  71) => Selanjutnya Senin, 26/10/2026\n- BLPL\n\nKonsul dr Marta Sp.KFR visit (+)\n- Jumat, 23/10/26 fisiotherapy pertama (+)",
-            "sore": "BLPL JAM 12.00\n\n- Kel : cenderung mengantuk (saat ini membuka mata spontan), tidak dapat merespon keluarga, kontak mata (-), makan minum sulit masuk \n- RPD : riw. hydrocephalus post op revisi VP shunt oleh dr. Johannes, sp.BS pada Jumat, 16 Oktober 2026\n- HB : 10.3 , WBC :  17.62,  UR : 67.8, CR : 1.39 , eGFR : 43\n\nAsisten Dr johanes Visite 25/10/2026\n- Kons raber peny dalam( ginjal bermasalah), saya konservatif, teruskan th igd, ruang biasa\ntherapy lanjut\n- Sudah visit ke Pasien => Keluarga tidak ada. Di Telp 4x tidak di angkat\n- AFF NGT => Diit Bubut Oral => blm bisa mami via oral\n- BLPL => Resume pulang di SIMRS, Obat pulang mengikuti IPD \n\nDr Darmawan Via IGD :\n- Cefotaxime 3x1 gr iv\n- Candesartan 1x8 mg po\n- Bisoprolol 1x2.5 mg po\n- Nac 3x200 mg po\n- Bicnat 3x500 mg po\n- Asam folat 3x1 mg po\n- Cek ur cr per 2 hari\n* Kamis, 22/10/2026 (Ur = 52.1, Cr = 0.82, eGFR = 81) \n* Sabtu 24/10/2026 (Ur =  44.4, Cr =  0.91, eGFR =  71) => Selanjutnya Senin, 26/10/2026\n- BLPL\n\nKonsul dr Marta Sp.KFR visit (+)\n- Jumat, 23/10/26 fisiotherapy pertama (+)",
+            "pagi": "- Keluhan : keluhan lemah 5 hari disertai demam, pusing (+). Muntah (-). Makan minum kurang BAB dan BAK dan Bulan lalu dirawat di RS Mitra Medika dikatakan autoimun, tapi pasien tidak membawa hasil pemeriksaan dari RS Mitra Medika (tinggal di rumah pasien di Sambas)\n\ndr. darmawan via IGD a/i :\n- NS 0.9 500 cc per 8 jam\n- PCT 3x1 gr iv\n- Omz 1x40 mg iv\n- Drip ceftriaxone 1x3 gr iv -> lapor ceftriaxone -- mengeluh gatal dan merah setelah di skintest -> levofloksasin 1x750 mg IV \n- Ondasetron 3x8 mg iv",
+            "sore": "- Keluhan : keluhan lemah 5 hari disertai demam, pusing (+). Muntah (-). Makan minum kurang BAB dan BAK dan Bulan lalu dirawat di RS Mitra Medika dikatakan autoimun, tapi pasien tidak membawa hasil pemeriksaan dari RS Mitra Medika (tinggal di rumah pasien di Sambas)\n\ndr. darmawan via IGD a/i :\n- NS 0.9 500 cc per 8 jam\n- PCT 3x1 gr iv\n- Omz 1x40 mg iv\n- Drip ceftriaxone 1x3 gr iv -> lapor ceftriaxone -- mengeluh gatal dan merah setelah di skintest -> levofloksasin 1x750 mg IV \n- Ondasetron 3x8 mg iv",
             "malam": ""
           },
-          "tags": [
-            {
-              "label": "Pulang Hari Ini",
-              "color": "emerald"
-            },
-            {
-              "label": "Bedah / Operasi",
-              "color": "orange"
-            }
-          ]
+          "tags": []
         },
         {
           "bed": "19",
@@ -90154,7 +90141,7 @@
           "category": "Onkologi & Hematologi",
           "notes": {
             "pagi": "- Kel :  nyeri pada perut. Sulit BAK sejak 5 hari lalu. Kedua kaki bengkak.\n- Pasien membawa pengantar dari dr. Elit,Sp.B dengan Adenoca colon Cancer pain,\n\n dr Elit Via IGD (+) a/i :\n- Raber dr Sp.PD KGH (+)\n- pasien mengeluh nyeri perut tidak bisa makan, TD : 160/82 N : 81x/menit --> lapor dr. Elit (+) a/i : Drip Tramadol ketorolac ondancentron 16 ypm\n\ndr darmawan via IGD (+) a/i \n- Protokol hiperkalemia :\n* Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit\n* D40 2 flacon + insulin 8 iu bolus iv\n- Nac 3x200 mg po, Bicnat 3x500 mg po, Asam folat 3x1 mg po,  kalitake 3x1 sach\n- Omz 1x40 mg iv, Ondansetron 3x8 mg iv\n- minggu 25/10/2026 cek elektrolit post koreksi hiperkalemia (+) hasil disimrs --> lapor dr darmawan (+) balasan (-)",
-            "sore": "- Kel :  nyeri pada perut. Sulit BAK sejak 5 hari lalu. Kedua kaki bengkak.\n- Pasien membawa pengantar dari dr. Elit,Sp.B dengan Adenoca colon Cancer pain,\n\n dr Elit Via IGD (+) a/i :\n- Raber dr Sp.PD KGH (+)\n- pasien mengeluh nyeri perut tidak bisa makan, TD : 160/82 N : 81x/menit --> lapor dr. Elit (+) a/i : Drip Tramadol ketorolac ondancentron 16 ypm\n\ndr darmawan via IGD (+) a/i \n- Protokol hiperkalemia :\n* Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit\n* D40 2 flacon + insulin 8 iu bolus iv\n- Nac 3x200 mg po, Bicnat 3x500 mg po, Asam folat 3x1 mg po,  kalitake 3x1 sach\n- Omz 1x40 mg iv, Ondansetron 3x8 mg iv\n- minggu 25/10/2026 cek elektrolit post koreksi hiperkalemia (+) hasil disimrs --> lapor dr darmawan (+) balasan (-)",
+            "sore": "- Kel :  nyeri pada perut. Sulit BAK sejak 5 hari lalu. Kedua kaki bengkak.\n- Pasien membawa pengantar dari dr. Elit,Sp.B dengan Adenoca colon Cancer pain,\n\n dr Elit Via IGD (+) a/i :\n- Raber dr Sp.PD KGH (+)\n- pasien mengeluh nyeri perut tidak bisa makan, TD : 160/82 N : 81x/menit --> lapor dr. Elit (+) a/i : Drip Tramadol ketorolac ondancentron 16 ypm\n\ndr darmawan via IGD (+) a/i \n- Protokol hiperkalemia :\n* Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit\n* D40 2 flacon + insulin 8 iu bolus iv\n- Nac 3x200 mg po, Bicnat 3x500 mg po, Asam folat 3x1 mg po,  kalitake 3x1 sach\n- Omz 1x40 mg iv, Ondansetron 3x8 mg iv\n- minggu 25/10/2026 cek elektrolit post koreksi hiperkalemia (+) hasil disimrs --> lapor dr darmawan a/i Protokol hiperkalemia 1 siklus",
             "malam": ""
           },
           "tags": [
@@ -90326,7 +90313,7 @@
           "category": "Nefrologi & Urologi",
           "notes": {
             "pagi": "PB via IGD jam 09.30 \n- Kel : keluhan demam sejak Senin, batuk memberat sejak 1 minggu dan terasa agak sesak, perut begah, ada luka di kaki kanan\n- Luka sudah 1 bulan biasa ganti perban di Kitamura \n- Riw DM tipe 2 (+), \n- RPO : glimepirid\n- Cek GDS / hr (pagi :)\n\ndr. iqbal via IGD (+) a/i :\n- Senin Konsul wound care (-)\n- Na :  114.36 --> Inf nacl 3% 10 tpm makro (-) resep (+) sore tolong pasng\n- Info nacl 0,9% 10 tpm makro\n- Inj. Omz 40mg/12 jam\n- Inf pct 1gr/8 jam, Inj. Resfar 1vial/12 jam, Drip metronidazole 500mg/8 jam\n- Inj. Furosemid 20mg/12 jam\n- Inj. Levemir 1x8 iu, Inj. Novorapid 3x6 iu\n- Clindamycin 4x300mg, Ketotenal 2x2, Codein 2x10mg, Sucralfat syr 3x15ml\n- Cek albumin (+) alb : 3,52 \n- Lapor PB (+)",
-            "sore": "PB via IGD jam 09.30 \n- Kel : keluhan demam sejak Senin, batuk memberat sejak 1 minggu dan terasa agak sesak, perut begah, ada luka di kaki kanan\n- Luka sudah 1 bulan biasa ganti perban di Kitamura \n- Riw DM tipe 2 (+), \n- RPO : glimepirid\n- Cek GDS / hr (pagi :)\n\ndr. iqbal via IGD (+) a/i :\n- Senin Konsul wound care (-)\n- Na :  114.36 --> Inf nacl 3% 10 tpm makro (-) resep (+) sore tolong pasng\n- Info nacl 0,9% 10 tpm makro\n- Inj. Omz 40mg/12 jam\n- Inf pct 1gr/8 jam, Inj. Resfar 1vial/12 jam, Drip metronidazole 500mg/8 jam\n- Inj. Furosemid 20mg/12 jam\n- Inj. Levemir 1x8 iu, Inj. Novorapid 3x6 iu\n- Clindamycin 4x300mg, Ketotenal 2x2, Codein 2x10mg, Sucralfat syr 3x15ml\n- Cek albumin (+) alb : 3,52 \n- Lapor PB (+)",
+            "sore": "PB via IGD jam 09.30 \n- Kel : keluhan demam sejak Senin, batuk memberat sejak 1 minggu dan terasa agak sesak, perut begah, ada luka di kaki kanan\n- Luka sudah 1 bulan biasa ganti perban di Kitamura \n- Riw DM tipe 2 (+), \n- RPO : glimepirid\n- Cek GDS / hr (pagi :)\n\ndr. iqbal via IGD (+) a/i :\n- Senin Konsul wound care (-)\n- Na :  114.36 --> Inf nacl 3% 10 tpm makro => sedang Terpasang, Selesai cek Elektrolit\n- Info nacl 0,9% 10 tpm makro\n- Inj. Omz 40mg/12 jam\n- Inf pct 1gr/8 jam, Inj. Resfar 1vial/12 jam, Drip metronidazole 500mg/8 jam\n- Inj. Furosemid 20mg/12 jam\n- Inj. Levemir 1x8 iu, Inj. Novorapid 3x6 iu\n- Clindamycin 4x300mg, Ketotenal 2x2, Codein 2x10mg, Sucralfat syr 3x15ml\n- Cek albumin (+) alb : 3,52 \n- Lapor PB (+)",
             "malam": ""
           },
           "tags": []
@@ -90334,32 +90321,32 @@
         {
           "bed": "29",
           "room": "EG2B",
-          "status": "Pulang Hari Ini",
+          "status": "Dirawat",
           "isEmpty": false,
-          "isActive": false,
-          "isDischargedToday": true,
+          "isActive": true,
+          "isDischargedToday": false,
           "isDeceased": false,
-          "dischargeColor": "FFFF9900",
-          "name": "Tn. Syech Haikal",
-          "mrNo": "00242940",
-          "gender": "L",
+          "dischargeColor": null,
+          "name": "Ny. Siti Hatitin Suma Sari",
+          "mrNo": "00303245",
+          "gender": "P",
           "age": "",
-          "admissionDate": "23/10/2026",
-          "los": 3,
-          "insurance": "BPJS Kelas 2",
-          "doctor": "APRIANI, DR, M.KED (PD), SP.PD",
-          "doctorPrimary": "APRIANI, DR, M.KED (PD), SP.PD",
-          "diagnosis": "- dm tipe 2 - dyspepsia syndrome - obs. vomiting",
-          "category": "Penyakit Dalam (Metabolik)",
+          "admissionDate": "24/10/2026",
+          "los": 2,
+          "insurance": "BPJS Kelas 3",
+          "doctor": "dr. Johanes Manurung",
+          "doctorPrimary": "dr. Johanes Manurung",
+          "diagnosis": "Febris Dehidrasi \nec Low intake Post Removal Tumor POD - 10\nSefalgia",
+          "category": "Onkologi & Hematologi",
           "notes": {
-            "pagi": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
-            "sore": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
+            "pagi": "- Keluhan : nyeri kepala sejak 1 hari smrs. nyeri dirasa terus menerus. pasien juga mengeluhkan demam sejak 2 minggu smrs. pasien post operasi removal tumor otak 10 hari smrs\n\nAsisten dr. Johanes Manurung visite tgl 25/10/2026 a/i :\n\n- Tidak tanda2 kelemahan di vital sign nya\n- Diagnosa masuk nya di ubah biar tidak terhitung readmisi\n- Guyur NaCl 1000 cc 30 mnt dulu lanjut 40 tom\n- Jangan drip tko, cukup pct, pct 3x1 gr\n- th/tambahan Inj. Ceftriaxon 2x2gr IV, NAC 3x1 PO => Sore tolong mulai",
+            "sore": "- Keluhan : nyeri kepala sejak 1 hari smrs. nyeri dirasa terus menerus. pasien juga mengeluhkan demam sejak 2 minggu smrs. pasien post operasi removal tumor otak 10 hari smrs\n\nAsisten dr. Johanes Manurung visite tgl 25/10/2026 a/i :\n\n- Tidak tanda2 kelemahan di vital sign nya\n- Diagnosa masuk nya di ubah biar tidak terhitung readmisi\n- Guyur NaCl 1000 cc 30 mnt dulu lanjut 40 tom\n- Jangan drip tko, cukup pct, pct 3x1 gr\n- th/tambahan Inj. Ceftriaxon 2x2gr IV, NAC 3x1 PO",
             "malam": ""
           },
           "tags": [
             {
-              "label": "Pulang Hari Ini",
-              "color": "emerald"
+              "label": "Bedah / Operasi",
+              "color": "orange"
             }
           ]
         },
@@ -90385,7 +90372,7 @@
           "category": "Lain-lain",
           "notes": {
             "pagi": "- Kel: Lemah dan nyeri ulu hati sejak tadi malam, tidak mampu berjalan Riw. hipokalemia berulang\n- terapi via IGD: IVFD Nacl 0.9% 20 tpm Inj. Omeprazole 1 vial / 24 jam \n- Pasang kateter \n- koreksi Kalium = inf Nacl + KCl 2 fls habis dalam 12 jam KSR 3x1\n- Inf via CVC \n\ndr. harry andhika via IGD (+) a/i: \n- Inj ceftriaxone 2x1gr,\n- Koreksi cepat hipokalemia cepat drip kcl 50 meq/ KCL 2 flash dalam ns 100 cc habis 3 jam via cvc (+) selesai 3 siklus\n- Minggu 25/10/2026 cek elektrolit ulang (+) hasil disimrs, lapor dr. Harry (+) a/i : Tambah koreksi hipokalemia cepatnya 2 siklus, Jarak antar siklus 1 jam\n- sedang terpasang ns 100 + kcl 2 flsh kolf 1 mulai jam 11.15 --> selesai jeda 1 jam lanjut kolf ke 2\n- Besok, senin 26/10/26 cek elektrolit ulang (-) \n\ndr. alvin via IGD (+) a/i: \n- Post pemasangan akses vena sentral US guided (POD 1)\n- GV luka tiap 2 hari/bila kotor/bila rembes dengan salep Mupirocin 2% Lain2 sesuai DPJP\n- tidak raber",
-            "sore": "- Kel: Lemah dan nyeri ulu hati sejak tadi malam, tidak mampu berjalan Riw. hipokalemia berulang\n- terapi via IGD: IVFD Nacl 0.9% 20 tpm Inj. Omeprazole 1 vial / 24 jam \n- Pasang kateter \n- koreksi Kalium = inf Nacl + KCl 2 fls habis dalam 12 jam KSR 3x1\n- Inf via CVC \n\ndr. harry andhika via IGD (+) a/i: \n- Inj ceftriaxone 2x1gr,\n- Koreksi cepat hipokalemia cepat drip kcl 50 meq/ KCL 2 flash dalam ns 100 cc habis 3 jam via cvc (+) selesai 3 siklus\n- Minggu 25/10/2026 cek elektrolit ulang (+) hasil disimrs, lapor dr. Harry (+) a/i : Tambah koreksi hipokalemia cepatnya 2 siklus, Jarak antar siklus 1 jam\n- sedang terpasang ns 100 + kcl 2 flsh kolf 1 mulai jam 11.15 --> selesai jeda 1 jam lanjut kolf ke 2\n- Besok, senin 26/10/26 cek elektrolit ulang (-) \n\ndr. alvin via IGD (+) a/i: \n- Post pemasangan akses vena sentral US guided (POD 1)\n- GV luka tiap 2 hari/bila kotor/bila rembes dengan salep Mupirocin 2% Lain2 sesuai DPJP\n- tidak raber",
+            "sore": "- Kel: Lemah dan nyeri ulu hati sejak tadi malam, tidak mampu berjalan Riw. hipokalemia berulang\n- terapi via IGD: IVFD Nacl 0.9% 20 tpm Inj. Omeprazole 1 vial / 24 jam \n- Pasang kateter \n- koreksi Kalium = inf Nacl + KCl 2 fls habis dalam 12 jam KSR 3x1\n- Inf via CVC \n\ndr. harry andhika via IGD (+) a/i: \n- Inj ceftriaxone 2x1gr,\n- Koreksi cepat hipokalemia cepat drip kcl 50 meq/ KCL 2 flash dalam ns 100 cc habis 3 jam via cvc (+) selesai 3 siklus\n- Minggu 25/10/2026 cek elektrolit ulang (+) hasil disimrs, lapor dr. Harry (+) a/i : Tambah koreksi hipokalemia cepatnya 2 siklus, Jarak antar siklus 1 jam\n- sedang terpasang ns 100 + kcl 2 flsh kolf 1 mulai jam 11.15 --> selesai jeda 1 jam lanjut kolf ke 2 (+)\n- Besok, senin 26/10/26 cek elektrolit ulang (-) \n\ndr. alvin via IGD (+) a/i: \n- Post pemasangan akses vena sentral US guided (POD 1)\n- GV luka tiap 2 hari/bila kotor/bila rembes dengan salep Mupirocin 2% Lain2 sesuai DPJP\n- tidak raber",
             "malam": ""
           },
           "tags": [
@@ -90582,7 +90569,7 @@
           "category": "Nefrologi & Urologi",
           "notes": {
             "pagi": "- Kel: badan terasa gatal\n- Riw: surat pengantar dari dokter spesialis dengan : anemia nn e.c s acute bleedin dd chronic desease amenore sekunder, riw penyakit disangkal\n- inj kanex 3x500 mg, inj omz 1 vial\n- pro transfusi PRC 4 kolf\n- Terpasang DC (+)\n\ndr.Danar,Sp.PD-KGH di visitekan dr. Apriani tanggal 23/10/2026:\n- Inf.nacl 0,9% 20ttm\n- nocid 3x1, inj omz 1amp/24jam, ttd 3x1, ksr 2x1\n- Hitung Balance Cairan/24 jam =>> Cairan Masuk - Cairan Keluar - IWL =>>  SHIFT PAGI: , SHIFT SORE: , SHIFT MALAM: \n* BB: 65Kg, IWl: 15x65:24 = 40.625\n* Cairan Masuk\nSHIFT PAGI Jam 07:00 - 14:00 =>> Infus: cc, Minum: cc, Obat: cc\nSHIFT SORE Jam 14:00 - 21:00 =>> Infus: cc, Minum: cc, Obat: cc\nSHIFT MALAM Jam 21:00 - 07:00 =>> Infus: cc, Minum: cc, Obat: cc, darah : cc\n* Cairan Keluar\nSHIFT PAGI Jam 07:00 - 14:00 =>> Urine: cc\nSHIFT SORE Jam 14:00 - 21:00 =>> Urine: cc\nSHIFT MALAM Jam 21:00 - 07:00 =>> Urine: cc\n- Hitung Diuresis =>> Jumlah Urine/KgBB/Jam  =>> SHIFT PAGI: , SHIFT SORE: , SHIFT MALAM: \n- R/ Tranfusi PRC 4 Kolf Bertahap (TARGET S/d HB > 10 g/dl) =>> 3 KOLF (+),SEDANG TERPASANG KOLF KE 4\n- Hasil Cek DR post TF PRC 3 kolf (HB:  8.5 PLT: 277 WBC:13.57)\n- Hasil Cek asam urat, hba1c (AU: 9.4 HBA1C:  5.5) =>> Lapor dr.Danar (+) Balasan (-)\n- Hasil cek PP test (Tanggal 21/10/2026) \"Negatif\" =>> Jika hasil positif konsul Sp.OG (-)\n- USG abdomen (Kamis 22/10/2026) \": Cholelithiasis multiple,  Chronic kidney parenchymal disease bilateral, Splenomegali ringan\" =>> Lapor dr.Danar sekalian hasil DR Post TF PRC 3 kolf (+) Balasan (-)\n- Tambahan UDCA 2x1 (+) sudah dimulai\n- sabtu 24/10/26  cek DR UR CR ulang (+) HB : 9.2 , UR :152.8 , CR : 9.07 , eGFR : 5\n- Senin 26/10/26 cek DR post tranfusi PRC kolf ke 4 (-)",
-            "sore": "- Kel: badan terasa gatal\n- Riw: surat pengantar dari dokter spesialis dengan : anemia nn e.c s acute bleedin dd chronic desease amenore sekunder, riw penyakit disangkal\n- inj kanex 3x500 mg, inj omz 1 vial\n- pro transfusi PRC 4 kolf\n- Terpasang DC (+)\n\ndr.Danar,Sp.PD-KGH di visitekan dr. Apriani tanggal 23/10/2026:\n- Inf.nacl 0,9% 20ttm\n- nocid 3x1, inj omz 1amp/24jam, ttd 3x1, ksr 2x1\n- Hitung Balance Cairan/24 jam =>> Cairan Masuk - Cairan Keluar - IWL =>>  SHIFT PAGI: , SHIFT SORE: , SHIFT MALAM: \n* BB: 65Kg, IWl: 15x65:24 = 40.625\n* Cairan Masuk\nSHIFT PAGI Jam 07:00 - 14:00 =>> Infus: cc, Minum: cc, Obat: cc\nSHIFT SORE Jam 14:00 - 21:00 =>> Infus: cc, Minum: cc, Obat: cc\nSHIFT MALAM Jam 21:00 - 07:00 =>> Infus: cc, Minum: cc, Obat: cc, darah : cc\n* Cairan Keluar\nSHIFT PAGI Jam 07:00 - 14:00 =>> Urine: cc\nSHIFT SORE Jam 14:00 - 21:00 =>> Urine: cc\nSHIFT MALAM Jam 21:00 - 07:00 =>> Urine: cc\n- Hitung Diuresis =>> Jumlah Urine/KgBB/Jam  =>> SHIFT PAGI: , SHIFT SORE: , SHIFT MALAM: \n- R/ Tranfusi PRC 4 Kolf Bertahap (TARGET S/d HB > 10 g/dl) =>> 3 KOLF (+),SEDANG TERPASANG KOLF KE 4\n- Hasil Cek DR post TF PRC 3 kolf (HB:  8.5 PLT: 277 WBC:13.57)\n- Hasil Cek asam urat, hba1c (AU: 9.4 HBA1C:  5.5) =>> Lapor dr.Danar (+) Balasan (-)\n- Hasil cek PP test (Tanggal 21/10/2026) \"Negatif\" =>> Jika hasil positif konsul Sp.OG (-)\n- USG abdomen (Kamis 22/10/2026) \": Cholelithiasis multiple,  Chronic kidney parenchymal disease bilateral, Splenomegali ringan\" =>> Lapor dr.Danar sekalian hasil DR Post TF PRC 3 kolf (+) Balasan (-)\n- Tambahan UDCA 2x1 (+) sudah dimulai\n- sabtu 24/10/26  cek DR UR CR ulang (+) HB : 9.2 , UR :152.8 , CR : 9.07 , eGFR : 5\n- Senin 26/10/26 cek DR post tranfusi PRC kolf ke 4 (-)",
+            "sore": "- Kel: badan terasa gatal\n- Riw: surat pengantar dari dokter spesialis dengan : anemia nn e.c s acute bleedin dd chronic desease amenore sekunder, riw penyakit disangkal\n- inj kanex 3x500 mg, inj omz 1 vial\n- pro transfusi PRC 4 kolf\n- Terpasang DC (+)\n\ndr.Danar,Sp.PD-KGH di visitekan dr. Apriani tanggal 23/10/2026:\n- Inf.nacl 0,9% 20ttm\n- nocid 3x1, inj omz 1amp/24jam, ttd 3x1, ksr 2x1\n- Hitung Balance Cairan/24 jam =>> Cairan Masuk - Cairan Keluar - IWL =>>  SHIFT PAGI: , SHIFT SORE: , SHIFT MALAM: \n* BB: 65Kg, IWl: 15x65:24 = 40.625\n* Cairan Masuk\nSHIFT PAGI Jam 07:00 - 14:00 =>> Infus: cc, Minum: cc, Obat: cc\nSHIFT SORE Jam 14:00 - 21:00 =>> Infus: cc, Minum: cc, Obat: cc\nSHIFT MALAM Jam 21:00 - 07:00 =>> Infus: cc, Minum: cc, Obat: cc, darah : cc\n* Cairan Keluar\nSHIFT PAGI Jam 07:00 - 14:00 =>> Urine: cc\nSHIFT SORE Jam 14:00 - 21:00 =>> Urine: cc\nSHIFT MALAM Jam 21:00 - 07:00 =>> Urine: cc\n- Hitung Diuresis =>> Jumlah Urine/KgBB/Jam  =>> SHIFT PAGI: , SHIFT SORE: , SHIFT MALAM: \n- R/ Tranfusi PRC 4 Kolf Bertahap (TARGET S/d HB > 10 g/dl) =>> Kolf 4 (+)\n- Hasil Cek DR post TF PRC 3 kolf (HB:  8.5 PLT: 277 WBC:13.57)\n- Hasil Cek asam urat, hba1c (AU: 9.4 HBA1C:  5.5) =>> Lapor dr.Danar (+) Balasan (-)\n- Hasil cek PP test (Tanggal 21/10/2026) \"Negatif\" =>> Jika hasil positif konsul Sp.OG (-)\n- USG abdomen (Kamis 22/10/2026) \": Cholelithiasis multiple,  Chronic kidney parenchymal disease bilateral, Splenomegali ringan\" =>> Lapor dr.Danar sekalian hasil DR Post TF PRC 3 kolf (+) Balasan (-)\n- Tambahan UDCA 2x1 (+) sudah dimulai\n- sabtu 24/10/26  cek DR UR CR ulang (+) HB : 9.2 , UR :152.8 , CR : 9.07 , eGFR : 5\n- Senin 26/10/26 cek DR post tranfusi PRC kolf ke 4 (-)",
             "malam": ""
           },
           "tags": [
@@ -90599,56 +90586,69 @@
         {
           "bed": "37",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Meninggal",
           "isEmpty": false,
-          "isActive": true,
+          "isActive": false,
           "isDischargedToday": false,
-          "isDeceased": false,
-          "dischargeColor": null,
-          "name": "Sdr. Jaka",
-          "mrNo": "00305552",
+          "isDeceased": true,
+          "dischargeColor": "FFFF0000",
+          "name": "Tn. Solihin",
+          "mrNo": "00302401",
           "gender": "L",
           "age": "",
-          "admissionDate": "24/10/2026",
-          "los": 2,
+          "admissionDate": "20/10/2026",
+          "los": 6,
           "insurance": "BPJS Kelas 3",
-          "doctor": "dr. Darmawan, Sp. PD",
-          "doctorPrimary": "DARMAWAN, DR., M.KES., SP.PD-KGH. FINASIM",
-          "diagnosis": "Syok Hipovolemik",
-          "category": "Lain-lain",
+          "doctor": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK\n\nDr. Pradana Sp.P",
+          "doctorPrimary": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK",
+          "diagnosis": "Obs Dyspnoe ec Tumor Paru dextra\n\nca paru metas leher",
+          "category": "Onkologi & Hematologi",
           "notes": {
-            "pagi": "- Keluhan : keluhan lemah 5 hari disertai demam, pusing (+). Muntah (-). Makan minum kurang BAB dan BAK dan Bulan lalu dirawat di RS Mitra Medika dikatakan autoimun, tapi pasien tidak membawa hasil pemeriksaan dari RS Mitra Medika (tinggal di rumah pasien di Sambas)\n\ndr. darmawan via IGD a/i :\n- NS 0.9 500 cc per 8 jam\n- PCT 3x1 gr iv\n- Omz 1x40 mg iv\n- Drip ceftriaxone 1x3 gr iv -> lapor ceftriaxone -- mengeluh gatal dan merah setelah di skintest -> levofloksasin 1x750 mg IV \n- Ondasetron 3x8 mg iv",
-            "sore": "- Keluhan : keluhan lemah 5 hari disertai demam, pusing (+). Muntah (-). Makan minum kurang BAB dan BAK dan Bulan lalu dirawat di RS Mitra Medika dikatakan autoimun, tapi pasien tidak membawa hasil pemeriksaan dari RS Mitra Medika (tinggal di rumah pasien di Sambas)\n\ndr. darmawan via IGD a/i :\n- NS 0.9 500 cc per 8 jam\n- PCT 3x1 gr iv\n- Omz 1x40 mg iv\n- Drip ceftriaxone 1x3 gr iv -> lapor ceftriaxone -- mengeluh gatal dan merah setelah di skintest -> levofloksasin 1x750 mg IV \n- Ondasetron 3x8 mg iv",
+            "pagi": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi",
+            "sore": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi\n\nMeninggal jam 16.50",
             "malam": ""
           },
-          "tags": []
+          "tags": [
+            {
+              "label": "Meninggal",
+              "color": "red"
+            },
+            {
+              "label": "Onkologi",
+              "color": "pink"
+            }
+          ]
         },
         {
           "bed": "38",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
-          "name": "Ny. Siti Hatitin Suma Sari",
-          "mrNo": "00303245",
+          "dischargeColor": "FFF4CCCC",
+          "name": "Ny. Murni",
+          "mrNo": "00284224",
           "gender": "P",
           "age": "",
-          "admissionDate": "24/10/2026",
-          "los": 2,
+          "admissionDate": "20/10/2026",
+          "los": 6,
           "insurance": "BPJS Kelas 3",
-          "doctor": "dr. Johanes Manurung",
-          "doctorPrimary": "dr. Johanes Manurung",
-          "diagnosis": "Febris Dehidrasi \nec Low intake Post Removal Tumor POD - 10\nSefalgia",
-          "category": "Onkologi & Hematologi",
+          "doctor": "JOHANNES MANURUNG, DR. SP.BS\n\nDARMAWAN,DR., M.KES.,SP.PD-KGH.FINASIM\n\ndr. Martha",
+          "doctorPrimary": "JOHANNES MANURUNG, DR. SP.BS",
+          "diagnosis": "Hydrocephalus post revisi VP shunt (POD 3)",
+          "category": "Lain-lain",
           "notes": {
-            "pagi": "- Keluhan : nyeri kepala sejak 1 hari smrs. nyeri dirasa terus menerus. pasien juga mengeluhkan demam sejak 2 minggu smrs. pasien post operasi removal tumor otak 10 hari smrs\n\nAsisten dr. Johanes Manurung visite tgl 25/10/2026 a/i :\n\n- Tidak tanda2 kelemahan di vital sign nya\n- Diagnosa masuk nya di ubah biar tidak terhitung readmisi\n- Guyur NaCl 1000 cc 30 mnt dulu lanjut 40 tom\n- Jangan drip tko, cukup pct, pct 3x1 gr\n- th/tambahan Inj. Ceftriaxon 2x2gr IV, NAC 3x1 PO => Sore tolong mulai",
-            "sore": "- Keluhan : nyeri kepala sejak 1 hari smrs. nyeri dirasa terus menerus. pasien juga mengeluhkan demam sejak 2 minggu smrs. pasien post operasi removal tumor otak 10 hari smrs\n\nAsisten dr. Johanes Manurung visite tgl 25/10/2026 a/i :\n\n- Tidak tanda2 kelemahan di vital sign nya\n- Diagnosa masuk nya di ubah biar tidak terhitung readmisi\n- Guyur NaCl 1000 cc 30 mnt dulu lanjut 40 tom\n- Jangan drip tko, cukup pct, pct 3x1 gr\n- th/tambahan Inj. Ceftriaxon 2x2gr IV, NAC 3x1 PO => Sore tolong mulai",
+            "pagi": "BLPL JAM 12.00\n\n- Kel : cenderung mengantuk (saat ini membuka mata spontan), tidak dapat merespon keluarga, kontak mata (-), makan minum sulit masuk \n- RPD : riw. hydrocephalus post op revisi VP shunt oleh dr. Johannes, sp.BS pada Jumat, 16 Oktober 2026\n- HB : 10.3 , WBC :  17.62,  UR : 67.8, CR : 1.39 , eGFR : 43\n\nAsisten Dr johanes Visite 25/10/2026\n- Kons raber peny dalam( ginjal bermasalah), saya konservatif, teruskan th igd, ruang biasa\ntherapy lanjut\n- Sudah visit ke Pasien => Keluarga tidak ada. Di Telp 4x tidak di angkat\n- AFF NGT => Diit Bubut Oral => blm bisa mami via oral\n- BLPL => Resume pulang di SIMRS, Obat pulang mengikuti IPD \n\nDr Darmawan Via IGD :\n- Cefotaxime 3x1 gr iv\n- Candesartan 1x8 mg po\n- Bisoprolol 1x2.5 mg po\n- Nac 3x200 mg po\n- Bicnat 3x500 mg po\n- Asam folat 3x1 mg po\n- Cek ur cr per 2 hari\n* Kamis, 22/10/2026 (Ur = 52.1, Cr = 0.82, eGFR = 81) \n* Sabtu 24/10/2026 (Ur =  44.4, Cr =  0.91, eGFR =  71) => Selanjutnya Senin, 26/10/2026\n- BLPL\n\nKonsul dr Marta Sp.KFR visit (+)\n- Jumat, 23/10/26 fisiotherapy pertama (+)",
+            "sore": "BLPL JAM 12.00\n\n- Kel : cenderung mengantuk (saat ini membuka mata spontan), tidak dapat merespon keluarga, kontak mata (-), makan minum sulit masuk \n- RPD : riw. hydrocephalus post op revisi VP shunt oleh dr. Johannes, sp.BS pada Jumat, 16 Oktober 2026\n- HB : 10.3 , WBC :  17.62,  UR : 67.8, CR : 1.39 , eGFR : 43\n\nAsisten Dr johanes Visite 25/10/2026\n- Kons raber peny dalam( ginjal bermasalah), saya konservatif, teruskan th igd, ruang biasa\ntherapy lanjut\n- Sudah visit ke Pasien => Keluarga tidak ada. Di Telp 4x tidak di angkat\n- AFF NGT => Diit Bubut Oral => blm bisa mami via oral\n- BLPL => Resume pulang di SIMRS, Obat pulang mengikuti IPD \n\nDr Darmawan Via IGD :\n- Cefotaxime 3x1 gr iv\n- Candesartan 1x8 mg po\n- Bisoprolol 1x2.5 mg po\n- Nac 3x200 mg po\n- Bicnat 3x500 mg po\n- Asam folat 3x1 mg po\n- Cek ur cr per 2 hari\n* Kamis, 22/10/2026 (Ur = 52.1, Cr = 0.82, eGFR = 81) \n* Sabtu 24/10/2026 (Ur =  44.4, Cr =  0.91, eGFR =  71) => Selanjutnya Senin, 26/10/2026\n- BLPL\n\nKonsul dr Marta Sp.KFR visit (+)\n- Jumat, 23/10/26 fisiotherapy pertama (+)",
             "malam": ""
           },
           "tags": [
+            {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
             {
               "label": "Bedah / Operasi",
               "color": "orange"
@@ -90658,29 +90658,34 @@
         {
           "bed": "39",
           "room": "EG2B",
-          "status": "Kosong",
-          "isEmpty": true,
+          "status": "Pulang Hari Ini",
+          "isEmpty": false,
           "isActive": false,
-          "isDischargedToday": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
-          "name": "Bed Kosong",
-          "mrNo": "",
-          "gender": "-",
+          "dischargeColor": "FFFF9900",
+          "name": "Tn. Syech Haikal",
+          "mrNo": "00242940",
+          "gender": "L",
           "age": "",
-          "admissionDate": "-",
-          "los": 0,
-          "insurance": "-",
-          "doctor": "-",
-          "doctorPrimary": "-",
-          "diagnosis": "-",
-          "category": "-",
+          "admissionDate": "23/10/2026",
+          "los": 3,
+          "insurance": "BPJS Kelas 2",
+          "doctor": "APRIANI, DR, M.KED (PD), SP.PD",
+          "doctorPrimary": "APRIANI, DR, M.KED (PD), SP.PD",
+          "diagnosis": "- dm tipe 2 - dyspepsia syndrome - obs. vomiting",
+          "category": "Penyakit Dalam (Metabolik)",
           "notes": {
-            "pagi": "",
-            "sore": "",
+            "pagi": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
+            "sore": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
             "malam": ""
           },
-          "tags": []
+          "tags": [
+            {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            }
+          ]
         },
         {
           "bed": "40",
@@ -90714,18 +90719,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 51,
-        "empty": 5,
-        "freeBedDetail": "Free Bed:  5 (EG2-A: 0 ekstra bed, EG2-B: 1 + 4 ekstra bed)",
+        "occupied": 52,
+        "empty": 4,
+        "freeBedDetail": "Free Bed:  4 (EG2-A: 0 ekstra bed, EG2-B: 4 ekstra bed)",
         "textFreeA": "0 ekstra bed",
-        "textFreeB": "1 + 4 ekstra bed",
-        "bor": 91.1,
+        "textFreeB": "4 ekstra bed",
+        "bor": 92.9,
         "borA": 100.0,
-        "borB": 87.5,
+        "borB": 90.0,
         "occA": 16,
-        "occB": 35,
+        "occB": 36,
         "emptyA": 0,
-        "emptyB": 5,
+        "emptyB": 4,
         "dischargedToday": 2,
         "deathsToday": 1,
         "tagCounts": {
@@ -90734,7 +90739,7 @@
           "Onkologi": 12,
           "Puasa Pre-Op": 3,
           "Hemodialisa (HD)": 10,
-          "Rencana Pulang": 3,
+          "Rencana Pulang": 4,
           "Meninggal": 1,
           "Pulang Hari Ini": 2
         }
@@ -90937,7 +90942,7 @@
         "category": "Penyakit Dalam (Metabolik)",
         "notes": {
           "pagi": "- Keluhan : Lemah \n \ndr. Kenny Visite 22/10/2026 a/i:\n- Konsul TWC untuk nekorotmi lokal\n- GV / 2 Hr = GV Oleh Twc Jum'at 23/10/2026 (+) Selanjutnya Senin 26/10/2026 (-)\n\ndr Decki visit 22/10/2026 \n- Cek GDS/shift = Jam 06.00 : 215\n- Inf. Nacl + Kcl 1 Flash siklus 2 (+) ==> (Na  123.70, K  2.46, Cl 91.10, Ca 1.1) ==>  SIKLUS KE 3 (+)\n- Sabtu tgl 24/10/2026 , cek elektrolit (+) lapor dr (+) a/i:  Ivf ns 500+kcl 25/8 jam (Cek ulang elektrolit setelah 4 siklus) \n- sedang terpasang KCL 1 flash + inf nacl 500 ml kolf ke 1 (+)\n- Human albumin 25% 100 cc/24 jam =>> KE 2 (+)  \n- SABTU 24/10/26 CEK ALBUMIN POST TRANSFUSI ALBUMIN KE 2 (+) hsl 2,36, lapor dr (+) a/i Albumin infus lanjut\n- albumin kolf ke 3 (+) \n- minggu 25/10/2026 cek albumin post TF albumin 3 flash (+)  lapor (+) balasan a/i  : Lapor GD jam 18 \n- Rabu 21/10/226 cek Kultur darah (+) Hasil (+) \n- Rabu 21/10/226 cek procalcitonin (+) Hasil disimrs\n- Kamis, 22/10/2026 cek elektrolit, DR, albumin (+) Hasil (+) Lapor (+) Balasan:\n* Cefotaxim Stop Metro lanjut\n* Levofloxavin 1x750, Laktulosa 3x10 cc\n* Cek Kultur pus Jumat 23/10/2026 (+) SSH\n- Hb : 6,7 = Rencana Tranfusi 4 Kolf (per 24 jam) =>>  kolf 1 (+),  sisa 3 di UTD\n- BESOK PAGI TOLONG PASANG TRANFUSI KOLF KE 2 => sedang terpasang kolf 2\n- terpasang NGT (+) \n\n\ndr. Risa visite 23/10/2026:\n- kultur push (+)\n- cek D-DIMER  sabtu 24/10/2026 (+)  1251.39. lapor dr (+)\n\n- tgl 22/10/26 os mngeluh nyeri seluruh dada tembus k blkang, lemas, pusing => lpor dr jaga (+) dr winda : Boleh tambah : \n- Mecobalamin 2x500mcg\n- curcuma 3x2tab\n- Parasetamol 500mg PO (ekstra)\n\n=> Pasien mengeluh nyeri dada tembus kebelakang, 23/10/2026 pukul 19.00 . Lapor dr decky (+) balasan : EKG kak\n=> pukul 21.30 dr Jaga, dr dodi visite (+) a/i Xtra ISDN 5mg, sudah dimulai (+)\n=> Pukul 02.00 dini hari pasien kembali mengeluh nyeri dada tembus kebelakang, Sulit Bernafas, Lapor dr Jaga, dr rizky (+) a/i EKG dan GDS, Xtra Inj Omz. sudah dimulai (+)\nEKG (+) GDS pukul 02.00 234.",
-          "sore": "- Keluhan : Lemah \n \ndr. Kenny Visite 22/10/2026 a/i:\n- Konsul TWC untuk nekorotmi lokal\n- GV / 2 Hr = GV Oleh Twc Jum'at 23/10/2026 (+) Selanjutnya Senin 26/10/2026 (-)\n\ndr Decki visit 22/10/2026 \n- Cek GDS/shift = Jam 06.00 : 215\n- Inf. Nacl + Kcl 1 Flash siklus 2 (+) ==> (Na  123.70, K  2.46, Cl 91.10, Ca 1.1) ==>  SIKLUS KE 3 (+)\n- Sabtu tgl 24/10/2026 , cek elektrolit (+) lapor dr (+) a/i:  Ivf ns 500+kcl 25/8 jam (Cek ulang elektrolit setelah 4 siklus) \n- sedang terpasang KCL 1 flash + inf nacl 500 ml kolf ke 1 (+)\n- Human albumin 25% 100 cc/24 jam =>> KE 2 (+)  \n- SABTU 24/10/26 CEK ALBUMIN POST TRANSFUSI ALBUMIN KE 2 (+) hsl 2,36, lapor dr (+) a/i Albumin infus lanjut\n- albumin kolf ke 3 (+) \n- minggu 25/10/2026 cek albumin post TF albumin 3 flash (+)  lapor (+) balasan a/i  : Lapor GD jam 18 \n- Rabu 21/10/226 cek Kultur darah (+) Hasil (+) \n- Rabu 21/10/226 cek procalcitonin (+) Hasil disimrs\n- Kamis, 22/10/2026 cek elektrolit, DR, albumin (+) Hasil (+) Lapor (+) Balasan:\n* Cefotaxim Stop Metro lanjut\n* Levofloxavin 1x750, Laktulosa 3x10 cc\n* Cek Kultur pus Jumat 23/10/2026 (+) SSH\n- Hb : 6,7 = Rencana Tranfusi 4 Kolf (per 24 jam) =>>  kolf 1 (+),  sisa 3 di UTD\n- BESOK PAGI TOLONG PASANG TRANFUSI KOLF KE 2 => sedang terpasang kolf 2\n- terpasang NGT (+) \n\n\ndr. Risa visite 23/10/2026:\n- kultur push (+)\n- cek D-DIMER  sabtu 24/10/2026 (+)  1251.39. lapor dr (+)\n\n- tgl 22/10/26 os mngeluh nyeri seluruh dada tembus k blkang, lemas, pusing => lpor dr jaga (+) dr winda : Boleh tambah : \n- Mecobalamin 2x500mcg\n- curcuma 3x2tab\n- Parasetamol 500mg PO (ekstra)\n\n=> Pasien mengeluh nyeri dada tembus kebelakang, 23/10/2026 pukul 19.00 . Lapor dr decky (+) balasan : EKG kak\n=> pukul 21.30 dr Jaga, dr dodi visite (+) a/i Xtra ISDN 5mg, sudah dimulai (+)\n=> Pukul 02.00 dini hari pasien kembali mengeluh nyeri dada tembus kebelakang, Sulit Bernafas, Lapor dr Jaga, dr rizky (+) a/i EKG dan GDS, Xtra Inj Omz. sudah dimulai (+)\nEKG (+) GDS pukul 02.00 234.",
+          "sore": "- Keluhan : Lemah \n \ndr. Kenny Visite 22/10/2026 a/i:\n- Konsul TWC untuk nekorotmi lokal\n- GV / 2 Hr = GV Oleh Twc Jum'at 23/10/2026 (+) Selanjutnya Senin 26/10/2026 (-)\n\ndr Decki visit 22/10/2026 \n- Cek GDS/shift = Jam 06.00 : 215\n- Inf. Nacl + Kcl 1 Flash siklus 2 (+) ==> (Na  123.70, K  2.46, Cl 91.10, Ca 1.1) ==>  SIKLUS KE 3 (+)\n- Sabtu tgl 24/10/2026 , cek elektrolit (+) lapor dr (+) a/i:  Ivf ns 500+kcl 25/8 jam (Cek ulang elektrolit setelah 4 siklus) \n- sedang terpasang KCL 1 flash + inf nacl 500 ml kolf ke 1 (+)\n- Human albumin 25% 100 cc/24 jam =>> KE 2 (+)  \n- SABTU 24/10/26 CEK ALBUMIN POST TRANSFUSI ALBUMIN KE 2 (+) hsl 2,36, lapor dr (+) a/i Albumin infus lanjut\n- albumin kolf ke 3 (+) \n- minggu 25/10/2026 cek albumin post TF albumin 3 flash (+)  lapor (+) balasan a/i  : Lapor GD jam 18 \n- GDS JAM 18.00 = 231, LAPOR DR (+) a/i Levemir 1x10, Cek GD bsk pagi\n- Rabu 21/10/226 cek Kultur darah (+) Hasil (+) \n- Rabu 21/10/226 cek procalcitonin (+) Hasil disimrs\n- Kamis, 22/10/2026 cek elektrolit, DR, albumin (+) Hasil (+) Lapor (+) Balasan:\n* Cefotaxim Stop Metro lanjut\n* Levofloxavin 1x750, Laktulosa 3x10 cc\n* Cek Kultur pus Jumat 23/10/2026 (+) SSH\n- Hb : 6,7 = Rencana Tranfusi 4 Kolf (per 24 jam) =>>  sedang terpasang kolf 2, selesai jam 17.45. darah sisa 2 di utd\n- terpasang NGT (+) \n\n\ndr. Risa visite 23/10/2026:\n- kultur push (+)\n- cek D-DIMER  sabtu 24/10/2026 (+)  1251.39. lapor dr (+)\n\n- tgl 22/10/26 os mngeluh nyeri seluruh dada tembus k blkang, lemas, pusing => lpor dr jaga (+) dr winda : Boleh tambah : \n- Mecobalamin 2x500mcg\n- curcuma 3x2tab\n- Parasetamol 500mg PO (ekstra)\n\n=> Pasien mengeluh nyeri dada tembus kebelakang, 23/10/2026 pukul 19.00 . Lapor dr decky (+) balasan : EKG kak\n=> pukul 21.30 dr Jaga, dr dodi visite (+) a/i Xtra ISDN 5mg, sudah dimulai (+)\n=> Pukul 02.00 dini hari pasien kembali mengeluh nyeri dada tembus kebelakang, Sulit Bernafas, Lapor dr Jaga, dr rizky (+) a/i EKG dan GDS, Xtra Inj Omz. sudah dimulai (+)\nEKG (+) GDS pukul 02.00 234.\n- MALAM TOLONG INJEKSI LEVEMIR 1X10 IU",
           "malam": ""
         },
         "tags": [
@@ -90973,7 +90978,7 @@
         "category": "Nefrologi & Urologi",
         "notes": {
           "pagi": "PB VIA IGD PUKUL 19.00\n\n- kel : badan lemah, keringat dingin. tidak hd sudah 2 minggu.\n- Riw HD : Selasa & Jumat di RS YARSI . \n- therapy via IGD : - ivfd nacl 0.9% 250cc -- challange test - o2 3lpm - inj. ranitidin - tranfusi s/d hb 10\n- GDS/HARI: 217\n\ndr. sonny via igd (+) a/i -\n- Hasil lab via igd (+) Hb 7.9g/dL\n- R/Transfusi PRC 2 KOLF, 1 colf via igd (+) Sisa 1 Colf di UTDRS.\n- Lapor pb (+) a/i =>> sabtu 24/10/2026 HD , Antri kak maja (+) \n- MINGGU 25/10/2026 CEK DR, UR, CR POST HD (+) lapor (+) balasan a/i : Levemir 1x 10 U jam 22",
-          "sore": "PB VIA IGD PUKUL 19.00\n\n- kel : badan lemah, keringat dingin. tidak hd sudah 2 minggu.\n- Riw HD : Selasa & Jumat di RS YARSI . \n- therapy via IGD : - ivfd nacl 0.9% 250cc -- challange test - o2 3lpm - inj. ranitidin - tranfusi s/d hb 10\n- GDS/HARI: 217\n\ndr. sonny via igd (+) a/i -\n- Hasil lab via igd (+) Hb 7.9g/dL\n- R/Transfusi PRC 2 KOLF, 1 colf via igd (+) Sisa 1 Colf di UTDRS.\n- Lapor pb (+) a/i =>> sabtu 24/10/2026 HD , Antri kak maja (+) \n- MINGGU 25/10/2026 CEK DR, UR, CR POST HD (+) lapor (+) balasan a/i : Levemir 1x 10 U jam 22",
+          "sore": "PB VIA IGD PUKUL 19.00\n\n- kel : badan lemah, keringat dingin. tidak hd sudah 2 minggu.\n- Riw HD : Selasa & Jumat di RS YARSI . \n- therapy via IGD : - ivfd nacl 0.9% 250cc -- challange test - o2 3lpm - inj. ranitidin - tranfusi s/d hb 10\n- GDS/HARI: 217\n\ndr. sonny via igd (+) a/i -\n- Hasil lab via igd (+) Hb 7.9g/dL\n- R/Transfusi PRC 2 KOLF, 1 colf via igd (+) Sisa 1 Colf di UTDRS.\n- Lapor pb (+) a/i =>> sabtu 24/10/2026 HD , Antri kak maja (+) \n- MINGGU 25/10/2026 CEK DR, UR, CR POST HD (+) lapor (+) balasan a/i : Levemir 1x 10 U jam 22\n\n- SENIN 26/10/2026 GV",
           "malam": ""
         },
         "tags": [
@@ -91131,7 +91136,7 @@
         "category": "Nefrologi & Urologi",
         "notes": {
           "pagi": "- kel:  os membawa surat pengantar dari poli dengan : hipoalbumin dyslipidemia os keluhan Bengkak seluruh badan sejak 1 minggu ini \n- riw ginjal Sebelumnya , Sesak - , bab bak baik\n- therapy via igd : pemvlon inf albumin 20-25% 1 botol /hari injj furosemide 1 amp atorvastatin 1x20 mg spironolakton 1x25mg vip albumin 2x1\n\ndr. danar via igd (+) balasan : \n- pemvlon\n- inf albumin 20-25% 1 botol /hari \n- injj furosemide 1 amp\n- atorvastatin 1x20 mg\n- spironolakton 1x25mg\n- vip albumin 2x1\n- Alb 1.85\n- R/Transfusi alb 1 botol/hari =>>Alb colf 2 (+) \n- Sabtu tgl 24/10/2026 Cek albumin (+)  1.95. lapor dr (+) blsn (-)\n- minggu lanjut albumin kolf ke 3 (-) sedang terpasang \n- R/USG ABD ulang Hari SENIN TGL 26/10/2026 .",
-          "sore": "- kel:  os membawa surat pengantar dari poli dengan : hipoalbumin dyslipidemia os keluhan Bengkak seluruh badan sejak 1 minggu ini \n- riw ginjal Sebelumnya , Sesak - , bab bak baik\n- therapy via igd : pemvlon inf albumin 20-25% 1 botol /hari injj furosemide 1 amp atorvastatin 1x20 mg spironolakton 1x25mg vip albumin 2x1\n\ndr. danar via igd (+) balasan : \n- pemvlon\n- inf albumin 20-25% 1 botol /hari \n- injj furosemide 1 amp\n- atorvastatin 1x20 mg\n- spironolakton 1x25mg\n- vip albumin 2x1\n- Alb 1.85\n- R/Transfusi alb 1 botol/hari =>>Alb colf 2 (+) \n- Sabtu tgl 24/10/2026 Cek albumin (+)  1.95. lapor dr (+) blsn (-)\n- minggu lanjut albumin kolf ke 3 (+)  =>> SENIN 26/10/2026 CEK ALBUMIN ULANG \n- R/USG ABD ulang Hari SENIN TGL 26/10/2026 . MALAM PUASAKAN (-)\n- INFUS HIPO",
+          "sore": "- kel:  os membawa surat pengantar dari poli dengan : hipoalbumin dyslipidemia os keluhan Bengkak seluruh badan sejak 1 minggu ini \n- riw ginjal Sebelumnya , Sesak - , bab bak baik\n- therapy via igd : pemvlon inf albumin 20-25% 1 botol /hari injj furosemide 1 amp atorvastatin 1x20 mg spironolakton 1x25mg vip albumin 2x1\n\ndr. danar via igd (+) balasan : \n- pemvlon\n- inf albumin 20-25% 1 botol /hari \n- injj furosemide 1 amp\n- atorvastatin 1x20 mg\n- spironolakton 1x25mg\n- vip albumin 2x1\n- Alb 1.85\n- R/Transfusi alb 1 botol/hari =>>Alb colf 2 (+) \n- Sabtu tgl 24/10/2026 Cek albumin (+)  1.95. lapor dr (+) blsn (-)\n- minggu lanjut albumin kolf ke 3 (+)  =>> SENIN 26/10/2026 CEK ALBUMIN ULANG \n- R/USG ABD ulang Hari SENIN TGL 26/10/2026 . MALAM PUASAKAN (-)",
           "malam": ""
         },
         "tags": [
@@ -91199,7 +91204,7 @@
         "category": "Nefrologi & Urologi",
         "notes": {
           "pagi": "PB IGD pk 11.35\n\nkeluhan : os keluhan lemah tidak nafsu makan sejak 1 minggu ini , demam + bab bak baik , riw penyakit disangkal\nth igd : Koreksi Hiperkalemia: Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit D40 2 flacon + insulin 8 iu bolus iv Ventolin inhalasi extra 1x Kalitake 3x1 sach koreksi natrium : nacl 3 % 500cc habis dalam 12 jam pct drip 500 mg inj ratnidin 1a\n\ndr. Darmawan via igd :\nCandesartan 1x16 mg po\nClonidin 3x0.15 mg po\nCefotaxime 3x1 gr iv\nNovorapid 3x10 iu sc\nLain2 lanjut\nHd terakhir kapan?\nTtv dan kesadaran? Video klinis? \n\n(lapor ulang) :\n\nCek ur cr 2 hari lg => senin 26/10/2026\n\nLapor PB (+)",
-          "sore": "PB IGD pk 11.35\n\nkeluhan : os keluhan lemah tidak nafsu makan sejak 1 minggu ini , demam + bab bak baik , riw penyakit disangkal\nth igd : Koreksi Hiperkalemia: Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit D40 2 flacon + insulin 8 iu bolus iv Ventolin inhalasi extra 1x Kalitake 3x1 sach\n\n-  koreksi natrium : nacl 3 % 500cc habis dalam 12 jam pct drip 500 mg inj ratnidin 1a\n- SDG TERPASANG INFUS 3%\n- SENIN 26/10/2026 CEK ELEKTROLIT POST KOREKSI NS 3% (-)\n- Cek ur cr 2 hari lg => senin 26/10/2026\ndr. Darmawan via igd :\nCandesartan 1x16 mg po\nClonidin 3x0.15 mg po\nCefotaxime 3x1 gr iv\nNovorapid 3x10 iu sc\nLain2 lanjut\nHd terakhir kapan?\nTtv dan kesadaran? Video klinis? \n\n(lapor ulang) :\nLapor PB (+)",
+          "sore": "PB IGD pk 11.35\n\nkeluhan : os keluhan lemah tidak nafsu makan sejak 1 minggu ini , demam + bab bak baik , riw penyakit disangkal\nth igd : Koreksi Hiperkalemia: Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit D40 2 flacon + insulin 8 iu bolus iv Ventolin inhalasi extra 1x Kalitake 3x1 sach\n\n-  koreksi natrium : nacl 3 % 500cc habis dalam 12 jam pct drip 500 mg inj ratnidin 1a\n- SDG TERPASANG INFUS 3%\n- SENIN 26/10/2026 CEK ELEKTROLIT POST KOREKSI NS 3% (-)\n- Cek ur cr 2 hari lg => senin 26/10/2026\ndr. Darmawan via igd :\nCandesartan 1x16 mg po\nClonidin 3x0.15 mg po\nCefotaxime 3x1 gr iv\nNovorapid 3x10 iu sc\nLain2 lanjut\nHd terakhir kapan?\nTtv dan kesadaran? Video klinis? \nHASIL LAB TGL 24/10/2026 ( HB :12.1. LEUKOSIT : 39.57, trombosit : 758, ur : 288.7. cr : 9.33, eGFR: 4), ELEKTROLIT ( Natrium (Na) 122.59, Kalium (K) HH 7.82, Klorida (Cl) 97.92, Kalsium (Ca Ion) 1.25)\n- TD SORE SUDAH COBA PASANG DC TP TDK BISA TERPASANG, MLM TOLONG COBA PASANG PAKAI SELANG KATETER UK KECIL\n(lapor ulang) :\nLapor PB (+)\n- JIKA MALAM ADA TEMPAT BETIRAI DI EG 2B, TOLONG PINDAHKAN",
           "malam": ""
         },
         "tags": [
@@ -91235,10 +91240,15 @@
         "category": "Lain-lain",
         "notes": {
           "pagi": "- Kel:  kulit merah seluruh badan mau menerusan injeksi fraizeron, seluruh badan patch eritem skuama tebaal\n- terapi via poli : ranap pro inj frraizeron\n- lapor pb & Hasil lab (+) , Rencana Visit siang hbs dari RSA\n\ndr. retno visit 24/10/2026 : \n- konsul IPD \n- Atorvastatin 1x20mg\n- inj. Fraizeron 2 amp (+) \n- lapor kak diah gizi (+) \n- cek gds/hr\n\nkonsul ipd dr. iqbal (+) a/i:\n- Diet DM,\n- Inj. Levemir 1x20 iu, Inj. Novorapid 3x14 iu, \n- cek GDS/HARI: 173",
-          "sore": "- Kel:  kulit merah seluruh badan mau menerusan injeksi fraizeron, seluruh badan patch eritem skuama tebaal\n- terapi via poli : ranap pro inj frraizeron\n- lapor pb & Hasil lab (+) , Rencana Visit siang hbs dari RSA\n\ndr. retno visit 24/10/2026 : \n- konsul IPD \n- Atorvastatin 1x20mg\n- inj. Fraizeron 2 amp (+) \n- lapor kak diah gizi (+) \n- cek gds/hr\n\nkonsul ipd dr. iqbal (+) a/i:\n- Diet DM,\n- Inj. Levemir 1x20 iu, Inj. Novorapid 3x14 iu, \n- cek GDS/HARI: 173",
+          "sore": "- Kel:  kulit merah seluruh badan mau menerusan injeksi fraizeron, seluruh badan patch eritem skuama tebaal\n- terapi via poli : ranap pro inj frraizeron\n- lapor pb & Hasil lab (+) , Rencana Visit siang hbs dari RSA\n\ndr. retno visit 25/10/2026 : \n- konsul IPD \n- Atorvastatin 1x20mg\n- inj. Fraizeron 2 amp (+) \n- lapor kak diah gizi (+) \n- BESTALIN 1X1 MALAM CETIRIZIN 1X1 PAGI IKAN GABUS 3X1 ( OBAT RUTIN POLI LANJUTKAN )\n- JIKA BAIK BESOK BLPL, DAN JIKA DARI IPD ACC PULANG\n- KONTROL POLI KULIT KAMIS 29/10/2026\n- cek gds/hr\n\nkonsul ipd dr. iqbal (+) a/i:\n- Diet DM,\n- Inj. Levemir 1x20 iu, Inj. Novorapid 3x14 iu, \n- cek GDS/HARI: 173",
           "malam": ""
         },
-        "tags": []
+        "tags": [
+          {
+            "label": "Rencana Pulang",
+            "color": "green"
+          }
+        ]
       },
       {
         "bed": "16",
@@ -91262,7 +91272,7 @@
         "category": "Lain-lain",
         "notes": {
           "pagi": "- Kel: penyakit kambuh gatal nyeri, seluruh badan bula multipel krusta.\n- Therapyy via poli : Inj MP 2x1/2 amp, Ceftriaxone 1x1 .\n- Intruksi via IGD:  Cek Lab SGOT/SGPT , Alb, Kolesterol, HDL, LDL .PROTEIN TOTAL, cek dr, gds, hba1c, ur cr (+) hsl di simrs, lapor dr (+) a/i Injeksi cefriaxon 2x\n\ndr. retno visit 24/10/2026 : \n- injeksi methyl prednisolon 2x62,125\n- imuran 1x1 \n- kloderma fusycom 2x\n- cetirizin 1x1 \n- vip albumin 3x1\n- atorvastatin 1x20mg mlm",
-          "sore": "- Kel: penyakit kambuh gatal nyeri, seluruh badan bula multipel krusta.\n- Therapyy via poli : Inj MP 2x1/2 amp, Ceftriaxone 1x1 .\n- Intruksi via IGD:  Cek Lab SGOT/SGPT , Alb, Kolesterol, HDL, LDL .PROTEIN TOTAL, cek dr, gds, hba1c, ur cr (+) hsl di simrs, lapor dr (+) a/i Injeksi cefriaxon 2x\n\ndr. retno visit 24/10/2026 : \n- injeksi methyl prednisolon 2x62,125\n- imuran 1x1 \n- kloderma fusycom 2x\n- cetirizin 1x1 \n- vip albumin 3x1\n- atorvastatin 1x20mg mlm",
+          "sore": "- Kel: penyakit kambuh gatal nyeri, seluruh badan bula multipel krusta.\n- Therapyy via poli : Inj MP 2x1/2 amp, Ceftriaxone 1x1 .\n- Intruksi via IGD:  Cek Lab SGOT/SGPT , Alb, Kolesterol, HDL, LDL .PROTEIN TOTAL, cek dr, gds, hba1c, ur cr (+) hsl di simrs, lapor dr (+) a/i Injeksi cefriaxon 2x\n\ndr. retno visit 25/10/2026 : \n- injeksi methyl prednisolon 2x62,125\n- imuran 1x1 \n- kloderma fusycom 2x\n- cetirizin 1x1 \n- vip albumin 3x1\n- atorvastatin 1x20mg mlm\n- personal hygiene\n- MANDI \n- TERAPI LANJUT",
           "malam": ""
         },
         "tags": [
@@ -91296,7 +91306,7 @@
         "category": "Nefrologi & Urologi",
         "notes": {
           "pagi": "Keluhan :  pasien saat ini mengeluh Mual (+), nyeri uluhati terasa begah. pasien riwayat DM tipe 2, biasa konsul dengan dok sony, sp.pd - obat rutin metformin 2x500mg 1 bulan terakhir, kedua tungkai bawah semakin membengkak (+)\n\ndr. Decky via IGD : \n- Ivf ns 500/24 jam\n- Omeprazole 1x40 mg\n- Human albumin 25% 100 cc/24 jam => (Alb: 1.57) post TF Albumin botol k-1 => TF Albumin botol k-2 (+) selesai jam 12.50\n- Besok Senin, 26/10/2026 cek albumin post botol k-2\n- Furosemid 2x20 mg iv\n- Levemir 1x12\n- Novorapid 3x8\n- Cek GD tiap pagi\n- pasien menolak insulin =>> TTD penolakan (+)\n- ganti Sitagliptin 1x100, Fonylin 1x1",
-          "sore": "Keluhan :  pasien saat ini mengeluh Mual (+), nyeri uluhati terasa begah. pasien riwayat DM tipe 2, biasa konsul dengan dok sony, sp.pd - obat rutin metformin 2x500mg 1 bulan terakhir, kedua tungkai bawah semakin membengkak (+)\n\ndr. Decky via IGD : \n- Ivf ns 500/24 jam\n- Omeprazole 1x40 mg\n- Human albumin 25% 100 cc/24 jam => (Alb: 1.57) post TF Albumin botol k-1 => TF Albumin botol k-2 (+) selesai jam 12.50\n- Besok Senin, 26/10/2026 cek albumin post botol k-2\n- Furosemid 2x20 mg iv\n- Levemir 1x12\n- Novorapid 3x8\n- Cek GD tiap pagi\n- pasien menolak insulin =>> TTD penolakan (+)\n- ganti Sitagliptin 1x100, Fonylin 1x1",
+          "sore": "Keluhan :  pasien saat ini mengeluh Mual (+), nyeri uluhati terasa begah. pasien riwayat DM tipe 2, biasa konsul dengan dok sony, sp.pd - obat rutin metformin 2x500mg 1 bulan terakhir, kedua tungkai bawah semakin membengkak (+)\n\ndr. Decky via IGD : \n- Ivf ns 500/24 jam\n- Omeprazole 1x40 mg\n- Human albumin 25% 100 cc/24 jam => (Alb: 1.57) post TF Albumin botol k-1 => TF Albumin botol k-2 (+) selesai jam 12.50\n- Besok Senin, 26/10/2026 cek albumin post botol k-2\n- Furosemid 2x20 mg iv\n- Levemir 1x12\n- Novorapid 3x8\n- Cek GD tiap pagi\n- pasien menolak insulin =>> TTD penolakan (+)\n- ganti Sitagliptin 1x100, Fonylin 1x1\nMalam Pasang Inf",
           "malam": ""
         },
         "tags": [
@@ -91392,7 +91402,7 @@
         "category": "Onkologi & Hematologi",
         "notes": {
           "pagi": "- Kel : sesak memberat 2hari ini, perut membesar, sulit BAB, Bak lancar (+) rujukan dari rs rubini mempawah, susp.tumor rectum (+) ascites (+)\n- Th IGD : Inf. RL 20 tpm Inj. Ranitidin 2x1amp inj. Ondan 3x4mg inj. furosemide 3x1amp \n- USG Abdomen : Di status\n- Ronsen Thorax (+)\n\ndr. denny via Telpon : \n- Pro Laparatomi eksplorasi OK IGD minggu 25-10-2026 Pkl 12 siang\n- SPO (+) , Lapor OK IGD (+) INPUT (+) abocat 20 (+) , TF Set (+) Puasa (+)\n- Antri ICU (+), T4 (+)\n- Konsul IPD Dr darmawan (+) balasan (+) : Toleransi operasi: risiko sedang, Ns 3% 500 cc per 24 jam, Threeway dengan ns 0.9 500 cc per 12 jam => sdg terpasang NS 3% k-2\n- Konsul Jantung Dr Temi (+) balasan (+) : Acc operasi, toleransi sedang\n- Konsul ulang anastesi Dr Mala (+) : Pesan icu, Darah min 2 prc, Koreksi natrium : nac 3 % 1 kolf dlm 24 jam\n- Siap Darah PRC 2 Kolf ada di UTD\n- Lab Minggu 18/10/26 ==> (HB = 12.3, WBC = 10.82, PLT = 613)\n- Konsul btkv untuk efusinya\n- Flett Enema (+)\n- Lab kamis, 22/10/26 => (Na = 125.10, Kalium = 4.75, Klorida = 82.30, Kalsium = 1.01) \n- Minggu, 25/10/2026 cek elektrolit post koreksi (+) Hasil di SIMRS\n\ninstruksi dr. hengky via IGD\n- Tak ade efusi/ minimal banget\n- Dari btkv konservatif\n\nSEDANG OP",
-          "sore": "- Kel : sesak memberat 2hari ini, perut membesar, sulit BAB, Bak lancar (+) rujukan dari rs rubini mempawah, susp.tumor rectum (+) ascites (+)\n- Th IGD : Inf. RL 20 tpm Inj. Ranitidin 2x1amp inj. Ondan 3x4mg inj. furosemide 3x1amp \n- USG Abdomen : Di status\n- Ronsen Thorax (+)\n\ndr. denny via Telpon : \n- Pro Laparatomi eksplorasi OK IGD minggu 25-10-2026 Pkl 12 siang\n- SPO (+) , Lapor OK IGD (+) INPUT (+) abocat 20 (+) , TF Set (+) Puasa (+)\n- Antri ICU (+), T4 (+)\n- Konsul IPD Dr darmawan (+) balasan (+) : Toleransi operasi: risiko sedang, Ns 3% 500 cc per 24 jam, Threeway dengan ns 0.9 500 cc per 12 jam => sdg terpasang NS 3% k-2\n- Konsul Jantung Dr Temi (+) balasan (+) : Acc operasi, toleransi sedang\n- Konsul ulang anastesi Dr Mala (+) : Pesan icu, Darah min 2 prc, Koreksi natrium : nac 3 % 1 kolf dlm 24 jam\n- Siap Darah PRC 2 Kolf ada di UTD\n- Lab Minggu 18/10/26 ==> (HB = 12.3, WBC = 10.82, PLT = 613)\n- Konsul btkv untuk efusinya\n- Flett Enema (+)\n- Lab kamis, 22/10/26 => (Na = 125.10, Kalium = 4.75, Klorida = 82.30, Kalsium = 1.01) \n- Minggu, 25/10/2026 cek elektrolit post koreksi (+) Hasil di SIMRS\n\ninstruksi dr. hengky via IGD\n- Tak ade efusi/ minimal banget\n- Dari btkv konservatif\n\nSEDANG OP",
+          "sore": "- Kel : sesak memberat 2hari ini, perut membesar, sulit BAB, Bak lancar (+) rujukan dari rs rubini mempawah, susp.tumor rectum (+) ascites (+)\n- Th IGD : Inf. RL 20 tpm Inj. Ranitidin 2x1amp inj. Ondan 3x4mg inj. furosemide 3x1amp \n- USG Abdomen : Di status\n- Ronsen Thorax (+)\n\ndr. denny via Telpon : \n- Post op Laparatomi eksplorasi OK IGD minggu 25-10-2026 \n- SPO (+) , Lapor OK IGD (+) INPUT (+) abocat 20 (+) , TF Set (+) Puasa (+)\n- Antri ICU (+), T4 (+)\nIntruksi Post Op: \n- Inf B Fluid 1000cc/24 jam \n- Inj Ceftriaxon 2x1 gr \n- Inj Metronidazole 3x500mg \n- Inj Peinloss 3x1 amp \n- Inj Lanzoprazole 2x1 amp \n- Inj Kalnex 3x500mg \n- NGT klem 3:1 Diet susu 6x50cc via ora (Belum dimulai)\n- Siap Darah PRC 2 Kolf ada di UTD=> Besok cek dr Post op\n- Lab Minggu 18/10/26 ==> (HB = 12.3, WBC = 10.82, PLT = 613)\n- Konsul btkv untuk efusinya\n- Flett Enema (+)\n- Lab kamis, 22/10/26 => (Na = 125.10, Kalium = 4.75, Klorida = 82.30, Kalsium = 1.01) \n- Minggu, 25/10/2026 cek elektrolit post koreksi (+) Hasil di SIMRS\n\ninstruksi dr. hengky via IGD\n- Tak ade efusi/ minimal banget\n- Dari btkv konservatif",
           "malam": ""
         },
         "tags": [
@@ -91432,7 +91442,7 @@
         "category": "Onkologi & Hematologi",
         "notes": {
           "pagi": "- Kel : Rujukkan dari dr Ivan dengan badan terasa lemah tidak bisa digerakkan\n- Riw : ca paru on cemo, hiponatremia PRO CARBOPLATIN/PACLITAXWL ke 3\n\ndr. Ivan visit 23/10/26 : \n- Lab Rabu, 21/10/26 => (hb = 10.3, wbc = 7.39, plt = 109, Na = 129.85, Kalium = 2.37)\n- Inf, Nacl 3% : Nacl 100 + Kcl : B.Fluid => sdg terpasang inf NACL 3% => selesai lanjut Nacl + KCL (-)\n- (+) Lanso 1x30, Meco 2x500, Tracetat 2x15, As.Folat 1x5, Curcuma 3x2, KSR 2x2, NACE 3x200 , Dexa 2x1 (3hari) selanjutnya 1x1 => Resep (+)",
-          "sore": "- Kel : Rujukkan dari dr Ivan dengan badan terasa lemah tidak bisa digerakkan\n- Riw : ca paru on cemo, hiponatremia PRO CARBOPLATIN/PACLITAXWL ke 3\n\ndr. Ivan visit 23/10/26 : \n- Lab Rabu, 21/10/26 => (hb = 10.3, wbc = 7.39, plt = 109, Na = 129.85, Kalium = 2.37)\n- Inf, Nacl 3% : Nacl 100 + Kcl : B.Fluid => sdg terpasang inf NACL 3% => selesai lanjut Nacl + KCL (-)\n- (+) Lanso 1x30, Meco 2x500, Tracetat 2x15, As.Folat 1x5, Curcuma 3x2, KSR 2x2, NACE 3x200 , Dexa 2x1 (3hari) selanjutnya 1x1 => Resep (+)",
+          "sore": "- Kel : Rujukkan dari dr Ivan dengan badan terasa lemah tidak bisa digerakkan\n- Riw : ca paru on cemo, hiponatremia PRO CARBOPLATIN/PACLITAXWL ke 3\n\ndr. Ivan visit 23/10/26 : \n- Lab Rabu, 21/10/26 => (hb = 10.3, wbc = 7.39, plt = 109, Na = 129.85, Kalium = 2.37)\n- Inf, Nacl 3% : Nacl 100 + Kcl : B.Fluid => sdg terpasang inf NACL + KCL => Selesai cek Elektrolit\n- (+) Lanso 1x30, Meco 2x500, Tracetat 2x15, As.Folat 1x5, Curcuma 3x2, KSR 2x2, NACE 3x200 , Dexa 2x1 (3hari) selanjutnya 1x1 => Resep (+)",
           "malam": ""
         },
         "tags": [
@@ -91626,7 +91636,7 @@
         "category": "Nefrologi & Urologi",
         "notes": {
           "pagi": "- Kel : pasien kejang, seperti kelonjotan. kejang tadi malam 1x, < 1 menit hari ini 2x, < 1 menit badan terasa lemah, nafsu makan menurun pasien riw. Diabetic Foot, sudah pernah amputasi, saat ini masih perawatan luka riw. CKD, sudah 3 minggu selesai HD\n\n- Hb: 5.8 , R/ PRC 3 kolf di IGD (+) => SELESAI\n- Sabtu, 24/10/2026 Cek DR, Ur/Cr POST TF 3 kolf (+) Hasil (+) => Lapor dr. Darmawan (+) BALASAN (-)\n\ndr. Darmawan via IGD :\n- Ns3% 500 cc per 24 jam\n- Jalur 2: NS 0.9 500 + KCl 25 meq per 24 jam (sedang terpasang) \n- Ksr 3x600 mg po\n- Novorapid 3x14 iu sc\n- Lantus 1x 12 iu ac\n- Cefotaxime 3x1 gr iv\n- Metronidazole 3x500 mg iv\n- PRC 750 cc bertahap\n- Konsul dr.Dini,SpN\n- Lapor PB dr. Darmawan (+) : lanjut\n- Lapor dr. Darmawan pasien tidak bisa tidur dan gelisah (+) BALASAN (-)\n\ndr. Dini via IGD :\n- Inj phenitoin 2x100mg >> naik jadi 3x100mg\n- As folat 2x1\n- Inj mecobalamin 3x500mcg\n- Lapor PB dr. Dini (+) balasan (+) : Naik jadi 3x100mg. Bolus diazepam 1 amp pelan banget saat kejang.. hentikan injeksi jika kejang berhenti\n\n- Sabtu sore 24/10/2026 GV (+) \n- Senin, 26/10/2026 GV luka TWC (-)",
-          "sore": "- Kel : pasien kejang, seperti kelonjotan. kejang tadi malam 1x, < 1 menit hari ini 2x, < 1 menit badan terasa lemah, nafsu makan menurun pasien riw. Diabetic Foot, sudah pernah amputasi, saat ini masih perawatan luka riw. CKD, sudah 3 minggu selesai HD\n\n- Hb: 5.8 , R/ PRC 3 kolf di IGD (+) => SELESAI\n- Sabtu, 24/10/2026 Cek DR, Ur/Cr POST TF 3 kolf (+) Hasil (+) => Lapor dr. Darmawan (+) BALASAN (-)\n\ndr. Darmawan via IGD :\n- Ns3% 500 cc per 24 jam\n- Jalur 2: NS 0.9 500 + KCl 25 meq per 24 jam (sedang terpasang) \n- Ksr 3x600 mg po\n- Novorapid 3x14 iu sc\n- Lantus 1x 12 iu ac\n- Cefotaxime 3x1 gr iv\n- Metronidazole 3x500 mg iv\n- PRC 750 cc bertahap\n- Konsul dr.Dini,SpN\n- Lapor PB dr. Darmawan (+) : lanjut\n- Lapor dr. Darmawan pasien tidak bisa tidur dan gelisah (+) BALASAN (-)\n\ndr. Dini via IGD :\n- Inj phenitoin 2x100mg >> naik jadi 3x100mg\n- As folat 2x1\n- Inj mecobalamin 3x500mcg\n- Lapor PB dr. Dini (+) balasan (+) : Naik jadi 3x100mg. Bolus diazepam 1 amp pelan banget saat kejang.. hentikan injeksi jika kejang berhenti\n\n- Sabtu sore 24/10/2026 GV (+) \n- Senin, 26/10/2026 GV luka TWC (-)",
+          "sore": "- Kel : pasien kejang, seperti kelonjotan. kejang tadi malam 1x, < 1 menit hari ini 2x, < 1 menit badan terasa lemah, nafsu makan menurun pasien riw. Diabetic Foot, sudah pernah amputasi, saat ini masih perawatan luka riw. CKD, sudah 3 minggu selesai HD\n\n- Hb: 5.8 , R/ PRC 3 kolf di IGD (+) => SELESAI\n- Sabtu, 24/10/2026 Cek DR, Ur/Cr POST TF 3 kolf (+) Hasil (+) => Lapor dr. Darmawan (+) BALASAN (-)\n\ndr. Darmawan via IGD :\n- Ns3% 500 cc per 24 jam\n- Jalur 2: NS 0.9 500 + KCl 25 meq per 24 jam (sedang terpasang) \n- Ksr 3x600 mg po\n- Novorapid 3x14 iu sc\n- Lantus 1x 12 iu ac\n- Cefotaxime 3x1 gr iv\n- Metronidazole 3x500 mg iv\n- PRC 750 cc bertahap\n- Konsul dr.Dini,SpN\n- Lapor PB dr. Darmawan (+) : lanjut\n- Lapor dr. Darmawan pasien tidak bisa tidur dan gelisah a/i Lantus 1x14 iu\nAlprazolam 1x0.5 mg po\n\ndr. Dini via IGD :\n- Inj phenitoin 2x100mg >> naik jadi 3x100mg\n- As folat 2x1\n- Inj mecobalamin 3x500mcg\n- Lapor PB dr. Dini (+) balasan (+) : Naik jadi 3x100mg. Bolus diazepam 1 amp pelan banget saat kejang.. hentikan injeksi jika kejang berhenti\n\n- Sabtu sore 24/10/2026 GV (+) \n- Senin, 26/10/2026 GV luka TWC (-)",
           "malam": ""
         },
         "tags": [
@@ -91662,7 +91672,7 @@
         "category": "Lain-lain",
         "notes": {
           "pagi": "Keluhan : BAB cair, muntah, sesak kadang-kadang \ndr. Ivan via IGD a/i :\n- Therapy suportif",
-          "sore": "Keluhan : BAB cair, muntah, sesak kadang-kadang \ndr. Ivan via IGD a/i :\n- Therapy suportif",
+          "sore": "Keluhan : BAB cair, muntah, sesak kadang-kadang \ndr. Ivan via IGD a/i :\n- Therapy suportif \n- lapor dr jaga, dr dodi u/ keluhan pasien sesak dan gelisah a/i Inj Furosemid 1 amp",
           "malam": ""
         },
         "tags": []
@@ -91706,38 +91716,29 @@
       {
         "bed": "14",
         "room": "EG2B",
-        "status": "Meninggal",
+        "status": "Dirawat",
         "isEmpty": false,
-        "isActive": false,
+        "isActive": true,
         "isDischargedToday": false,
-        "isDeceased": true,
-        "dischargeColor": "FFFF0000",
-        "name": "Tn. Solihin",
-        "mrNo": "00302401",
-        "gender": "L",
+        "isDeceased": false,
+        "dischargeColor": null,
+        "name": "U/ Pasien E.g 2a yang Gelisah",
+        "mrNo": "",
+        "gender": "P",
         "age": "",
-        "admissionDate": "20/10/2026",
-        "los": 6,
+        "admissionDate": "",
+        "los": 1,
         "insurance": "BPJS Kelas 3",
-        "doctor": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK\n\nDr. Pradana Sp.P",
-        "doctorPrimary": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK",
-        "diagnosis": "Obs Dyspnoe ec Tumor Paru dextra\n\nca paru metas leher",
-        "category": "Onkologi & Hematologi",
+        "doctor": "",
+        "doctorPrimary": "-",
+        "diagnosis": "",
+        "category": "Lain-lain",
         "notes": {
-          "pagi": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi",
-          "sore": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi\n\nMeninggal jam 16.50",
+          "pagi": "",
+          "sore": "",
           "malam": ""
         },
-        "tags": [
-          {
-            "label": "Meninggal",
-            "color": "red"
-          },
-          {
-            "label": "Onkologi",
-            "color": "pink"
-          }
-        ]
+        "tags": []
       },
       {
         "bed": "15",
@@ -91841,38 +91842,29 @@
       {
         "bed": "18",
         "room": "EG2B",
-        "status": "Pulang Hari Ini",
+        "status": "Dirawat",
         "isEmpty": false,
-        "isActive": false,
-        "isDischargedToday": true,
+        "isActive": true,
+        "isDischargedToday": false,
         "isDeceased": false,
-        "dischargeColor": "FFF4CCCC",
-        "name": "Ny. Murni",
-        "mrNo": "00284224",
-        "gender": "P",
+        "dischargeColor": null,
+        "name": "Sdr. Jaka",
+        "mrNo": "00305552",
+        "gender": "L",
         "age": "",
-        "admissionDate": "20/10/2026",
-        "los": 6,
+        "admissionDate": "24/10/2026",
+        "los": 2,
         "insurance": "BPJS Kelas 3",
-        "doctor": "JOHANNES MANURUNG, DR. SP.BS\n\nDARMAWAN,DR., M.KES.,SP.PD-KGH.FINASIM\n\ndr. Martha",
-        "doctorPrimary": "JOHANNES MANURUNG, DR. SP.BS",
-        "diagnosis": "Hydrocephalus post revisi VP shunt (POD 3)",
+        "doctor": "dr. Darmawan, Sp. PD",
+        "doctorPrimary": "DARMAWAN, DR., M.KES., SP.PD-KGH. FINASIM",
+        "diagnosis": "Syok Hipovolemik",
         "category": "Lain-lain",
         "notes": {
-          "pagi": "BLPL JAM 12.00\n\n- Kel : cenderung mengantuk (saat ini membuka mata spontan), tidak dapat merespon keluarga, kontak mata (-), makan minum sulit masuk \n- RPD : riw. hydrocephalus post op revisi VP shunt oleh dr. Johannes, sp.BS pada Jumat, 16 Oktober 2026\n- HB : 10.3 , WBC :  17.62,  UR : 67.8, CR : 1.39 , eGFR : 43\n\nAsisten Dr johanes Visite 25/10/2026\n- Kons raber peny dalam( ginjal bermasalah), saya konservatif, teruskan th igd, ruang biasa\ntherapy lanjut\n- Sudah visit ke Pasien => Keluarga tidak ada. Di Telp 4x tidak di angkat\n- AFF NGT => Diit Bubut Oral => blm bisa mami via oral\n- BLPL => Resume pulang di SIMRS, Obat pulang mengikuti IPD \n\nDr Darmawan Via IGD :\n- Cefotaxime 3x1 gr iv\n- Candesartan 1x8 mg po\n- Bisoprolol 1x2.5 mg po\n- Nac 3x200 mg po\n- Bicnat 3x500 mg po\n- Asam folat 3x1 mg po\n- Cek ur cr per 2 hari\n* Kamis, 22/10/2026 (Ur = 52.1, Cr = 0.82, eGFR = 81) \n* Sabtu 24/10/2026 (Ur =  44.4, Cr =  0.91, eGFR =  71) => Selanjutnya Senin, 26/10/2026\n- BLPL\n\nKonsul dr Marta Sp.KFR visit (+)\n- Jumat, 23/10/26 fisiotherapy pertama (+)",
-          "sore": "BLPL JAM 12.00\n\n- Kel : cenderung mengantuk (saat ini membuka mata spontan), tidak dapat merespon keluarga, kontak mata (-), makan minum sulit masuk \n- RPD : riw. hydrocephalus post op revisi VP shunt oleh dr. Johannes, sp.BS pada Jumat, 16 Oktober 2026\n- HB : 10.3 , WBC :  17.62,  UR : 67.8, CR : 1.39 , eGFR : 43\n\nAsisten Dr johanes Visite 25/10/2026\n- Kons raber peny dalam( ginjal bermasalah), saya konservatif, teruskan th igd, ruang biasa\ntherapy lanjut\n- Sudah visit ke Pasien => Keluarga tidak ada. Di Telp 4x tidak di angkat\n- AFF NGT => Diit Bubut Oral => blm bisa mami via oral\n- BLPL => Resume pulang di SIMRS, Obat pulang mengikuti IPD \n\nDr Darmawan Via IGD :\n- Cefotaxime 3x1 gr iv\n- Candesartan 1x8 mg po\n- Bisoprolol 1x2.5 mg po\n- Nac 3x200 mg po\n- Bicnat 3x500 mg po\n- Asam folat 3x1 mg po\n- Cek ur cr per 2 hari\n* Kamis, 22/10/2026 (Ur = 52.1, Cr = 0.82, eGFR = 81) \n* Sabtu 24/10/2026 (Ur =  44.4, Cr =  0.91, eGFR =  71) => Selanjutnya Senin, 26/10/2026\n- BLPL\n\nKonsul dr Marta Sp.KFR visit (+)\n- Jumat, 23/10/26 fisiotherapy pertama (+)",
+          "pagi": "- Keluhan : keluhan lemah 5 hari disertai demam, pusing (+). Muntah (-). Makan minum kurang BAB dan BAK dan Bulan lalu dirawat di RS Mitra Medika dikatakan autoimun, tapi pasien tidak membawa hasil pemeriksaan dari RS Mitra Medika (tinggal di rumah pasien di Sambas)\n\ndr. darmawan via IGD a/i :\n- NS 0.9 500 cc per 8 jam\n- PCT 3x1 gr iv\n- Omz 1x40 mg iv\n- Drip ceftriaxone 1x3 gr iv -> lapor ceftriaxone -- mengeluh gatal dan merah setelah di skintest -> levofloksasin 1x750 mg IV \n- Ondasetron 3x8 mg iv",
+          "sore": "- Keluhan : keluhan lemah 5 hari disertai demam, pusing (+). Muntah (-). Makan minum kurang BAB dan BAK dan Bulan lalu dirawat di RS Mitra Medika dikatakan autoimun, tapi pasien tidak membawa hasil pemeriksaan dari RS Mitra Medika (tinggal di rumah pasien di Sambas)\n\ndr. darmawan via IGD a/i :\n- NS 0.9 500 cc per 8 jam\n- PCT 3x1 gr iv\n- Omz 1x40 mg iv\n- Drip ceftriaxone 1x3 gr iv -> lapor ceftriaxone -- mengeluh gatal dan merah setelah di skintest -> levofloksasin 1x750 mg IV \n- Ondasetron 3x8 mg iv",
           "malam": ""
         },
-        "tags": [
-          {
-            "label": "Pulang Hari Ini",
-            "color": "emerald"
-          },
-          {
-            "label": "Bedah / Operasi",
-            "color": "orange"
-          }
-        ]
+        "tags": []
       },
       {
         "bed": "19",
@@ -92031,7 +92023,7 @@
         "category": "Onkologi & Hematologi",
         "notes": {
           "pagi": "- Kel :  nyeri pada perut. Sulit BAK sejak 5 hari lalu. Kedua kaki bengkak.\n- Pasien membawa pengantar dari dr. Elit,Sp.B dengan Adenoca colon Cancer pain,\n\n dr Elit Via IGD (+) a/i :\n- Raber dr Sp.PD KGH (+)\n- pasien mengeluh nyeri perut tidak bisa makan, TD : 160/82 N : 81x/menit --> lapor dr. Elit (+) a/i : Drip Tramadol ketorolac ondancentron 16 ypm\n\ndr darmawan via IGD (+) a/i \n- Protokol hiperkalemia :\n* Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit\n* D40 2 flacon + insulin 8 iu bolus iv\n- Nac 3x200 mg po, Bicnat 3x500 mg po, Asam folat 3x1 mg po,  kalitake 3x1 sach\n- Omz 1x40 mg iv, Ondansetron 3x8 mg iv\n- minggu 25/10/2026 cek elektrolit post koreksi hiperkalemia (+) hasil disimrs --> lapor dr darmawan (+) balasan (-)",
-          "sore": "- Kel :  nyeri pada perut. Sulit BAK sejak 5 hari lalu. Kedua kaki bengkak.\n- Pasien membawa pengantar dari dr. Elit,Sp.B dengan Adenoca colon Cancer pain,\n\n dr Elit Via IGD (+) a/i :\n- Raber dr Sp.PD KGH (+)\n- pasien mengeluh nyeri perut tidak bisa makan, TD : 160/82 N : 81x/menit --> lapor dr. Elit (+) a/i : Drip Tramadol ketorolac ondancentron 16 ypm\n\ndr darmawan via IGD (+) a/i \n- Protokol hiperkalemia :\n* Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit\n* D40 2 flacon + insulin 8 iu bolus iv\n- Nac 3x200 mg po, Bicnat 3x500 mg po, Asam folat 3x1 mg po,  kalitake 3x1 sach\n- Omz 1x40 mg iv, Ondansetron 3x8 mg iv\n- minggu 25/10/2026 cek elektrolit post koreksi hiperkalemia (+) hasil disimrs --> lapor dr darmawan (+) balasan (-)",
+          "sore": "- Kel :  nyeri pada perut. Sulit BAK sejak 5 hari lalu. Kedua kaki bengkak.\n- Pasien membawa pengantar dari dr. Elit,Sp.B dengan Adenoca colon Cancer pain,\n\n dr Elit Via IGD (+) a/i :\n- Raber dr Sp.PD KGH (+)\n- pasien mengeluh nyeri perut tidak bisa makan, TD : 160/82 N : 81x/menit --> lapor dr. Elit (+) a/i : Drip Tramadol ketorolac ondancentron 16 ypm\n\ndr darmawan via IGD (+) a/i \n- Protokol hiperkalemia :\n* Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit\n* D40 2 flacon + insulin 8 iu bolus iv\n- Nac 3x200 mg po, Bicnat 3x500 mg po, Asam folat 3x1 mg po,  kalitake 3x1 sach\n- Omz 1x40 mg iv, Ondansetron 3x8 mg iv\n- minggu 25/10/2026 cek elektrolit post koreksi hiperkalemia (+) hasil disimrs --> lapor dr darmawan a/i Protokol hiperkalemia 1 siklus",
           "malam": ""
         },
         "tags": [
@@ -92203,7 +92195,7 @@
         "category": "Nefrologi & Urologi",
         "notes": {
           "pagi": "PB via IGD jam 09.30 \n- Kel : keluhan demam sejak Senin, batuk memberat sejak 1 minggu dan terasa agak sesak, perut begah, ada luka di kaki kanan\n- Luka sudah 1 bulan biasa ganti perban di Kitamura \n- Riw DM tipe 2 (+), \n- RPO : glimepirid\n- Cek GDS / hr (pagi :)\n\ndr. iqbal via IGD (+) a/i :\n- Senin Konsul wound care (-)\n- Na :  114.36 --> Inf nacl 3% 10 tpm makro (-) resep (+) sore tolong pasng\n- Info nacl 0,9% 10 tpm makro\n- Inj. Omz 40mg/12 jam\n- Inf pct 1gr/8 jam, Inj. Resfar 1vial/12 jam, Drip metronidazole 500mg/8 jam\n- Inj. Furosemid 20mg/12 jam\n- Inj. Levemir 1x8 iu, Inj. Novorapid 3x6 iu\n- Clindamycin 4x300mg, Ketotenal 2x2, Codein 2x10mg, Sucralfat syr 3x15ml\n- Cek albumin (+) alb : 3,52 \n- Lapor PB (+)",
-          "sore": "PB via IGD jam 09.30 \n- Kel : keluhan demam sejak Senin, batuk memberat sejak 1 minggu dan terasa agak sesak, perut begah, ada luka di kaki kanan\n- Luka sudah 1 bulan biasa ganti perban di Kitamura \n- Riw DM tipe 2 (+), \n- RPO : glimepirid\n- Cek GDS / hr (pagi :)\n\ndr. iqbal via IGD (+) a/i :\n- Senin Konsul wound care (-)\n- Na :  114.36 --> Inf nacl 3% 10 tpm makro (-) resep (+) sore tolong pasng\n- Info nacl 0,9% 10 tpm makro\n- Inj. Omz 40mg/12 jam\n- Inf pct 1gr/8 jam, Inj. Resfar 1vial/12 jam, Drip metronidazole 500mg/8 jam\n- Inj. Furosemid 20mg/12 jam\n- Inj. Levemir 1x8 iu, Inj. Novorapid 3x6 iu\n- Clindamycin 4x300mg, Ketotenal 2x2, Codein 2x10mg, Sucralfat syr 3x15ml\n- Cek albumin (+) alb : 3,52 \n- Lapor PB (+)",
+          "sore": "PB via IGD jam 09.30 \n- Kel : keluhan demam sejak Senin, batuk memberat sejak 1 minggu dan terasa agak sesak, perut begah, ada luka di kaki kanan\n- Luka sudah 1 bulan biasa ganti perban di Kitamura \n- Riw DM tipe 2 (+), \n- RPO : glimepirid\n- Cek GDS / hr (pagi :)\n\ndr. iqbal via IGD (+) a/i :\n- Senin Konsul wound care (-)\n- Na :  114.36 --> Inf nacl 3% 10 tpm makro => sedang Terpasang, Selesai cek Elektrolit\n- Info nacl 0,9% 10 tpm makro\n- Inj. Omz 40mg/12 jam\n- Inf pct 1gr/8 jam, Inj. Resfar 1vial/12 jam, Drip metronidazole 500mg/8 jam\n- Inj. Furosemid 20mg/12 jam\n- Inj. Levemir 1x8 iu, Inj. Novorapid 3x6 iu\n- Clindamycin 4x300mg, Ketotenal 2x2, Codein 2x10mg, Sucralfat syr 3x15ml\n- Cek albumin (+) alb : 3,52 \n- Lapor PB (+)",
           "malam": ""
         },
         "tags": []
@@ -92211,32 +92203,32 @@
       {
         "bed": "29",
         "room": "EG2B",
-        "status": "Pulang Hari Ini",
+        "status": "Dirawat",
         "isEmpty": false,
-        "isActive": false,
-        "isDischargedToday": true,
+        "isActive": true,
+        "isDischargedToday": false,
         "isDeceased": false,
-        "dischargeColor": "FFFF9900",
-        "name": "Tn. Syech Haikal",
-        "mrNo": "00242940",
-        "gender": "L",
+        "dischargeColor": null,
+        "name": "Ny. Siti Hatitin Suma Sari",
+        "mrNo": "00303245",
+        "gender": "P",
         "age": "",
-        "admissionDate": "23/10/2026",
-        "los": 3,
-        "insurance": "BPJS Kelas 2",
-        "doctor": "APRIANI, DR, M.KED (PD), SP.PD",
-        "doctorPrimary": "APRIANI, DR, M.KED (PD), SP.PD",
-        "diagnosis": "- dm tipe 2 - dyspepsia syndrome - obs. vomiting",
-        "category": "Penyakit Dalam (Metabolik)",
+        "admissionDate": "24/10/2026",
+        "los": 2,
+        "insurance": "BPJS Kelas 3",
+        "doctor": "dr. Johanes Manurung",
+        "doctorPrimary": "dr. Johanes Manurung",
+        "diagnosis": "Febris Dehidrasi \nec Low intake Post Removal Tumor POD - 10\nSefalgia",
+        "category": "Onkologi & Hematologi",
         "notes": {
-          "pagi": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
-          "sore": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
+          "pagi": "- Keluhan : nyeri kepala sejak 1 hari smrs. nyeri dirasa terus menerus. pasien juga mengeluhkan demam sejak 2 minggu smrs. pasien post operasi removal tumor otak 10 hari smrs\n\nAsisten dr. Johanes Manurung visite tgl 25/10/2026 a/i :\n\n- Tidak tanda2 kelemahan di vital sign nya\n- Diagnosa masuk nya di ubah biar tidak terhitung readmisi\n- Guyur NaCl 1000 cc 30 mnt dulu lanjut 40 tom\n- Jangan drip tko, cukup pct, pct 3x1 gr\n- th/tambahan Inj. Ceftriaxon 2x2gr IV, NAC 3x1 PO => Sore tolong mulai",
+          "sore": "- Keluhan : nyeri kepala sejak 1 hari smrs. nyeri dirasa terus menerus. pasien juga mengeluhkan demam sejak 2 minggu smrs. pasien post operasi removal tumor otak 10 hari smrs\n\nAsisten dr. Johanes Manurung visite tgl 25/10/2026 a/i :\n\n- Tidak tanda2 kelemahan di vital sign nya\n- Diagnosa masuk nya di ubah biar tidak terhitung readmisi\n- Guyur NaCl 1000 cc 30 mnt dulu lanjut 40 tom\n- Jangan drip tko, cukup pct, pct 3x1 gr\n- th/tambahan Inj. Ceftriaxon 2x2gr IV, NAC 3x1 PO",
           "malam": ""
         },
         "tags": [
           {
-            "label": "Pulang Hari Ini",
-            "color": "emerald"
+            "label": "Bedah / Operasi",
+            "color": "orange"
           }
         ]
       },
@@ -92262,7 +92254,7 @@
         "category": "Lain-lain",
         "notes": {
           "pagi": "- Kel: Lemah dan nyeri ulu hati sejak tadi malam, tidak mampu berjalan Riw. hipokalemia berulang\n- terapi via IGD: IVFD Nacl 0.9% 20 tpm Inj. Omeprazole 1 vial / 24 jam \n- Pasang kateter \n- koreksi Kalium = inf Nacl + KCl 2 fls habis dalam 12 jam KSR 3x1\n- Inf via CVC \n\ndr. harry andhika via IGD (+) a/i: \n- Inj ceftriaxone 2x1gr,\n- Koreksi cepat hipokalemia cepat drip kcl 50 meq/ KCL 2 flash dalam ns 100 cc habis 3 jam via cvc (+) selesai 3 siklus\n- Minggu 25/10/2026 cek elektrolit ulang (+) hasil disimrs, lapor dr. Harry (+) a/i : Tambah koreksi hipokalemia cepatnya 2 siklus, Jarak antar siklus 1 jam\n- sedang terpasang ns 100 + kcl 2 flsh kolf 1 mulai jam 11.15 --> selesai jeda 1 jam lanjut kolf ke 2\n- Besok, senin 26/10/26 cek elektrolit ulang (-) \n\ndr. alvin via IGD (+) a/i: \n- Post pemasangan akses vena sentral US guided (POD 1)\n- GV luka tiap 2 hari/bila kotor/bila rembes dengan salep Mupirocin 2% Lain2 sesuai DPJP\n- tidak raber",
-          "sore": "- Kel: Lemah dan nyeri ulu hati sejak tadi malam, tidak mampu berjalan Riw. hipokalemia berulang\n- terapi via IGD: IVFD Nacl 0.9% 20 tpm Inj. Omeprazole 1 vial / 24 jam \n- Pasang kateter \n- koreksi Kalium = inf Nacl + KCl 2 fls habis dalam 12 jam KSR 3x1\n- Inf via CVC \n\ndr. harry andhika via IGD (+) a/i: \n- Inj ceftriaxone 2x1gr,\n- Koreksi cepat hipokalemia cepat drip kcl 50 meq/ KCL 2 flash dalam ns 100 cc habis 3 jam via cvc (+) selesai 3 siklus\n- Minggu 25/10/2026 cek elektrolit ulang (+) hasil disimrs, lapor dr. Harry (+) a/i : Tambah koreksi hipokalemia cepatnya 2 siklus, Jarak antar siklus 1 jam\n- sedang terpasang ns 100 + kcl 2 flsh kolf 1 mulai jam 11.15 --> selesai jeda 1 jam lanjut kolf ke 2\n- Besok, senin 26/10/26 cek elektrolit ulang (-) \n\ndr. alvin via IGD (+) a/i: \n- Post pemasangan akses vena sentral US guided (POD 1)\n- GV luka tiap 2 hari/bila kotor/bila rembes dengan salep Mupirocin 2% Lain2 sesuai DPJP\n- tidak raber",
+          "sore": "- Kel: Lemah dan nyeri ulu hati sejak tadi malam, tidak mampu berjalan Riw. hipokalemia berulang\n- terapi via IGD: IVFD Nacl 0.9% 20 tpm Inj. Omeprazole 1 vial / 24 jam \n- Pasang kateter \n- koreksi Kalium = inf Nacl + KCl 2 fls habis dalam 12 jam KSR 3x1\n- Inf via CVC \n\ndr. harry andhika via IGD (+) a/i: \n- Inj ceftriaxone 2x1gr,\n- Koreksi cepat hipokalemia cepat drip kcl 50 meq/ KCL 2 flash dalam ns 100 cc habis 3 jam via cvc (+) selesai 3 siklus\n- Minggu 25/10/2026 cek elektrolit ulang (+) hasil disimrs, lapor dr. Harry (+) a/i : Tambah koreksi hipokalemia cepatnya 2 siklus, Jarak antar siklus 1 jam\n- sedang terpasang ns 100 + kcl 2 flsh kolf 1 mulai jam 11.15 --> selesai jeda 1 jam lanjut kolf ke 2 (+)\n- Besok, senin 26/10/26 cek elektrolit ulang (-) \n\ndr. alvin via IGD (+) a/i: \n- Post pemasangan akses vena sentral US guided (POD 1)\n- GV luka tiap 2 hari/bila kotor/bila rembes dengan salep Mupirocin 2% Lain2 sesuai DPJP\n- tidak raber",
           "malam": ""
         },
         "tags": [
@@ -92459,7 +92451,7 @@
         "category": "Nefrologi & Urologi",
         "notes": {
           "pagi": "- Kel: badan terasa gatal\n- Riw: surat pengantar dari dokter spesialis dengan : anemia nn e.c s acute bleedin dd chronic desease amenore sekunder, riw penyakit disangkal\n- inj kanex 3x500 mg, inj omz 1 vial\n- pro transfusi PRC 4 kolf\n- Terpasang DC (+)\n\ndr.Danar,Sp.PD-KGH di visitekan dr. Apriani tanggal 23/10/2026:\n- Inf.nacl 0,9% 20ttm\n- nocid 3x1, inj omz 1amp/24jam, ttd 3x1, ksr 2x1\n- Hitung Balance Cairan/24 jam =>> Cairan Masuk - Cairan Keluar - IWL =>>  SHIFT PAGI: , SHIFT SORE: , SHIFT MALAM: \n* BB: 65Kg, IWl: 15x65:24 = 40.625\n* Cairan Masuk\nSHIFT PAGI Jam 07:00 - 14:00 =>> Infus: cc, Minum: cc, Obat: cc\nSHIFT SORE Jam 14:00 - 21:00 =>> Infus: cc, Minum: cc, Obat: cc\nSHIFT MALAM Jam 21:00 - 07:00 =>> Infus: cc, Minum: cc, Obat: cc, darah : cc\n* Cairan Keluar\nSHIFT PAGI Jam 07:00 - 14:00 =>> Urine: cc\nSHIFT SORE Jam 14:00 - 21:00 =>> Urine: cc\nSHIFT MALAM Jam 21:00 - 07:00 =>> Urine: cc\n- Hitung Diuresis =>> Jumlah Urine/KgBB/Jam  =>> SHIFT PAGI: , SHIFT SORE: , SHIFT MALAM: \n- R/ Tranfusi PRC 4 Kolf Bertahap (TARGET S/d HB > 10 g/dl) =>> 3 KOLF (+),SEDANG TERPASANG KOLF KE 4\n- Hasil Cek DR post TF PRC 3 kolf (HB:  8.5 PLT: 277 WBC:13.57)\n- Hasil Cek asam urat, hba1c (AU: 9.4 HBA1C:  5.5) =>> Lapor dr.Danar (+) Balasan (-)\n- Hasil cek PP test (Tanggal 21/10/2026) \"Negatif\" =>> Jika hasil positif konsul Sp.OG (-)\n- USG abdomen (Kamis 22/10/2026) \": Cholelithiasis multiple,  Chronic kidney parenchymal disease bilateral, Splenomegali ringan\" =>> Lapor dr.Danar sekalian hasil DR Post TF PRC 3 kolf (+) Balasan (-)\n- Tambahan UDCA 2x1 (+) sudah dimulai\n- sabtu 24/10/26  cek DR UR CR ulang (+) HB : 9.2 , UR :152.8 , CR : 9.07 , eGFR : 5\n- Senin 26/10/26 cek DR post tranfusi PRC kolf ke 4 (-)",
-          "sore": "- Kel: badan terasa gatal\n- Riw: surat pengantar dari dokter spesialis dengan : anemia nn e.c s acute bleedin dd chronic desease amenore sekunder, riw penyakit disangkal\n- inj kanex 3x500 mg, inj omz 1 vial\n- pro transfusi PRC 4 kolf\n- Terpasang DC (+)\n\ndr.Danar,Sp.PD-KGH di visitekan dr. Apriani tanggal 23/10/2026:\n- Inf.nacl 0,9% 20ttm\n- nocid 3x1, inj omz 1amp/24jam, ttd 3x1, ksr 2x1\n- Hitung Balance Cairan/24 jam =>> Cairan Masuk - Cairan Keluar - IWL =>>  SHIFT PAGI: , SHIFT SORE: , SHIFT MALAM: \n* BB: 65Kg, IWl: 15x65:24 = 40.625\n* Cairan Masuk\nSHIFT PAGI Jam 07:00 - 14:00 =>> Infus: cc, Minum: cc, Obat: cc\nSHIFT SORE Jam 14:00 - 21:00 =>> Infus: cc, Minum: cc, Obat: cc\nSHIFT MALAM Jam 21:00 - 07:00 =>> Infus: cc, Minum: cc, Obat: cc, darah : cc\n* Cairan Keluar\nSHIFT PAGI Jam 07:00 - 14:00 =>> Urine: cc\nSHIFT SORE Jam 14:00 - 21:00 =>> Urine: cc\nSHIFT MALAM Jam 21:00 - 07:00 =>> Urine: cc\n- Hitung Diuresis =>> Jumlah Urine/KgBB/Jam  =>> SHIFT PAGI: , SHIFT SORE: , SHIFT MALAM: \n- R/ Tranfusi PRC 4 Kolf Bertahap (TARGET S/d HB > 10 g/dl) =>> 3 KOLF (+),SEDANG TERPASANG KOLF KE 4\n- Hasil Cek DR post TF PRC 3 kolf (HB:  8.5 PLT: 277 WBC:13.57)\n- Hasil Cek asam urat, hba1c (AU: 9.4 HBA1C:  5.5) =>> Lapor dr.Danar (+) Balasan (-)\n- Hasil cek PP test (Tanggal 21/10/2026) \"Negatif\" =>> Jika hasil positif konsul Sp.OG (-)\n- USG abdomen (Kamis 22/10/2026) \": Cholelithiasis multiple,  Chronic kidney parenchymal disease bilateral, Splenomegali ringan\" =>> Lapor dr.Danar sekalian hasil DR Post TF PRC 3 kolf (+) Balasan (-)\n- Tambahan UDCA 2x1 (+) sudah dimulai\n- sabtu 24/10/26  cek DR UR CR ulang (+) HB : 9.2 , UR :152.8 , CR : 9.07 , eGFR : 5\n- Senin 26/10/26 cek DR post tranfusi PRC kolf ke 4 (-)",
+          "sore": "- Kel: badan terasa gatal\n- Riw: surat pengantar dari dokter spesialis dengan : anemia nn e.c s acute bleedin dd chronic desease amenore sekunder, riw penyakit disangkal\n- inj kanex 3x500 mg, inj omz 1 vial\n- pro transfusi PRC 4 kolf\n- Terpasang DC (+)\n\ndr.Danar,Sp.PD-KGH di visitekan dr. Apriani tanggal 23/10/2026:\n- Inf.nacl 0,9% 20ttm\n- nocid 3x1, inj omz 1amp/24jam, ttd 3x1, ksr 2x1\n- Hitung Balance Cairan/24 jam =>> Cairan Masuk - Cairan Keluar - IWL =>>  SHIFT PAGI: , SHIFT SORE: , SHIFT MALAM: \n* BB: 65Kg, IWl: 15x65:24 = 40.625\n* Cairan Masuk\nSHIFT PAGI Jam 07:00 - 14:00 =>> Infus: cc, Minum: cc, Obat: cc\nSHIFT SORE Jam 14:00 - 21:00 =>> Infus: cc, Minum: cc, Obat: cc\nSHIFT MALAM Jam 21:00 - 07:00 =>> Infus: cc, Minum: cc, Obat: cc, darah : cc\n* Cairan Keluar\nSHIFT PAGI Jam 07:00 - 14:00 =>> Urine: cc\nSHIFT SORE Jam 14:00 - 21:00 =>> Urine: cc\nSHIFT MALAM Jam 21:00 - 07:00 =>> Urine: cc\n- Hitung Diuresis =>> Jumlah Urine/KgBB/Jam  =>> SHIFT PAGI: , SHIFT SORE: , SHIFT MALAM: \n- R/ Tranfusi PRC 4 Kolf Bertahap (TARGET S/d HB > 10 g/dl) =>> Kolf 4 (+)\n- Hasil Cek DR post TF PRC 3 kolf (HB:  8.5 PLT: 277 WBC:13.57)\n- Hasil Cek asam urat, hba1c (AU: 9.4 HBA1C:  5.5) =>> Lapor dr.Danar (+) Balasan (-)\n- Hasil cek PP test (Tanggal 21/10/2026) \"Negatif\" =>> Jika hasil positif konsul Sp.OG (-)\n- USG abdomen (Kamis 22/10/2026) \": Cholelithiasis multiple,  Chronic kidney parenchymal disease bilateral, Splenomegali ringan\" =>> Lapor dr.Danar sekalian hasil DR Post TF PRC 3 kolf (+) Balasan (-)\n- Tambahan UDCA 2x1 (+) sudah dimulai\n- sabtu 24/10/26  cek DR UR CR ulang (+) HB : 9.2 , UR :152.8 , CR : 9.07 , eGFR : 5\n- Senin 26/10/26 cek DR post tranfusi PRC kolf ke 4 (-)",
           "malam": ""
         },
         "tags": [
@@ -92476,56 +92468,69 @@
       {
         "bed": "37",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Meninggal",
         "isEmpty": false,
-        "isActive": true,
+        "isActive": false,
         "isDischargedToday": false,
-        "isDeceased": false,
-        "dischargeColor": null,
-        "name": "Sdr. Jaka",
-        "mrNo": "00305552",
+        "isDeceased": true,
+        "dischargeColor": "FFFF0000",
+        "name": "Tn. Solihin",
+        "mrNo": "00302401",
         "gender": "L",
         "age": "",
-        "admissionDate": "24/10/2026",
-        "los": 2,
+        "admissionDate": "20/10/2026",
+        "los": 6,
         "insurance": "BPJS Kelas 3",
-        "doctor": "dr. Darmawan, Sp. PD",
-        "doctorPrimary": "DARMAWAN, DR., M.KES., SP.PD-KGH. FINASIM",
-        "diagnosis": "Syok Hipovolemik",
-        "category": "Lain-lain",
+        "doctor": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK\n\nDr. Pradana Sp.P",
+        "doctorPrimary": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK",
+        "diagnosis": "Obs Dyspnoe ec Tumor Paru dextra\n\nca paru metas leher",
+        "category": "Onkologi & Hematologi",
         "notes": {
-          "pagi": "- Keluhan : keluhan lemah 5 hari disertai demam, pusing (+). Muntah (-). Makan minum kurang BAB dan BAK dan Bulan lalu dirawat di RS Mitra Medika dikatakan autoimun, tapi pasien tidak membawa hasil pemeriksaan dari RS Mitra Medika (tinggal di rumah pasien di Sambas)\n\ndr. darmawan via IGD a/i :\n- NS 0.9 500 cc per 8 jam\n- PCT 3x1 gr iv\n- Omz 1x40 mg iv\n- Drip ceftriaxone 1x3 gr iv -> lapor ceftriaxone -- mengeluh gatal dan merah setelah di skintest -> levofloksasin 1x750 mg IV \n- Ondasetron 3x8 mg iv",
-          "sore": "- Keluhan : keluhan lemah 5 hari disertai demam, pusing (+). Muntah (-). Makan minum kurang BAB dan BAK dan Bulan lalu dirawat di RS Mitra Medika dikatakan autoimun, tapi pasien tidak membawa hasil pemeriksaan dari RS Mitra Medika (tinggal di rumah pasien di Sambas)\n\ndr. darmawan via IGD a/i :\n- NS 0.9 500 cc per 8 jam\n- PCT 3x1 gr iv\n- Omz 1x40 mg iv\n- Drip ceftriaxone 1x3 gr iv -> lapor ceftriaxone -- mengeluh gatal dan merah setelah di skintest -> levofloksasin 1x750 mg IV \n- Ondasetron 3x8 mg iv",
+          "pagi": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi",
+          "sore": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi\n\nMeninggal jam 16.50",
           "malam": ""
         },
-        "tags": []
+        "tags": [
+          {
+            "label": "Meninggal",
+            "color": "red"
+          },
+          {
+            "label": "Onkologi",
+            "color": "pink"
+          }
+        ]
       },
       {
         "bed": "38",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
-        "name": "Ny. Siti Hatitin Suma Sari",
-        "mrNo": "00303245",
+        "dischargeColor": "FFF4CCCC",
+        "name": "Ny. Murni",
+        "mrNo": "00284224",
         "gender": "P",
         "age": "",
-        "admissionDate": "24/10/2026",
-        "los": 2,
+        "admissionDate": "20/10/2026",
+        "los": 6,
         "insurance": "BPJS Kelas 3",
-        "doctor": "dr. Johanes Manurung",
-        "doctorPrimary": "dr. Johanes Manurung",
-        "diagnosis": "Febris Dehidrasi \nec Low intake Post Removal Tumor POD - 10\nSefalgia",
-        "category": "Onkologi & Hematologi",
+        "doctor": "JOHANNES MANURUNG, DR. SP.BS\n\nDARMAWAN,DR., M.KES.,SP.PD-KGH.FINASIM\n\ndr. Martha",
+        "doctorPrimary": "JOHANNES MANURUNG, DR. SP.BS",
+        "diagnosis": "Hydrocephalus post revisi VP shunt (POD 3)",
+        "category": "Lain-lain",
         "notes": {
-          "pagi": "- Keluhan : nyeri kepala sejak 1 hari smrs. nyeri dirasa terus menerus. pasien juga mengeluhkan demam sejak 2 minggu smrs. pasien post operasi removal tumor otak 10 hari smrs\n\nAsisten dr. Johanes Manurung visite tgl 25/10/2026 a/i :\n\n- Tidak tanda2 kelemahan di vital sign nya\n- Diagnosa masuk nya di ubah biar tidak terhitung readmisi\n- Guyur NaCl 1000 cc 30 mnt dulu lanjut 40 tom\n- Jangan drip tko, cukup pct, pct 3x1 gr\n- th/tambahan Inj. Ceftriaxon 2x2gr IV, NAC 3x1 PO => Sore tolong mulai",
-          "sore": "- Keluhan : nyeri kepala sejak 1 hari smrs. nyeri dirasa terus menerus. pasien juga mengeluhkan demam sejak 2 minggu smrs. pasien post operasi removal tumor otak 10 hari smrs\n\nAsisten dr. Johanes Manurung visite tgl 25/10/2026 a/i :\n\n- Tidak tanda2 kelemahan di vital sign nya\n- Diagnosa masuk nya di ubah biar tidak terhitung readmisi\n- Guyur NaCl 1000 cc 30 mnt dulu lanjut 40 tom\n- Jangan drip tko, cukup pct, pct 3x1 gr\n- th/tambahan Inj. Ceftriaxon 2x2gr IV, NAC 3x1 PO => Sore tolong mulai",
+          "pagi": "BLPL JAM 12.00\n\n- Kel : cenderung mengantuk (saat ini membuka mata spontan), tidak dapat merespon keluarga, kontak mata (-), makan minum sulit masuk \n- RPD : riw. hydrocephalus post op revisi VP shunt oleh dr. Johannes, sp.BS pada Jumat, 16 Oktober 2026\n- HB : 10.3 , WBC :  17.62,  UR : 67.8, CR : 1.39 , eGFR : 43\n\nAsisten Dr johanes Visite 25/10/2026\n- Kons raber peny dalam( ginjal bermasalah), saya konservatif, teruskan th igd, ruang biasa\ntherapy lanjut\n- Sudah visit ke Pasien => Keluarga tidak ada. Di Telp 4x tidak di angkat\n- AFF NGT => Diit Bubut Oral => blm bisa mami via oral\n- BLPL => Resume pulang di SIMRS, Obat pulang mengikuti IPD \n\nDr Darmawan Via IGD :\n- Cefotaxime 3x1 gr iv\n- Candesartan 1x8 mg po\n- Bisoprolol 1x2.5 mg po\n- Nac 3x200 mg po\n- Bicnat 3x500 mg po\n- Asam folat 3x1 mg po\n- Cek ur cr per 2 hari\n* Kamis, 22/10/2026 (Ur = 52.1, Cr = 0.82, eGFR = 81) \n* Sabtu 24/10/2026 (Ur =  44.4, Cr =  0.91, eGFR =  71) => Selanjutnya Senin, 26/10/2026\n- BLPL\n\nKonsul dr Marta Sp.KFR visit (+)\n- Jumat, 23/10/26 fisiotherapy pertama (+)",
+          "sore": "BLPL JAM 12.00\n\n- Kel : cenderung mengantuk (saat ini membuka mata spontan), tidak dapat merespon keluarga, kontak mata (-), makan minum sulit masuk \n- RPD : riw. hydrocephalus post op revisi VP shunt oleh dr. Johannes, sp.BS pada Jumat, 16 Oktober 2026\n- HB : 10.3 , WBC :  17.62,  UR : 67.8, CR : 1.39 , eGFR : 43\n\nAsisten Dr johanes Visite 25/10/2026\n- Kons raber peny dalam( ginjal bermasalah), saya konservatif, teruskan th igd, ruang biasa\ntherapy lanjut\n- Sudah visit ke Pasien => Keluarga tidak ada. Di Telp 4x tidak di angkat\n- AFF NGT => Diit Bubut Oral => blm bisa mami via oral\n- BLPL => Resume pulang di SIMRS, Obat pulang mengikuti IPD \n\nDr Darmawan Via IGD :\n- Cefotaxime 3x1 gr iv\n- Candesartan 1x8 mg po\n- Bisoprolol 1x2.5 mg po\n- Nac 3x200 mg po\n- Bicnat 3x500 mg po\n- Asam folat 3x1 mg po\n- Cek ur cr per 2 hari\n* Kamis, 22/10/2026 (Ur = 52.1, Cr = 0.82, eGFR = 81) \n* Sabtu 24/10/2026 (Ur =  44.4, Cr =  0.91, eGFR =  71) => Selanjutnya Senin, 26/10/2026\n- BLPL\n\nKonsul dr Marta Sp.KFR visit (+)\n- Jumat, 23/10/26 fisiotherapy pertama (+)",
           "malam": ""
         },
         "tags": [
+          {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
           {
             "label": "Bedah / Operasi",
             "color": "orange"
@@ -92535,29 +92540,34 @@
       {
         "bed": "39",
         "room": "EG2B",
-        "status": "Kosong",
-        "isEmpty": true,
+        "status": "Pulang Hari Ini",
+        "isEmpty": false,
         "isActive": false,
-        "isDischargedToday": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
-        "name": "Bed Kosong",
-        "mrNo": "",
-        "gender": "-",
+        "dischargeColor": "FFFF9900",
+        "name": "Tn. Syech Haikal",
+        "mrNo": "00242940",
+        "gender": "L",
         "age": "",
-        "admissionDate": "-",
-        "los": 0,
-        "insurance": "-",
-        "doctor": "-",
-        "doctorPrimary": "-",
-        "diagnosis": "-",
-        "category": "-",
+        "admissionDate": "23/10/2026",
+        "los": 3,
+        "insurance": "BPJS Kelas 2",
+        "doctor": "APRIANI, DR, M.KED (PD), SP.PD",
+        "doctorPrimary": "APRIANI, DR, M.KED (PD), SP.PD",
+        "diagnosis": "- dm tipe 2 - dyspepsia syndrome - obs. vomiting",
+        "category": "Penyakit Dalam (Metabolik)",
         "notes": {
-          "pagi": "",
-          "sore": "",
+          "pagi": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
+          "sore": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
           "malam": ""
         },
-        "tags": []
+        "tags": [
+          {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          }
+        ]
       },
       {
         "bed": "40",
@@ -92591,18 +92601,18 @@
       "totalBeds": 56,
       "capacityA": 16,
       "capacityB": 40,
-      "occupied": 51,
-      "empty": 5,
-      "freeBedDetail": "Free Bed:  5 (EG2-A: 0 ekstra bed, EG2-B: 1 + 4 ekstra bed)",
+      "occupied": 52,
+      "empty": 4,
+      "freeBedDetail": "Free Bed:  4 (EG2-A: 0 ekstra bed, EG2-B: 4 ekstra bed)",
       "textFreeA": "0 ekstra bed",
-      "textFreeB": "1 + 4 ekstra bed",
-      "bor": 91.1,
+      "textFreeB": "4 ekstra bed",
+      "bor": 92.9,
       "borA": 100.0,
-      "borB": 87.5,
+      "borB": 90.0,
       "occA": 16,
-      "occB": 35,
+      "occB": 36,
       "emptyA": 0,
-      "emptyB": 5,
+      "emptyB": 4,
       "dischargedToday": 2,
       "deathsToday": 1,
       "tagCounts": {
@@ -92611,7 +92621,7 @@
         "Onkologi": 12,
         "Puasa Pre-Op": 3,
         "Hemodialisa (HD)": 10,
-        "Rencana Pulang": 3,
+        "Rencana Pulang": 4,
         "Meninggal": 1,
         "Pulang Hari Ini": 2
       }
