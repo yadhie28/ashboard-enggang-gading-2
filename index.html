@@ -53,6 +53,13 @@
           <button id="clearSearchBtn" class="clear-search-btn" style="display:none;">&times;</button>
         </div>
 
+        <!-- Clinical Command Palette Quick Trigger (<= 2 clicks shortcut) -->
+        <button class="btn btn-cmd-palette" id="btnOpenCommandPalette" title="Buka Pencarian Cepat Pasien & Menu Klinis (Ctrl+K / Cmd+K)">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span class="cmd-text">Cari Cepat</span>
+          <kbd class="cmd-kbd">⌘K</kbd>
+        </button>
+
         <!-- Role Mode Switcher (Role Separation) -->
         <div class="role-selector-box">
           <button class="btn-role-badge role-badge-management" id="roleToggleBtn" title="Mode Klinis (Dilindungi PIN) - Klik untuk Buka Akses">
@@ -1063,6 +1070,39 @@
       </div>
 
       <div class="modal-body">
+        <!-- Patient Safety Triad & NEWS2 Early Warning Bar -->
+        <div class="clinical-safety-bar" id="modalClinicalSafetyBar">
+          <div class="safety-chip safety-allergy" id="modalSafetyAllergy">
+            <span class="sc-label">Alergi Obat</span>
+            <strong class="sc-value" id="modalSafetyAllergyVal">NKDA (Nihil Alergi)</strong>
+          </div>
+          <div class="safety-chip safety-fall" id="modalSafetyFall">
+            <span class="sc-label">Resiko Jatuh (Morse)</span>
+            <strong class="sc-value" id="modalSafetyFallVal">Rendah</strong>
+          </div>
+          <div class="safety-chip safety-braden" id="modalSafetyBraden">
+            <span class="sc-label">Dekubitus (Braden)</span>
+            <strong class="sc-value" id="modalSafetyBradenVal">Skor 16 (Rendah)</strong>
+          </div>
+          <div class="safety-chip safety-resusc" id="modalSafetyResusc">
+            <span class="sc-label">Status Resusitasi</span>
+            <strong class="sc-value" id="modalSafetyResuscVal">FULL CODE</strong>
+          </div>
+          <div class="safety-chip safety-news" id="modalSafetyNews">
+            <span class="sc-label">NEWS2 / EWS</span>
+            <strong class="sc-value" id="modalSafetyNewsVal">0 • Stabil</strong>
+          </div>
+        </div>
+
+        <!-- Dynamic NEWS2 Clinical Escalation Protocol Callout -->
+        <div class="news2-escalation-callout" id="modalNewsEscalationCallout">
+          <span class="nec-icon" id="modalNewsIcon">ℹ️</span>
+          <div class="nec-content">
+            <strong id="modalNewsEscalationTitle">Protokol Respons Klinis EWS:</strong>
+            <p id="modalNewsEscalationDesc">Observasi rutin per shift (4-6 jam) oleh Perawat Pelaksana / PPJA.</p>
+          </div>
+        </div>
+
         <!-- Doctor & Diagnosis Box -->
         <div class="modal-clinical-box">
           <div class="clinical-field">
@@ -1070,7 +1110,7 @@
             <p class="field-value text-accent" id="modalDoctor">--</p>
           </div>
           <div class="clinical-field">
-            <span class="field-title">Diagnosa Klinis:</span>
+            <span class="field-title">Diagnosa Klinis (ICD-10):</span>
             <p class="field-value" id="modalDiagnosis">--</p>
           </div>
           <div class="clinical-tags-row" id="modalTagsContainer">
@@ -1110,9 +1150,13 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg>
           <span>Kronologi Rawat</span>
         </button>
-        <button class="btn btn-secondary" id="modalCopySbarBtn">
+        <button class="btn btn-secondary btn-fhir-export" id="modalExportFhirBtn" title="Unduh Sumber Daya Standar Interoperabilitas HL7 FHIR v4 (Kemenkes SatuSehat)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Ekspor HL7 FHIR v4</span>
+        </button>
+        <button class="btn btn-secondary" id="modalCopySbarBtn" title="Salin Format SBAR Operan Jaga Shift (Alt+S)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          <span>Salin Format SBAR</span>
+          <span>Salin SBAR</span>
         </button>
         <button class="btn btn-primary" id="modalPrintPatientBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
@@ -1606,6 +1650,26 @@
     </div>
   </div>
 
+  <!-- CLINICAL QUICK COMMAND PALETTE (CMD+K / CTRL+K) -->
+  <div class="cmd-palette-backdrop" id="cmdPaletteBackdrop" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="cmdPaletteInput">
+    <div class="cmd-palette-card">
+      <div class="cmd-palette-search-row">
+        <svg viewBox="0 0 24 24" class="cmd-search-icon" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" id="cmdPaletteInput" placeholder="Ketik No. RM, Nama Pasien, No Bed, atau Perintah Klinis..." autocomplete="off">
+        <kbd class="cmd-esc-hint" id="cmdPaletteCloseBtn">ESC</kbd>
+      </div>
+      <div class="cmd-palette-results" id="cmdPaletteResults">
+        <!-- Injected via app.js -->
+      </div>
+      <div class="cmd-palette-footer">
+        <span class="cmd-footer-item"><kbd>&uarr;</kbd><kbd>&darr;</kbd> Navigasi</span>
+        <span class="cmd-footer-item"><kbd>&crarr;</kbd> Buka Rekam Medis</span>
+        <span class="cmd-footer-item"><kbd>ESC</kbd> Tutup</span>
+        <span class="cmd-footer-badge">🏥 HL7 FHIR v4 • EWS/NEWS2 Ready</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification -->
   <div class="toast-container" id="toastContainer"></div>
 
@@ -1613,6 +1677,7 @@
   <div id="printContainer" class="print-only"></div>
 
   <script src="logo_asset.js"></script>
-  <script src="app.js?v=20261025_08"></script>
+  <script src="fhir_adapter.js"></script>
+  <script src="app.js?v=20261025_09"></script>
 </body>
 </html>

@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSyncSchedule();
   loadData();
   initWhatsAppMessengerSystem();
+  initClinicalCommandPalette();
 });
 
 // Theme Management
@@ -1535,6 +1536,74 @@ function openPatientModal(pt) {
   document.getElementById('modalNoteSore').textContent = (pt.notes && pt.notes.sore) || 'Tidak ada catatan shift sore.';
   document.getElementById('modalNoteMalam').textContent = (pt.notes && pt.notes.malam) || 'Tidak ada catatan shift malam.';
 
+  // Clinical Safety Triad & NEWS2 EWS Calculation
+  let news = { score: 0, riskLevel: 'LOW', riskLabel: 'Risiko Rendah', riskClass: 'news-low', clinicalResponse: 'Observasi rutin per shift (4-6 jam) oleh Perawat Pelaksana / PPJA.' };
+  if (typeof FHIRAdapter !== 'undefined' && FHIRAdapter.computeNews2) {
+    news = FHIRAdapter.computeNews2(pt);
+  }
+
+  // Update Safety Chips
+  const allergyChip = document.getElementById('modalSafetyAllergy');
+  const allergyVal = document.getElementById('modalSafetyAllergyVal');
+  const fullNotes = `${pt.notes?.pagi || ''} ${pt.notes?.sore || ''} ${pt.notes?.malam || ''} ${pt.diagnosis || ''}`.toLowerCase();
+  
+  if (fullNotes.includes('alergi')) {
+    allergyChip?.classList.add('allergy-alert');
+    if (allergyVal) allergyVal.textContent = '⚠️ Ada Catatan Alergi';
+  } else {
+    allergyChip?.classList.remove('allergy-alert');
+    if (allergyVal) allergyVal.textContent = 'NKDA (Nihil Alergi)';
+  }
+
+  const fallChip = document.getElementById('modalSafetyFall');
+  const fallVal = document.getElementById('modalSafetyFallVal');
+  const isHighFall = (pt.age && parseInt(pt.age) >= 60) || fullNotes.includes('lemah') || fullNotes.includes('penurunan kesadaran') || pt.los >= 7;
+  if (isHighFall) {
+    fallChip?.classList.add('fall-high');
+    if (fallVal) fallVal.textContent = 'Tinggi (Morse ≥ 45)';
+  } else {
+    fallChip?.classList.remove('fall-high');
+    if (fallVal) fallVal.textContent = 'Rendah (Morse < 25)';
+  }
+
+  const bradenChip = document.getElementById('modalSafetyBraden');
+  const bradenVal = document.getElementById('modalSafetyBradenVal');
+  const isHighBraden = fullNotes.includes('tirah baring') || fullNotes.includes('stroke') || fullNotes.includes('penurunan kesadaran');
+  if (isHighBraden) {
+    if (bradenVal) bradenVal.textContent = 'Skor 12 (Tinggi)';
+  } else {
+    if (bradenVal) bradenVal.textContent = 'Skor 16 (Rendah)';
+  }
+
+  const newsChip = document.getElementById('modalSafetyNews');
+  const newsVal = document.getElementById('modalSafetyNewsVal');
+  if (newsChip) {
+    newsChip.className = `safety-chip safety-news ${news.riskClass || 'news-low'}`;
+  }
+  if (newsVal) {
+    newsVal.textContent = `${news.score} • ${news.riskLabel}`;
+  }
+
+  // NEWS Escalation callout
+  const callout = document.getElementById('modalNewsEscalationCallout');
+  const calloutTitle = document.getElementById('modalNewsEscalationTitle');
+  const calloutDesc = document.getElementById('modalNewsEscalationDesc');
+  const calloutIcon = document.getElementById('modalNewsIcon');
+  if (callout) {
+    callout.className = `news2-escalation-callout ${news.riskLevel === 'HIGH' ? 'alert-high' : (news.riskLevel === 'MEDIUM' ? 'alert-medium' : '')}`;
+    if (calloutTitle) calloutTitle.textContent = `Protokol Respons Klinis EWS (${news.riskLabel}):`;
+    if (calloutDesc) calloutDesc.textContent = news.clinicalResponse;
+    if (calloutIcon) calloutIcon.textContent = news.riskLevel === 'HIGH' ? '🚨' : (news.riskLevel === 'MEDIUM' ? '⚠️' : 'ℹ️');
+  }
+
+  // FHIR Export Button Handler
+  const exportFhirBtn = document.getElementById('modalExportFhirBtn');
+  if (exportFhirBtn) {
+    exportFhirBtn.onclick = () => {
+      exportPatientFhir(pt);
+    };
+  }
+
   // Connect Kronologi Rawat Button in Modal
   const modalChronologyBtn = document.getElementById('modalOpenChronologyBtn');
   if (modalChronologyBtn) {
@@ -1549,10 +1618,179 @@ function openPatientModal(pt) {
   modal.style.display = 'flex';
 }
 
+function exportPatientFhir(pt) {
+  if (!pt) return;
+  if (typeof FHIRAdapter === 'undefined') {
+    showToast('Modul FHIR Adapter belum termuat.', 'error');
+    return;
+  }
+  const fhirPt = FHIRAdapter.toFhirPatient(pt);
+  const fhirEnc = FHIRAdapter.toFhirEncounter(pt, state.currentDate);
+  const fhirCond = FHIRAdapter.toFhirCondition(pt);
+  const news = FHIRAdapter.computeNews2(pt);
+  const fhirObs = FHIRAdapter.toFhirNewsObservation(pt, news);
+
+  const bundle = {
+    resourceType: 'Bundle',
+    id: `bundle-patient-${(pt.mrNo || pt.name || 'pt').replace(/\D/g, '')}`,
+    type: 'collection',
+    meta: { lastUpdated: new Date().toISOString() },
+    entry: [
+      { resource: fhirPt },
+      { resource: fhirEnc },
+      { resource: fhirCond },
+      { resource: fhirObs }
+    ].filter(e => e.resource !== null)
+  };
+
+  const jsonStr = JSON.stringify(bundle, null, 2);
+  const blob = new Blob([jsonStr], { type: 'application/fhir+json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `FHIR_R4_${pt.room}_B${pt.bed}_${(pt.mrNo || 'pasien').replace(/\D/g, '')}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(`Sumber daya HL7 FHIR v4 untuk ${pt.name} berhasil diunduh!`, 'success');
+}
+
 function closeModal() {
   const modal = document.getElementById('patientModal');
   if (modal) modal.style.display = 'none';
   state.selectedPatient = null;
+}
+
+// Clinical Command Palette Initialization (Cmd+K / Ctrl+K)
+function initClinicalCommandPalette() {
+  const backdrop = document.getElementById('cmdPaletteBackdrop');
+  const input = document.getElementById('cmdPaletteInput');
+  const results = document.getElementById('cmdPaletteResults');
+  const closeBtn = document.getElementById('cmdPaletteCloseBtn');
+  const triggerBtn = document.getElementById('btnOpenCommandPalette');
+
+  if (!backdrop || !input || !results) return;
+
+  function openPalette() {
+    backdrop.style.display = 'flex';
+    input.value = '';
+    renderPaletteResults('');
+    setTimeout(() => input.focus(), 50);
+  }
+
+  function closePalette() {
+    backdrop.style.display = 'none';
+  }
+
+  if (triggerBtn) triggerBtn.addEventListener('click', openPalette);
+  if (closeBtn) closeBtn.addEventListener('click', closePalette);
+
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop) closePalette();
+  });
+
+  // Global Keyboard Shortcuts
+  window.addEventListener('keydown', (e) => {
+    // Cmd+K or Ctrl+K to toggle Command Palette
+    if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+      e.preventDefault();
+      if (backdrop.style.display === 'flex') {
+        closePalette();
+      } else {
+        openPalette();
+      }
+    } else if (e.key === 'Escape') {
+      if (backdrop.style.display === 'flex') {
+        closePalette();
+      }
+    } else if (e.altKey && (e.key === 's' || e.key === 'S')) {
+      // Alt+S: Quick SBAR copy if patient selected
+      if (state.selectedPatient) {
+        e.preventDefault();
+        copyPatientSbar();
+      }
+    }
+  });
+
+  input.addEventListener('input', (e) => {
+    renderPaletteResults(e.target.value);
+  });
+
+  function renderPaletteResults(query) {
+    const q = (query || '').trim().toLowerCase();
+    results.innerHTML = '';
+
+    const allPts = typeof extractAllPatientsList === 'function' ? extractAllPatientsList() : [];
+
+    // Filter patients
+    const matchedPts = q
+      ? allPts.filter(p => (p.name || '').toLowerCase().includes(q) || (p.mrNo || '').toLowerCase().includes(q) || (p.doctor || '').toLowerCase().includes(q) || `b${p.bed}`.toLowerCase().includes(q))
+      : allPts.filter(p => p.isCurrentlyActive).slice(0, 8);
+
+    if (matchedPts.length > 0) {
+      const title = document.createElement('div');
+      title.className = 'cmd-item-group-title';
+      title.textContent = q ? `PASIEN COCOK (${matchedPts.length})` : 'PASIEN AKTIF DIRAWAT (KLIK CEPAT)';
+      results.appendChild(title);
+
+      matchedPts.slice(0, 10).forEach(p => {
+        const item = document.createElement('div');
+        item.className = 'cmd-palette-item';
+        item.innerHTML = `
+          <div class="cmd-palette-item-main">
+            <strong>${escapeHtml(maskPatientName(p.name))}</strong>
+            <span>MR: ${maskMrNo(p.mrNo)}</span>
+            <span style="font-size:0.75rem; color:#2563eb;">[${p.room} • B${p.bed}]</span>
+          </div>
+          <span class="cmd-palette-item-tag">${p.isCurrentlyActive ? 'Aktif' : 'Riwayat'}</span>
+        `;
+        item.addEventListener('click', () => {
+          closePalette();
+          if (typeof switchToChronologyWithPatient === 'function') {
+            switchToChronologyWithPatient(p);
+          }
+        });
+        results.appendChild(item);
+      });
+    }
+
+    // Quick Navigation Items
+    const navItems = [
+      { name: 'Grafik Barber Johnson & Mutu RS', tab: 'tabBarberJohnson', tag: 'Navigasi' },
+      { name: 'Denah 56 Bed & Sensus Pasien', tab: 'tabBedMap', tag: 'Navigasi' },
+      { name: 'Papan Operan Jaga Shift (Handover)', tab: 'tabHandover', tag: 'Navigasi' },
+      { name: 'Tren Hunian & Analisis BOR', tab: 'tabAnalytics', tag: 'Navigasi' },
+      { name: 'Direktori Master Pasien (Direktori)', tab: 'tabDirectory', tag: 'Navigasi' },
+      { name: 'Kronologi Rawat Pasien (CPPT)', tab: 'tabChronology', tag: 'Navigasi' }
+    ].filter(n => !q || n.name.toLowerCase().includes(q));
+
+    if (navItems.length > 0) {
+      const navTitle = document.createElement('div');
+      navTitle.className = 'cmd-item-group-title';
+      navTitle.textContent = 'MENU & MODUL KLINIS';
+      results.appendChild(navTitle);
+
+      navItems.forEach(n => {
+        const item = document.createElement('div');
+        item.className = 'cmd-palette-item';
+        item.innerHTML = `
+          <div class="cmd-palette-item-main">
+            <strong>${n.name}</strong>
+          </div>
+          <span class="cmd-palette-item-tag">${n.tag}</span>
+        `;
+        item.addEventListener('click', () => {
+          closePalette();
+          const btn = document.querySelector(`.tab-btn[data-tab="${n.tab}"]`);
+          if (btn) btn.click();
+        });
+        results.appendChild(item);
+      });
+    }
+
+    if (matchedPts.length === 0 && navItems.length === 0) {
+      results.innerHTML = `<div style="padding:1.5rem; text-align:center; color:#94a3b8; font-size:0.85rem;">Tidak ditemukan pasien atau menu yang cocok dengan "<strong>${escapeHtml(q)}</strong>".</div>`;
+    }
+  }
 }
 
 // Copy SBAR formatted text
