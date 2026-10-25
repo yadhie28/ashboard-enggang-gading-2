@@ -56,19 +56,19 @@ Atur folder ini sebagai **Active Workspace**. Anda dapat langsung mengedit kode,
    - Ekspor 1-Klik Bundle sensus 56 bed untuk seluruh bangsal.
    - Peninjau interaktif JSON FHIR dengan fitur salin cepat ke clipboard.
 3. **Papan Operan Jaga Shift Harian (SBAR Handover)**:
-   - Pembagian shift Pagi (07:00-14:00), Sore (14:00-21:00), dan Malam (21:00-07:00).
+   - Pembagian shift Pagi (07:00-14:00), Sore (14:00-20:00), dan Malam (20:00-07:00).
    - Pintasan keyboard **`Alt+S`** untuk menyalin format SBAR yang sudah menyertakan skor EWS dan telemetri tanda vital.
 4. **Command Palette (`⌘K` / `Ctrl+K`)**:
    - Navigasi sub-detik untuk mencari pasien berdasarkan Nama, No. RM, atau Bed tanpa scroll manual.
 
 ---
 
-## ⏰ Jadwal Otomatisasi (Sensus & WhatsApp 07.00, 14.00, 21.00 WIB)
+## ⏰ Jadwal Otomatisasi (Sensus & WhatsApp 07.00, 14.00, 20.00 WIB)
 
 Sistem memiliki daemon lokal (`launchd`) dan *GitHub Actions* yang aktif tepat waktu:
 - **Shift Pagi**: Pukul **07.00 WIB**
 - **Shift Sore**: Pukul **14.00 WIB**
-- **Shift Malam**: Pukul **21.00 WIB**
+- **Shift Malam**: Pukul **20.00 WIB**
 
 **Alur Eksekusi Otomatis:**
 1. Tarik spreadsheet `EG 2A` dan `EG 2B` terbaru dari Google Sheets.

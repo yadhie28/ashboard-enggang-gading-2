@@ -924,7 +924,7 @@ function renderHandoverBoard(dataToUse) {
   if (!container) return;
 
   const shiftTitle = document.getElementById('handoverActiveShiftTitle');
-  const shiftNames = { pagi: 'Shift Pagi (07:00 - 14:00)', sore: 'Shift Sore (14:00 - 21:00)', malam: 'Shift Malam (21:00 - 07:00)' };
+  const shiftNames = { pagi: 'Shift Pagi (07:00 - 14:00)', sore: 'Shift Sore (14:00 - 20:00)', malam: 'Shift Malam (20:00 - 07:00)' };
   if (shiftTitle) shiftTitle.textContent = `Operan Jaga: ${shiftNames[state.activeShift]}`;
   const dateText = document.getElementById('handoverActiveDateText');
   if (dateText) dateText.textContent = formatIndonesianDate(state.currentDate);
@@ -2056,10 +2056,10 @@ function printSinglePatient() {
       <h4>Catatan Shift Pagi (07:00 - 14:00):</h4>
       <pre style="background: #f4f4f4; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 11px; white-space: pre-wrap;">${(pt.notes && pt.notes.pagi) || 'Tidak ada catatan.'}</pre>
 
-      <h4>Catatan Shift Sore (14:00 - 21:00):</h4>
+      <h4>Catatan Shift Sore (14:00 - 20:00):</h4>
       <pre style="background: #f4f4f4; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 11px; white-space: pre-wrap;">${(pt.notes && pt.notes.sore) || 'Tidak ada catatan.'}</pre>
 
-      <h4>Catatan Shift Malam (21:00 - 07:00):</h4>
+      <h4>Catatan Shift Malam (20:00 - 07:00):</h4>
       <pre style="background: #f4f4f4; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 11px; white-space: pre-wrap;">${(pt.notes && pt.notes.malam) || 'Tidak ada catatan.'}</pre>
     </div>
   `;
@@ -2068,7 +2068,7 @@ function printSinglePatient() {
 }
 
 // ==========================================================================
-// SHIFT AUTO-SYNC & SCHEDULER CONTROLLER (07.00, 14.00, 21.00 WIB)
+// SHIFT AUTO-SYNC & SCHEDULER CONTROLLER (07.00, 14.00, 20.00 WIB)
 // ==========================================================================
 let syncScheduleTimer = null;
 
@@ -2106,7 +2106,7 @@ function getClientSyncSchedule(metadata) {
   const schedules = [
     { hour: 7, minute: 0, name: "Shift Pagi", desc: "Operan Jaga Malam ➔ Pagi" },
     { hour: 14, minute: 0, name: "Shift Sore", desc: "Operan Jaga Pagi ➔ Sore" },
-    { hour: 21, minute: 0, name: "Shift Malam", desc: "Operan Jaga Sore ➔ Malam" }
+    { hour: 20, minute: 0, name: "Shift Malam", desc: "Operan Jaga Sore ➔ Malam" }
   ];
 
   let candidates = [];
@@ -2139,10 +2139,10 @@ function getClientSyncSchedule(metadata) {
     schedules: [
       { time: "07:00", name: "Shift Pagi", desc: "Operan Jaga Malam ➔ Pagi" },
       { time: "14:00", name: "Shift Sore", desc: "Operan Jaga Pagi ➔ Sore" },
-      { time: "21:00", name: "Shift Malam", desc: "Operan Jaga Sore ➔ Malam" }
+      { time: "20:00", name: "Shift Malam", desc: "Operan Jaga Sore ➔ Malam" }
     ],
     lastSync: lastSyncTime,
-    lastMessage: "Sinkronisasi Terjadwal (Shift 07.00, 14.00, 21.00)",
+    lastMessage: "Sinkronisasi Terjadwal (Shift 07.00, 14.00, 20.00)",
     nextSync: {
       datetime: `${next.dt.getFullYear()}-${String(next.dt.getMonth() + 1).padStart(2, '0')}-${String(next.dt.getDate()).padStart(2, '0')} ${String(next.s.hour).padStart(2, '0')}:${String(next.s.minute).padStart(2, '0')}:00`,
       time: `${String(next.s.hour).padStart(2, '0')}:${String(next.s.minute).padStart(2, '0')}`,
@@ -2193,7 +2193,7 @@ function updateSyncScheduleUI(info) {
   // Update Modal elements if open
   const lastSyncEl = document.getElementById('metaLastSyncVal');
   if (lastSyncEl) {
-    lastSyncEl.textContent = info.lastSync ? `${info.lastSync} (${info.lastMessage || 'Tersinkronisasi'})` : 'Terjadwal Tiap Shift (07.00, 14.00, 21.00)';
+    lastSyncEl.textContent = info.lastSync ? `${info.lastSync} (${info.lastMessage || 'Tersinkronisasi'})` : 'Terjadwal Tiap Shift (07.00, 14.00, 20.00)';
   }
 
   const nextSyncEl = document.getElementById('metaNextSyncVal');
@@ -2289,7 +2289,7 @@ async function triggerSync() {
 // ==========================================================================
 // REAL-TIME CENSUS EXECUTION & WHATSAPP REPORT DISPATCH
 // Rule Tetap: Pembanding dasar hitung (Px awal) TETAP hasil hitung shift terakhir
-// (07.00 / 14.00 / 21.00 WIB)
+// (07.00 / 14.00 / 20.00 WIB)
 // ==========================================================================
 // Helper format metrik WhatsApp: jika 0 / nihil / tidak ada / '-' -> tampilkan '-', selain itu tampilkan angka
 function formatMetricWA(val) {
@@ -2587,7 +2587,7 @@ function computeClientSideShiftCensus() {
   const textFreeB = sum.textFreeB || (occB >= 36 ? `${Math.max(0, 4 - (occB - 36))} ekstra bed` : `${36 - occB} + 4 ekstra bed`);
   const bor = `${((pxSkrg / 56) * 100).toFixed(1).replace('.', ',')}%`;
 
-  // Format Pesan WhatsApp Baku Resmi Jam 21.00
+  // Format Pesan WhatsApp Baku Resmi Jam 20.00
   const message =
     `Ruang Enggang Gading 2\n` +
     `Kapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\n` +
@@ -4828,7 +4828,7 @@ function renderChronologyTimeline(patientKey) {
           <div class="timeline-shift-card shift-card-sore">
             <div class="timeline-shift-header">
               <span class="shift-icon-label">⛅ Shift Sore</span>
-              <span class="shift-time-pill">14.00 - 21.00</span>
+              <span class="shift-time-pill">14.00 - 20.00</span>
             </div>
             <div class="timeline-shift-body">
               ${pt.notes?.sore && pt.notes.sore.trim().length > 0 
@@ -4841,7 +4841,7 @@ function renderChronologyTimeline(patientKey) {
           <div class="timeline-shift-card shift-card-malam">
             <div class="timeline-shift-header">
               <span class="shift-icon-label">🌙 Shift Malam</span>
-              <span class="shift-time-pill">21.00 - 07.00</span>
+              <span class="shift-time-pill">20.00 - 07.00</span>
             </div>
             <div class="timeline-shift-body">
               ${pt.notes?.malam && pt.notes.malam.trim().length > 0 
@@ -5092,8 +5092,8 @@ function printChronologyResume(patientKey) {
 
     const shiftCandidates = [
       { name: 'Shift Pagi', time: '07.00 - 14.00 WIB', text: (pt.notes?.pagi || '').trim() },
-      { name: 'Shift Sore', time: '14.00 - 21.00 WIB', text: (pt.notes?.sore || '').trim() },
-      { name: 'Shift Malam', time: '21.00 - 07.00 WIB', text: (pt.notes?.malam || '').trim() }
+      { name: 'Shift Sore', time: '14.00 - 20.00 WIB', text: (pt.notes?.sore || '').trim() },
+      { name: 'Shift Malam', time: '20.00 - 07.00 WIB', text: (pt.notes?.malam || '').trim() }
     ];
 
     shiftCandidates.forEach(cand => {
@@ -5329,8 +5329,8 @@ function copyChronologySummary(patientKey) {
 
     const candidates = [
       { name: 'Shift Pagi (07.00 - 14.00 WIB)', text: (pt.notes?.pagi || '').trim() },
-      { name: 'Shift Sore (14.00 - 21.00 WIB)', text: (pt.notes?.sore || '').trim() },
-      { name: 'Shift Malam (21.00 - 07.00 WIB)', text: (pt.notes?.malam || '').trim() }
+      { name: 'Shift Sore (14.00 - 20.00 WIB)', text: (pt.notes?.sore || '').trim() },
+      { name: 'Shift Malam (20.00 - 07.00 WIB)', text: (pt.notes?.malam || '').trim() }
     ];
 
     candidates.forEach(c => {
@@ -5404,8 +5404,8 @@ function exportChronologyWord(patientKey) {
 
     const shiftCandidates = [
       { name: 'Shift Pagi', time: '07.00 - 14.00 WIB', text: (pt.notes?.pagi || '').trim() },
-      { name: 'Shift Sore', time: '14.00 - 21.00 WIB', text: (pt.notes?.sore || '').trim() },
-      { name: 'Shift Malam', time: '21.00 - 07.00 WIB', text: (pt.notes?.malam || '').trim() }
+      { name: 'Shift Sore', time: '14.00 - 20.00 WIB', text: (pt.notes?.sore || '').trim() },
+      { name: 'Shift Malam', time: '20.00 - 07.00 WIB', text: (pt.notes?.malam || '').trim() }
     ];
 
     shiftCandidates.forEach(cand => {

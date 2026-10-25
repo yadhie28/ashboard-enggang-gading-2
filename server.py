@@ -5,7 +5,7 @@ Ruang Enggang Gading 2 (EG2A & EG2B) - RSUD Dr. Soedarso Pontianak
 
 Features:
 - Static file serving (HTML, CSS, JS, JSON)
-- Automatic spreadsheet pull at 07:00, 14:00, and 21:00 (Shift handover times)
+- Automatic spreadsheet pull at 07:00, 14:00, and 20:00 (Shift handover times)
 - Manual sync trigger via /api/sync
 - Schedule & status endpoint via /api/sync-schedule
 - Automatic zip package update to ~/Downloads/
@@ -26,11 +26,11 @@ PORT = 3000
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 SYNC_INFO_FILE = os.path.join(DIRECTORY, "sync_info.json")
 
-# Schedule times: 07:00, 14:00, 21:00
+# Schedule times: 07:00, 14:00, 20:00
 SCHEDULE_HOURS = [
     {"hour": 7, "minute": 0, "name": "Shift Pagi", "desc": "Operan Jaga Malam ➔ Pagi"},
     {"hour": 14, "minute": 0, "name": "Shift Sore", "desc": "Operan Jaga Pagi ➔ Sore"},
-    {"hour": 21, "minute": 0, "name": "Shift Malam", "desc": "Operan Jaga Sore ➔ Malam"}
+    {"hour": 20, "minute": 0, "name": "Shift Malam", "desc": "Operan Jaga Sore ➔ Malam"}
 ]
 
 sync_lock = threading.Lock()
@@ -265,7 +265,7 @@ def sync_and_send_census(trigger_name, mode):
 
 def auto_sync_scheduler_worker():
     """Background daemon thread checking schedule every 10 seconds."""
-    print("[SCHEDULER] Auto-Sync Scheduler aktif untuk jam 07:00, 14:00, dan 21:00 WIB.")
+    print("[SCHEDULER] Auto-Sync Scheduler aktif untuk jam 07:00, 14:00, dan 20:00 WIB.")
     last_triggered_slot = None
 
     while True:
@@ -279,7 +279,7 @@ def auto_sync_scheduler_worker():
                     slot_key = f"{now.strftime('%Y-%m-%d')}_{current_hour}:{current_minute}"
                     if last_triggered_slot != slot_key:
                         last_triggered_slot = slot_key
-                        mode = "shift_07" if current_hour == 7 else ("shift_14" if current_hour == 14 else "shift_21")
+                        mode = "shift_07" if current_hour == 7 else ("shift_14" if current_hour == 14 else "shift_20")
                         print(f"\n[SCHEDULER TRIGGER] Memulai Auto-Sync & Sensus WA {s['name']} ({s['desc']}) pada {now.strftime('%H:%M:%S')}...")
                         threading.Thread(target=sync_and_send_census, args=(f"auto_{s['name'].lower().replace(' ', '_')}", mode), daemon=True).start()
                     break
@@ -304,7 +304,7 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
                 "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "directory": DIRECTORY,
                 "autoSync": True,
-                "schedules": ["07:00", "14:00", "21:00"],
+                "schedules": ["07:00", "14:00", "20:00"],
                 "lastSync": sync_state["last_sync"],
                 "nextSync": next_info["datetime"],
                 "nextShift": next_info["shiftName"]
@@ -323,7 +323,7 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
                 "schedules": [
                     {"time": "07:00", "name": "Shift Pagi", "desc": "Operan Jaga Malam ➔ Pagi"},
                     {"time": "14:00", "name": "Shift Sore", "desc": "Operan Jaga Pagi ➔ Sore"},
-                    {"time": "21:00", "name": "Shift Malam", "desc": "Operan Jaga Sore ➔ Malam"}
+                    {"time": "20:00", "name": "Shift Malam", "desc": "Operan Jaga Sore ➔ Malam"}
                 ],
                 "currentTime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "isSyncing": sync_state["is_syncing"],
@@ -509,7 +509,7 @@ def run():
         print(f"  RUANG ENGGANG GADING 2 - DASHBOARD SENSUS & OPERAN JAGA")
         print(f"  RSUD Dr. Soedarso Pontianak")
         print(f"  Server berjalan di : http://localhost:{PORT}")
-        print(f"  Jadwal Auto-Sync   : 07:00, 14:00, 21:00 WIB (Tiap Pergantian Shift)")
+        print(f"  Jadwal Auto-Sync   : 07:00, 14:00, 20:00 WIB (Tiap Pergantian Shift)")
         next_sync = get_next_scheduled_sync()
         print(f"  Sinkron Berikutnya : {next_sync['datetime']} ({next_sync['shiftName']} - dalam {next_sync['remainingFormatted']})")
         print(f"================================================================")

@@ -72,7 +72,7 @@
         </div>
 
         <!-- Tombol Eksekusi Pengambilan Data Real-Time & Kirim Sensus WA -->
-        <button class="btn btn-wa-realtime" id="btnRealtimeSyncWA" title="Eksekusi penarikan data real-time dari spreadsheet, susun laporan sensus dengan pembanding shift terakhir (07.00 / 14.00 / 21.00), dan langsung kirimkan via WhatsApp ke Kepala Ruang">
+        <button class="btn btn-wa-realtime" id="btnRealtimeSyncWA" title="Eksekusi penarikan data real-time dari spreadsheet, susun laporan sensus dengan pembanding shift terakhir (07.00 / 14.00 / 20.00), dan langsung kirimkan via WhatsApp ke Kepala Ruang">
           <span class="btn-wa-icon">⚡</span>
           <div class="btn-wa-text-col">
             <span class="btn-wa-main-title">Tarik Real-Time &amp; Kirim WA</span>
@@ -80,13 +80,13 @@
           </div>
         </button>
 
-        <!-- Shift Auto-Sync Widget (07.00, 14.00, 21.00) -->
+        <!-- Shift Auto-Sync Widget (07.00, 14.00, 20.00) -->
         <div class="sync-widget" id="syncWidget">
           <button class="btn btn-primary btn-sm btn-sync-action" id="syncSheetsBtn" title="Tarik data terbaru dari Google Spreadsheet sekarang (Sinkron Manual)">
             <svg class="sync-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
             <span id="syncBtnText">Sinkron Data</span>
           </button>
-          <button class="btn-sync-schedule-pill" id="openSyncModalBtn" title="Jadwal Tarik Otomatis Tiap Shift: 07:00, 14:00, 21:00 WIB. Klik untuk info detail &amp; riwayat.">
+          <button class="btn-sync-schedule-pill" id="openSyncModalBtn" title="Jadwal Tarik Otomatis Tiap Shift: 07:00, 14:00, 20:00 WIB. Klik untuk info detail &amp; riwayat.">
             <span class="sync-schedule-icon">⏱️</span>
             <div class="sync-schedule-text-col">
               <span class="sync-schedule-tag">Auto-Sync Shift</span>
@@ -294,7 +294,7 @@
             <h3 class="rcb-title">Eksekusi Penarikan Sensus Real-Time &amp; Kirim WA Kepala Ruang</h3>
             <p class="rcb-desc">
               Tarik data real-time langsung dari Google Spreadsheet EG2A &amp; EG2B, susun laporan sensus mutasi berdasar pembanding akhir shift terakhir 
-              <strong>(07.00 / 14.00 / 21.00 WIB)</strong>, lalu kirimkan otomatis ke WhatsApp Kepala Ruang Enggang Gading 2.
+              <strong>(07.00 / 14.00 / 20.00 WIB)</strong>, lalu kirimkan otomatis ke WhatsApp Kepala Ruang Enggang Gading 2.
             </p>
             <div class="rcb-meta-chips" id="rcbMetaChips">
               <div class="rcb-chip">
@@ -409,11 +409,11 @@
               </button>
               <button class="shift-btn" data-shift="sore">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/></svg>
-                <span>Shift Sore (14:00 - 21:00)</span>
+                <span>Shift Sore (14:00 - 20:00)</span>
               </button>
               <button class="shift-btn" data-shift="malam">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                <span>Shift Malam (21:00 - 07:00)</span>
+                <span>Shift Malam (20:00 - 07:00)</span>
               </button>
             </div>
 
@@ -1214,14 +1214,14 @@
 
           <div class="shift-note-card shift-note-sore">
             <div class="shift-note-header">
-              <span class="shift-badge badge-sore">SHIFT SORE (14:00 - 21:00)</span>
+              <span class="shift-badge badge-sore">SHIFT SORE (14:00 - 20:00)</span>
             </div>
             <div class="shift-note-content" id="modalNoteSore">Tidak ada catatan shift sore.</div>
           </div>
 
           <div class="shift-note-card shift-note-malam">
             <div class="shift-note-header">
-              <span class="shift-badge badge-malam">SHIFT MALAM (21:00 - 07:00)</span>
+              <span class="shift-badge badge-malam">SHIFT MALAM (20:00 - 07:00)</span>
             </div>
             <div class="shift-note-content" id="modalNoteMalam">Tidak ada catatan shift malam.</div>
           </div>
@@ -1311,7 +1311,7 @@
     </div>
   </div>
 
-  <!-- Modal Jadwal Sinkronisasi Shift (07.00, 14.00, 21.00) -->
+  <!-- Modal Jadwal Sinkronisasi Shift (07.00, 14.00, 20.00) -->
   <div class="modal-backdrop" id="syncModalBackdrop" style="display:none;">
     <div class="modal-card sync-modal-card" role="dialog" aria-modal="true">
       <div class="modal-header">
@@ -1358,7 +1358,7 @@
           <div class="shift-card" id="shiftCardMalam">
             <div class="shift-card-header">
               <span class="shift-badge badge-night">🌙 Shift Malam</span>
-              <span class="shift-time">21.00 WIB</span>
+              <span class="shift-time">20.00 WIB</span>
             </div>
             <p class="shift-desc">Operan Jaga Sore ➔ Malam. Rekapitulasi sensus harian lengkap &amp; handover perawat malam.</p>
             <div class="shift-card-status" id="shiftStatusMalam">Terjadwal Harian</div>
@@ -1424,8 +1424,8 @@
               <label for="entryShiftSelect" class="form-label">Shift / Jenis Catatan</label>
               <select id="entryShiftSelect" class="form-control" required>
                 <option value="pagi">Shift Pagi (07:00 - 14:00)</option>
-                <option value="sore">Shift Sore (14:00 - 21:00)</option>
-                <option value="malam">Shift Malam (21:00 - 07:00)</option>
+                <option value="sore">Shift Sore (14:00 - 20:00)</option>
+                <option value="malam">Shift Malam (20:00 - 07:00)</option>
                 <option value="visite_dpjp">Visite Dokter Spesialis (DPJP)</option>
                 <option value="visite_jaga">Visite Dokter Jaga Ruangan</option>
                 <option value="tindakan">Tindakan / Prosedur Khusus</option>
@@ -1544,7 +1544,7 @@
         <div class="census-rule-callout">
           <div class="crc-icon">📌</div>
           <div class="crc-content">
-            <strong>Rule Tetap Penghitungan Sensus:</strong> Kapanpun data ditarik (sewaktu-waktu atau terjadwal), dasar pembanding hitung <code>Px awal</code> tetap hasil hitung akhir shift terakhir yang telah ditutup (07.00 / 14.00 / 21.00 WIB). Nilai mutasi yang nihil diisi format <code>-</code> (bukan 0).
+            <strong>Rule Tetap Penghitungan Sensus:</strong> Kapanpun data ditarik (sewaktu-waktu atau terjadwal), dasar pembanding hitung <code>Px awal</code> tetap hasil hitung akhir shift terakhir yang telah ditutup (07.00 / 14.00 / 20.00 WIB). Nilai mutasi yang nihil diisi format <code>-</code> (bukan 0).
           </div>
         </div>
 

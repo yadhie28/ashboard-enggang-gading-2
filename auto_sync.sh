@@ -110,7 +110,7 @@ git add dashboard_data.json hospital_indicators.json EG2A.xlsx EG2B.xlsx sync_in
 git commit -m "chore(sync): automated census sync $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOG_FILE" 2>&1 || true
 git push origin main >> "$LOG_FILE" 2>&1 || true
 
-# 8. Send WhatsApp Census Report (Hanya pada jam tepat 07.00, 14.00, 21.00 WIB)
+# 8. Send WhatsApp Census Report (Hanya pada jam tepat 07.00, 14.00, 20.00 WIB)
 log "Mengirimkan laporan sensus WhatsApp otomatis ke Kepala Ruang (Strict On-Time)..."
 python3 send_whatsapp.py --sensus --scheduled-only --gateway fonnte >> "$LOG_FILE" 2>&1 || true
 

@@ -5,13 +5,13 @@ Ruang Enggang Gading 2 - RSUD Dr. Soedarso Pontianak
 
 Aturan Baku (Rule Tetap):
 1. Kapanpun pengambilan data dilakukan (baik terjadwal maupun sewaktu-waktu),
-   pembanding dasar hitung (Px awal) TETAP hasil hitung shift terakhir (07.00 / 14.00 / 21.00).
+   pembanding dasar hitung (Px awal) TETAP hasil hitung shift terakhir (07.00 / 14.00 / 20.00).
 2. Shift Operasional:
    - Shift Pagi  : 07.00 - 14.00 WIB (Pembanding: Shift Malam 07.00 WIB)
-   - Shift Sore  : 14.00 - 21.00 WIB (Pembanding: Shift Pagi 14.00 WIB)
-   - Shift Malam : 21.00 - 07.00 WIB (Pembanding: Shift Sore 21.00 WIB)
+   - Shift Sore  : 14.00 - 20.00 WIB (Pembanding: Shift Pagi 14.00 WIB)
+   - Shift Malam : 20.00 - 07.00 WIB (Pembanding: Shift Sore 20.00 WIB)
 3. Laporan Sensus Terjadwal Jam 07.00 Pagi:
-   Menarik data akhir shift malam (tanggal kemarin malam) dengan pembanding Shift 21.00 WIB.
+   Menarik data akhir shift malam (tanggal kemarin malam) dengan pembanding Shift 20.00 WIB.
 4. Laporan Sewaktu-waktu:
    Menarik data kolom shift berjalan hari ini dengan pembanding shift terakhir yang telah ditutup.
 """
@@ -73,10 +73,10 @@ def save_checkpoints(data):
 def get_current_shift_info(now=None):
     """
     Menentukan shift saat ini dan shift pembanding terakhir.
-    Mendukung jadwal operan jaga resmi:
+    Mendukung jadwal operan jaga resmi terkunci:
     - Shift Pagi  : 07.00 - 14.00 WIB (Pembanding: Shift Malam 07.00 WIB)
-    - Shift Sore  : 14.00 - 20.00 / 21.00 WIB (Pembanding: Shift Pagi 14.00 WIB)
-    - Shift Malam : 20.00 / 21.00 - 07.00 WIB (Pembanding: Shift Sore 20.00 / 21.00 WIB)
+    - Shift Sore  : 14.00 - 20.00 WIB (Pembanding: Shift Pagi 14.00 WIB)
+    - Shift Malam : 20.00 - 07.00 WIB (Pembanding: Shift Sore 20.00 WIB)
     """
     if now is None:
         now = datetime.now()
@@ -105,17 +105,7 @@ def get_current_shift_info(now=None):
             "baseline_name": "Shift Pagi (14.00 WIB)",
             "is_scheduled_checkpoint": (hour == 14 and minute <= 20)
         }
-    # 20.00 - 21.30 => Waktu Operan Jaga Akhir Shift Sore (Pembanding: Shift Pagi 14.00 WIB)
-    elif 20.0 <= time_float <= 21.5:
-        return {
-            "current_shift": "Shift Sore",
-            "current_column": "SORE",
-            "time_range": "14.00 - 20.00 WIB",
-            "baseline_shift": "14:00",
-            "baseline_name": "Shift Pagi (14.00 WIB)",
-            "is_scheduled_checkpoint": (hour in [20, 21] and minute <= 20)
-        }
-    # 21.30 - 06.59 => Shift Malam (Pembanding: Shift Sore 20.00/21.00 WIB)
+    # 20.00 - 06.59 => Shift Malam (Pembanding: Shift Sore 20.00 WIB)
     else:
         return {
             "current_shift": "Shift Malam",
@@ -123,7 +113,7 @@ def get_current_shift_info(now=None):
             "time_range": "20.00 - 07.00 WIB",
             "baseline_shift": "20:00",
             "baseline_name": "Shift Sore (20.00 WIB)",
-            "is_scheduled_checkpoint": (hour == 21 and minute <= 20)
+            "is_scheduled_checkpoint": (hour == 20 and minute <= 20)
         }
 
 def compute_census_report(mode="auto", custom_now=None):
@@ -133,7 +123,7 @@ def compute_census_report(mode="auto", custom_now=None):
       - 'auto' : otomatis deteksi shift & pembanding
       - 'shift_07' : laporan akhir shift malam (07.00 WIB)
       - 'shift_14' : laporan akhir shift pagi (14.00 WIB)
-      - 'shift_20' / 'shift_21' : laporan akhir shift sore (20.00 / 21.00 WIB)
+      - 'shift_20' : laporan akhir shift sore (20.00 WIB)
       - 'realtime' : penarikan sewaktu-waktu saat ini
     """
     now = custom_now or datetime.now()
@@ -184,11 +174,11 @@ def compute_census_report(mode="auto", custom_now=None):
         slot_key = f"{cur_date_str}_14:00"
         baseline_pref = "07:00"
         shift_header_note = "Laporan Sensus Terjadwal (Akhir Shift Pagi 14.00 WIB)"
-    elif mode in ["shift_20", "shift_21"] or (mode == "auto" and ((hour == 20 and minute <= 30) or (hour == 21 and minute <= 30))):
+    elif mode in ["shift_20", "shift_21"] or (mode == "auto" and hour == 20 and minute <= 30):
         shift_name = "Shift Sore"
-        slot_key = f"{cur_date_str}_20:00" if hour == 20 else f"{cur_date_str}_21:00"
+        slot_key = f"{cur_date_str}_20:00"
         baseline_pref = "14:00"
-        shift_header_note = f"Laporan Sensus Terjadwal (Akhir Shift Sore {hour:02d}.00 WIB)"
+        shift_header_note = "Laporan Sensus Terjadwal (Akhir Shift Sore 20.00 WIB)"
     else:
         sinfo = get_current_shift_info(now)
         shift_name = sinfo["current_shift"]

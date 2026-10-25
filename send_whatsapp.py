@@ -141,20 +141,20 @@ def get_current_wib_datetime():
     now_utc = datetime.now(timezone.utc)
     return now_utc.astimezone(wib_tz)
 
-def check_scheduled_punctuality(window_minutes=20):
+def check_scheduled_punctuality(window_minutes=20, custom_now=None):
     """
     Memeriksa ketepatan waktu pengiriman jadwal resmi:
     - 07.00 WIB (07.00 - 07.20)
     - 14.00 WIB (14.00 - 14.20)
-    - 20.00 & 21.00 WIB (20.00 - 21.20)
+    - 20.00 WIB (20.00 - 20.20)
     Mengembalikan (is_on_time, slot_key, wib_str)
     """
-    now_wib = get_current_wib_datetime()
+    now_wib = custom_now if custom_now is not None else get_current_wib_datetime()
     hour = now_wib.hour
     minute = now_wib.minute
     wib_str = now_wib.strftime("%Y-%m-%d %H:%M:%S")
 
-    scheduled_hours = [7, 14, 20, 21]
+    scheduled_hours = [7, 14, 20]
     if hour in scheduled_hours and 0 <= minute <= window_minutes:
         slot_key = f"{now_wib.strftime('%Y-%m-%d')}_{hour:02d}:00"
         return True, slot_key, wib_str
@@ -247,7 +247,7 @@ def send_via_gateway(phone: str, message: str, token: str = None, provider: str 
 def build_census_report(mode="auto", px_awal=None, px_baru=None, px_pindah=None, data_path="dashboard_data.json") -> str:
     """
     Menghasilkan template resmi laporan sensus WhatsApp Ruang Enggang Gading 2
-    dengan perbandingan shift terakhir (07.00 / 14.00 / 21.00) sesuai ketetapan baku.
+    dengan perbandingan shift terakhir (07.00 / 14.00 / 20.00) sesuai ketetapan baku.
     """
     try:
         from shift_census_calculator import compute_census_report
@@ -286,7 +286,7 @@ def main():
     parser.add_argument("--token", help="API Token untuk gateway Fonnte / Wablas")
     parser.add_argument("--save-token", action="store_true", help="Simpan token gateway ke wa_gateway_config.json")
     parser.add_argument("--no-open", action="store_true", help="Hanya tampilkan link tanpa membuka browser/aplikasi")
-    parser.add_argument("--scheduled-only", action="store_true", help="Kirim HANYA jika waktu tepat jam 07.00, 14.00, atau 21.00 WIB. Cegah kirim di luar jam tersebut.")
+    parser.add_argument("--scheduled-only", action="store_true", help="Kirim HANYA jika waktu tepat jam 07.00, 14.00, atau 20.00 WIB. Cegah kirim di luar jam tersebut.")
     parser.add_argument("--force", action="store_true", help="Paksa kirim mengabaikan filter jam dan deduplikasi")
     parser.add_argument("--json", action="store_true", help="Output format JSON")
 
@@ -294,10 +294,10 @@ def main():
 
     # Ketepatan Waktu Guard (Strict Punctuality)
     if args.scheduled_only and not args.force:
-        is_on_time, slot_key, wib_str = check_scheduled_punctuality(window_minutes=10)
+        is_on_time, slot_key, wib_str = check_scheduled_punctuality(window_minutes=20)
         if not is_on_time:
             print(f"[ON-TIME GUARD] Waktu saat ini: {wib_str} WIB.")
-            print("[ON-TIME GUARD] Bukan jam jadwal resmi (07.00, 14.00, 21.00 WIB). Sesuai instruksi ketepatan waktu, pengiriman WhatsApp DIBATALKAN.")
+            print("[ON-TIME GUARD] Bukan jam jadwal resmi (07.00, 14.00, 20.00 WIB). Sesuai instruksi ketepatan waktu, pengiriman WhatsApp DIBATALKAN.")
             return
 
         sent_log = load_sent_log()
