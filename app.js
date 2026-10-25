@@ -3554,24 +3554,38 @@ function initChronologyModule() {
   const allPatients = extractAllPatientsList();
 
   // Populate Select Dropdown
-  patientSelect.innerHTML = '<option value="">-- Pilih Pasien Ruang Enggang Gading 2 --</option>';
+  patientSelect.innerHTML = '<option value="">-- Pilih Pasien Dari Master --</option>';
   
   const activeGroup = document.createElement('optgroup');
-  activeGroup.label = 'PASIEN SEDANG DIRAWAT (SAAT INI)';
+  activeGroup.label = 'PASIEN SEDANG DIRAWAT (AKTIF)';
   const historyGroup = document.createElement('optgroup');
-  historyGroup.label = 'PASIEN RIWAYAT SENSUS (45 HARI TERAKHIR)';
+  historyGroup.label = 'DIREKTORI MASTER PASIEN';
 
-  allPatients.forEach(p => {
+  const activePatients = allPatients.filter(p => p.isCurrentlyActive);
+  activePatients.sort((a, b) => {
+    if (a.room !== b.room) return a.room.localeCompare(b.room);
+    return parseInt(a.bed || 0) - parseInt(b.bed || 0);
+  });
+
+  const historyPatients = allPatients.filter(p => !p.isCurrentlyActive);
+  historyPatients.sort((a, b) => a.name.localeCompare(b.name));
+
+  activePatients.forEach(p => {
     const opt = document.createElement('option');
     opt.value = p.key;
     const displayName = maskPatientName(p.name);
     const displayMr = maskMrNo(p.mrNo);
     opt.textContent = `[${p.room} Bed ${p.bed}] ${displayName} (MR: ${displayMr}) - DPJP: ${p.doctor.slice(0, 25)}`;
-    if (p.isCurrentlyActive) {
-      activeGroup.appendChild(opt);
-    } else {
-      historyGroup.appendChild(opt);
-    }
+    activeGroup.appendChild(opt);
+  });
+
+  historyPatients.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.key;
+    const displayName = maskPatientName(p.name);
+    const displayMr = maskMrNo(p.mrNo);
+    opt.textContent = `${displayName} (MR: ${displayMr}) [${p.room} Bed ${p.bed}] - DPJP: ${p.doctor.slice(0, 25)}`;
+    historyGroup.appendChild(opt);
   });
 
   patientSelect.appendChild(activeGroup);
