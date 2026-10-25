@@ -1,86 +1,103 @@
 # Dashboard Ruang Enggang Gading 2
 **RSUD Dr. Soedarso Pontianak — Instalasi Rawat Inap (EG 2A & EG 2B)**
 
-Dashboard pemantauan sensus pasien rawat inap real-time, denah keterisian bed dinamis, indikator efisiensi mutu pelayanan rumah sakit (BOR, AVLOS, BTO, TOI, NDR, GDR), Grafik Barber-Johnson interaktif, visualisasi Top DPJP & Diagnosa, serta otomatisasi pengiriman laporan sensus via WhatsApp Gateway.
+Sistem Informasi Manajemen Sensus Pasien Rawat Inap, Denah Keterisian Bed Dinamis (56 Bed), Surveilans Triase Fisiologis **EWS/NEWS2**, Interoperabilitas Standar **HL7 FHIR Release 4 (SatuSehat Ready)**, Indikator Efisiensi Mutu RS (BOR, AVLOS, TOI, BTO, NDR, GDR), Grafik Barber-Johnson Interaktif, serta Otomatisasi Pengiriman Laporan Sensus via WhatsApp.
 
 ---
 
-## 🚀 Cara Cepat Membuka Dashboard Sewaktu-waktu
+## 🚀 3 Cara Membuka Dashboard Sewaktu-Waktu
 
-### 🖱️ Opsi 1: Klik Ganda (Double-Click) dari Desktop Mac
-1. Temukan ikon file **`Buka_Dashboard_Enggang_Gading_2.command`** di **Desktop** Mac Anda (atau di dalam folder proyek).
+### 🌐 1. Buka Online Langsung (Tanpa Komputer / dari Smartphone & Laptop Mana Saja)
+- **Tautan Live GitHub Pages (Utama)**:  
+  👉 **[https://yadhie28.github.io/ashboard-enggang-gading-2/](https://yadhie28.github.io/ashboard-enggang-gading-2/)**
+- **Repositori GitHub**:  
+  👉 **[https://github.com/yadhie28/ashboard-enggang-gading-2](https://github.com/yadhie28/ashboard-enggang-gading-2)**
+
+*(Data sensus dan perburukan pasien di tautan ini selalu tersinkronisasi otomatis setiap pergantian shift).*
+
+---
+
+### 🖱️ 2. Klik Ganda (Double-Click) dari Desktop Mac
+1. Temukan berkas **`Buka_Dashboard_Enggang_Gading_2.command`** di **Desktop** Mac Anda.
 2. Klik ganda berkas tersebut.
-3. Server lokal akan aktif dan peramban (browser) otomatis terbuka menampilkan dashboard di `http://localhost:3000`.
-
-### 🌐 Opsi 2: Buka Online Langsung (Tanpa Komputer / dari Smartphone & HP Mana Saja)
-- **Tautan Live Netlify**: [https://heroic-travesseiro-ef2369.netlify.app](https://heroic-travesseiro-ef2369.netlify.app)
-- **Repositori GitHub**: [https://github.com/yadhie28/ashboard-enggang-gading-2.git](https://github.com/yadhie28/ashboard-enggang-gading-2.git)
-
-### 💻 Opsi 3: Buka di Antigravity IDE / VS Code
-Buka menu **File > Open Folder...** lalu pilih direktori:
-`/Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2`
-Atur folder ini sebagai **Active Workspace**.
+3. Server lokal Python akan otomatis aktif dan peramban (browser) langsung terbuka di `http://localhost:3000`.
 
 ---
 
-## 📁 Lokasi Proyek & Direktori Kerja
-- **Path Proyek Utama**: `/Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2/`
-- **Cadangan ZIP Terbaru**: 
-  - `~/Downloads/dashboard-enggang-gading-2.zip`
-  - `~/Documents/dashboard-enggang-gading-2.zip`
-- **Cadangan GitHub**: Sinkron otomatis dengan remote branch `main`
+### 💻 3. Buka di Antigravity IDE / VS Code
+Buka menu **File > Open Folder...** lalu arahkan ke direktori:
+```bash
+/Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2
+```
+Atur folder ini sebagai **Active Workspace**. Anda dapat langsung mengedit kode, menguji fitur, atau menjalankan terminal.
 
 ---
 
-## ⏰ Jadwal Otomatisasi (Sensus & Laporan WhatsApp)
-Sistem memiliki pipeline ganda (*Cloud via GitHub Actions* dan *Lokal via launchd/cron*) yang aktif secara otomatis pada:
-- **Pagi**: **07.00 WIB** (00:00 UTC)
-- **Siang**: **14.00 WIB** (07:00 UTC)
-- **Malam**: **21.00 WIB** (14:00 UTC)
+## 📁 Lokasi Penyimpanan Proyek & Arsip Cadangan (Backup)
 
-### Alur Kerja Otomatis:
-1. Menarik data mutasi terbaru dari Google Sheets (`EG 2A` & `EG 2B`).
-2. Menghitung sensus dengan deteksi warna sel (*Pink/FFE6B8AF* = Pasien Pulang, *Uncolored* = Pasien Aktif).
-3. Memperbarui `dashboard_data.json` & `hospital_indicators.json`.
-4. Mengirimkan pesan laporan sensus berformat khusus (bold, list, emoji) ke WhatsApp Kepala Ruangan:
+| Tipe Penyimpanan | Lokasi / Tautan | Keterangan |
+| :--- | :--- | :--- |
+| **Direktori Kerja Utama** | `/Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2/` | Folder aktif kode sumber & data |
+| **Peluncur Desktop** | `/Users/rusmulyadiiskandar/Desktop/Buka_Dashboard_Enggang_Gading_2.command` | Pintasan 1-klik buka dashboard |
+| **Cadangan Offline ZIP** | `~/Desktop/dashboard-enggang-gading-2-backup.zip` | Salinan arsip kompresi lengkap |
+| **Cadangan Tambahan** | `~/Downloads/dashboard-enggang-gading-2.zip` | Salinan arsip di folder Unduhan |
+| **Cloud Repository** | `git@github.com:yadhie28/ashboard-enggang-gading-2.git` | Branch `main` tersinkronisasi penuh |
+
+---
+
+## 🏥 Fitur Utama & Standar Enterprise
+
+1. **Surveilans Triase Klinis EWS / NEWS2 Real-Time**:
+   - Algoritma standar *Royal College of Physicians (UK)* menghitung skor dini 7 parameter fisiologis: Laju Napas (RR), SpO2, Terapi O2, Tensi Sistolik, Nadi, AVPU, dan Suhu Tubuh.
+   - Badge visual EWS pada setiap kartu bed dan papan operan jaga shift harian.
+   - Filter cepat 1-klik untuk pasien risiko kritis (Skor ≥ 7) dan risiko sedang (Skor 5-6).
+2. **Suite Interoperabilitas HL7 FHIR Release 4 (SatuSehat Ready)**:
+   - Pembangun sumber daya FHIR R4: `Patient`, `Encounter` (Rawat Inap), `Condition` (Diagnosa), `Observation` (NEWS2 & 6 parameter vital LOINC), `Observation` (Morse Fall Risk & Braden Decubitus).
+   - Ekspor 1-Klik Bundle sensus 56 bed untuk seluruh bangsal.
+   - Peninjau interaktif JSON FHIR dengan fitur salin cepat ke clipboard.
+3. **Papan Operan Jaga Shift Harian (SBAR Handover)**:
+   - Pembagian shift Pagi (07:00-14:00), Sore (14:00-21:00), dan Malam (21:00-07:00).
+   - Pintasan keyboard **`Alt+S`** untuk menyalin format SBAR yang sudah menyertakan skor EWS dan telemetri tanda vital.
+4. **Command Palette (`⌘K` / `Ctrl+K`)**:
+   - Navigasi sub-detik untuk mencari pasien berdasarkan Nama, No. RM, atau Bed tanpa scroll manual.
+
+---
+
+## ⏰ Jadwal Otomatisasi (Sensus & WhatsApp 07.00, 14.00, 21.00 WIB)
+
+Sistem memiliki daemon lokal (`launchd`) dan *GitHub Actions* yang aktif tepat waktu:
+- **Shift Pagi**: Pukul **07.00 WIB**
+- **Shift Sore**: Pukul **14.00 WIB**
+- **Shift Malam**: Pukul **21.00 WIB**
+
+**Alur Eksekusi Otomatis:**
+1. Tarik spreadsheet `EG 2A` dan `EG 2B` terbaru dari Google Sheets.
+2. Hitung sensus pasien aktif vs pulang (deteksi sel warna pink).
+3. Buat perbandingan mutasi dengan shift sebelumnya (*px awal, baru, pulang, meninggal, pindah, sekarang, BOR, bed sisa*).
+4. Kirim laporan sensus terformat rapi ke WhatsApp Kepala Ruangan:
    - **Penerima**: Ns. Rusmulyadi, S.Kep.,M.A.R.S (`+6281284070082`)
-   - **Gateway**: Fonnte API (`wa_gateway_config.json`)
-5. Melakukan push pembaruan data ke GitHub Pages/Netlify secara otomatis.
+5. Deploy otomatis pembaruan ke GitHub Pages.
 
 ---
 
-## 🛠️ Perintah Berguna untuk Pembaruan & Pemeliharaan
+## 🛠️ Perintah Berguna di Terminal
 
-### 1. Menjalankan Server Dashboard Lokal
+### Menjalankan Server Lokal Secara Manual:
 ```bash
 cd /Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2
 python3 server.py
 ```
-Lalu buka browser di `http://localhost:3000`.
+Akses di browser: `http://localhost:3000`
 
-### 2. Tarik Data & Perbarui Sensus Manual
+### Tarik Data & Sinkronisasi Manual:
 ```bash
 python3 run_build_data.py
 ```
 
-### 3. Kirim Ulang Laporan Sensus WhatsApp Manual
+### Eksekusi Tarik Data & Kirim Laporan WhatsApp Manual:
 ```bash
-python3 -c "import server; server.send_wa_census_report()"
-```
-
-### 4. Sinkronisasi Penuh Manual (Tarik Data + Kirim WA + Push ke GitHub)
-```bash
-./auto_sync.sh
+python3 send_whatsapp.py --force
 ```
 
 ---
-
-## 📊 Ringkasan Kapasitas & Metrik Ruang EG 2
-- **Kapasitas Total**: **56 Bed**
-  - **EG2-A**: 16 Bed (12 Standar + 4 Ekstra Bed)
-  - **EG2-B**: 40 Bed (36 Standar + 4 Ekstra Bed)
-- **Formula BOR Real-Time**:
-  $$\text{BOR Sekarang} = \frac{\text{Pasien Aktif}}{\text{Kapasitas Bed (56)}} \times 100\%$$
-- **Diagram Responsif**:
-  - Tampilan Android / Mobile: Disesuaikan optimal 320px lebar layar.
-  - Tampilan Desktop / Monitor: Skala otomatis membesar hingga 460px – 480px.
+*Dikembangkan dengan dedikasi untuk efisiensi operasional keperawatan dan keselamatan pasien (Patient Safety) Ruang Enggang Gading 2 RSUD Dr. Soedarso Pontianak.*
