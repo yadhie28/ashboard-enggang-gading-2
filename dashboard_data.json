@@ -90656,6 +90656,38 @@
           ]
         },
         {
+          "bed": "38",
+          "room": "EG2B",
+          "status": "Pulang Hari Ini",
+          "isEmpty": false,
+          "isActive": false,
+          "isDischargedToday": true,
+          "isDeceased": false,
+          "dischargeColor": "FFFF9900",
+          "name": "Tn. Syech Haikal",
+          "mrNo": "00242940",
+          "gender": "L",
+          "age": "",
+          "admissionDate": "23/10/2026",
+          "los": 3,
+          "insurance": "BPJS Kelas 2",
+          "doctor": "APRIANI, DR, M.KED (PD), SP.PD",
+          "doctorPrimary": "APRIANI, DR, M.KED (PD), SP.PD",
+          "diagnosis": "- dm tipe 2 - dyspepsia syndrome - obs. vomiting",
+          "category": "Penyakit Dalam (Metabolik)",
+          "notes": {
+            "pagi": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
+            "sore": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
+            "malam": ""
+          },
+          "tags": [
+            {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            }
+          ]
+        },
+        {
           "bed": "39",
           "room": "EG2B",
           "status": "Pulang Hari Ini",
@@ -92534,6 +92566,38 @@
           {
             "label": "Bedah / Operasi",
             "color": "orange"
+          }
+        ]
+      },
+      {
+        "bed": "38",
+        "room": "EG2B",
+        "status": "Pulang Hari Ini",
+        "isEmpty": false,
+        "isActive": false,
+        "isDischargedToday": true,
+        "isDeceased": false,
+        "dischargeColor": "FFFF9900",
+        "name": "Tn. Syech Haikal",
+        "mrNo": "00242940",
+        "gender": "L",
+        "age": "",
+        "admissionDate": "23/10/2026",
+        "los": 3,
+        "insurance": "BPJS Kelas 2",
+        "doctor": "APRIANI, DR, M.KED (PD), SP.PD",
+        "doctorPrimary": "APRIANI, DR, M.KED (PD), SP.PD",
+        "diagnosis": "- dm tipe 2 - dyspepsia syndrome - obs. vomiting",
+        "category": "Penyakit Dalam (Metabolik)",
+        "notes": {
+          "pagi": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
+          "sore": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
+          "malam": ""
+        },
+        "tags": [
+          {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
           }
         ]
       },
