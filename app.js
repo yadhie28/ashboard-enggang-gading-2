@@ -5060,7 +5060,6 @@ function initWhatsAppMessengerSystem() {
       } else if (tmplType === 'sensus') {
         const census = computeClientSideShiftCensus();
         text = census.message;
-      }
       } else if (tmplType === 'operan') {
         const total = (typeof state !== 'undefined' && state.patients)
           ? state.patients.length
