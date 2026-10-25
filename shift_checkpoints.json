@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-25 14:00:56",
+  "last_updated": "2026-10-25 21:01:11",
   "checkpoints": {
     "2026-10-22_20:00": {
       "date": "2026-10-22",
@@ -58,6 +58,23 @@
       "text_free_a": "0 ekstra bed",
       "text_free_b": "4 ekstra bed",
       "bor": "92,9%"
+    },
+    "2026-10-25_21:00": {
+      "date": "2026-10-25",
+      "shift": "21:00",
+      "shift_name": "Shift Sore",
+      "px_awal": 52,
+      "px_baru": 8,
+      "px_pulang": 11,
+      "px_pindah": "-",
+      "px_meninggal": "-",
+      "px_skrg": 49,
+      "occ_a": 15,
+      "occ_b": 34,
+      "free_bed": 7,
+      "text_free_a": "1 ekstra bed",
+      "text_free_b": "2 + 4 ekstra bed",
+      "bor": "87,5%"
     }
   }
 }
