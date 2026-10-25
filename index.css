@@ -6103,6 +6103,338 @@ body::before {
   color: #047857;
 }
 
+/* ==========================================================================
+   HL7 FHIR v4 & EWS/NEWS2 Enterprise Clinical Surveillance Styling
+   ========================================================================== */
+
+/* Header Ward FHIR Export Button */
+.btn-fhir-ward {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm, 6px);
+  padding: 0.45rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(2, 132, 199, 0.2);
+}
+
+.btn-fhir-ward:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(2, 132, 199, 0.35);
+}
+
+/* Quick Filter Chips for EWS */
+.chip-ews-high {
+  border-color: #f87171 !important;
+  color: #dc2626 !important;
+  background: #fef2f2 !important;
+  font-weight: 700 !important;
+}
+
+.chip-ews-high.active {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+.chip-ews-medium {
+  border-color: #fcd34d !important;
+  color: #d97706 !important;
+  background: #fffbeb !important;
+  font-weight: 700 !important;
+}
+
+.chip-ews-medium.active {
+  background: #d97706 !important;
+  color: #ffffff !important;
+}
+
+/* EWS Surveillance Strip in Bed Map */
+.ews-surveillance-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: var(--bg-surface, #ffffff);
+  border: 1.5px solid var(--border-medium, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05));
+}
+
+.ews-strip-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ews-strip-icon {
+  font-size: 1.6rem;
+}
+
+.ews-strip-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-primary, #0f172a);
+}
+
+.ews-strip-desc {
+  font-size: 0.76rem;
+  color: var(--text-secondary, #475569);
+}
+
+.ews-strip-counters {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.ews-counter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 20px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.ews-counter-pill:hover {
+  transform: translateY(-1px);
+}
+
+.ews-counter-pill.counter-high {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.ews-counter-pill.counter-medium {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #b45309;
+}
+
+.ews-counter-pill.counter-low {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #047857;
+}
+
+.ews-counter-val {
+  font-weight: 900;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ews-counter-lbl {
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.pulse-indicator-red {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #dc2626;
+  animation: pulse-ring 1.8s infinite;
+}
+
+.dot-indicator-amber {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d97706;
+}
+
+.dot-indicator-green {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+/* Bed Card EWS Badge */
+.ews-bed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.18rem 0.5rem;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ews-bed-badge.news-high {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.ews-bed-badge.news-medium {
+  background: #d97706;
+  color: #ffffff;
+}
+
+.ews-bed-badge.news-low {
+  background: #059669;
+  color: #ffffff;
+}
+
+.ews-badge-pulse {
+  animation: ews-pulse 2s infinite ease-in-out;
+}
+
+@keyframes ews-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+}
+
+/* Handover Board EWS Badge */
+.handover-ews-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  margin-left: 0.4rem;
+}
+
+.handover-ews-badge.news-high {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.handover-ews-badge.news-medium {
+  background: #d97706;
+  color: #ffffff;
+}
+
+.handover-ews-badge.news-low {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+/* Interactive NEWS2 Physiological Breakdown Matrix in Patient Modal */
+.news2-vitals-breakdown {
+  background: var(--bg-surface-elevated, #f8fafc);
+  border: 1px solid var(--border-medium, #e2e8f0);
+  border-radius: var(--radius-md, 8px);
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.nvb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.nvb-title {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-primary, #0f172a);
+}
+
+.nvb-subtitle {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-secondary, #64748b);
+}
+
+.nvb-aggregate-badge {
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.nvb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+  gap: 0.5rem;
+}
+
+.nvb-item {
+  background: var(--bg-surface, #ffffff);
+  border: 1px solid var(--border-light, #e2e8f0);
+  border-radius: var(--radius-sm, 6px);
+  padding: 0.5rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.nvb-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-secondary, #64748b);
+  margin-bottom: 2px;
+}
+
+.nvb-value {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-primary, #0f172a);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 3px;
+}
+
+.nvb-score-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.nvb-score-pill.score-0 {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.nvb-score-pill.score-1 {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.nvb-score-pill.score-2 {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.nvb-score-pill.score-3 {
+  background: #fee2e2;
+  color: #b91c1c;
+  font-weight: 900;
+}
+
+
 
 
 

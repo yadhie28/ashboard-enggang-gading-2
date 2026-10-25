@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadData();
   initWhatsAppMessengerSystem();
   initClinicalCommandPalette();
+  initFhirAndEwsFeatures();
 });
 
 // Theme Management
@@ -719,10 +720,34 @@ function renderBedGrids(dataToUse) {
   containerA.innerHTML = '';
   containerB.innerHTML = '';
 
+  // Update EWS Surveillance Strip Counters
+  if (typeof FHIRAdapter !== 'undefined' && FHIRAdapter.getNewsTriageStats) {
+    const allWard = [...(dayData.eg2a || []), ...(dayData.eg2b || [])];
+    const stats = FHIRAdapter.getNewsTriageStats(allWard);
+    const cntHigh = document.getElementById('cntEwsHigh');
+    const cntMed = document.getElementById('cntEwsMedium');
+    const cntLow = document.getElementById('cntEwsLow');
+    if (cntHigh) cntHigh.textContent = stats.high;
+    if (cntMed) cntMed.textContent = stats.medium;
+    if (cntLow) cntLow.textContent = stats.low;
+  }
+
   const filterPatient = (pt) => {
-    // Filter by quick tag
+    // Filter by quick tag & clinical EWS risk
     if (state.activeFilter === 'empty') {
       if (!pt.isEmpty) return false;
+    } else if (state.activeFilter === 'ews-high') {
+      if (pt.isEmpty) return false;
+      const news = typeof FHIRAdapter !== 'undefined' ? FHIRAdapter.computeNews2(pt) : { score: 0 };
+      if (news.score < 7) return false;
+    } else if (state.activeFilter === 'ews-medium') {
+      if (pt.isEmpty) return false;
+      const news = typeof FHIRAdapter !== 'undefined' ? FHIRAdapter.computeNews2(pt) : { score: 0 };
+      if (news.riskLevel !== 'MEDIUM') return false;
+    } else if (state.activeFilter === 'ews-low') {
+      if (pt.isEmpty) return false;
+      const news = typeof FHIRAdapter !== 'undefined' ? FHIRAdapter.computeNews2(pt) : { score: 0 };
+      if (news.riskLevel !== 'LOW') return false;
     } else if (state.activeFilter !== 'all') {
       const isDischargeFilter = state.activeFilter.toLowerCase().includes('pulang');
       const hasTag = pt.tags && pt.tags.some(t => {
@@ -814,10 +839,18 @@ function createBedCard(pt) {
   const displayMr = maskMrNo(pt.mrNo);
   const isMasked = state.role === 'management';
 
+  let newsBadgeHtml = '';
+  if (!pt.isEmpty && typeof FHIRAdapter !== 'undefined' && FHIRAdapter.computeNews2) {
+    const news = FHIRAdapter.computeNews2(pt);
+    const pulseClass = news.riskLevel === 'HIGH' ? 'ews-badge-pulse' : '';
+    newsBadgeHtml = `<span class="ews-bed-badge ${news.riskClass} ${pulseClass}" title="Skor NEWS2: ${news.score} (${news.riskLabel}) - ${escapeHtml(news.clinicalResponse)}">EWS ${news.score}</span>`;
+  }
+
   card.innerHTML = `
     <div class="bed-card-header">
       <span class="bed-number-badge">BED ${pt.bed}</span>
       <div class="bed-header-right">
+        ${newsBadgeHtml}
         ${pt.isDeceased || pt.status === 'Meninggal' 
           ? '<span class="status-chip chip-danger" style="background:#dc2626; color:#fff; font-size:0.68rem; padding:0.18rem 0.5rem; font-weight:800; letter-spacing:0.02em;">MENINGGAL</span>' 
           : (pt.isDischargedToday || pt.status === 'Pulang Hari Ini' ? '<span class="status-chip chip-success" style="font-size:0.68rem; padding:0.18rem 0.5rem; font-weight:800; letter-spacing:0.02em;">PULANG HARI INI</span>' : '')}
@@ -927,11 +960,18 @@ function renderHandoverBoard(dataToUse) {
 
     const tagsHtml = (pt.tags || []).map(t => `<span class="tag-badge tag-${t.color}">${t.label}</span>`).join('');
 
+    let handoverNewsHtml = '';
+    if (typeof FHIRAdapter !== 'undefined' && FHIRAdapter.computeNews2) {
+      const news = FHIRAdapter.computeNews2(pt);
+      handoverNewsHtml = `<span class="handover-ews-badge ${news.riskClass}" title="${escapeHtml(news.clinicalResponse)}">EWS ${news.score} • ${news.riskLabel}</span>`;
+    }
+
     card.innerHTML = `
       <div class="handover-card-header">
         <div class="handover-patient-main">
           <span class="handover-bed-badge">${pt.room} • BED ${pt.bed}</span>
           <h3 class="handover-patient-title">${escapeHtml(pt.name)}</h3>
+          ${handoverNewsHtml}
           ${pt.mrNo ? `<span class="badge badge-outline">MR: ${pt.mrNo}</span>` : ''}
           <span class="badge badge-primary">${pt.insurance}</span>
           <span class="caption-text">Lama Rawat: ${pt.los} Hari</span>
@@ -1596,11 +1636,45 @@ function openPatientModal(pt) {
     if (calloutIcon) calloutIcon.textContent = news.riskLevel === 'HIGH' ? '🚨' : (news.riskLevel === 'MEDIUM' ? '⚠️' : 'ℹ️');
   }
 
-  // FHIR Export Button Handler
+  // Update 7 NEWS2 Physiological Parameter Breakdown
+  const aggBadge = document.getElementById('nvbAggregateBadge');
+  if (aggBadge) {
+    aggBadge.textContent = `Total Skor: ${news.score} • ${news.riskLabel}`;
+    aggBadge.className = `nvb-aggregate-badge ${news.riskClass || 'news-low'}`;
+  }
+
+  const setNvbParam = (idVal, idScore, valText, score) => {
+    const elVal = document.getElementById(idVal);
+    const elScore = document.getElementById(idScore);
+    if (elVal) elVal.textContent = valText;
+    if (elScore) {
+      elScore.textContent = `Skor ${score}`;
+      elScore.className = `nvb-score-pill score-${score}`;
+    }
+  };
+
+  const v = news.vitals || {};
+  const b = news.breakdown || {};
+  setNvbParam('nvbValRR', 'nvbScoreRR', `${v.rr} x/m`, b.rrScore ?? 0);
+  setNvbParam('nvbValSpO2', 'nvbScoreSpO2', `${v.spo2}%`, b.spo2Score ?? 0);
+  setNvbParam('nvbValO2', 'nvbScoreO2', v.onOxygen ? 'O2 (+ Suplemen)' : 'Udara Kamar', b.o2Score ?? 0);
+  setNvbParam('nvbValSBP', 'nvbScoreSBP', `${v.sbp} mmHg`, b.sbpScore ?? 0);
+  setNvbParam('nvbValHR', 'nvbScoreHR', `${v.hr} x/m`, b.hrScore ?? 0);
+  setNvbParam('nvbValAVPU', 'nvbScoreAVPU', v.avpu === 'A' ? 'Alert (Sadar)' : (v.avpu === 'V' ? 'Voice (Suara)' : 'Pain/Unresp'), b.avpuScore ?? 0);
+  setNvbParam('nvbValTemp', 'nvbScoreTemp', `${v.temp} °C`, b.tempScore ?? 0);
+
+  // FHIR Export & View Button Handlers
   const exportFhirBtn = document.getElementById('modalExportFhirBtn');
   if (exportFhirBtn) {
     exportFhirBtn.onclick = () => {
       exportPatientFhir(pt);
+    };
+  }
+
+  const viewFhirBtn = document.getElementById('modalViewFhirBtn');
+  if (viewFhirBtn) {
+    viewFhirBtn.onclick = () => {
+      openFhirViewerModal(pt);
     };
   }
 
@@ -1624,34 +1698,90 @@ function exportPatientFhir(pt) {
     showToast('Modul FHIR Adapter belum termuat.', 'error');
     return;
   }
-  const fhirPt = FHIRAdapter.toFhirPatient(pt);
-  const fhirEnc = FHIRAdapter.toFhirEncounter(pt, state.currentDate);
-  const fhirCond = FHIRAdapter.toFhirCondition(pt);
-  const news = FHIRAdapter.computeNews2(pt);
-  const fhirObs = FHIRAdapter.toFhirNewsObservation(pt, news);
+  const bundle = FHIRAdapter.createPatientFhirBundle(pt, state.currentDate);
+  const cleanName = (pt.name || 'pasien').replace(/[^a-zA-Z0-9]/g, '_');
+  const filename = `FHIR_R4_${pt.room}_B${pt.bed}_${cleanName}_${(pt.mrNo || 'rm').replace(/\D/g, '')}.json`;
+  FHIRAdapter.downloadJsonFile(bundle, filename);
+  showToast(`✅ Berkas Bundle HL7 FHIR v4 untuk ${maskPatientName(pt.name)} (${bundle.total} resources) berhasil diunduh.`, 'success');
+}
 
-  const bundle = {
-    resourceType: 'Bundle',
-    id: `bundle-patient-${(pt.mrNo || pt.name || 'pt').replace(/\D/g, '')}`,
-    type: 'collection',
-    meta: { lastUpdated: new Date().toISOString() },
-    entry: [
-      { resource: fhirPt },
-      { resource: fhirEnc },
-      { resource: fhirCond },
-      { resource: fhirObs }
-    ].filter(e => e.resource !== null)
+function openFhirViewerModal(pt) {
+  const modal = document.getElementById('fhirViewerModal');
+  const pre = document.getElementById('fhirCodePreview');
+  const countBadge = document.getElementById('fhirViewerResourceCount');
+  const closeBtn = document.getElementById('fhirViewerCloseBtn');
+  const copyBtn = document.getElementById('btnCopyFhirJson');
+  const dlBtn = document.getElementById('btnDownloadCurrentFhir');
+  if (!modal || !pre) return;
+
+  const bundle = FHIRAdapter.createPatientFhirBundle(pt, state.currentDate);
+  const jsonStr = JSON.stringify(bundle, null, 2);
+  pre.textContent = jsonStr;
+  if (countBadge) countBadge.textContent = `Resources: ${bundle?.entry?.length || 0}`;
+
+  if (closeBtn) closeBtn.onclick = () => { modal.style.display = 'none'; };
+  modal.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+
+  if (copyBtn) {
+    copyBtn.onclick = () => {
+      navigator.clipboard.writeText(jsonStr).then(() => {
+        showToast('📋 JSON HL7 FHIR v4 berhasil disalin ke clipboard!', 'success');
+      });
+    };
+  }
+
+  if (dlBtn) {
+    dlBtn.onclick = () => {
+      exportPatientFhir(pt);
+    };
+  }
+
+  modal.style.display = 'flex';
+}
+
+function exportWardFhirBundle() {
+  if (typeof FHIRAdapter === 'undefined') {
+    showToast('Modul FHIR Adapter belum termuat.', 'error');
+    return;
+  }
+  const dayData = state.data.recentDays[state.currentDate] || state.data.today;
+  const allPts = [...(dayData?.eg2a || []), ...(dayData?.eg2b || [])].filter(p => !p.isEmpty);
+  if (allPts.length === 0) {
+    showToast('Tidak ada pasien rawat aktif untuk diekspor.', 'warning');
+    return;
+  }
+  const bundle = FHIRAdapter.createWardFhirBundle(allPts, state.currentDate);
+  const filename = `FHIR_R4_Bundle_Bangsal_EG2_${(state.currentDate || 'today').replace(/-/g, '')}.json`;
+  FHIRAdapter.downloadJsonFile(bundle, filename);
+  showToast(`🔥 Berhasil mengekspor ${bundle.total} sumber daya HL7 FHIR v4 untuk seluruh 56 Bed Bangsal Enggang Gading 2!`, 'success');
+}
+
+function initFhirAndEwsFeatures() {
+  const btnExportWard = document.getElementById('btnExportWardFhir');
+  if (btnExportWard) {
+    btnExportWard.addEventListener('click', exportWardFhirBundle);
+  }
+
+  // Bind EWS Surveillance strip counter clicks
+  const bindCounter = (id, filterVal) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => {
+        if (c.getAttribute('data-filter') === filterVal) c.classList.add('active');
+        else c.classList.remove('active');
+      });
+      state.activeFilter = filterVal;
+      renderBedGrids();
+      renderHandoverBoard();
+      filterDirectoryTable();
+      showToast(`Filter aktif: Pasien ${filterVal === 'ews-high' ? 'EWS Risiko Tinggi (≥7)' : (filterVal === 'ews-medium' ? 'EWS Risiko Sedang (5-6)' : 'Stabil')}`, 'info');
+    });
   };
 
-  const jsonStr = JSON.stringify(bundle, null, 2);
-  const blob = new Blob([jsonStr], { type: 'application/fhir+json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `FHIR_R4_${pt.room}_B${pt.bed}_${(pt.mrNo || 'pasien').replace(/\D/g, '')}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast(`Sumber daya HL7 FHIR v4 untuk ${pt.name} berhasil diunduh!`, 'success');
+  bindCounter('filterEwsHigh', 'ews-high');
+  bindCounter('filterEwsMedium', 'ews-medium');
+  bindCounter('filterEwsLow', 'ews-low');
 }
 
 function closeModal() {
@@ -1798,6 +1928,18 @@ function copyPatientSbar() {
   const pt = state.selectedPatient;
   if (!pt) return;
 
+  let ewsBlock = '';
+  if (typeof FHIRAdapter !== 'undefined' && FHIRAdapter.computeNews2) {
+    const news = FHIRAdapter.computeNews2(pt);
+    const v = news.vitals || {};
+    ewsBlock = `
+[EWS & TELEMETRI FISIOLOGIS (NEWS2)]
+Skor NEWS2: ${news.score} (${news.riskLabel})
+Tanda Vital: TD ${v.sbp} mmHg, Nadi ${v.hr} x/m, RR ${v.rr} x/m, Suhu ${v.temp} °C, SpO2 ${v.spo2}%, Kesadaran: ${v.avpu === 'A' ? 'Alert (Sadar)' : v.avpu}
+Protokol Eskalasi: ${news.clinicalResponse}
+`;
+  }
+
   const currentNotes = (pt.notes && pt.notes[state.activeShift]) || pt.notes.pagi || '-';
   const text = `=== SBAR OPERAN JAGA RAWAT INAP ===
 RUANG: ${pt.room} • BED: ${pt.bed}
@@ -1813,7 +1955,7 @@ Tgl Masuk / LOS: ${pt.admissionDate} (${pt.los} hari)
 DPJP: ${pt.doctor}
 Diagnosa: ${pt.diagnosis}
 Kategori: ${pt.category}
-
+${ewsBlock}
 [A - ASSESSMENT & R - RECOMMENDATION]
 Catatan Operan (${state.activeShift.toUpperCase()}):
 ${currentNotes}

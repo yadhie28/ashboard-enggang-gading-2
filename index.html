@@ -96,6 +96,12 @@
           </button>
         </div>
 
+        <!-- Tombol Ekspor Bundle HL7 FHIR v4 Sensus Bangsal -->
+        <button class="btn btn-fhir-ward" id="btnExportWardFhir" title="Ekspor Seluruh Sensus Pasien Bangsal (56 Bed) ke Bundle Standar HL7 FHIR Release 4 (SatuSehat Ready)">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span class="fhir-btn-text">Ekspor FHIR v4</span>
+        </button>
+
         <button class="btn btn-secondary btn-icon" id="themeToggleBtn" title="Ganti Mode Gelap / Terang">
           <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
           <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -150,12 +156,42 @@
         <button class="filter-chip" data-filter="Onkologi">Onkologi / Kanker</button>
         <button class="filter-chip" data-filter="Rencana Pulang">Rencana Pulang</button>
         <button class="filter-chip" data-filter="Monitoring DM">Monitoring DM</button>
+        <button class="filter-chip chip-ews-high" data-filter="ews-high" title="Filter Pasien EWS Kritis (Skor ≥ 7)">🚨 EWS Kritis (≥7)</button>
+        <button class="filter-chip chip-ews-medium" data-filter="ews-medium" title="Filter Pasien EWS Waspada (Skor 5-6 / Ekstrem 3)">⚠️ EWS Waspada (5-6)</button>
         <button class="filter-chip" data-filter="empty">Bed Kosong / BAU</button>
       </div>
     </section>
 
     <!-- TAB 1: DENAH BED & SENSUS PASIEN -->
     <section id="tabBedMap" class="tab-content">
+      <!-- EWS/NEWS2 Clinical Triage Surveillance Bar -->
+      <div class="ews-surveillance-strip" id="ewsSurveillanceStrip">
+        <div class="ews-strip-left">
+          <span class="ews-strip-icon">🛡️</span>
+          <div>
+            <h4 class="ews-strip-title">Surveilans Klinis EWS / NEWS2 (56 Bed Rawat Inap)</h4>
+            <span class="ews-strip-desc">Pemantauan Triase Fisiologis &amp; Deteksi Dini Perburukan Pasien (Standar Royal College of Physicians &amp; Kemenkes SatuSehat)</span>
+          </div>
+        </div>
+        <div class="ews-strip-counters">
+          <div class="ews-counter-pill counter-high" id="filterEwsHigh" role="button" tabindex="0" title="Klik untuk menyaring pasien risiko tinggi (NEWS2 ≥ 7)">
+            <span class="pulse-indicator-red"></span>
+            <span class="ews-counter-val" id="cntEwsHigh">0</span>
+            <span class="ews-counter-lbl">Risiko Tinggi (≥ 7)</span>
+          </div>
+          <div class="ews-counter-pill counter-medium" id="filterEwsMedium" role="button" tabindex="0" title="Klik untuk menyaring pasien risiko sedang (NEWS2 5-6)">
+            <span class="dot-indicator-amber"></span>
+            <span class="ews-counter-val" id="cntEwsMedium">0</span>
+            <span class="ews-counter-lbl">Risiko Sedang (5-6)</span>
+          </div>
+          <div class="ews-counter-pill counter-low" id="filterEwsLow" role="button" tabindex="0" title="Klik untuk menyaring pasien stabil">
+            <span class="dot-indicator-green"></span>
+            <span class="ews-counter-val" id="cntEwsLow">0</span>
+            <span class="ews-counter-lbl">Stabil / Rendah (0-4)</span>
+          </div>
+        </div>
+      </div>
+
       <!-- KPI Summary Grid (Daily Census) -->
       <section class="kpi-grid daily-census-kpi-grid">
         <div class="kpi-card card-glow-primary">
@@ -1102,6 +1138,54 @@
           </div>
         </div>
 
+        <!-- Interactive NEWS2 Physiological Breakdown Matrix -->
+        <div class="news2-vitals-breakdown" id="modalNewsVitalsBreakdown">
+          <div class="nvb-header">
+            <div class="nvb-title-group">
+              <span class="nvb-title">📊 Rincian 7 Parameter Fisiologis NEWS2:</span>
+              <span class="nvb-subtitle">Standar Royal College of Physicians (UK) &amp; Kemenkes RI SATUSEHAT</span>
+            </div>
+            <span class="nvb-aggregate-badge" id="nvbAggregateBadge">Total Skor: 0</span>
+          </div>
+          <div class="nvb-grid">
+            <div class="nvb-item" id="nvbItemRR">
+              <span class="nvb-label">Laju Napas (RR)</span>
+              <strong class="nvb-value" id="nvbValRR">18 x/m</strong>
+              <span class="nvb-score-pill" id="nvbScoreRR">Skor 0</span>
+            </div>
+            <div class="nvb-item" id="nvbItemSpO2">
+              <span class="nvb-label">Saturasi O2 (SpO2)</span>
+              <strong class="nvb-value" id="nvbValSpO2">98%</strong>
+              <span class="nvb-score-pill" id="nvbScoreSpO2">Skor 0</span>
+            </div>
+            <div class="nvb-item" id="nvbItemO2">
+              <span class="nvb-label">Terapi Oksigen</span>
+              <strong class="nvb-value" id="nvbValO2">Udara Kamar</strong>
+              <span class="nvb-score-pill" id="nvbScoreO2">Skor 0</span>
+            </div>
+            <div class="nvb-item" id="nvbItemSBP">
+              <span class="nvb-label">Tensi Sistolik</span>
+              <strong class="nvb-value" id="nvbValSBP">120 mmHg</strong>
+              <span class="nvb-score-pill" id="nvbScoreSBP">Skor 0</span>
+            </div>
+            <div class="nvb-item" id="nvbItemHR">
+              <span class="nvb-label">Denyut Nadi</span>
+              <strong class="nvb-value" id="nvbValHR">78 x/m</strong>
+              <span class="nvb-score-pill" id="nvbScoreHR">Skor 0</span>
+            </div>
+            <div class="nvb-item" id="nvbItemAVPU">
+              <span class="nvb-label">Kesadaran (AVPU)</span>
+              <strong class="nvb-value" id="nvbValAVPU">Alert (Sadar)</strong>
+              <span class="nvb-score-pill" id="nvbScoreAVPU">Skor 0</span>
+            </div>
+            <div class="nvb-item" id="nvbItemTemp">
+              <span class="nvb-label">Suhu Tubuh</span>
+              <strong class="nvb-value" id="nvbValTemp">36.6 °C</strong>
+              <span class="nvb-score-pill" id="nvbScoreTemp">Skor 0</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Doctor & Diagnosis Box -->
         <div class="modal-clinical-box">
           <div class="clinical-field">
@@ -1151,7 +1235,11 @@
         </button>
         <button class="btn btn-secondary btn-fhir-export" id="modalExportFhirBtn" title="Unduh Sumber Daya Standar Interoperabilitas HL7 FHIR v4 (Kemenkes SatuSehat)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span>Ekspor HL7 FHIR v4</span>
+          <span>Ekspor FHIR v4</span>
+        </button>
+        <button class="btn btn-secondary btn-fhir-view" id="modalViewFhirBtn" title="Tinjau JSON HL7 FHIR v4 dengan Penyorotan Sintaks &amp; Pemetaan SatuSehat">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span>Lihat JSON FHIR</span>
         </button>
         <button class="btn btn-secondary" id="modalCopySbarBtn" title="Salin Format SBAR Operan Jaga Shift (Alt+S)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -1669,6 +1757,42 @@
     </div>
   </div>
 
+  <!-- Modal Peninjau JSON HL7 FHIR v4 -->
+  <div class="modal-overlay" id="fhirViewerModal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="fhirViewerTitle">
+    <div class="modal-dialog modal-dialog-lg" style="max-width: 820px; width: 92vw;">
+      <div class="modal-header">
+        <div>
+          <h2 id="fhirViewerTitle" class="modal-title" style="display:flex; align-items:center; gap:8px;">
+            <span>🔥</span>
+            <span>HL7 FHIR Release 4 • Resource Bundle Viewer</span>
+          </h2>
+          <span class="caption-text" id="fhirViewerSubtitle">Standar Interoperabilitas Rekam Medis Elektronik (RME) Kemenkes SATUSEHAT</span>
+        </div>
+        <button class="modal-close-btn" id="fhirViewerCloseBtn" aria-label="Tutup Modal">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 1rem 1.4rem;">
+        <div class="fhir-toolbar" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+          <div class="fhir-meta-tags" id="fhirViewerMetaTags" style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+            <span class="badge badge-primary">FHIR R4 v4.0.1</span>
+            <span class="badge badge-outline" id="fhirViewerResourceCount">Resources: 12</span>
+            <span class="badge" style="background:#059669; color:#fff;">SatuSehat Valid</span>
+          </div>
+          <div class="fhir-actions" style="display:flex; gap:0.5rem;">
+            <button class="btn btn-sm btn-secondary" id="btnCopyFhirJson">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Salin JSON</span>
+            </button>
+            <button class="btn btn-sm btn-primary" id="btnDownloadCurrentFhir">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Unduh .json</span>
+            </button>
+          </div>
+        </div>
+        <pre class="fhir-code-preview" id="fhirCodePreview" style="background: #0f172a; color: #38bdf8; padding: 1rem; border-radius: 8px; max-height: 480px; overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.82rem; line-height: 1.5; border: 1px solid #334155;"><code>// Memuat data FHIR...</code></pre>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification -->
   <div class="toast-container" id="toastContainer"></div>
 
@@ -1677,6 +1801,6 @@
 
   <script src="logo_asset.js"></script>
   <script src="fhir_adapter.js"></script>
-  <script src="app.js?v=20261025_10"></script>
+  <script src="app.js?v=20261025_11"></script>
 </body>
 </html>
