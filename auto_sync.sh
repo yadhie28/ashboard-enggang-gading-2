@@ -105,6 +105,7 @@ with open(path, 'w') as f:
 
 # 7. Push updated data to GitHub repository
 log "Menyelaraskan data sensus ke repositori GitHub..."
+git pull --rebase -X theirs origin main >> "$LOG_FILE" 2>&1 || true
 git add dashboard_data.json hospital_indicators.json EG2A.xlsx EG2B.xlsx sync_info.json >> "$LOG_FILE" 2>&1
 git commit -m "chore(sync): automated census sync $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOG_FILE" 2>&1 || true
 git push origin main >> "$LOG_FILE" 2>&1 || true

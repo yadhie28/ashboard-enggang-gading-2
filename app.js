@@ -331,22 +331,24 @@ async function loadData(forceRefresh = false) {
   try {
     const cacheBuster = forceRefresh ? `&_nocache=${Date.now()}` : '';
     const res = await fetch(`dashboard_data.json?t=${Date.now()}${cacheBuster}`, {
-      cache: forceRefresh ? 'no-store' : 'no-cache',
-      headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' }
+      cache: forceRefresh ? 'no-store' : 'no-cache'
     });
-    if (!res.ok) throw new Error('Gagal membaca file data sensus');
+    if (!res.ok) throw new Error('Gagal membaca file data sensus (HTTP ' + res.status + ')');
     state.data = await res.json();
-    state.currentDate = state.data.metadata.latestDate;
+    state.currentDate = state.data.metadata?.latestDate || (state.data.allDates ? state.data.allDates[state.data.allDates.length - 1] : null);
     
-    populateDateDropdown();
-    populateDirectoryFilters();
-    updateDashboard();
-    renderAnalyticsTab();
-    renderBarberJohnsonTab();
-    initChronologyModule();
-    if (typeof fetchSyncSchedule === 'function') {
-      fetchSyncSchedule();
-    }
+    try { populateDateDropdown(); } catch (e) { console.error('populateDateDropdown error:', e); }
+    try { populateDirectoryFilters(); } catch (e) { console.error('populateDirectoryFilters error:', e); }
+    try { updateDashboard(); } catch (e) { console.error('updateDashboard error:', e); }
+    try { renderAnalyticsTab(); } catch (e) { console.error('renderAnalyticsTab error:', e); }
+    try { renderBarberJohnsonTab(); } catch (e) { console.error('renderBarberJohnsonTab error:', e); }
+    try { initChronologyModule(); } catch (e) { console.error('initChronologyModule error:', e); }
+    try {
+      if (typeof fetchSyncSchedule === 'function') {
+        fetchSyncSchedule();
+      }
+    } catch (e) { console.error('fetchSyncSchedule error:', e); }
+
     showToast('Data berhasil dimuat! Sensus terkini: ' + formatIndonesianDate(state.currentDate), 'success');
   } catch (err) {
     console.error('Error loading data:', err);
@@ -434,6 +436,7 @@ function setupEventListeners() {
   const prevBtn = document.getElementById('prevDayBtn');
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
+      if (!state.data || !state.data.allDates) return;
       const idx = state.data.allDates.indexOf(state.currentDate);
       if (idx > 0) {
         state.currentDate = state.data.allDates[idx - 1];
@@ -446,6 +449,7 @@ function setupEventListeners() {
   const nextBtn = document.getElementById('nextDayBtn');
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
+      if (!state.data || !state.data.allDates) return;
       const idx = state.data.allDates.indexOf(state.currentDate);
       if (idx < state.data.allDates.length - 1) {
         state.currentDate = state.data.allDates[idx + 1];
@@ -458,6 +462,7 @@ function setupEventListeners() {
   const todayBtn = document.getElementById('todayBtn');
   if (todayBtn) {
     todayBtn.addEventListener('click', () => {
+      if (!state.data || !state.data.metadata) return;
       state.currentDate = state.data.metadata.latestDate;
       if (dateSelect) dateSelect.value = state.currentDate;
       updateDashboard();
@@ -4988,7 +4993,8 @@ function initWhatsAppMessengerSystem() {
 
   const TARGET_PHONE = '6281284070082'; // Ns. Rusmulyadi, S.Kep.,M.A.R.S (Kepala Ruang Enggang Gading 2)
 
-  if (!modal || !openBtn) return;
+  if (!modal) return;
+  window.openWhatsAppMessengerModal = openModal;
 
   function updateCharCount() {
     if (charCounter && messageInput) {
@@ -5013,10 +5019,12 @@ function initWhatsAppMessengerSystem() {
     document.body.style.overflow = '';
   }
 
-  openBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal();
-  });
+  if (openBtn) {
+    openBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal();
+    });
+  }
 
   if (closeBtn) {
     closeBtn.addEventListener('click', closeModal);
