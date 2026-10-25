@@ -5535,5 +5535,242 @@ body::before {
   gap: 0.55rem;
 }
 
+/* ==========================================================================
+   MULTI-PERIOD PICKER IN PATIENT SEARCH / SELECTION (CHRONOLOGY)
+   ========================================================================== */
+.chronology-period-picker-container {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.06) 0%, rgba(14, 165, 233, 0.08) 100%);
+  border: 1.5px solid rgba(59, 130, 246, 0.3);
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.08);
+  transition: all 0.25s ease;
+}
+
+.period-multi-select-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.pms-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.pms-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.pms-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.pms-title strong {
+  font-size: 0.96rem;
+  color: var(--text-primary);
+  display: block;
+}
+
+.pms-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 3px 0 0 0;
+}
+
+.pms-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-pms-quick {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  border-radius: 6px;
+  background: var(--bg-surface-elevated, #ffffff);
+  border: 1.2px solid var(--border-medium, #cbd5e1);
+  color: var(--text-secondary, #475569);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-pms-quick:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.pms-checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.period-checkbox-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.8rem 1rem;
+  background: var(--bg-surface-elevated, #ffffff);
+  border: 1.5px solid var(--border-medium, #cbd5e1);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.period-checkbox-card:hover {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.04);
+}
+
+.period-checkbox-card.checked {
+  border-color: #2563eb;
+  background: rgba(59, 130, 246, 0.09);
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.12);
+}
+
+.period-checkbox-card input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: #2563eb;
+}
+
+.pcc-content {
+  flex: 1;
+}
+
+.pcc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.pcc-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pcc-dates {
+  font-size: 0.82rem;
+  color: #1e40af;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .pcc-dates {
+  color: #93c5fd;
+}
+
+.pcc-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.73rem;
+  color: var(--text-muted);
+}
+
+.pcc-meta span {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+[data-theme="dark"] .pcc-meta span {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.pms-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  border-top: 1px dashed rgba(59, 130, 246, 0.25);
+  padding-top: 0.5rem;
+}
+
+.pms-summary-badge {
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+[data-theme="dark"] .pms-summary-badge {
+  color: #60a5fa;
+}
+
+/* Search dropdown multi-period item enhancements */
+.search-dropdown-item .multi-period-badge {
+  background: rgba(99, 102, 241, 0.14);
+  color: #4f46e5;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  margin-left: 6px;
+}
+
+.search-item-period-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.search-item-period-pill {
+  font-size: 0.72rem;
+  padding: 3px 9px;
+  border-radius: 12px;
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
+  border: 1px solid rgba(59, 130, 246, 0.22);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.search-item-period-pill:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.timeline-period-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 1.85rem 0 1.25rem 0;
+}
+
+.timeline-period-divider .tpd-line {
+  flex: 1;
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.4), rgba(59, 130, 246, 0.1));
+}
+
+.timeline-period-divider .tpd-badge {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+  letter-spacing: 0.3px;
+}
+
+
 
 

@@ -28,6 +28,7 @@ const state = {
   },
   chronologyPatient: null,
   chronologyPeriod: 'all',
+  chronologySelectedPeriods: ['all'],
   chronologySort: 'asc'
 };
 
@@ -3629,21 +3630,143 @@ function initChronologyModule() {
       searchResults.innerHTML = '';
       matches.forEach(m => {
         const item = document.createElement('div');
-        item.className = 'search-dropdown-item';
         const displayName = maskPatientName(m.name);
         const displayMr = maskMrNo(m.mrNo);
-        item.innerHTML = `
-          <div>
-            <strong>${escapeHtml(displayName)}</strong>
-            <div class="item-sub">No. RM: ${displayMr} &bull; ${m.room} Bed ${m.bed} &bull; ${escapeHtml(m.doctor)}</div>
-          </div>
-          <span class="badge ${m.isCurrentlyActive ? 'badge-primary' : 'badge-outline'}">${m.isCurrentlyActive ? 'Aktif' : 'Riwayat'}</span>
-        `;
-        item.onclick = () => {
-          searchInput.value = `${displayName} (${displayMr})`;
-          searchResults.style.display = 'none';
-          selectChronologyPatient(m.key, false);
-        };
+        const pData = getPatientChronologyData(m.key, ['all']);
+        const pPeriods = pData.periods || [];
+        const hasMultiplePeriods = pPeriods.length > 1;
+
+        if (!hasMultiplePeriods) {
+          item.className = 'search-dropdown-item';
+          item.innerHTML = `
+            <div>
+              <strong>${escapeHtml(displayName)}</strong>
+              <div class="item-sub">No. RM: ${displayMr} &bull; ${m.room} Bed ${m.bed} &bull; ${escapeHtml(m.doctor)}</div>
+            </div>
+            <span class="badge ${m.isCurrentlyActive ? 'badge-primary' : 'badge-outline'}">${m.isCurrentlyActive ? 'Aktif' : 'Riwayat'}</span>
+          `;
+          item.onclick = () => {
+            searchInput.value = `${displayName} (${displayMr})`;
+            searchResults.style.display = 'none';
+            selectChronologyPatient(m.key, false, ['all']);
+          };
+        } else {
+          item.className = 'search-dropdown-item multi-period-search-item';
+          item.style.flexDirection = 'column';
+          item.style.alignItems = 'stretch';
+          item.style.cursor = 'default';
+          item.innerHTML = `
+            <div class="search-item-header" style="display:flex; justify-content:space-between; align-items:flex-start; width:100%; cursor:pointer;">
+              <div>
+                <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+                  <strong style="color:var(--text-primary); font-size:0.92rem;">${escapeHtml(displayName)}</strong>
+                  <span class="multi-period-badge" style="background:rgba(59,130,246,0.12); color:#2563eb; border:1px solid rgba(59,130,246,0.3); border-radius:12px; padding:2px 8px; font-size:0.72rem; font-weight:700;">
+                    🗓️ ${pPeriods.length} Periode Rawat
+                  </span>
+                </div>
+                <div class="item-sub" style="margin-top:2px;">
+                  No. RM: <code>${displayMr}</code> &bull; Terakhir: ${m.room} Bed ${m.bed} &bull; DPJP: ${escapeHtml(m.doctor)}
+                </div>
+              </div>
+              <span class="badge ${m.isCurrentlyActive ? 'badge-primary' : 'badge-outline'}">${m.isCurrentlyActive ? 'Aktif' : 'Riwayat'}</span>
+            </div>
+
+            <div class="search-item-period-selection" style="margin-top:8px; padding-top:8px; border-top:1px dashed rgba(59,130,246,0.25); width:100%;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span style="font-size:0.75rem; font-weight:700; color:var(--text-primary);">
+                  Pilih Periode Rawat Inap (bisa pilih &gt; 1 periode):
+                </span>
+                <span style="font-size:0.7rem; color:#2563eb; font-weight:600;">
+                  Centang di bawah &darr;
+                </span>
+              </div>
+
+              <div class="search-period-checkboxes-list" style="display:flex; flex-direction:column; gap:5px; margin-bottom:8px;">
+                ${pPeriods.map(per => `
+                  <label class="search-period-checkbox-row" style="display:flex; align-items:center; gap:8px; font-size:0.78rem; padding:4px 8px; background:rgba(59,130,246,0.05); border:1px solid rgba(59,130,246,0.2); border-radius:6px; cursor:pointer;">
+                    <input type="checkbox" class="cb-search-period" data-key="${m.key}" value="${per.id}" checked style="accent-color:#2563eb; width:15px; height:15px; cursor:pointer;">
+                    <div style="flex:1; display:flex; justify-content:space-between; align-items:center;">
+                      <div>
+                        <strong style="color:var(--text-primary);">${escapeHtml(per.name)}:</strong>
+                        <span style="color:var(--text-secondary); margin-left:4px;">${formatIndonesianDate(per.startDate).slice(0, 11)} s/d ${formatIndonesianDate(per.endDate).slice(0, 11)}</span>
+                      </div>
+                      <span style="font-weight:700; color:#1d4ed8; font-size:0.75rem;">${per.days.length} Hari &bull; ${per.room} B${per.bed}</span>
+                    </div>
+                  </label>
+                `).join('')}
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+                <div class="search-item-period-pills" style="margin:0;">
+                  <button type="button" class="search-item-period-pill pill-quick-all" data-key="${m.key}">⚡ Semua (${pData.allDays.length} Hari)</button>
+                  ${pPeriods.map(per => `
+                    <button type="button" class="search-item-period-pill pill-quick-single" data-key="${m.key}" data-period="${per.id}">Hanya ${per.name} (${per.days.length}h)</button>
+                  `).join('')}
+                </div>
+                <button type="button" class="btn-apply-search-period" data-key="${m.key}" style="padding:4px 10px; font-size:0.76rem; font-weight:700; background:#2563eb; color:#ffffff; border:none; border-radius:6px; cursor:pointer; box-shadow:0 1px 4px rgba(37,99,235,0.3); transition:all 0.2s;">
+                  Ambil Periode Tercentang &rarr;
+                </button>
+              </div>
+            </div>
+          `;
+
+          // Handlers:
+          const header = item.querySelector('.search-item-header');
+          if (header) {
+            header.onclick = (ev) => {
+              ev.stopPropagation();
+              searchInput.value = `${displayName} (${displayMr})`;
+              searchResults.style.display = 'none';
+              selectChronologyPatient(m.key, false, ['all']);
+            };
+          }
+
+          // Quick pills
+          const pillAll = item.querySelector('.pill-quick-all');
+          if (pillAll) {
+            pillAll.onclick = (ev) => {
+              ev.stopPropagation();
+              searchInput.value = `${displayName} (${displayMr})`;
+              searchResults.style.display = 'none';
+              selectChronologyPatient(m.key, false, ['all']);
+            };
+          }
+
+          item.querySelectorAll('.pill-quick-single').forEach(pill => {
+            pill.onclick = (ev) => {
+              ev.stopPropagation();
+              const pid = pill.getAttribute('data-period');
+              searchInput.value = `${displayName} (${displayMr})`;
+              searchResults.style.display = 'none';
+              selectChronologyPatient(m.key, false, [pid]);
+            };
+          });
+
+          // Checkbox click propagation stop
+          item.querySelectorAll('.search-period-checkbox-row').forEach(row => {
+            row.onclick = (ev) => {
+              ev.stopPropagation();
+            };
+          });
+
+          // Apply button
+          const btnApply = item.querySelector('.btn-apply-search-period');
+          if (btnApply) {
+            btnApply.onclick = (ev) => {
+              ev.stopPropagation();
+              const checkedCbs = item.querySelectorAll(`.cb-search-period[data-key="${m.key}"]:checked`);
+              const checkedIds = Array.from(checkedCbs).map(cb => cb.value);
+              if (checkedIds.length === 0) {
+                showToast('Pilih minimal 1 periode rawat inap!', 'warning');
+                return;
+              }
+              searchInput.value = `${displayName} (${displayMr})`;
+              searchResults.style.display = 'none';
+              selectChronologyPatient(m.key, false, checkedIds.length === pPeriods.length ? ['all'] : checkedIds);
+            };
+          }
+        }
+
         searchResults.appendChild(item);
       });
       searchResults.style.display = 'block';
@@ -3747,9 +3870,19 @@ function renderChronologyTab() {
   }
 }
 
-function selectChronologyPatient(patientKey, autoScroll) {
+function selectChronologyPatient(patientKey, autoScroll, initialPeriodIds = null) {
   state.chronologyPatient = patientKey;
-  state.chronologyPeriod = 'all'; // Reset ke seluruh periode setiap kali pasien dipilih
+
+  if (initialPeriodIds && Array.isArray(initialPeriodIds) && initialPeriodIds.length > 0) {
+    state.chronologySelectedPeriods = [...initialPeriodIds];
+    state.chronologyPeriod = initialPeriodIds.length === 1 ? initialPeriodIds[0] : 'all';
+  } else if (typeof initialPeriodIds === 'string' && initialPeriodIds.trim()) {
+    state.chronologySelectedPeriods = [initialPeriodIds.trim()];
+    state.chronologyPeriod = initialPeriodIds.trim();
+  } else {
+    state.chronologySelectedPeriods = ['all'];
+    state.chronologyPeriod = 'all';
+  }
 
   const select = document.getElementById('chronologyPatientSelect');
   if (select && select.value !== patientKey) {
@@ -3767,6 +3900,9 @@ function selectChronologyPatient(patientKey, autoScroll) {
   if (emptyState) emptyState.style.display = 'none';
   if (patientCard) patientCard.style.display = 'flex';
 
+  // Update period picker panel in the patient picker container
+  updateChronologyPeriodPicker(patientKey);
+
   renderChronologyTimeline(patientKey);
 
   if (autoScroll) {
@@ -3775,16 +3911,163 @@ function selectChronologyPatient(patientKey, autoScroll) {
   }
 }
 
+function updateChronologyPeriodPicker(patientKey) {
+  const container = document.getElementById('chronologyPeriodPickerContainer');
+  if (!container) return;
+
+  const data = getPatientChronologyData(patientKey, ['all']);
+  const periods = data.periods || [];
+
+  if (periods.length <= 1) {
+    container.style.display = 'none';
+    container.innerHTML = '';
+    return;
+  }
+
+  const selectedPeriods = state.chronologySelectedPeriods || ['all'];
+  const isAll = selectedPeriods.includes('all') || selectedPeriods.length === periods.length;
+
+  container.style.display = 'block';
+  container.innerHTML = `
+    <div class="period-multi-select-box">
+      <div class="pms-header">
+        <div class="pms-title">
+          <span class="pms-icon">🗓️</span>
+          <div>
+            <strong>Pasien Memiliki ${periods.length} Periode Rawat Inap (Bisa Pilih &gt; 1 Periode)</strong>
+            <p class="pms-subtitle">Centang satu atau beberapa periode rawat untuk menyusun kronologi gabungan atau per periode.</p>
+          </div>
+        </div>
+        <div class="pms-actions">
+          <button type="button" class="btn-pms-quick" id="btnPmsSelectAll">Pilih Semua</button>
+          <button type="button" class="btn-pms-quick" id="btnPmsLatestOnly">Periode Terakhir Saja</button>
+          <button type="button" class="btn-pms-quick" id="btnPmsFirstOnly">Periode Pertama Saja</button>
+        </div>
+      </div>
+
+      <div class="pms-checkbox-grid">
+        ${periods.map(per => {
+          const isChecked = isAll || selectedPeriods.includes(per.id);
+          return `
+            <label class="period-checkbox-card ${isChecked ? 'checked' : ''}" data-period-id="${per.id}">
+              <input type="checkbox" class="cb-period-item" value="${per.id}" ${isChecked ? 'checked' : ''}>
+              <div class="pcc-content">
+                <div class="pcc-top">
+                  <span class="pcc-name">${escapeHtml(per.name)}</span>
+                  <span class="badge ${isChecked ? 'badge-primary' : 'badge-outline'}">${per.days.length} Hari Rawat</span>
+                </div>
+                <div class="pcc-dates">
+                  📅 ${formatIndonesianDate(per.startDate)} s/d ${formatIndonesianDate(per.endDate)}
+                </div>
+                <div class="pcc-meta">
+                  <span>🏥 ${per.room} - Bed ${per.bed}</span>
+                  <span>🩺 DPJP: ${escapeHtml(per.doctor)}</span>
+                  <span>📥 MRS: ${per.admissionDate}</span>
+                </div>
+              </div>
+            </label>
+          `;
+        }).join('')}
+      </div>
+
+      <div class="pms-footer">
+        <div>
+          <span>Status Pilihan: </span>
+          <strong class="pms-summary-badge" id="pmsSummaryBadge">
+            ${isAll ? `Semua Periode Terpilih (${periods.length} Periode • ${data.allDays.length} Hari)` : `${selectedPeriods.length} Periode Terpilih`}
+          </strong>
+        </div>
+        <div style="font-size:0.75rem; color:var(--text-muted);">
+          💡 Centang beberapa periode sekaligus untuk menggabungkan riwayat kronologi
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Attach event listeners for checkboxes and quick buttons:
+  const checkboxes = container.querySelectorAll('.cb-period-item');
+  const updateFromCheckboxes = () => {
+    const checkedVals = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+    if (checkedVals.length === 0) {
+      showToast('Minimal 1 periode rawat inap harus dipilih!', 'warning');
+      return;
+    }
+
+    if (checkedVals.length === periods.length) {
+      state.chronologySelectedPeriods = ['all'];
+      state.chronologyPeriod = 'all';
+    } else {
+      state.chronologySelectedPeriods = checkedVals;
+      state.chronologyPeriod = checkedVals.length === 1 ? checkedVals[0] : checkedVals.join(', ');
+    }
+
+    // Update checked class on cards
+    container.querySelectorAll('.period-checkbox-card').forEach(card => {
+      const pId = card.getAttribute('data-period-id');
+      const isChecked = checkedVals.includes(pId);
+      if (isChecked) card.classList.add('checked');
+      else card.classList.remove('checked');
+    });
+
+    const summaryBadge = document.getElementById('pmsSummaryBadge');
+    if (summaryBadge) {
+      const activeData = getPatientChronologyData(patientKey, state.chronologySelectedPeriods);
+      summaryBadge.textContent = checkedVals.length === periods.length 
+        ? `Semua Periode Terpilih (${periods.length} Periode • ${data.allDays.length} Hari)`
+        : `${checkedVals.length} dari ${periods.length} Periode Terpilih (${activeData.days.length} Hari Rawat)`;
+    }
+
+    renderChronologyTimeline(patientKey);
+  };
+
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', updateFromCheckboxes);
+  });
+
+  const btnAll = document.getElementById('btnPmsSelectAll');
+  if (btnAll) {
+    btnAll.addEventListener('click', () => {
+      checkboxes.forEach(cb => cb.checked = true);
+      updateFromCheckboxes();
+    });
+  }
+
+  const btnLatest = document.getElementById('btnPmsLatestOnly');
+  if (btnLatest) {
+    btnLatest.addEventListener('click', () => {
+      const lastPId = periods[periods.length - 1].id;
+      checkboxes.forEach(cb => cb.checked = (cb.value === lastPId));
+      updateFromCheckboxes();
+    });
+  }
+
+  const btnFirst = document.getElementById('btnPmsFirstOnly');
+  if (btnFirst) {
+    btnFirst.addEventListener('click', () => {
+      const firstPId = periods[0].id;
+      checkboxes.forEach(cb => cb.checked = (cb.value === firstPId));
+      updateFromCheckboxes();
+    });
+  }
+}
+
 function selectChronologyPeriod(periodId) {
-  state.chronologyPeriod = periodId;
+  if (periodId === 'all') {
+    state.chronologySelectedPeriods = ['all'];
+    state.chronologyPeriod = 'all';
+  } else {
+    state.chronologySelectedPeriods = [periodId];
+    state.chronologyPeriod = periodId;
+  }
   if (state.chronologyPatient) {
+    updateChronologyPeriodPicker(state.chronologyPatient);
     renderChronologyTimeline(state.chronologyPatient);
   }
 }
 window.selectChronologyPeriod = selectChronologyPeriod;
 
-function getPatientChronologyData(patientKey, selectedPeriodId) {
-  if (!state.data || !state.data.recentDays) return { days: [], allDays: [], periods: [], selectedPeriod: 'all', customEntries: [], profile: null };
+function getPatientChronologyData(patientKey, selectedPeriodIdsInput) {
+  if (!state.data || !state.data.recentDays) return { days: [], allDays: [], periods: [], selectedPeriod: 'all', selectedPeriods: ['all'], customEntries: [], profile: null };
 
   const recentDays = state.data.recentDays;
   const sortedDates = Object.keys(recentDays).sort(); // chronological: oldest to newest
@@ -3835,6 +4118,10 @@ function getPatientChronologyData(patientKey, selectedPeriodId) {
           startDate: dt,
           endDate: dt,
           admissionDate: match.admissionDate || '-',
+          doctor: match.doctorPrimary || match.doctor || '-',
+          room: match.room || '-',
+          bed: match.bed || '-',
+          diagnosis: match.diagnosis || '-',
           days: [dayObj]
         };
         periods.push(currentPeriod);
@@ -3845,6 +4132,9 @@ function getPatientChronologyData(patientKey, selectedPeriodId) {
         dayObj.diagnosisChanged = prev && (prev.patient.diagnosis !== match.diagnosis);
         currentPeriod.days.push(dayObj);
         currentPeriod.endDate = dt;
+        if (match.room) currentPeriod.room = match.room;
+        if (match.bed) currentPeriod.bed = match.bed;
+        if (match.diagnosis) currentPeriod.diagnosis = match.diagnosis;
       }
     }
   });
@@ -3861,22 +4151,42 @@ function getPatientChronologyData(patientKey, selectedPeriodId) {
     });
   });
 
-  // Tentukan hari aktif berdasarkan filter periode yang dipilih
-  const activePeriodId = selectedPeriodId || state.chronologyPeriod || 'all';
-  let activeDays = historyDays;
-  if (activePeriodId !== 'all') {
-    const found = periods.find(p => p.id === activePeriodId);
-    if (found) {
-      activeDays = found.days;
-      activeDays.forEach((d, idx) => {
-        d.dayOfStay = idx + 1;
-      });
-    }
+  // Normalize selectedPeriodIds
+  let selectedIds = [];
+  if (Array.isArray(selectedPeriodIdsInput)) {
+    selectedIds = [...selectedPeriodIdsInput];
+  } else if (typeof selectedPeriodIdsInput === 'string' && selectedPeriodIdsInput.trim()) {
+    selectedIds = [selectedPeriodIdsInput.trim()];
+  } else if (Array.isArray(state.chronologySelectedPeriods) && state.chronologySelectedPeriods.length > 0) {
+    selectedIds = [...state.chronologySelectedPeriods];
+  } else if (state.chronologyPeriod) {
+    selectedIds = [state.chronologyPeriod];
   } else {
-    activeDays.forEach((d, idx) => {
-      d.dayOfStay = idx + 1;
-    });
+    selectedIds = ['all'];
   }
+
+  const isAll = selectedIds.includes('all') || (periods.length > 0 && selectedIds.length === periods.length);
+  periods.forEach(per => {
+    per.isSelected = isAll || selectedIds.includes(per.id);
+  });
+
+  let activeDays = [];
+  if (isAll) {
+    activeDays = historyDays;
+  } else {
+    activeDays = historyDays.filter(d => selectedIds.includes(d.periodId));
+  }
+
+  let prevPeriodId = null;
+  activeDays.forEach((d, idx) => {
+    d.dayOfStay = idx + 1;
+    if (prevPeriodId !== null && d.periodId !== prevPeriodId) {
+      d.isPeriodTransition = true;
+    } else {
+      d.isPeriodTransition = false;
+    }
+    prevPeriodId = d.periodId;
+  });
 
   // Fetch custom entries from localStorage
   let customEntries = [];
@@ -3893,7 +4203,8 @@ function getPatientChronologyData(patientKey, selectedPeriodId) {
     days: activeDays,
     allDays: historyDays,
     periods: periods,
-    selectedPeriod: activePeriodId,
+    selectedPeriods: isAll ? ['all'] : selectedIds,
+    selectedPeriod: isAll ? 'all' : (selectedIds.length === 1 ? selectedIds[0] : selectedIds.join(', ')),
     customEntries: customEntries,
     profile: latest
   };
@@ -4019,36 +4330,54 @@ function renderChronologyTimeline(patientKey) {
   let timelineHtml = '';
 
   if (periods && periods.length > 1) {
+    const isAll = state.chronologySelectedPeriods.includes('all') || state.chronologySelectedPeriods.length === periods.length;
     timelineHtml += `
       <div class="chronology-period-selector-card">
         <div class="period-selector-title">
           <span class="period-icon">🗓️</span>
           <div>
             <div style="font-weight:700; font-size:0.95rem; color:var(--text-primary);">
-              Ditemukan ${periods.length} Periode Rawat Inap Pasien
+              Menampilkan ${isAll ? `Semua Periode (${periods.length} Periode • ${allDays.length} Hari)` : `${state.chronologySelectedPeriods.length} Periode Terpilih (${days.length} Hari)`}
             </div>
             <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:2px;">
-              Pasien ini memiliki riwayat rawat inap lebih dari 1 periode. Pilih periode yang ingin dibuat kronologinya atau tampilkan seluruhnya:
+              Gunakan panel pemilih periode di atas untuk mencentang kombinasi periode rawat inap yang diinginkan (bisa pilih &gt; 1 periode).
             </div>
           </div>
         </div>
         <div class="period-chips-container">
-          <button type="button" class="btn-period-chip ${selectedPeriod === 'all' ? 'active' : ''}" onclick="selectChronologyPeriod('all')">
+          <button type="button" class="btn-period-chip ${isAll ? 'active' : ''}" onclick="selectChronologyPeriod('all')">
             <span class="chip-dot"></span> Seluruh Periode (Gabungan • ${allDays.length} Hari)
           </button>
-          ${periods.map(per => `
-            <button type="button" class="btn-period-chip ${selectedPeriod === per.id ? 'active' : ''}" onclick="selectChronologyPeriod('${per.id}')">
-              <span class="chip-dot"></span> ${per.name} (${formatIndonesianDate(per.startDate)} s/d ${formatIndonesianDate(per.endDate)} • ${per.days.length} Hari)
-            </button>
-          `).join('')}
+          ${periods.map(per => {
+            const isSingleActive = !isAll && state.chronologySelectedPeriods.length === 1 && state.chronologySelectedPeriods[0] === per.id;
+            const isIncluded = isAll || state.chronologySelectedPeriods.includes(per.id);
+            return `
+              <button type="button" class="btn-period-chip ${isSingleActive ? 'active' : (isIncluded ? 'included' : '')}" onclick="selectChronologyPeriod('${per.id}')" title="Klik untuk fokus pada ${escapeHtml(per.name)}">
+                <span class="chip-dot"></span> ${escapeHtml(per.name)} (${formatIndonesianDate(per.startDate)} s/d ${formatIndonesianDate(per.endDate)} • ${per.days.length} Hari) ${isIncluded && !isSingleActive ? '✓' : ''}
+              </button>
+            `;
+          }).join('')}
         </div>
       </div>
     `;
   }
 
-  displayDays.forEach(d => {
+  displayDays.forEach((d, dIdx) => {
     const pt = d.patient;
     const formattedDate = formatIndonesianDate(d.date);
+
+    // Periode Transition Divider (jika berganti periode rawat di dalam timeline)
+    if (dIdx > 0 && displayDays[dIdx - 1].periodId !== d.periodId) {
+      timelineHtml += `
+        <div class="timeline-period-divider">
+          <div class="tpd-line"></div>
+          <div class="tpd-badge">
+            🗓️ Transisi Periode Rawat &bull; Masuk ke ${escapeHtml(d.periodName || 'Periode Baru')} (${formattedDate})
+          </div>
+          <div class="tpd-line"></div>
+        </div>
+      `;
+    }
 
     // Filter custom entries for this date
     const dayCustomEntries = customEntries.filter(c => c.date === d.date);
@@ -4060,7 +4389,7 @@ function renderChronologyTimeline(patientKey) {
             <span class="day-number-badge">Hari Rawat ke-${d.dayOfStay}</span>
             <span class="day-date-title">${formattedDate}</span>
             <span class="day-bed-badge">${pt.room} &bull; Bed ${pt.bed}</span>
-            ${periods && periods.length > 1 ? `<span class="badge badge-outline" style="font-size:0.72rem; background:rgba(59,130,246,0.08); color:#2563eb; border-color:rgba(59,130,246,0.3); font-weight:700;">${d.periodName || 'Periode 1'}</span>` : ''}
+            ${periods && periods.length > 1 ? `<span class="badge badge-outline" style="font-size:0.72rem; background:rgba(59,130,246,0.08); color:#2563eb; border-color:rgba(59,130,246,0.3); font-weight:700;">${d.periodName || 'Periode 1'} &bull; Hari ke-${d.periodDayOfStay || d.dayOfStay}</span>` : ''}
             ${d.bedChanged ? `<span class="bed-transfer-alert" title="Pindah dari ${d.prevLoc}">⚠️ Pindah Bed (dari ${d.prevLoc})</span>` : ''}
             ${pt.isDischargedToday ? `<span class="day-discharge-alert">🏁 Rencana / Pasien KRS Pulang</span>` : ''}
           </div>
@@ -4507,7 +4836,7 @@ function printChronologyResume(patientKey) {
         <td><strong>Nomor Rekam Medis</strong></td>
         <td>: ${displayMr}</td>
         <td><strong>Total Hari Terdata (LOS)</strong></td>
-        <td>: ${days.length} Hari</td>
+        <td>: ${days.length} Hari ${periods && periods.length > 1 ? (state.chronologySelectedPeriods.includes('all') || state.chronologySelectedPeriods.length === periods.length ? `(Seluruh Periode Gabungan • ${periods.length} Periode)` : `(${state.chronologySelectedPeriods.map(pid => periods.find(p => p.id === pid)?.name || pid).join(', ')})`) : ''}</td>
       </tr>
       <tr>
         <td><strong>Jenis Kelamin / Usia</strong></td>
@@ -4556,13 +4885,17 @@ function printChronologyResume(patientKey) {
 
 // Copy Plaintext Summary to Clipboard
 function copyChronologySummary(patientKey) {
-  const { days, customEntries, profile } = getPatientChronologyData(patientKey);
+  const { days, allDays, periods, customEntries, profile } = getPatientChronologyData(patientKey);
   if (!profile) return;
 
   const displayName = maskPatientName(profile.name);
   const displayMr = maskMrNo(profile.mrNo);
   const initialDiagnosis = days[0]?.patient?.diagnosis || profile.diagnosis || '-';
   const finalDiagnosis = days[days.length - 1]?.patient?.diagnosis || profile.diagnosis || '-';
+
+  const periodDesc = (periods && periods.length > 1) 
+    ? (state.chronologySelectedPeriods.includes('all') || state.chronologySelectedPeriods.length === periods.length ? `(Seluruh Periode Gabungan • ${periods.length} Periode)` : `(${state.chronologySelectedPeriods.map(pid => periods.find(p => p.id === pid)?.name || pid).join(', ')})`)
+    : '';
 
   let text = `======================================================================\n`;
   text += `KRONOLOGIS PERJALANAN RAWAT INAP PASIEN\n`;
@@ -4576,7 +4909,7 @@ function copyChronologySummary(patientKey) {
   text += `DPJP              : ${profile.doctorPrimary || profile.doctor}\n`;
   text += `Jaminan           : ${profile.insurance}\n`;
   text += `Tanggal Masuk     : ${profile.admissionDate || '-'}\n`;
-  text += `Total Hari Rawat  : ${days.length} Hari\n`;
+  text += `Total Hari Rawat  : ${days.length} Hari ${periodDesc}\n`;
   text += `Diagnosa Awal     : ${initialDiagnosis}\n`;
   text += `Diagnosa Akhir    : ${finalDiagnosis}\n`;
   text += `----------------------------------------------------------------------\n`;
@@ -4899,7 +5232,7 @@ function exportChronologyWord(patientKey) {
             <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Nomor Rekam Medis</strong></td>
             <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${displayMr}</td>
             <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Total Hari Terdata (LOS)</strong></td>
-            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${days.length} Hari ${periods && periods.length > 1 ? (selectedPeriod === 'all' ? `(Seluruh Periode Gabungan • ${allDays.length} Hari)` : `(${periods.find(p => p.id === selectedPeriod)?.name || selectedPeriod})`) : ''}</td>
+            <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;">: ${days.length} Hari ${periods && periods.length > 1 ? (state.chronologySelectedPeriods.includes('all') || state.chronologySelectedPeriods.length === periods.length ? `(Seluruh Periode Gabungan • ${periods.length} Periode)` : `(${state.chronologySelectedPeriods.map(pid => periods.find(p => p.id === pid)?.name || pid).join(', ')})`) : ''}</td>
           </tr>
           <tr>
             <td style="border: none; padding: 1.5pt 2pt; line-height: 1.0; mso-line-height-rule: exactly; font-size: 9.5pt;"><strong>Jenis Kelamin / Usia</strong></td>
