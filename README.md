@@ -65,10 +65,10 @@ Atur folder ini sebagai **Active Workspace**. Anda dapat langsung mengedit kode,
 
 ## ⏰ Jadwal Otomatisasi (Sensus & WhatsApp 07.00, 14.00, 20.00 WIB)
 
-Sistem memiliki daemon lokal (`launchd`) dan *GitHub Actions* yang aktif tepat waktu:
-- **Shift Pagi**: Pukul **07.00 WIB**
-- **Shift Sore**: Pukul **14.00 WIB**
-- **Shift Malam**: Pukul **20.00 WIB**
+Sistem memiliki daemon lokal (`launchd`), cron, dan *GitHub Actions* yang aktif tepat waktu dengan **toleransi keterlambatan maksimal 2 menit**:
+- **Shift Pagi**: Pukul **07.00 WIB** *(07.00 – 07.02 WIB)*
+- **Shift Sore**: Pukul **14.00 WIB** *(14.00 – 14.02 WIB)*
+- **Shift Malam**: Pukul **20.00 WIB** *(20.00 – 20.02 WIB)*
 
 **Alur Eksekusi Otomatis:**
 1. Tarik spreadsheet `EG 2A` dan `EG 2B` terbaru dari Google Sheets.

@@ -275,12 +275,12 @@ def auto_sync_scheduler_worker():
             current_minute = now.minute
 
             for s in SCHEDULE_HOURS:
-                if current_hour == s["hour"] and current_minute == s["minute"]:
-                    slot_key = f"{now.strftime('%Y-%m-%d')}_{current_hour}:{current_minute}"
+                if current_hour == s["hour"] and 0 <= current_minute <= 2:
+                    slot_key = f"{now.strftime('%Y-%m-%d')}_{current_hour:02d}:00"
                     if last_triggered_slot != slot_key:
                         last_triggered_slot = slot_key
                         mode = "shift_07" if current_hour == 7 else ("shift_14" if current_hour == 14 else "shift_20")
-                        print(f"\n[SCHEDULER TRIGGER] Memulai Auto-Sync & Sensus WA {s['name']} ({s['desc']}) pada {now.strftime('%H:%M:%S')}...")
+                        print(f"\n[SCHEDULER TRIGGER] Memulai Auto-Sync & Sensus WA {s['name']} ({s['desc']}) pada {now.strftime('%H:%M:%S')} (Toleransi maks 2 menit)...")
                         threading.Thread(target=sync_and_send_census, args=(f"auto_{s['name'].lower().replace(' ', '_')}", mode), daemon=True).start()
                     break
 
@@ -320,10 +320,11 @@ class DashboardHandler(http.server.SimpleHTTPRequestHandler):
             next_info = get_next_scheduled_sync()
             payload = {
                 "autoSyncEnabled": True,
+                "toleranceMinutes": 2,
                 "schedules": [
-                    {"time": "07:00", "name": "Shift Pagi", "desc": "Operan Jaga Malam ➔ Pagi"},
-                    {"time": "14:00", "name": "Shift Sore", "desc": "Operan Jaga Pagi ➔ Sore"},
-                    {"time": "20:00", "name": "Shift Malam", "desc": "Operan Jaga Sore ➔ Malam"}
+                    {"time": "07:00", "window": "07.00 – 07.02 WIB", "name": "Shift Pagi", "desc": "Operan Jaga Malam ➔ Pagi (Toleransi 07.00 – 07.02 WIB)"},
+                    {"time": "14:00", "window": "14.00 – 14.02 WIB", "name": "Shift Sore", "desc": "Operan Jaga Pagi ➔ Sore (Toleransi 14.00 – 14.02 WIB)"},
+                    {"time": "20:00", "window": "20.00 – 20.02 WIB", "name": "Shift Malam", "desc": "Operan Jaga Sore ➔ Malam (Toleransi 20.00 – 20.02 WIB)"}
                 ],
                 "currentTime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "isSyncing": sync_state["is_syncing"],

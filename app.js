@@ -2136,13 +2136,14 @@ function getClientSyncSchedule(metadata) {
   return {
     autoSyncEnabled: true,
     isStaticClient: true,
+    toleranceMinutes: 2,
     schedules: [
-      { time: "07:00", name: "Shift Pagi", desc: "Operan Jaga Malam ➔ Pagi" },
-      { time: "14:00", name: "Shift Sore", desc: "Operan Jaga Pagi ➔ Sore" },
-      { time: "20:00", name: "Shift Malam", desc: "Operan Jaga Sore ➔ Malam" }
+      { time: "07:00", window: "07.00 – 07.02 WIB", name: "Shift Pagi", desc: "Operan Jaga Malam ➔ Pagi (Toleransi 07.00 – 07.02 WIB)" },
+      { time: "14:00", window: "14.00 – 14.02 WIB", name: "Shift Sore", desc: "Operan Jaga Pagi ➔ Sore (Toleransi 14.00 – 14.02 WIB)" },
+      { time: "20:00", window: "20.00 – 20.02 WIB", name: "Shift Malam", desc: "Operan Jaga Sore ➔ Malam (Toleransi 20.00 – 20.02 WIB)" }
     ],
     lastSync: lastSyncTime,
-    lastMessage: "Sinkronisasi Terjadwal (Shift 07.00, 14.00, 20.00)",
+    lastMessage: "Sinkronisasi Terjadwal (Shift 07.00, 14.00, 20.00 • Toleransi maks 2 mnt)",
     nextSync: {
       datetime: `${next.dt.getFullYear()}-${String(next.dt.getMonth() + 1).padStart(2, '0')}-${String(next.dt.getDate()).padStart(2, '0')} ${String(next.s.hour).padStart(2, '0')}:${String(next.s.minute).padStart(2, '0')}:00`,
       time: `${String(next.s.hour).padStart(2, '0')}:${String(next.s.minute).padStart(2, '0')}`,

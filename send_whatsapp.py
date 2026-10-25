@@ -141,12 +141,12 @@ def get_current_wib_datetime():
     now_utc = datetime.now(timezone.utc)
     return now_utc.astimezone(wib_tz)
 
-def check_scheduled_punctuality(window_minutes=20, custom_now=None):
+def check_scheduled_punctuality(window_minutes=2, custom_now=None):
     """
-    Memeriksa ketepatan waktu pengiriman jadwal resmi:
-    - 07.00 WIB (07.00 - 07.20)
-    - 14.00 WIB (14.00 - 14.20)
-    - 20.00 WIB (20.00 - 20.20)
+    Memeriksa ketepatan waktu pengiriman jadwal resmi dengan toleransi keterlambatan maksimal 2 menit:
+    - 07.00 WIB (07.00 – 07.02 WIB)
+    - 14.00 WIB (14.00 – 14.02 WIB)
+    - 20.00 WIB (20.00 – 20.02 WIB)
     Mengembalikan (is_on_time, slot_key, wib_str)
     """
     now_wib = custom_now if custom_now is not None else get_current_wib_datetime()
@@ -286,18 +286,18 @@ def main():
     parser.add_argument("--token", help="API Token untuk gateway Fonnte / Wablas")
     parser.add_argument("--save-token", action="store_true", help="Simpan token gateway ke wa_gateway_config.json")
     parser.add_argument("--no-open", action="store_true", help="Hanya tampilkan link tanpa membuka browser/aplikasi")
-    parser.add_argument("--scheduled-only", action="store_true", help="Kirim HANYA jika waktu tepat jam 07.00, 14.00, atau 20.00 WIB. Cegah kirim di luar jam tersebut.")
+    parser.add_argument("--scheduled-only", action="store_true", help="Kirim HANYA jika waktu tepat jam 07.00, 14.00, atau 20.00 WIB (toleransi maks 2 menit: 07.00-07.02, 14.00-14.02, 20.00-20.02 WIB).")
     parser.add_argument("--force", action="store_true", help="Paksa kirim mengabaikan filter jam dan deduplikasi")
     parser.add_argument("--json", action="store_true", help="Output format JSON")
 
     args = parser.parse_args()
 
-    # Ketepatan Waktu Guard (Strict Punctuality)
+    # Ketepatan Waktu Guard (Strict Punctuality: Toleransi Maksimal 2 Menit)
     if args.scheduled_only and not args.force:
-        is_on_time, slot_key, wib_str = check_scheduled_punctuality(window_minutes=20)
+        is_on_time, slot_key, wib_str = check_scheduled_punctuality(window_minutes=2)
         if not is_on_time:
             print(f"[ON-TIME GUARD] Waktu saat ini: {wib_str} WIB.")
-            print("[ON-TIME GUARD] Bukan jam jadwal resmi (07.00, 14.00, 20.00 WIB). Sesuai instruksi ketepatan waktu, pengiriman WhatsApp DIBATALKAN.")
+            print("[ON-TIME GUARD] Bukan jam jadwal resmi (07.00 – 07.02, 14.00 – 14.02, 20.00 – 20.02 WIB). Sesuai aturan ketepatan waktu (toleransi maks 2 menit), pengiriman WhatsApp DIBATALKAN.")
             return
 
         sent_log = load_sent_log()
@@ -338,7 +338,7 @@ def main():
             print(f" Status   : {gw_res.get('status')}")
             if gw_res.get("status") == "success":
                 print(" Hasil    : [BERHASIL TERKIRIM] Pesan langsung masuk ke WhatsApp tujuan.")
-                _, slot_key, wib_str = check_scheduled_punctuality(window_minutes=20)
+                _, slot_key, wib_str = check_scheduled_punctuality(window_minutes=2)
                 if slot_key:
                     record_sent_slot(slot_key, wib_str)
             else:
