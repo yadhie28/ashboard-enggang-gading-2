@@ -141,12 +141,12 @@ def get_current_wib_datetime():
     now_utc = datetime.now(timezone.utc)
     return now_utc.astimezone(wib_tz)
 
-def check_scheduled_punctuality(window_minutes=10):
+def check_scheduled_punctuality(window_minutes=20):
     """
     Memeriksa ketepatan waktu pengiriman jadwal resmi:
-    - 07.00 WIB (07.00 - 07.10)
-    - 14.00 WIB (14.00 - 14.10)
-    - 21.00 WIB (21.00 - 21.10)
+    - 07.00 WIB (07.00 - 07.20)
+    - 14.00 WIB (14.00 - 14.20)
+    - 20.00 & 21.00 WIB (20.00 - 21.20)
     Mengembalikan (is_on_time, slot_key, wib_str)
     """
     now_wib = get_current_wib_datetime()
@@ -154,7 +154,7 @@ def check_scheduled_punctuality(window_minutes=10):
     minute = now_wib.minute
     wib_str = now_wib.strftime("%Y-%m-%d %H:%M:%S")
 
-    scheduled_hours = [7, 14, 21]
+    scheduled_hours = [7, 14, 20, 21]
     if hour in scheduled_hours and 0 <= minute <= window_minutes:
         slot_key = f"{now_wib.strftime('%Y-%m-%d')}_{hour:02d}:00"
         return True, slot_key, wib_str
@@ -255,21 +255,21 @@ def build_census_report(mode="auto", px_awal=None, px_baru=None, px_pindah=None,
         return res["message"]
     except Exception as e:
         print(f"[WARN] Error in compute_census_report: {e}")
-        # Fallback template
+        # Fallback template resmi
         return (
             "Ruang Enggang Gading 2\n"
             "Kapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\n"
             "Px awal: 52\n"
-            "Px baru: 8\n"
+            "Px baru: -\n"
             "Px pindah: -\n"
-            "Px meninggal: -\n"
-            "Px pulang: 11\n"
+            "Px meninggal: 1\n"
+            "Px pulang: 1\n"
             "Renc pulang: -\n"
             "Renc pindah: -\n\n"
-            "Px sekarang: 49\n\n"
+            "Px sekarang: 50\n\n"
             "Antrean:\n\n"
-            "Free Bed:  7 (EG2-A: 1 ekstra bed, EG2-B: 2 + 4 ekstra bed)\n\n"
-            "Persentase terisi: 87,5%\n\n"
+            "Free Bed:  6 (EG2-A: 0 ekstra bed, EG2-B: 2 + 4 ekstra bed)\n\n"
+            "Persentase terisi: 89,3%\n\n"
             "Rencana/Antrean Pindah:\n\n"
             "Makaseh 🙏\n"
             "Semoga sehat selalu 😊"

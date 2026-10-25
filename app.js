@@ -2531,50 +2531,60 @@ function computeClientSideShiftCensus() {
     currentShift = 'Shift Pagi';
     baselineShiftName = 'Shift Malam (07.00 WIB)';
     baselinePx = 52;
-  } else if (timeFloat >= 14.0 && timeFloat < 21.0) {
+  } else if (timeFloat >= 14.0 && timeFloat < 20.0) {
+    currentShift = 'Shift Sore';
+    baselineShiftName = 'Shift Pagi (14.00 WIB)';
+    baselinePx = 52;
+  } else if (timeFloat >= 20.0 && timeFloat <= 21.5) {
     currentShift = 'Shift Sore';
     baselineShiftName = 'Shift Pagi (14.00 WIB)';
     baselinePx = 52;
   } else {
     currentShift = 'Shift Malam';
-    baselineShiftName = 'Shift Sore (21.00 WIB)';
-    baselinePx = 49;
+    baselineShiftName = 'Shift Sore (20.00 WIB)';
+    baselinePx = 50;
   }
 
   const latestDay = state.data?.today || {};
   const sum = latestDay.summary || {};
   
   // Hitung jumlah cell pasien aktif (tidak diwarnai)
-  const activeA = Array.isArray(latestDay.eg2a) ? latestDay.eg2a.filter(p => p.isActive).length : (sum.occA || 15);
+  const activeA = Array.isArray(latestDay.eg2a) ? latestDay.eg2a.filter(p => p.isActive).length : (sum.occA || 16);
   const activeB = Array.isArray(latestDay.eg2b) ? latestDay.eg2b.filter(p => p.isActive).length : (sum.occB || 34);
-  const pxSkrg = (activeA + activeB) || 49;
+  const pxSkrg = (activeA + activeB) || (sum.occupied || 50);
 
-  // Rule Baku Sensus Rawat Inap:
-  // 1. Basis hitung Px awal dari laporan shift sebelumnya (52)
-  // 2. Px sekarang dari jumlah cell pasien aktif yang tidak diwarnai (49)
-  // 3. Px baru dari jumlah cell pasien baru muncul di shift berjalan (8)
-  // 4. Keseimbangan sensus: Px awal + Px baru - Px keluar = Px sekarang (52 + 8 - 49 = 11)
-  // 5. Klasifikasi keluar: Px meninggal (arsiran merah), Px pindah, dan Px pulang (sisanya)
-  let pxBaru = (timeFloat >= 14.0 && timeFloat < 21.0) ? 8 : '-';
-  const numBaru = pxBaru !== '-' ? Number(pxBaru) : 0;
+  // Rule Baku Sensus Rawat Inap (Keseimbangan Sensus):
+  // Px awal + Px baru - (Px pulang + Px meninggal + Px pindah) = Px sekarang
+  const deathsToday = sum.deathsToday || 0;
+  const delta = pxSkrg - baselinePx;
   
-  const pxKeluarTotal = Math.max(0, baselinePx + numBaru - pxSkrg);
-  const pxMeninggal = '-';
+  let pxBaru = '-';
+  let pxPulang = '-';
+  let pxMeninggal = '-';
   const pxPindah = '-';
-  const numMeninggal = 0;
-  const numPindah = 0;
-  
-  const numPulang = pxKeluarTotal - (numMeninggal + numPindah);
-  const pxPulang = numPulang > 0 ? numPulang : '-';
-  
+
+  if (delta > 0) {
+    pxBaru = delta;
+  } else {
+    const totalKeluar = Math.max(0, baselinePx - pxSkrg);
+    if (totalKeluar > 0 && deathsToday > 0) {
+      const numMeninggal = Math.min(deathsToday, totalKeluar);
+      pxMeninggal = numMeninggal;
+      const numPulang = Math.max(0, totalKeluar - numMeninggal);
+      pxPulang = numPulang > 0 ? numPulang : '-';
+    } else if (totalKeluar > 0) {
+      pxPulang = totalKeluar;
+    }
+  }
+
   const rencPulang = '-';
   const rencPindah = '-';
 
   const freeBed = 56 - pxSkrg;
-  const occA = activeA || 15;
+  const occA = activeA || 16;
   const occB = activeB || 34;
-  const textFreeA = occA >= 12 ? `${Math.max(0, 4 - (occA - 12))} ekstra bed` : `${12 - occA} + 4 ekstra bed`;
-  const textFreeB = occB >= 36 ? `${Math.max(0, 4 - (occB - 36))} ekstra bed` : `${36 - occB} + 4 ekstra bed`;
+  const textFreeA = sum.textFreeA || (occA >= 12 ? `${Math.max(0, 4 - (occA - 12))} ekstra bed` : `${12 - occA} + 4 ekstra bed`);
+  const textFreeB = sum.textFreeB || (occB >= 36 ? `${Math.max(0, 4 - (occB - 36))} ekstra bed` : `${36 - occB} + 4 ekstra bed`);
   const bor = `${((pxSkrg / 56) * 100).toFixed(1).replace('.', ',')}%`;
 
   // Format Pesan WhatsApp Baku Resmi Jam 21.00

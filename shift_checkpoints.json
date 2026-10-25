@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-25 21:01:11",
+  "last_updated": "2026-10-25 20:00:00",
   "checkpoints": {
     "2026-10-22_20:00": {
       "date": "2026-10-22",
@@ -64,17 +64,34 @@
       "shift": "21:00",
       "shift_name": "Shift Sore",
       "px_awal": 52,
-      "px_baru": 8,
-      "px_pulang": 11,
+      "px_baru": "-",
+      "px_pulang": 1,
       "px_pindah": "-",
-      "px_meninggal": "-",
-      "px_skrg": 49,
-      "occ_a": 15,
+      "px_meninggal": 1,
+      "px_skrg": 50,
+      "occ_a": 16,
       "occ_b": 34,
-      "free_bed": 7,
-      "text_free_a": "1 ekstra bed",
+      "free_bed": 6,
+      "text_free_a": "0 ekstra bed",
       "text_free_b": "2 + 4 ekstra bed",
-      "bor": "87,5%"
+      "bor": "89,3%"
+    },
+    "2026-10-25_20:00": {
+      "date": "2026-10-25",
+      "shift": "20:00",
+      "shift_name": "Shift Sore",
+      "px_awal": 52,
+      "px_baru": "-",
+      "px_pulang": 1,
+      "px_pindah": "-",
+      "px_meninggal": 1,
+      "px_skrg": 50,
+      "occ_a": 16,
+      "occ_b": 34,
+      "free_bed": 6,
+      "text_free_a": "0 ekstra bed",
+      "text_free_b": "2 + 4 ekstra bed",
+      "bor": "89,3%"
     }
   }
 }

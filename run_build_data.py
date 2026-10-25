@@ -202,7 +202,11 @@ def parse_patient_row_enhanced(r, room_type, current_iso_date):
 
     is_empty = False
     status = "Terisi"
-    if any(k in bed_raw.upper() for k in ["BAU", "RUSAK", "KOSONG", "PERBAIKAN"]) or any(k in nama_raw.upper() for k in ["BAU", "RUSAK", "KOSONG"]) or (not nama_raw and not diagnosa_raw):
+    nama_up = nama_raw.upper()
+    bed_up = bed_raw.upper()
+    if any(k in bed_up for k in ["BAU", "RUSAK", "KOSONG", "PERBAIKAN"]) or \
+       any(k in nama_up for k in ["BAU", "RUSAK", "KOSONG", "PERBAIKAN", "U/ PASIEN", "UNTUK PASIEN", "TITIPAN", "RESERVE", "RESERVASI"]) or \
+       (not nama_raw and not diagnosa_raw):
         is_empty = True
         status = "Rusak/Perbaikan" if "BAU" in (bed_raw + nama_raw).upper() else "Kosong"
 

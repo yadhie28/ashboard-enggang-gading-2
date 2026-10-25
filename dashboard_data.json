@@ -13,7 +13,7 @@
       "Enggang Gading 2A (16 Bed)",
       "Enggang Gading 2B (40 Bed)"
     ],
-    "lastUpdated": "25-10-2026 21:00:48",
+    "lastUpdated": "25-10-2026 21:55:22",
     "latestDate": "2026-10-25",
     "totalDatesRecorded": 296,
     "dateRange": "2026-01-01 s/d 2026-10-25",
@@ -651,10 +651,10 @@
     {
       "date": "2026-02-13",
       "occA": 7,
-      "occB": 34,
-      "totalOcc": 41,
+      "occB": 33,
+      "totalOcc": 40,
       "totalBeds": 56,
-      "bor": 73.2
+      "bor": 71.4
     },
     {
       "date": "2026-02-14",
@@ -1267,10 +1267,10 @@
     {
       "date": "2026-05-01",
       "occA": 13,
-      "occB": 37,
-      "totalOcc": 50,
+      "occB": 36,
+      "totalOcc": 49,
       "totalBeds": 56,
-      "bor": 89.3
+      "bor": 87.5
     },
     {
       "date": "2026-05-02",
@@ -1763,34 +1763,34 @@
     {
       "date": "2026-07-02",
       "occA": 15,
-      "occB": 39,
-      "totalOcc": 54,
+      "occB": 38,
+      "totalOcc": 53,
       "totalBeds": 56,
-      "bor": 96.4
+      "bor": 94.6
     },
     {
       "date": "2026-07-03",
       "occA": 15,
-      "occB": 39,
-      "totalOcc": 54,
+      "occB": 38,
+      "totalOcc": 53,
       "totalBeds": 56,
-      "bor": 96.4
+      "bor": 94.6
     },
     {
       "date": "2026-07-04",
       "occA": 15,
-      "occB": 37,
-      "totalOcc": 52,
+      "occB": 36,
+      "totalOcc": 51,
       "totalBeds": 56,
-      "bor": 92.9
+      "bor": 91.1
     },
     {
       "date": "2026-07-05",
       "occA": 15,
-      "occB": 39,
-      "totalOcc": 54,
+      "occB": 38,
+      "totalOcc": 53,
       "totalBeds": 56,
-      "bor": 96.4
+      "bor": 94.6
     },
     {
       "date": "2026-07-06",
@@ -1834,11 +1834,11 @@
     },
     {
       "date": "2026-07-11",
-      "occA": 16,
+      "occA": 15,
       "occB": 38,
-      "totalOcc": 54,
+      "totalOcc": 53,
       "totalBeds": 56,
-      "bor": 96.4
+      "bor": 94.6
     },
     {
       "date": "2026-07-12",
@@ -2274,11 +2274,11 @@
     },
     {
       "date": "2026-09-04",
-      "occA": 14,
+      "occA": 13,
       "occB": 39,
-      "totalOcc": 53,
+      "totalOcc": 52,
       "totalBeds": 56,
-      "bor": 94.6
+      "bor": 92.9
     },
     {
       "date": "2026-09-05",
@@ -2683,10 +2683,10 @@
     {
       "date": "2026-10-25",
       "occA": 16,
-      "occB": 35,
-      "totalOcc": 51,
+      "occB": 34,
+      "totalOcc": 50,
       "totalBeds": 56,
-      "bor": 91.1
+      "bor": 89.3
     }
   ],
   "monthly": [
@@ -2703,7 +2703,7 @@
       "avgOcc": 47.8,
       "avgOccA": 13.2,
       "avgOccB": 34.6,
-      "avgBor": 85.33,
+      "avgBor": 85.27,
       "daysCounted": 28
     },
     {
@@ -2726,8 +2726,8 @@
       "month": "2026-05",
       "avgOcc": 51.2,
       "avgOccA": 13.5,
-      "avgOccB": 37.7,
-      "avgBor": 91.42,
+      "avgOccB": 37.6,
+      "avgBor": 91.36,
       "daysCounted": 31
     },
     {
@@ -2740,10 +2740,10 @@
     },
     {
       "month": "2026-07",
-      "avgOcc": 52.1,
-      "avgOccA": 14.8,
-      "avgOccB": 37.3,
-      "avgBor": 93.03,
+      "avgOcc": 51.9,
+      "avgOccA": 14.7,
+      "avgOccB": 37.2,
+      "avgBor": 92.74,
       "daysCounted": 31
     },
     {
@@ -2756,18 +2756,18 @@
     },
     {
       "month": "2026-09",
-      "avgOcc": 52.3,
-      "avgOccA": 15.1,
+      "avgOcc": 52.2,
+      "avgOccA": 15.0,
       "avgOccB": 37.2,
-      "avgBor": 93.33,
+      "avgBor": 93.27,
       "daysCounted": 30
     },
     {
       "month": "2026-10",
       "avgOcc": 52.7,
       "avgOccA": 15.4,
-      "avgOccB": 37.4,
-      "avgBor": 94.14,
+      "avgOccB": 37.3,
+      "avgBor": 94.07,
       "daysCounted": 25
     }
   ],
@@ -2918,11 +2918,11 @@
         "count": 126
       }
     ],
-    "totalPatients": 2602,
+    "totalPatients": 2597,
     "insurances": [
       {
         "name": "BPJS Kelas 3",
-        "count": 11808
+        "count": 11804
       },
       {
         "name": "BPJS Kelas 2",
@@ -2930,7 +2930,7 @@
       },
       {
         "name": "BPJS Kelas 1",
-        "count": 606
+        "count": 602
       },
       {
         "name": "Lainnya / Penjamin Khusus",
@@ -2938,7 +2938,7 @@
       },
       {
         "name": "Umum / Mandiri",
-        "count": 259
+        "count": 258
       },
       {
         "name": "Jasa Raharja",
@@ -2954,15 +2954,15 @@
     },
     "availableBeds": 56,
     "totalDays": 296,
-    "totalHP": 14839,
-    "totalDischarges": 1426,
+    "totalHP": 14830,
+    "totalDischarges": 1428,
     "overall": {
-      "bor": 89.52,
-      "avlos": 10.41,
+      "bor": 89.47,
+      "avlos": 10.39,
       "toi": 1.22,
-      "bto": 25.46,
-      "gdr": 83.45,
-      "ndr": 65.92
+      "bto": 25.5,
+      "gdr": 83.33,
+      "ndr": 65.83
     },
     "monthly": [
       {
@@ -2984,18 +2984,18 @@
       {
         "month": "2026-02",
         "days": 28,
-        "hp": 1338,
+        "hp": 1337,
         "hpA": 369,
-        "hpB": 969,
-        "discharges": 181,
+        "hpB": 968,
+        "discharges": 182,
         "deaths": 13,
         "deathsGt48": 7,
-        "bor": 85.33,
-        "avlos": 7.39,
+        "bor": 85.27,
+        "avlos": 7.35,
         "toi": 1.27,
-        "bto": 3.23,
-        "gdr": 71.82,
-        "ndr": 38.67
+        "bto": 3.25,
+        "gdr": 71.43,
+        "ndr": 38.46
       },
       {
         "month": "2026-03",
@@ -3032,18 +3032,18 @@
       {
         "month": "2026-05",
         "days": 31,
-        "hp": 1587,
+        "hp": 1586,
         "hpA": 419,
-        "hpB": 1168,
-        "discharges": 143,
+        "hpB": 1167,
+        "discharges": 144,
         "deaths": 11,
         "deathsGt48": 9,
-        "bor": 91.42,
-        "avlos": 11.1,
+        "bor": 91.36,
+        "avlos": 11.01,
         "toi": 1.04,
-        "bto": 2.55,
-        "gdr": 76.92,
-        "ndr": 62.94
+        "bto": 2.57,
+        "gdr": 76.39,
+        "ndr": 62.5
       },
       {
         "month": "2026-06",
@@ -3064,15 +3064,15 @@
       {
         "month": "2026-07",
         "days": 31,
-        "hp": 1615,
-        "hpA": 458,
-        "hpB": 1157,
+        "hp": 1610,
+        "hpA": 457,
+        "hpB": 1153,
         "discharges": 118,
         "deaths": 15,
         "deathsGt48": 14,
-        "bor": 93.03,
-        "avlos": 13.69,
-        "toi": 1.03,
+        "bor": 92.74,
+        "avlos": 13.64,
+        "toi": 1.07,
         "bto": 2.11,
         "gdr": 127.12,
         "ndr": 118.64
@@ -3096,15 +3096,15 @@
       {
         "month": "2026-09",
         "days": 30,
-        "hp": 1568,
-        "hpA": 452,
+        "hp": 1567,
+        "hpA": 451,
         "hpB": 1116,
         "discharges": 105,
         "deaths": 12,
         "deathsGt48": 9,
-        "bor": 93.33,
-        "avlos": 14.93,
-        "toi": 1.07,
+        "bor": 93.27,
+        "avlos": 14.92,
+        "toi": 1.08,
         "bto": 1.88,
         "gdr": 114.29,
         "ndr": 85.71
@@ -3112,15 +3112,15 @@
       {
         "month": "2026-10",
         "days": 25,
-        "hp": 1318,
+        "hp": 1317,
         "hpA": 384,
-        "hpB": 934,
+        "hpB": 933,
         "discharges": 121,
         "deaths": 11,
         "deathsGt48": 11,
-        "bor": 94.14,
-        "avlos": 10.89,
-        "toi": 0.68,
+        "bor": 94.07,
+        "avlos": 10.88,
+        "toi": 0.69,
         "bto": 2.16,
         "gdr": 90.91,
         "ndr": 90.91
@@ -89834,29 +89834,38 @@
         {
           "bed": "14",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Meninggal",
           "isEmpty": false,
-          "isActive": true,
+          "isActive": false,
           "isDischargedToday": false,
-          "isDeceased": false,
-          "dischargeColor": null,
-          "name": "U/ Pasien E.g 2a yang Gelisah",
-          "mrNo": "",
-          "gender": "P",
+          "isDeceased": true,
+          "dischargeColor": "FFFF0000",
+          "name": "Tn. Solihin",
+          "mrNo": "00302401",
+          "gender": "L",
           "age": "",
-          "admissionDate": "",
-          "los": 1,
+          "admissionDate": "20/10/2026",
+          "los": 6,
           "insurance": "BPJS Kelas 3",
-          "doctor": "",
-          "doctorPrimary": "-",
-          "diagnosis": "",
-          "category": "Lain-lain",
+          "doctor": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK\n\nDr. Pradana Sp.P",
+          "doctorPrimary": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK",
+          "diagnosis": "Obs Dyspnoe ec Tumor Paru dextra\n\nca paru metas leher",
+          "category": "Onkologi & Hematologi",
           "notes": {
-            "pagi": "",
-            "sore": "",
+            "pagi": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi",
+            "sore": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi\n\nMeninggal jam 16.50",
             "malam": ""
           },
-          "tags": []
+          "tags": [
+            {
+              "label": "Meninggal",
+              "color": "red"
+            },
+            {
+              "label": "Onkologi",
+              "color": "pink"
+            }
+          ]
         },
         {
           "bed": "15",
@@ -90586,42 +90595,6 @@
         {
           "bed": "37",
           "room": "EG2B",
-          "status": "Meninggal",
-          "isEmpty": false,
-          "isActive": false,
-          "isDischargedToday": false,
-          "isDeceased": true,
-          "dischargeColor": "FFFF0000",
-          "name": "Tn. Solihin",
-          "mrNo": "00302401",
-          "gender": "L",
-          "age": "",
-          "admissionDate": "20/10/2026",
-          "los": 6,
-          "insurance": "BPJS Kelas 3",
-          "doctor": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK\n\nDr. Pradana Sp.P",
-          "doctorPrimary": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK",
-          "diagnosis": "Obs Dyspnoe ec Tumor Paru dextra\n\nca paru metas leher",
-          "category": "Onkologi & Hematologi",
-          "notes": {
-            "pagi": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi",
-            "sore": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi\n\nMeninggal jam 16.50",
-            "malam": ""
-          },
-          "tags": [
-            {
-              "label": "Meninggal",
-              "color": "red"
-            },
-            {
-              "label": "Onkologi",
-              "color": "pink"
-            }
-          ]
-        },
-        {
-          "bed": "38",
-          "room": "EG2B",
           "status": "Pulang Hari Ini",
           "isEmpty": false,
           "isActive": false,
@@ -90690,34 +90663,29 @@
         {
           "bed": "39",
           "room": "EG2B",
-          "status": "Pulang Hari Ini",
-          "isEmpty": false,
+          "status": "Kosong",
+          "isEmpty": true,
           "isActive": false,
-          "isDischargedToday": true,
+          "isDischargedToday": false,
           "isDeceased": false,
-          "dischargeColor": "FFFF9900",
-          "name": "Tn. Syech Haikal",
-          "mrNo": "00242940",
-          "gender": "L",
+          "dischargeColor": null,
+          "name": "Bed Kosong",
+          "mrNo": "",
+          "gender": "-",
           "age": "",
-          "admissionDate": "23/10/2026",
-          "los": 3,
-          "insurance": "BPJS Kelas 2",
-          "doctor": "APRIANI, DR, M.KED (PD), SP.PD",
-          "doctorPrimary": "APRIANI, DR, M.KED (PD), SP.PD",
-          "diagnosis": "- dm tipe 2 - dyspepsia syndrome - obs. vomiting",
-          "category": "Penyakit Dalam (Metabolik)",
+          "admissionDate": "-",
+          "los": 0,
+          "insurance": "-",
+          "doctor": "-",
+          "doctorPrimary": "-",
+          "diagnosis": "-",
+          "category": "-",
           "notes": {
-            "pagi": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
-            "sore": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
+            "pagi": "",
+            "sore": "",
             "malam": ""
           },
-          "tags": [
-            {
-              "label": "Pulang Hari Ini",
-              "color": "emerald"
-            }
-          ]
+          "tags": []
         },
         {
           "bed": "40",
@@ -90751,18 +90719,18 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 51,
-        "empty": 5,
-        "freeBedDetail": "Free Bed:  5 (EG2-A: 0 ekstra bed, EG2-B: 1 + 4 ekstra bed)",
+        "occupied": 50,
+        "empty": 6,
+        "freeBedDetail": "Free Bed:  6 (EG2-A: 0 ekstra bed, EG2-B: 2 + 4 ekstra bed)",
         "textFreeA": "0 ekstra bed",
-        "textFreeB": "1 + 4 ekstra bed",
-        "bor": 91.1,
+        "textFreeB": "2 + 4 ekstra bed",
+        "bor": 89.3,
         "borA": 100.0,
-        "borB": 87.5,
+        "borB": 85.0,
         "occA": 16,
-        "occB": 35,
+        "occB": 34,
         "emptyA": 0,
-        "emptyB": 5,
+        "emptyB": 6,
         "dischargedToday": 3,
         "deathsToday": 1,
         "tagCounts": {
@@ -90772,8 +90740,8 @@
           "Puasa Pre-Op": 3,
           "Hemodialisa (HD)": 10,
           "Rencana Pulang": 3,
-          "Pulang Hari Ini": 3,
-          "Meninggal": 1
+          "Meninggal": 1,
+          "Pulang Hari Ini": 3
         }
       }
     }
@@ -91748,29 +91716,38 @@
       {
         "bed": "14",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Meninggal",
         "isEmpty": false,
-        "isActive": true,
+        "isActive": false,
         "isDischargedToday": false,
-        "isDeceased": false,
-        "dischargeColor": null,
-        "name": "U/ Pasien E.g 2a yang Gelisah",
-        "mrNo": "",
-        "gender": "P",
+        "isDeceased": true,
+        "dischargeColor": "FFFF0000",
+        "name": "Tn. Solihin",
+        "mrNo": "00302401",
+        "gender": "L",
         "age": "",
-        "admissionDate": "",
-        "los": 1,
+        "admissionDate": "20/10/2026",
+        "los": 6,
         "insurance": "BPJS Kelas 3",
-        "doctor": "",
-        "doctorPrimary": "-",
-        "diagnosis": "",
-        "category": "Lain-lain",
+        "doctor": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK\n\nDr. Pradana Sp.P",
+        "doctorPrimary": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK",
+        "diagnosis": "Obs Dyspnoe ec Tumor Paru dextra\n\nca paru metas leher",
+        "category": "Onkologi & Hematologi",
         "notes": {
-          "pagi": "",
-          "sore": "",
+          "pagi": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi",
+          "sore": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi\n\nMeninggal jam 16.50",
           "malam": ""
         },
-        "tags": []
+        "tags": [
+          {
+            "label": "Meninggal",
+            "color": "red"
+          },
+          {
+            "label": "Onkologi",
+            "color": "pink"
+          }
+        ]
       },
       {
         "bed": "15",
@@ -92500,42 +92477,6 @@
       {
         "bed": "37",
         "room": "EG2B",
-        "status": "Meninggal",
-        "isEmpty": false,
-        "isActive": false,
-        "isDischargedToday": false,
-        "isDeceased": true,
-        "dischargeColor": "FFFF0000",
-        "name": "Tn. Solihin",
-        "mrNo": "00302401",
-        "gender": "L",
-        "age": "",
-        "admissionDate": "20/10/2026",
-        "los": 6,
-        "insurance": "BPJS Kelas 3",
-        "doctor": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK\n\nDr. Pradana Sp.P",
-        "doctorPrimary": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK",
-        "diagnosis": "Obs Dyspnoe ec Tumor Paru dextra\n\nca paru metas leher",
-        "category": "Onkologi & Hematologi",
-        "notes": {
-          "pagi": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi",
-          "sore": "- kel : Sesak nafas 1 minggu ini, batuk sedikit, muntah setiap makan dan minum tampak, lemas tampak bejolan di leher kiri.\n- Riw : Tumor Paru\n\nDr Eko visite 22/10/2026 : \n- R/ wide eksisi kp rnd oleh dr.eko jadwal 09/11/2026 =>> surat op dg pasien\n - therapy lanjut\n\nDr pradana via IGD :\n- Kembalikan ke dr eko aja dl, apa mau dirawat? Karna dalam program beliau\n- Instruksi dari Poli : Rencana dari paru FNAB ct guiding dan bronkoskopi jika eksisi menunjukkan meta (curiga primer paru)\n- Lapor Ulang ke dr Pradana (+) a/i Pasien selesaikan dl rencana dr eko, nanti kontrol poli paru lagi\n\nMeninggal jam 16.50",
-          "malam": ""
-        },
-        "tags": [
-          {
-            "label": "Meninggal",
-            "color": "red"
-          },
-          {
-            "label": "Onkologi",
-            "color": "pink"
-          }
-        ]
-      },
-      {
-        "bed": "38",
-        "room": "EG2B",
         "status": "Pulang Hari Ini",
         "isEmpty": false,
         "isActive": false,
@@ -92604,34 +92545,29 @@
       {
         "bed": "39",
         "room": "EG2B",
-        "status": "Pulang Hari Ini",
-        "isEmpty": false,
+        "status": "Kosong",
+        "isEmpty": true,
         "isActive": false,
-        "isDischargedToday": true,
+        "isDischargedToday": false,
         "isDeceased": false,
-        "dischargeColor": "FFFF9900",
-        "name": "Tn. Syech Haikal",
-        "mrNo": "00242940",
-        "gender": "L",
+        "dischargeColor": null,
+        "name": "Bed Kosong",
+        "mrNo": "",
+        "gender": "-",
         "age": "",
-        "admissionDate": "23/10/2026",
-        "los": 3,
-        "insurance": "BPJS Kelas 2",
-        "doctor": "APRIANI, DR, M.KED (PD), SP.PD",
-        "doctorPrimary": "APRIANI, DR, M.KED (PD), SP.PD",
-        "diagnosis": "- dm tipe 2 - dyspepsia syndrome - obs. vomiting",
-        "category": "Penyakit Dalam (Metabolik)",
+        "admissionDate": "-",
+        "los": 0,
+        "insurance": "-",
+        "doctor": "-",
+        "doctorPrimary": "-",
+        "diagnosis": "-",
+        "category": "-",
         "notes": {
-          "pagi": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
-          "sore": "PULANG JAM 13.00\n\n- Kel : badan lemah, 2 hari ini tidak bisa aktifitas. muntah >10x, nyeri ulu hati (+)\n- riw dm (+) metformin riw ht (-)\n- GDS/ hr (Pagi : )\n\ndr. Apriani via IGD :\n- ivfd nacl 0.9% 10tpm\n- inj. ranitidin 2x1, inj. ondansentron 3x4mg\n- sukralfat 3x2cth, metformin 1x500mg, candesartan 1x8mg\n- sabtu 24/10/26 Cek lipid profile (+) hasil DBN\n-os minta pulang lpor dr apriani (+) a/i : Acc blpl\n * mz 1x1, Metformin 1x500mg, Candesartan 1x8mg, Resep pulang (+) dengan px",
+          "pagi": "",
+          "sore": "",
           "malam": ""
         },
-        "tags": [
-          {
-            "label": "Pulang Hari Ini",
-            "color": "emerald"
-          }
-        ]
+        "tags": []
       },
       {
         "bed": "40",
@@ -92665,18 +92601,18 @@
       "totalBeds": 56,
       "capacityA": 16,
       "capacityB": 40,
-      "occupied": 51,
-      "empty": 5,
-      "freeBedDetail": "Free Bed:  5 (EG2-A: 0 ekstra bed, EG2-B: 1 + 4 ekstra bed)",
+      "occupied": 50,
+      "empty": 6,
+      "freeBedDetail": "Free Bed:  6 (EG2-A: 0 ekstra bed, EG2-B: 2 + 4 ekstra bed)",
       "textFreeA": "0 ekstra bed",
-      "textFreeB": "1 + 4 ekstra bed",
-      "bor": 91.1,
+      "textFreeB": "2 + 4 ekstra bed",
+      "bor": 89.3,
       "borA": 100.0,
-      "borB": 87.5,
+      "borB": 85.0,
       "occA": 16,
-      "occB": 35,
+      "occB": 34,
       "emptyA": 0,
-      "emptyB": 5,
+      "emptyB": 6,
       "dischargedToday": 3,
       "deathsToday": 1,
       "tagCounts": {
@@ -92686,8 +92622,8 @@
         "Puasa Pre-Op": 3,
         "Hemodialisa (HD)": 10,
         "Rencana Pulang": 3,
-        "Pulang Hari Ini": 3,
-        "Meninggal": 1
+        "Meninggal": 1,
+        "Pulang Hari Ini": 3
       }
     }
   }
