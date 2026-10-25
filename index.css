@@ -4021,14 +4021,15 @@ body::before {
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
-  right: 0;
-  max-height: 280px;
+  min-width: min(480px, 92vw);
+  max-width: 560px;
+  max-height: 440px;
   overflow-y: auto;
   background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-medium);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-lg);
-  z-index: 100;
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-md, 8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16), 0 4px 10px rgba(0, 0, 0, 0.08);
+  z-index: 250;
 }
 
 .search-dropdown-item {
