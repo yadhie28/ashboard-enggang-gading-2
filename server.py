@@ -30,7 +30,7 @@ SYNC_INFO_FILE = os.path.join(DIRECTORY, "sync_info.json")
 SCHEDULE_HOURS = [
     {"hour": 7, "minute": 0, "name": "Shift Pagi", "desc": "Operan Jaga Malam ➔ Pagi"},
     {"hour": 14, "minute": 0, "name": "Shift Sore", "desc": "Operan Jaga Pagi ➔ Sore"},
-    {"hour": 20, "minute": 0, "name": "Shift Malam", "desc": "Operan Jaga Sore ➔ Malam"}
+    {"hour": 21, "minute": 0, "name": "Shift Malam", "desc": "Operan Jaga Sore ➔ Malam"}
 ]
 
 sync_lock = threading.Lock()
@@ -265,7 +265,7 @@ def sync_and_send_census(trigger_name, mode):
 
 def auto_sync_scheduler_worker():
     """Background daemon thread checking schedule every 10 seconds."""
-    print("[SCHEDULER] Auto-Sync Scheduler aktif untuk jam 07:00, 14:00, dan 20:00 WIB.")
+    print("[SCHEDULER] Auto-Sync Scheduler aktif untuk jam 07:00, 14:00, dan 21:00 WIB.")
     last_triggered_slot = None
 
     while True:
@@ -279,7 +279,7 @@ def auto_sync_scheduler_worker():
                     slot_key = f"{now.strftime('%Y-%m-%d')}_{current_hour}:{current_minute}"
                     if last_triggered_slot != slot_key:
                         last_triggered_slot = slot_key
-                        mode = "shift_07" if current_hour == 7 else ("shift_14" if current_hour == 14 else "shift_20")
+                        mode = "shift_07" if current_hour == 7 else ("shift_14" if current_hour == 14 else "shift_21")
                         print(f"\n[SCHEDULER TRIGGER] Memulai Auto-Sync & Sensus WA {s['name']} ({s['desc']}) pada {now.strftime('%H:%M:%S')}...")
                         threading.Thread(target=sync_and_send_census, args=(f"auto_{s['name'].lower().replace(' ', '_')}", mode), daemon=True).start()
                     break

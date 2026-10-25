@@ -1,1 +1,1 @@
-0 7,14,20 * * * /Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2/auto_sync.sh >> /Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2/auto_sync.log 2>&1
+0 7,14,21 * * * /Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2/auto_sync.sh >> /Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2/auto_sync.log 2>&1

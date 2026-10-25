@@ -36,7 +36,7 @@ Atur folder ini sebagai **Active Workspace**.
 Sistem memiliki pipeline ganda (*Cloud via GitHub Actions* dan *Lokal via launchd/cron*) yang aktif secara otomatis pada:
 - **Pagi**: **07.00 WIB** (00:00 UTC)
 - **Siang**: **14.00 WIB** (07:00 UTC)
-- **Malam**: **20.00 WIB** (13:00 UTC)
+- **Malam**: **21.00 WIB** (14:00 UTC)
 
 ### Alur Kerja Otomatis:
 1. Menarik data mutasi terbaru dari Google Sheets (`EG 2A` & `EG 2B`).

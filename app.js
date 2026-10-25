@@ -1909,7 +1909,7 @@ async function triggerSync() {
 // ==========================================================================
 // REAL-TIME CENSUS EXECUTION & WHATSAPP REPORT DISPATCH
 // Rule Tetap: Pembanding dasar hitung (Px awal) TETAP hasil hitung shift terakhir
-// (07.00 / 14.00 / 20.00 WIB)
+// (07.00 / 14.00 / 21.00 WIB)
 // ==========================================================================
 // Helper format metrik WhatsApp: jika 0 / nihil / tidak ada / '-' -> tampilkan '-', selain itu tampilkan angka
 function formatMetricWA(val) {
@@ -2151,13 +2151,13 @@ function computeClientSideShiftCensus() {
     currentShift = 'Shift Pagi';
     baselineShiftName = 'Shift Malam (07.00 WIB)';
     baselinePx = 52;
-  } else if (timeFloat >= 14.0 && timeFloat < 20.0) {
+  } else if (timeFloat >= 14.0 && timeFloat < 21.0) {
     currentShift = 'Shift Sore';
     baselineShiftName = 'Shift Pagi (14.00 WIB)';
     baselinePx = 52;
   } else {
     currentShift = 'Shift Malam';
-    baselineShiftName = 'Shift Sore (20.00 WIB)';
+    baselineShiftName = 'Shift Sore (21.00 WIB)';
     baselinePx = 49;
   }
 
@@ -2175,7 +2175,7 @@ function computeClientSideShiftCensus() {
   // 3. Px baru dari jumlah cell pasien baru muncul di shift berjalan (8)
   // 4. Keseimbangan sensus: Px awal + Px baru - Px keluar = Px sekarang (52 + 8 - 49 = 11)
   // 5. Klasifikasi keluar: Px meninggal (arsiran merah), Px pindah, dan Px pulang (sisanya)
-  let pxBaru = (timeFloat >= 14.0 && timeFloat < 20.0) ? 8 : '-';
+  let pxBaru = (timeFloat >= 14.0 && timeFloat < 21.0) ? 8 : '-';
   const numBaru = pxBaru !== '-' ? Number(pxBaru) : 0;
   
   const pxKeluarTotal = Math.max(0, baselinePx + numBaru - pxSkrg);
@@ -2197,7 +2197,7 @@ function computeClientSideShiftCensus() {
   const textFreeB = occB >= 36 ? `${Math.max(0, 4 - (occB - 36))} ekstra bed` : `${36 - occB} + 4 ekstra bed`;
   const bor = `${((pxSkrg / 56) * 100).toFixed(1).replace('.', ',')}%`;
 
-  // Format Pesan WhatsApp Baku Resmi Jam 20.00
+  // Format Pesan WhatsApp Baku Resmi Jam 21.00
   const message =
     `Ruang Enggang Gading 2\n` +
     `Kapasitas: 56 Bed (EG2-A: 12 + 4 ekstra bed, EG2-B: 36 + 4 ekstra bed) \n\n` +

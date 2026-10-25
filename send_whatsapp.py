@@ -132,6 +132,54 @@ def send_whatsapp_local(phone: str = None, message: str = None, mode: str = "web
     return result
 
 GATEWAY_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "wa_gateway_config.json")
+SENT_LOG_PATH = os.path.join(os.path.dirname(__file__), "shift_sent_wa.json")
+
+def get_current_wib_datetime():
+    """Mengembalikan datetime dalam zona waktu WIB (UTC+7) secara akurat."""
+    from datetime import timezone, timedelta
+    wib_tz = timezone(timedelta(hours=7))
+    now_utc = datetime.now(timezone.utc)
+    return now_utc.astimezone(wib_tz)
+
+def check_scheduled_punctuality(window_minutes=10):
+    """
+    Memeriksa ketepatan waktu pengiriman jadwal resmi:
+    - 07.00 WIB (07.00 - 07.10)
+    - 14.00 WIB (14.00 - 14.10)
+    - 21.00 WIB (21.00 - 21.10)
+    Mengembalikan (is_on_time, slot_key, wib_str)
+    """
+    now_wib = get_current_wib_datetime()
+    hour = now_wib.hour
+    minute = now_wib.minute
+    wib_str = now_wib.strftime("%Y-%m-%d %H:%M:%S")
+
+    scheduled_hours = [7, 14, 21]
+    if hour in scheduled_hours and 0 <= minute <= window_minutes:
+        slot_key = f"{now_wib.strftime('%Y-%m-%d')}_{hour:02d}:00"
+        return True, slot_key, wib_str
+    
+    return False, None, wib_str
+
+def load_sent_log():
+    """Memuat histori pengiriman WhatsApp agar tidak terjadi pengiriman duplikat."""
+    if os.path.exists(SENT_LOG_PATH):
+        try:
+            with open(SENT_LOG_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {}
+
+def record_sent_slot(slot_key, wib_str):
+    """Mencatat slot checkpoint yang telah berhasil dikirim ke WA."""
+    data = load_sent_log()
+    data[slot_key] = wib_str
+    try:
+        with open(SENT_LOG_PATH, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+    except Exception as e:
+        print(f"[WARN] Gagal menyimpan log shift_sent_wa.json: {e}")
 
 def load_gateway_config() -> dict:
     """Memuat konfigurasi gateway API jika tersimpan."""
@@ -199,7 +247,7 @@ def send_via_gateway(phone: str, message: str, token: str = None, provider: str 
 def build_census_report(mode="auto", px_awal=None, px_baru=None, px_pindah=None, data_path="dashboard_data.json") -> str:
     """
     Menghasilkan template resmi laporan sensus WhatsApp Ruang Enggang Gading 2
-    dengan perbandingan shift terakhir (07.00 / 14.00 / 20.00) sesuai ketetapan baku.
+    dengan perbandingan shift terakhir (07.00 / 14.00 / 21.00) sesuai ketetapan baku.
     """
     try:
         from shift_census_calculator import compute_census_report
@@ -238,9 +286,25 @@ def main():
     parser.add_argument("--token", help="API Token untuk gateway Fonnte / Wablas")
     parser.add_argument("--save-token", action="store_true", help="Simpan token gateway ke wa_gateway_config.json")
     parser.add_argument("--no-open", action="store_true", help="Hanya tampilkan link tanpa membuka browser/aplikasi")
+    parser.add_argument("--scheduled-only", action="store_true", help="Kirim HANYA jika waktu tepat jam 07.00, 14.00, atau 21.00 WIB. Cegah kirim di luar jam tersebut.")
+    parser.add_argument("--force", action="store_true", help="Paksa kirim mengabaikan filter jam dan deduplikasi")
     parser.add_argument("--json", action="store_true", help="Output format JSON")
 
     args = parser.parse_args()
+
+    # Ketepatan Waktu Guard (Strict Punctuality)
+    if args.scheduled_only and not args.force:
+        is_on_time, slot_key, wib_str = check_scheduled_punctuality(window_minutes=10)
+        if not is_on_time:
+            print(f"[ON-TIME GUARD] Waktu saat ini: {wib_str} WIB.")
+            print("[ON-TIME GUARD] Bukan jam jadwal resmi (07.00, 14.00, 21.00 WIB). Sesuai instruksi ketepatan waktu, pengiriman WhatsApp DIBATALKAN.")
+            return
+
+        sent_log = load_sent_log()
+        if slot_key and slot_key in sent_log:
+            print(f"[DEDUP GUARD] Laporan sensus slot {slot_key} sudah terkirim pada {sent_log[slot_key]}.")
+            print("[DEDUP GUARD] Pengiriman diabaikan untuk mencegah duplikasi pesan ke Kepala Ruang.")
+            return
 
     # Tentukan pesan default
     if args.message is None:
@@ -274,6 +338,9 @@ def main():
             print(f" Status   : {gw_res.get('status')}")
             if gw_res.get("status") == "success":
                 print(" Hasil    : [BERHASIL TERKIRIM] Pesan langsung masuk ke WhatsApp tujuan.")
+                _, slot_key, wib_str = check_scheduled_punctuality(window_minutes=20)
+                if slot_key:
+                    record_sent_slot(slot_key, wib_str)
             else:
                 print(f" Error    : {gw_res.get('error')}")
             print("=" * 68)

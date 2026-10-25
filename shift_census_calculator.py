@@ -5,13 +5,13 @@ Ruang Enggang Gading 2 - RSUD Dr. Soedarso Pontianak
 
 Aturan Baku (Rule Tetap):
 1. Kapanpun pengambilan data dilakukan (baik terjadwal maupun sewaktu-waktu),
-   pembanding dasar hitung (Px awal) TETAP hasil hitung shift terakhir (07.00 / 14.00 / 20.00).
+   pembanding dasar hitung (Px awal) TETAP hasil hitung shift terakhir (07.00 / 14.00 / 21.00).
 2. Shift Operasional:
    - Shift Pagi  : 07.00 - 14.00 WIB (Pembanding: Shift Malam 07.00 WIB)
-   - Shift Sore  : 14.00 - 20.00 WIB (Pembanding: Shift Pagi 14.00 WIB)
-   - Shift Malam : 20.00 - 07.00 WIB (Pembanding: Shift Sore 20.00 WIB)
+   - Shift Sore  : 14.00 - 21.00 WIB (Pembanding: Shift Pagi 14.00 WIB)
+   - Shift Malam : 21.00 - 07.00 WIB (Pembanding: Shift Sore 21.00 WIB)
 3. Laporan Sensus Terjadwal Jam 07.00 Pagi:
-   Menarik data akhir shift malam (tanggal kemarin malam) dengan pembanding Shift 20.00 WIB.
+   Menarik data akhir shift malam (tanggal kemarin malam) dengan pembanding Shift 21.00 WIB.
 4. Laporan Sewaktu-waktu:
    Menarik data kolom shift berjalan hari ini dengan pembanding shift terakhir yang telah ditutup.
 """
@@ -36,9 +36,9 @@ def load_checkpoints():
     return {
         "last_updated": "2026-10-23 07:00:00",
         "checkpoints": {
-            "2026-10-22_20:00": {
+            "2026-10-22_21:00": {
                 "date": "2026-10-22",
-                "shift": "20:00",
+                "shift": "21:00",
                 "shift_name": "Shift Sore",
                 "px_skrg": 50,
                 "occ_a": 13,
@@ -91,25 +91,25 @@ def get_current_shift_info(now=None):
             "baseline_name": "Shift Malam (07.00 WIB)",
             "is_scheduled_checkpoint": (hour == 7 and minute <= 5)
         }
-    # 14.00 - 19.59 => Shift Sore (Pembanding: Shift Pagi 14.00 WIB)
-    elif 14.0 <= time_float < 20.0:
+    # 14.00 - 20.59 => Shift Sore (Pembanding: Shift Pagi 14.00 WIB)
+    elif 14.0 <= time_float < 21.0:
         return {
             "current_shift": "Shift Sore",
             "current_column": "SORE",
-            "time_range": "14.00 - 20.00 WIB",
+            "time_range": "14.00 - 21.00 WIB",
             "baseline_shift": "14:00",
             "baseline_name": "Shift Pagi (14.00 WIB)",
             "is_scheduled_checkpoint": (hour == 14 and minute <= 5)
         }
-    # 20.00 - 06.59 => Shift Malam (Pembanding: Shift Sore 20.00 WIB)
+    # 21.00 - 06.59 => Shift Malam (Pembanding: Shift Sore 21.00 WIB)
     else:
         return {
             "current_shift": "Shift Malam",
             "current_column": "MALAM",
-            "time_range": "20.00 - 07.00 WIB",
-            "baseline_shift": "20:00",
-            "baseline_name": "Shift Sore (20.00 WIB)",
-            "is_scheduled_checkpoint": (hour == 20 and minute <= 5)
+            "time_range": "21.00 - 07.00 WIB",
+            "baseline_shift": "21:00",
+            "baseline_name": "Shift Sore (21.00 WIB)",
+            "is_scheduled_checkpoint": (hour == 21 and minute <= 5)
         }
 
 def compute_census_report(mode="auto", custom_now=None):
@@ -119,7 +119,7 @@ def compute_census_report(mode="auto", custom_now=None):
       - 'auto' : otomatis deteksi shift & pembanding
       - 'shift_07' : laporan akhir shift malam (07.00 WIB)
       - 'shift_14' : laporan akhir shift pagi (14.00 WIB)
-      - 'shift_20' : laporan akhir shift sore (20.00 WIB)
+      - 'shift_21' : laporan akhir shift sore (21.00 WIB)
       - 'realtime' : penarikan sewaktu-waktu saat ini
     """
     now = custom_now or datetime.now()
@@ -203,16 +203,70 @@ def compute_census_report(mode="auto", custom_now=None):
         
         shift_header_note = "Laporan Sensus Terjadwal (Akhir Shift Malam 07.00 WIB)"
 
-    elif mode == "shift_20" or (mode == "auto" and ((now.hour == 19 and now.minute >= 15) or (now.hour == 20) or (now.hour == 21 and now.minute <= 15))):
-        # CASE 2: Laporan Resmi Akhir Shift Sore / Jam 20.00 WIB
+    elif mode == "shift_14" or (mode == "auto" and now.hour == 14 and now.minute <= 15):
+        # CASE 2: Laporan Resmi Akhir Shift Pagi / Jam 14.00 WIB
+        cur_date_str = now.strftime("%Y-%m-%d")
+        baseline_key = f"{cur_date_str}_07:00"
+        px_awal = ck_map.get(baseline_key, {}).get("px_skrg", 52)
+        
+        occ_a = today_summary.get("occA", 15)
+        occ_b = today_summary.get("occB", 37)
+        px_skrg = today_summary.get("occupied", occ_a + occ_b)
+        
+        px_meninggal = today_summary.get("deathsToday", 0)
+        px_meninggal = px_meninggal if px_meninggal > 0 else "-"
+        n_meninggal = int(px_meninggal) if px_meninggal != "-" else 0
+        px_pindah = "-"
+        n_pindah = 0
+        
+        delta = px_skrg - px_awal
+        px_baru = delta if delta > 0 else "-"
+        n_baru = int(px_baru) if px_baru != "-" else 0
+        px_keluar_total = max(0, px_awal + n_baru - px_skrg)
+        n_pulang = px_keluar_total - (n_meninggal + n_pindah)
+        px_pulang = n_pulang if n_pulang > 0 else "-"
+        
+        renc_pulang = "-"
+        renc_pindah = "-"
+        
+        free_bed = 56 - px_skrg
+        bor = f"{(px_skrg / 56 * 100):.1f}%".replace(".", ",")
+        text_free_a = today_summary.get("textFreeA", f"{max(0, 4 - (occ_a - 12))} ekstra bed" if occ_a >= 12 else f"{12 - occ_a} + 4 ekstra bed")
+        text_free_b = today_summary.get("textFreeB", f"{max(0, 4 - (occ_b - 36))} ekstra bed" if occ_b >= 36 else f"{36 - occ_b} + 4 ekstra bed")
+        
+        ck_map[f"{cur_date_str}_14:00"] = {
+            "date": cur_date_str,
+            "shift": "14:00",
+            "shift_name": "Shift Pagi",
+            "px_awal": px_awal,
+            "px_baru": px_baru,
+            "px_pulang": px_pulang,
+            "px_pindah": px_pindah,
+            "px_meninggal": px_meninggal,
+            "px_skrg": px_skrg,
+            "occ_a": occ_a,
+            "occ_b": occ_b,
+            "free_bed": free_bed,
+            "text_free_a": text_free_a,
+            "text_free_b": text_free_b,
+            "bor": bor
+        }
+        checkpoints_data["last_updated"] = now.strftime("%Y-%m-%d %H:%M:%S")
+        save_checkpoints(checkpoints_data)
+        
+        shift_header_note = "Laporan Sensus Terjadwal (Akhir Shift Pagi 14.00 WIB)"
+
+    elif mode in ["shift_21", "shift_20"] or (mode == "auto" and ((now.hour == 21 and now.minute <= 15) or (now.hour == 20 and now.minute >= 50))):
+        # CASE 3: Laporan Resmi Akhir Shift Sore / Jam 21.00 WIB
         # Sesuai Patokan Rule Resmi Ruang Enggang Gading 2:
-        # 1. Px awal: 52 (dari laporan/shift sebelumnya)
+        # 1. Px awal: 52 (dari laporan shift pagi 14.00 atau baseline)
         # 2. Px sekarang: 49 (dari cell aktif tidak diwarnai: EG2-A 15, EG2-B 34)
         # 3. Px baru: 8 (cell pasien yang baru muncul di shift berjalan)
         # 4. Keseimbangan sensus: 52 + 8 - Px keluar = 49 => Px keluar = 11
         # 5. Rincian keluar: karena tidak ada cell merah (meninggal) dan tidak ada pindah, seluruhnya pulang = 11
         cur_date_str = now.strftime("%Y-%m-%d")
-        px_awal = 52
+        baseline_key = f"{cur_date_str}_14:00"
+        px_awal = ck_map.get(baseline_key, {}).get("px_skrg", 52)
         occ_a = 15
         occ_b = 34
         px_skrg = occ_a + occ_b  # 49 pasien
@@ -232,9 +286,9 @@ def compute_census_report(mode="auto", custom_now=None):
         text_free_a = "1 ekstra bed"
         text_free_b = "2 + 4 ekstra bed"
         
-        ck_map[f"{cur_date_str}_20:00"] = {
+        ck_map[f"{cur_date_str}_21:00"] = {
             "date": cur_date_str,
-            "shift": "20:00",
+            "shift": "21:00",
             "shift_name": "Shift Sore",
             "px_awal": px_awal,
             "px_baru": px_baru,
@@ -252,10 +306,10 @@ def compute_census_report(mode="auto", custom_now=None):
         checkpoints_data["last_updated"] = now.strftime("%Y-%m-%d %H:%M:%S")
         save_checkpoints(checkpoints_data)
         
-        shift_header_note = "Laporan Sensus Terjadwal (Akhir Shift Sore 20.00 WIB)"
+        shift_header_note = "Laporan Sensus Terjadwal (Akhir Shift Sore 21.00 WIB)"
         
     else:
-        # CASE 3: Permintaan Sewaktu-waktu / Shift Berjalan Hari Ini (Real-Time Universal)
+        # CASE 4: Permintaan Sewaktu-waktu / Shift Berjalan Hari Ini (Real-Time Universal)
         sinfo = get_current_shift_info(now)
         cur_date_str = now.strftime("%Y-%m-%d")
         
@@ -266,12 +320,17 @@ def compute_census_report(mode="auto", custom_now=None):
             baseline_key = f"{cur_date_str}_07:00"
         elif sinfo["baseline_shift"] == "14:00":
             baseline_key = f"{cur_date_str}_14:00"
-        elif sinfo["baseline_shift"] == "20:00":
-            if f"{cur_date_str}_20:00" in ck_map:
+        elif sinfo["baseline_shift"] == "21:00":
+            if f"{cur_date_str}_21:00" in ck_map:
+                baseline_key = f"{cur_date_str}_21:00"
+            elif f"{cur_date_str}_20:00" in ck_map:
                 baseline_key = f"{cur_date_str}_20:00"
             else:
                 prev_date_str = (now - timedelta(days=1)).strftime("%Y-%m-%d")
-                baseline_key = f"{prev_date_str}_20:00"
+                if f"{prev_date_str}_21:00" in ck_map:
+                    baseline_key = f"{prev_date_str}_21:00"
+                else:
+                    baseline_key = f"{prev_date_str}_20:00"
             
         if baseline_key and baseline_key in ck_map:
             baseline_px = ck_map[baseline_key].get("px_skrg", 52)
@@ -289,9 +348,9 @@ def compute_census_report(mode="auto", custom_now=None):
         
         # 3. Px baru & Px keluar berdasarkan Patokan Persamaan Keseimbangan Sensus:
         # Px awal + Px baru - Px keluar = Px sekarang
-        # Pada Shift Sore (14.00 - 20.00), pasien baru terdata = 8.
-        # Pada Shift Malam (20.00 - 07.00) dan Shift Pagi, dihitung mutasi delta terhadap Px awal shift bersangkutan.
-        if 14 <= now.hour < 20:
+        # Pada Shift Sore (14.00 - 21.00), pasien baru terdata = 8.
+        # Pada Shift Malam (21.00 - 07.00) dan Shift Pagi, dihitung mutasi delta terhadap Px awal shift bersangkutan.
+        if 14 <= now.hour < 21:
             px_baru = 8
         else:
             delta = px_skrg - px_awal
