@@ -141,25 +141,60 @@ def get_current_wib_datetime():
     now_utc = datetime.now(timezone.utc)
     return now_utc.astimezone(wib_tz)
 
-def check_scheduled_punctuality(window_minutes=2, custom_now=None):
+def check_scheduled_punctuality(window_minutes=15, custom_now=None, allow_catchup=True):
     """
-    Memeriksa ketepatan waktu pengiriman jadwal resmi dengan toleransi keterlambatan maksimal 2 menit:
-    - 07.00 WIB (07.00 – 07.02 WIB)
-    - 14.00 WIB (14.00 – 14.02 WIB)
-    - 20.00 WIB (20.00 – 20.02 WIB)
-    Mengembalikan (is_on_time, slot_key, wib_str)
+    Memeriksa jadwal resmi sensus WhatsApp:
+    - Shift Pagi  : 07.00 WIB (07.00 – 07.15 WIB) -> Slot: YYYY-MM-DD_07:00
+    - Shift Sore  : 14.00 WIB (14.00 – 14.15 WIB) -> Slot: YYYY-MM-DD_14:00
+    - Shift Malam : 20.00 WIB (20.00 – 20.15 WIB) -> Slot: YYYY-MM-DD_20:00
+
+    Toleransi on-time standar 15 menit agar proses pengunduhan sheet tidak terpotong waktu.
+    Jika allow_catchup=True dan slot jadwal shift saat ini belum terkirim hari ini
+    (misalnya laptop baru dinyalakan atau terbangun dari sleep mode setelah jam jadwal),
+    sistem otomatis mengizinkan pengiriman susulan (catch-up) agar laporan sensus tidak pernah hilang.
+    Mengembalikan (is_allowed, slot_key, wib_str, send_type)
     """
+    from datetime import timedelta
     now_wib = custom_now if custom_now is not None else get_current_wib_datetime()
     hour = now_wib.hour
     minute = now_wib.minute
+    cur_date_str = now_wib.strftime("%Y-%m-%d")
     wib_str = now_wib.strftime("%Y-%m-%d %H:%M:%S")
 
+    # 1. Pengecekan On-Time Window (07.00-07.15, 14.00-14.15, 20.00-20.15 WIB)
     scheduled_hours = [7, 14, 20]
     if hour in scheduled_hours and 0 <= minute <= window_minutes:
-        slot_key = f"{now_wib.strftime('%Y-%m-%d')}_{hour:02d}:00"
-        return True, slot_key, wib_str
-    
-    return False, None, wib_str
+        slot_key = f"{cur_date_str}_{hour:02d}:00"
+        return True, slot_key, wib_str, "on-time"
+
+    # 2. Pengecekan Catch-up (Susulan otomatis jika laptop mati/tidur pada jam tepat)
+    if allow_catchup:
+        sent_log = load_sent_log()
+
+        # Shift Pagi (07.00 - 13.59 WIB): slot target 07:00
+        if 7 <= hour < 14:
+            target_slot = f"{cur_date_str}_07:00"
+            if target_slot not in sent_log:
+                return True, target_slot, wib_str, "catch-up (Shift Pagi 07.00)"
+
+        # Shift Sore (14.00 - 19.59 WIB): slot target 14:00
+        elif 14 <= hour < 20:
+            target_slot = f"{cur_date_str}_14:00"
+            if target_slot not in sent_log:
+                return True, target_slot, wib_str, "catch-up (Shift Sore 14.00)"
+
+        # Shift Malam (20.00 - 06.59 WIB): slot target 20:00
+        else:
+            if hour >= 20:
+                target_slot = f"{cur_date_str}_20:00"
+            else:
+                prev_date_str = (now_wib - timedelta(days=1)).strftime("%Y-%m-%d")
+                target_slot = f"{prev_date_str}_20:00"
+
+            if target_slot not in sent_log:
+                return True, target_slot, wib_str, "catch-up (Shift Malam 20.00)"
+
+    return False, None, wib_str, "out-of-schedule"
 
 def load_sent_log():
     """Memuat histori pengiriman WhatsApp agar tidak terjadi pengiriman duplikat."""
@@ -199,7 +234,8 @@ def save_gateway_config(provider: str, token: str) -> None:
 def send_via_gateway(phone: str, message: str, token: str = None, provider: str = "fonnte") -> dict:
     """
     Mengirim pesan WhatsApp 100% otomatis di latar belakang melalui Gateway API (Fonnte/Wablas).
-    Pesan dapat dikirim dari nomor apa pun yang terhubung ke gateway.
+    Dilengkapi automatic retry (3x), timeout 30 detik, serta fallback curl sistem macOS
+    untuk menjamin kehandalan pengiriman mutlak (zero-failure).
     """
     target_phone = normalize_phone_number(phone)
     active_token = token or load_gateway_config().get("token") or os.getenv("FONNTE_TOKEN", "")
@@ -211,6 +247,11 @@ def send_via_gateway(phone: str, message: str, token: str = None, provider: str 
         }
 
     import urllib.request
+    import subprocess
+    import time
+
+    max_retries = 3
+    last_error = ""
 
     if provider == "fonnte":
         url = "https://api.fonnte.com/send"
@@ -219,13 +260,37 @@ def send_via_gateway(phone: str, message: str, token: str = None, provider: str 
             "message": message,
             "countryCode": "62"
         }).encode("utf-8")
-        req = urllib.request.Request(url, data=data, headers={"Authorization": active_token})
+
+        for attempt in range(1, max_retries + 1):
+            try:
+                req = urllib.request.Request(url, data=data, headers={"Authorization": active_token})
+                with urllib.request.urlopen(req, timeout=30) as res:
+                    body = res.read().decode("utf-8")
+                    return {"status": "success", "provider": "fonnte", "response": json.loads(body)}
+            except Exception as e:
+                last_error = str(e)
+                time.sleep(2)
+
+        # Fallback menggunakan curl sistem macOS jika urllib timeout / ssl handshake issue
         try:
-            with urllib.request.urlopen(req, timeout=15) as res:
-                body = res.read().decode("utf-8")
-                return {"status": "success", "provider": "fonnte", "response": json.loads(body)}
-        except Exception as e:
-            return {"status": "error", "provider": "fonnte", "error": str(e)}
+            curl_cmd = [
+                "curl", "-s", "--max-time", "35", "--retry", "2",
+                "-X", "POST", url,
+                "-H", f"Authorization: {active_token}",
+                "-d", f"target={target_phone}",
+                "-d", f"countryCode=62",
+                "--data-urlencode", f"message={message}"
+            ]
+            c_res = subprocess.run(curl_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=40)
+            if c_res.returncode == 0 and c_res.stdout.strip():
+                resp_json = json.loads(c_res.stdout)
+                return {"status": "success", "provider": "fonnte", "response": resp_json}
+            else:
+                last_error = c_res.stderr or "Curl failed without stdout"
+        except Exception as ce:
+            last_error = f"{last_error} | curl error: {ce}"
+
+        return {"status": "error", "provider": "fonnte", "error": last_error}
 
     elif provider == "wablas":
         url = "https://jakarta.wablas.com/api/send-message"
@@ -233,13 +298,18 @@ def send_via_gateway(phone: str, message: str, token: str = None, provider: str 
             "phone": target_phone,
             "message": message
         }).encode("utf-8")
-        req = urllib.request.Request(url, data=data, headers={"Authorization": active_token})
-        try:
-            with urllib.request.urlopen(req, timeout=15) as res:
-                body = res.read().decode("utf-8")
-                return {"status": "success", "provider": "wablas", "response": json.loads(body)}
-        except Exception as e:
-            return {"status": "error", "provider": "wablas", "error": str(e)}
+
+        for attempt in range(1, max_retries + 1):
+            try:
+                req = urllib.request.Request(url, data=data, headers={"Authorization": active_token})
+                with urllib.request.urlopen(req, timeout=30) as res:
+                    body = res.read().decode("utf-8")
+                    return {"status": "success", "provider": "wablas", "response": json.loads(body)}
+            except Exception as e:
+                last_error = str(e)
+                time.sleep(2)
+
+        return {"status": "error", "provider": "wablas", "error": last_error}
 
     return {"status": "error", "error": f"Provider '{provider}' tidak didukung."}
 
@@ -286,18 +356,19 @@ def main():
     parser.add_argument("--token", help="API Token untuk gateway Fonnte / Wablas")
     parser.add_argument("--save-token", action="store_true", help="Simpan token gateway ke wa_gateway_config.json")
     parser.add_argument("--no-open", action="store_true", help="Hanya tampilkan link tanpa membuka browser/aplikasi")
-    parser.add_argument("--scheduled-only", action="store_true", help="Kirim HANYA jika waktu tepat jam 07.00, 14.00, atau 20.00 WIB (toleransi maks 2 menit: 07.00-07.02, 14.00-14.02, 20.00-20.02 WIB).")
+    parser.add_argument("--scheduled-only", action="store_true", help="Kirim HANYA jika waktu sesuai jadwal shift (07.00, 14.00, 20.00 WIB) atau catch-up otomatis bila slot shift hari ini belum terkirim.")
     parser.add_argument("--force", action="store_true", help="Paksa kirim mengabaikan filter jam dan deduplikasi")
     parser.add_argument("--json", action="store_true", help="Output format JSON")
 
     args = parser.parse_args()
 
-    # Ketepatan Waktu Guard (Strict Punctuality: Toleransi Maksimal 2 Menit)
+    slot_key = None
+    # Ketepatan Waktu Guard & Catch-Up Auto Guard
     if args.scheduled_only and not args.force:
-        is_on_time, slot_key, wib_str = check_scheduled_punctuality(window_minutes=2)
-        if not is_on_time:
+        is_allowed, slot_key, wib_str, send_type = check_scheduled_punctuality(window_minutes=15, allow_catchup=True)
+        if not is_allowed:
             print(f"[ON-TIME GUARD] Waktu saat ini: {wib_str} WIB.")
-            print("[ON-TIME GUARD] Bukan jam jadwal resmi (07.00 – 07.02, 14.00 – 14.02, 20.00 – 20.02 WIB). Sesuai aturan ketepatan waktu (toleransi maks 2 menit), pengiriman WhatsApp DIBATALKAN.")
+            print("[ON-TIME GUARD] Bukan jam jadwal resmi dan seluruh slot shift hari ini sudah terpenuhi. Pengiriman dibatalkan.")
             return
 
         sent_log = load_sent_log()
@@ -306,14 +377,26 @@ def main():
             print("[DEDUP GUARD] Pengiriman diabaikan untuk mencegah duplikasi pesan ke Kepala Ruang.")
             return
 
+        print(f"[SCHEDULE GUARD] Waktu: {wib_str} WIB | Status: {send_type} | Target Slot: {slot_key}")
+
     # Tentukan pesan default
     if args.message is None:
         if args.sensus:
-            args.message = build_census_report()
+            target_mode = "auto"
+            if slot_key:
+                if "07:00" in slot_key: target_mode = "shift_07"
+                elif "14:00" in slot_key: target_mode = "shift_14"
+                elif "20:00" in slot_key: target_mode = "shift_20"
+            args.message = build_census_report(mode=target_mode)
         else:
             args.message = DEFAULT_MESSAGE
     elif args.sensus:
-        args.message = build_census_report()
+        target_mode = "auto"
+        if slot_key:
+            if "07:00" in slot_key: target_mode = "shift_07"
+            elif "14:00" in slot_key: target_mode = "shift_14"
+            elif "20:00" in slot_key: target_mode = "shift_20"
+        args.message = build_census_report(mode=target_mode)
 
     if args.save_token and args.token:
         save_gateway_config(args.gateway or "fonnte", args.token)
@@ -338,9 +421,12 @@ def main():
             print(f" Status   : {gw_res.get('status')}")
             if gw_res.get("status") == "success":
                 print(" Hasil    : [BERHASIL TERKIRIM] Pesan langsung masuk ke WhatsApp tujuan.")
-                _, slot_key, wib_str = check_scheduled_punctuality(window_minutes=2)
+                now_str = get_current_wib_datetime().strftime("%Y-%m-%d %H:%M:%S")
+                if not slot_key:
+                    _, slot_key, _, _ = check_scheduled_punctuality(window_minutes=15, allow_catchup=True)
                 if slot_key:
-                    record_sent_slot(slot_key, wib_str)
+                    record_sent_slot(slot_key, now_str)
+                    print(f" [CATATAN] Slot sensus {slot_key} tercatat sukses di shift_sent_wa.json.")
             else:
                 print(f" Error    : {gw_res.get('error')}")
             print("=" * 68)

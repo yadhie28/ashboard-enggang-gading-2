@@ -61,14 +61,18 @@ if [ $BUILD_STATUS -ne 0 ]; then
 fi
 log "Dataset dashboard_data.json & hospital_indicators.json berhasil diperbarui."
 
-# 4. Update zip archive for offline distribution
+# 4. Kirim Laporan Sensus WhatsApp Otomatis (Prioritas Utama: Dikirim Langsung Sebelum Proses Arsip & Deploy)
+log "Mengirimkan laporan sensus WhatsApp otomatis ke Kepala Ruang (Jadwal Operan Jaga / Catch-up Otomatis)..."
+python3 send_whatsapp.py --sensus --scheduled-only --gateway fonnte >> "$LOG_FILE" 2>&1 || true
+
+# 5. Update zip archive for offline distribution
 log "Memperbarui arsip ZIP dashboard..."
 zip -r dashboard-enggang-gading-2.zip index.html index.css app.js dashboard_data.json hospital_indicators.json server.py share_link.sh auto_sync.sh run_build_data.py update_full_pipeline.py generate_dashboard_data.py logo_kalbar.svg start_server.command _redirects sync_info.json logo_asset.js logo_kalbar.png logo_enggang.png >> "$LOG_FILE" 2>&1
 if [ -d "$HOME/Downloads" ]; then
     cp dashboard-enggang-gading-2.zip "$HOME/Downloads/dashboard-enggang-gading-2.zip"
 fi
 
-# 5. Automatically deploy to Netlify
+# 6. Automatically deploy to Netlify
 log "Mengunggah paket pembaruan ke Netlify..."
 echo "/* /index.html 200" > _redirects
 zip -r deploy_netlify.zip index.html index.css app.js dashboard_data.json hospital_indicators.json _redirects logo_kalbar.svg logo_asset.js logo_kalbar.png logo_enggang.png >> "$LOG_FILE" 2>&1
@@ -81,7 +85,7 @@ DEPLOY_RESP=$(curl -s -X POST \
 
 log "Netlify Deploy Response diterima."
 
-# 6. Update sync_info.json
+# 7. Update sync_info.json
 CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')
 python3 -c "
 import json, os
@@ -103,16 +107,12 @@ with open(path, 'w') as f:
     json.dump(info, f, indent=2)
 "
 
-# 7. Push updated data to GitHub repository
+# 8. Push updated data to GitHub repository
 log "Menyelaraskan data sensus ke repositori GitHub..."
 git pull --rebase -X theirs origin main >> "$LOG_FILE" 2>&1 || true
 git add dashboard_data.json hospital_indicators.json EG2A.xlsx EG2B.xlsx sync_info.json >> "$LOG_FILE" 2>&1
 git commit -m "chore(sync): automated census sync $(date '+%Y-%m-%d %H:%M:%S')" >> "$LOG_FILE" 2>&1 || true
 git push origin main >> "$LOG_FILE" 2>&1 || true
-
-# 8. Send WhatsApp Census Report (Hanya pada jam tepat 07.00 – 07.02, 14.00 – 14.02, 20.00 – 20.02 WIB: Toleransi Maks 2 Menit)
-log "Mengirimkan laporan sensus WhatsApp otomatis ke Kepala Ruang (Strict On-Time toleransi maks 2 menit)..."
-python3 send_whatsapp.py --sensus --scheduled-only --gateway fonnte >> "$LOG_FILE" 2>&1 || true
 
 # 9. Notify local server if running
 curl -s http://localhost:3000/api/status > /dev/null 2>&1 || true

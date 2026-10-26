@@ -14,6 +14,10 @@
     <key>WorkingDirectory</key>
     <string>/Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2</string>
     
+    <!-- Jalankan otomatis saat login / startup untuk catch-up sensus jika laptop baru menyala -->
+    <key>RunAtLoad</key>
+    <true/>
+    
     <!-- Jadwal penarikan data 3 kali sehari sesuai jadwal operan jaga -->
     <key>StartCalendarInterval</key>
     <array>

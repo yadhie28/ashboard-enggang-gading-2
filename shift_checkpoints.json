@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-25 20:00:00",
+  "last_updated": "2026-10-26 08:37:11",
   "checkpoints": {
     "2026-10-22_20:00": {
       "date": "2026-10-22",
@@ -92,6 +92,23 @@
       "text_free_a": "0 ekstra bed",
       "text_free_b": "2 + 4 ekstra bed",
       "bor": "89,3%"
+    },
+    "2026-10-26_07:00": {
+      "date": "2026-10-26",
+      "shift": "07:00",
+      "shift_name": "Shift Malam",
+      "px_awal": 50,
+      "px_baru": 5,
+      "px_pulang": "-",
+      "px_pindah": "-",
+      "px_meninggal": "-",
+      "px_skrg": 55,
+      "occ_a": 16,
+      "occ_b": 39,
+      "free_bed": 1,
+      "text_free_a": "0 ekstra bed",
+      "text_free_b": "1 ekstra bed",
+      "bor": "98,2%"
     }
   }
 }
