@@ -21,8 +21,8 @@ fi
 echo "Membuka browser ke http://localhost:3000..."
 open "http://localhost:3000"
 
-echo ""
 echo "✓ Dashboard berhasil dibuka!"
-echo "Tautan Cloud (bisa diakses dari HP / Laptop mana saja):"
-echo "https://heroic-travesseiro-ef2369.netlify.app"
+echo ""
+echo "Tautan Cloud Online (Bisa dibuka dari HP / Laptop mana saja):"
+echo "👉 https://yadhie28.github.io/ashboard-enggang-gading-2/"
 echo "================================================================"
