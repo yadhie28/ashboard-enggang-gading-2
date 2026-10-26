@@ -45,7 +45,7 @@ jobs:
         run: |
           python run_build_data.py
 
-      - name: Send Daily Census WhatsApp Report (Strict On-Time 07.00, 14.00, 20.00 WIB - Maks 2 Mnt Toleransi)
+      - name: Send Daily Census WhatsApp Report (Auto Catch-Up 07.00, 14.00, 20.00 WIB)
         env:
           FONNTE_TOKEN: ${{ secrets.FONNTE_TOKEN || 'Ayfow2x1hFiscQZSphzq' }}
         run: |
