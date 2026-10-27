@@ -13,7 +13,7 @@
       "Enggang Gading 2A (16 Bed)",
       "Enggang Gading 2B (40 Bed)"
     ],
-    "lastUpdated": "27-10-2026 01:39:46",
+    "lastUpdated": "27-10-2026 01:43:00",
     "latestDate": "2026-10-27",
     "totalDatesRecorded": 298,
     "dateRange": "2026-01-01 s/d 2026-10-27",
@@ -2701,10 +2701,10 @@
     {
       "date": "2026-10-27",
       "occA": 15,
-      "occB": 36,
-      "totalOcc": 51,
+      "occB": 37,
+      "totalOcc": 52,
       "totalBeds": 56,
-      "bor": 91.1
+      "bor": 92.9
     }
   ],
   "monthly": [
@@ -2782,10 +2782,10 @@
     },
     {
       "month": "2026-10",
-      "avgOcc": 52.7,
+      "avgOcc": 52.8,
       "avgOccA": 15.3,
       "avgOccB": 37.4,
-      "avgBor": 94.18,
+      "avgBor": 94.25,
       "daysCounted": 27
     }
   ],
@@ -2940,7 +2940,7 @@
     "insurances": [
       {
         "name": "BPJS Kelas 3",
-        "count": 11895
+        "count": 11896
       },
       {
         "name": "BPJS Kelas 2",
@@ -2972,11 +2972,11 @@
     },
     "availableBeds": 56,
     "totalDays": 298,
-    "totalHP": 14937,
+    "totalHP": 14938,
     "totalDischarges": 1437,
     "overall": {
       "bor": 89.51,
-      "avlos": 10.39,
+      "avlos": 10.4,
       "toi": 1.22,
       "bto": 25.66,
       "gdr": 84.2,
@@ -3130,15 +3130,15 @@
       {
         "month": "2026-10",
         "days": 27,
-        "hp": 1424,
+        "hp": 1425,
         "hpA": 414,
-        "hpB": 1010,
+        "hpB": 1011,
         "discharges": 130,
         "deaths": 13,
         "deathsGt48": 13,
-        "bor": 94.18,
-        "avlos": 10.95,
-        "toi": 0.68,
+        "bor": 94.25,
+        "avlos": 10.96,
+        "toi": 0.67,
         "bto": 2.32,
         "gdr": 100.0,
         "ndr": 100.0
@@ -89767,29 +89767,34 @@
         {
           "bed": "14",
           "room": "EG2B",
-          "status": "Kosong",
-          "isEmpty": true,
-          "isActive": false,
+          "status": "Dirawat",
+          "isEmpty": false,
+          "isActive": true,
           "isDischargedToday": false,
           "isDeceased": false,
           "dischargeColor": null,
-          "name": "Bed Kosong",
-          "mrNo": "",
-          "gender": "P",
+          "name": "Tn. Reski Adetia",
+          "mrNo": "00305744",
+          "gender": "L",
           "age": "",
-          "admissionDate": "-",
-          "los": 0,
-          "insurance": "-",
-          "doctor": "-",
-          "doctorPrimary": "-",
-          "diagnosis": "-",
-          "category": "-",
+          "admissionDate": "27/10/2026",
+          "los": 1,
+          "insurance": "BPJS Kelas 3",
+          "doctor": "dr. Harry Andhika",
+          "doctorPrimary": "HARRY ANDHIKA, DR, SP.PD",
+          "diagnosis": "Melena \nec Susp pscba \nFebris H- 5",
+          "category": "Lain-lain",
           "notes": {
-            "pagi": "",
+            "pagi": "Menerima PB dari IGD \nKeluhan : demam sejak 5 hari smrs. keluhan disertai adanya bab hitam sejak 2 hari smrs. pasien tampak pucat dan lemas\nHb : 5 g/dL\ndr. Harry Andhika a/i :\n-  Rencana tranfusi PRC 5 kolf =>> DI UTD",
             "sore": "",
             "malam": ""
           },
-          "tags": []
+          "tags": [
+            {
+              "label": "Transfusi Darah",
+              "color": "red"
+            }
+          ]
         },
         {
           "bed": "15",
@@ -90248,7 +90253,7 @@
           "diagnosis": "DM tipe 2 AKI dd CKD Sepsis ec SSTI Ulkus pedis dextra DM hiponatremia neuropati DM",
           "category": "Nefrologi & Urologi",
           "notes": {
-            "pagi": "- Kel: tadi subuh demam batuk kering + nyeri telinga + kaki kanan terasa nyeri, perban belum diganti + mual + belum bab 2 hari + , Luka Kaki kanan (+)\n- RPD: dm tipe 2 \n- RPO: glimeperid\n\ndr.Muhardani Iqbal,Sp.PD visite tanggal 26/10/2026:\n- Cek GDS / hr (Pagi : 230) =>> Inj. Levemir naik 1x14 iu & Inj. Novorapid 3x6 iu\n- GV o/ TWC =>> GV + FOTO Senin 26/10/2026 (+) =>> Selanjutnya Rabu 28/10/2026 (-)\n- Lapor dr.Muhardani Iqbal hasil foto luka Senin 26/10/2026 (untuk lihat kondisi luka perlu Ronsen pedis atau tidak) dan lapor hasil elektrolit Tanggal 26/10/2026 (+) a/i: Lanjut kak, wound care saja thanks\n- Koreksi Inf nacl 3% 10 tpm makro (+) SELESAI =>> Hasil cek elektrolit ulang (Na:  128.00 K:  4.86 Cl:  98.65 Ca Ion:  1.09)\n- Info nacl 0,9% 10 tpm makro\n- Inj. Omz 40mg/12 jam, Inf pct 1gr/8 jam, Inj. Resfar 1vial/12 jam, Drip metronidazole 500mg/8 jam, Inj. Furosemid 20mg/12 jam, Clindamycin 4x300mg, Ketotenal 2x2, Codein 2x10mg, Sucralfat syr 3x15ml\n- Hasil Cek albumin: 3,52 \n- Besok Selasa 27/10/2026 cek gdp, elektrolit, DL (-) =>> MALAM PUASAKAN (-)",
+            "pagi": "- Kel: tadi subuh demam batuk kering + nyeri telinga + kaki kanan terasa nyeri, perban belum diganti + mual + belum bab 2 hari + , Luka Kaki kanan (+)\n- RPD: dm tipe 2 \n- RPO: glimeperid\n\ndr.Muhardani Iqbal,Sp.PD visite tanggal 27/10/2026:\n- Cek GDS / hr (Pagi : 230) =>> Inj. Levemir naik 1x14 iu & Inj. Novorapid 3x6 iu\n- GV o/ TWC =>> GV + FOTO Senin 26/10/2026 (+) =>> Selanjutnya Rabu 28/10/2026 (-)\n- Lapor dr.Muhardani Iqbal hasil foto luka Senin 26/10/2026 (untuk lihat kondisi luka perlu Ronsen pedis atau tidak) dan lapor hasil elektrolit Tanggal 26/10/2026 (+) a/i: Lanjut kak, wound care saja thanks\n- Koreksi Inf nacl 3% 10 tpm makro (+) SELESAI =>> Hasil cek elektrolit ulang (Na:  128.00 K:  4.86 Cl:  98.65 Ca Ion:  1.09)\n- Info nacl 0,9% 10 tpm makro\n- Inj. Omz 40mg/12 jam, Inf pct 1gr/8 jam, Inj. Resfar 1vial/12 jam, Drip metronidazole 500mg/8 jam, Inj. Furosemid 20mg/12 jam, Clindamycin 4x300mg, Ketotenal 2x2, Codein 2x10mg, Sucralfat syr 3x15ml\n- Hasil Cek albumin: 3,52 \n- Selasa 27/10/2026 cek gdp, DL => (GDP = 92)",
             "sore": "",
             "malam": ""
           },
@@ -90256,10 +90261,6 @@
             {
               "label": "Onkologi",
               "color": "pink"
-            },
-            {
-              "label": "Puasa Pre-Op",
-              "color": "amber"
             }
           ]
         },
@@ -90657,26 +90658,26 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 51,
-        "empty": 5,
-        "freeBedDetail": "Free Bed:  5 (EG2-A: 1 ekstra bed, EG2-B: 4 ekstra bed)",
+        "occupied": 52,
+        "empty": 4,
+        "freeBedDetail": "Free Bed:  4 (EG2-A: 1 ekstra bed, EG2-B: 3 ekstra bed)",
         "textFreeA": "1 ekstra bed",
-        "textFreeB": "4 ekstra bed",
-        "bor": 91.1,
+        "textFreeB": "3 ekstra bed",
+        "bor": 92.9,
         "borA": 93.8,
-        "borB": 90.0,
+        "borB": 92.5,
         "occA": 15,
-        "occB": 36,
+        "occB": 37,
         "emptyA": 1,
-        "emptyB": 4,
+        "emptyB": 3,
         "dischargedToday": 1,
         "deathsToday": 0,
         "tagCounts": {
           "Hemodialisa (HD)": 11,
           "Bedah / Operasi": 13,
-          "Transfusi Darah": 26,
+          "Transfusi Darah": 27,
           "Onkologi": 11,
-          "Puasa Pre-Op": 5,
+          "Puasa Pre-Op": 4,
           "Rencana Pulang": 6,
           "Pulang Hari Ini": 1
         }
@@ -91649,29 +91650,34 @@
       {
         "bed": "14",
         "room": "EG2B",
-        "status": "Kosong",
-        "isEmpty": true,
-        "isActive": false,
+        "status": "Dirawat",
+        "isEmpty": false,
+        "isActive": true,
         "isDischargedToday": false,
         "isDeceased": false,
         "dischargeColor": null,
-        "name": "Bed Kosong",
-        "mrNo": "",
-        "gender": "P",
+        "name": "Tn. Reski Adetia",
+        "mrNo": "00305744",
+        "gender": "L",
         "age": "",
-        "admissionDate": "-",
-        "los": 0,
-        "insurance": "-",
-        "doctor": "-",
-        "doctorPrimary": "-",
-        "diagnosis": "-",
-        "category": "-",
+        "admissionDate": "27/10/2026",
+        "los": 1,
+        "insurance": "BPJS Kelas 3",
+        "doctor": "dr. Harry Andhika",
+        "doctorPrimary": "HARRY ANDHIKA, DR, SP.PD",
+        "diagnosis": "Melena \nec Susp pscba \nFebris H- 5",
+        "category": "Lain-lain",
         "notes": {
-          "pagi": "",
+          "pagi": "Menerima PB dari IGD \nKeluhan : demam sejak 5 hari smrs. keluhan disertai adanya bab hitam sejak 2 hari smrs. pasien tampak pucat dan lemas\nHb : 5 g/dL\ndr. Harry Andhika a/i :\n-  Rencana tranfusi PRC 5 kolf =>> DI UTD",
           "sore": "",
           "malam": ""
         },
-        "tags": []
+        "tags": [
+          {
+            "label": "Transfusi Darah",
+            "color": "red"
+          }
+        ]
       },
       {
         "bed": "15",
@@ -92130,7 +92136,7 @@
         "diagnosis": "DM tipe 2 AKI dd CKD Sepsis ec SSTI Ulkus pedis dextra DM hiponatremia neuropati DM",
         "category": "Nefrologi & Urologi",
         "notes": {
-          "pagi": "- Kel: tadi subuh demam batuk kering + nyeri telinga + kaki kanan terasa nyeri, perban belum diganti + mual + belum bab 2 hari + , Luka Kaki kanan (+)\n- RPD: dm tipe 2 \n- RPO: glimeperid\n\ndr.Muhardani Iqbal,Sp.PD visite tanggal 26/10/2026:\n- Cek GDS / hr (Pagi : 230) =>> Inj. Levemir naik 1x14 iu & Inj. Novorapid 3x6 iu\n- GV o/ TWC =>> GV + FOTO Senin 26/10/2026 (+) =>> Selanjutnya Rabu 28/10/2026 (-)\n- Lapor dr.Muhardani Iqbal hasil foto luka Senin 26/10/2026 (untuk lihat kondisi luka perlu Ronsen pedis atau tidak) dan lapor hasil elektrolit Tanggal 26/10/2026 (+) a/i: Lanjut kak, wound care saja thanks\n- Koreksi Inf nacl 3% 10 tpm makro (+) SELESAI =>> Hasil cek elektrolit ulang (Na:  128.00 K:  4.86 Cl:  98.65 Ca Ion:  1.09)\n- Info nacl 0,9% 10 tpm makro\n- Inj. Omz 40mg/12 jam, Inf pct 1gr/8 jam, Inj. Resfar 1vial/12 jam, Drip metronidazole 500mg/8 jam, Inj. Furosemid 20mg/12 jam, Clindamycin 4x300mg, Ketotenal 2x2, Codein 2x10mg, Sucralfat syr 3x15ml\n- Hasil Cek albumin: 3,52 \n- Besok Selasa 27/10/2026 cek gdp, elektrolit, DL (-) =>> MALAM PUASAKAN (-)",
+          "pagi": "- Kel: tadi subuh demam batuk kering + nyeri telinga + kaki kanan terasa nyeri, perban belum diganti + mual + belum bab 2 hari + , Luka Kaki kanan (+)\n- RPD: dm tipe 2 \n- RPO: glimeperid\n\ndr.Muhardani Iqbal,Sp.PD visite tanggal 27/10/2026:\n- Cek GDS / hr (Pagi : 230) =>> Inj. Levemir naik 1x14 iu & Inj. Novorapid 3x6 iu\n- GV o/ TWC =>> GV + FOTO Senin 26/10/2026 (+) =>> Selanjutnya Rabu 28/10/2026 (-)\n- Lapor dr.Muhardani Iqbal hasil foto luka Senin 26/10/2026 (untuk lihat kondisi luka perlu Ronsen pedis atau tidak) dan lapor hasil elektrolit Tanggal 26/10/2026 (+) a/i: Lanjut kak, wound care saja thanks\n- Koreksi Inf nacl 3% 10 tpm makro (+) SELESAI =>> Hasil cek elektrolit ulang (Na:  128.00 K:  4.86 Cl:  98.65 Ca Ion:  1.09)\n- Info nacl 0,9% 10 tpm makro\n- Inj. Omz 40mg/12 jam, Inf pct 1gr/8 jam, Inj. Resfar 1vial/12 jam, Drip metronidazole 500mg/8 jam, Inj. Furosemid 20mg/12 jam, Clindamycin 4x300mg, Ketotenal 2x2, Codein 2x10mg, Sucralfat syr 3x15ml\n- Hasil Cek albumin: 3,52 \n- Selasa 27/10/2026 cek gdp, DL => (GDP = 92)",
           "sore": "",
           "malam": ""
         },
@@ -92138,10 +92144,6 @@
           {
             "label": "Onkologi",
             "color": "pink"
-          },
-          {
-            "label": "Puasa Pre-Op",
-            "color": "amber"
           }
         ]
       },
@@ -92539,26 +92541,26 @@
       "totalBeds": 56,
       "capacityA": 16,
       "capacityB": 40,
-      "occupied": 51,
-      "empty": 5,
-      "freeBedDetail": "Free Bed:  5 (EG2-A: 1 ekstra bed, EG2-B: 4 ekstra bed)",
+      "occupied": 52,
+      "empty": 4,
+      "freeBedDetail": "Free Bed:  4 (EG2-A: 1 ekstra bed, EG2-B: 3 ekstra bed)",
       "textFreeA": "1 ekstra bed",
-      "textFreeB": "4 ekstra bed",
-      "bor": 91.1,
+      "textFreeB": "3 ekstra bed",
+      "bor": 92.9,
       "borA": 93.8,
-      "borB": 90.0,
+      "borB": 92.5,
       "occA": 15,
-      "occB": 36,
+      "occB": 37,
       "emptyA": 1,
-      "emptyB": 4,
+      "emptyB": 3,
       "dischargedToday": 1,
       "deathsToday": 0,
       "tagCounts": {
         "Hemodialisa (HD)": 11,
         "Bedah / Operasi": 13,
-        "Transfusi Darah": 26,
+        "Transfusi Darah": 27,
         "Onkologi": 11,
-        "Puasa Pre-Op": 5,
+        "Puasa Pre-Op": 4,
         "Rencana Pulang": 6,
         "Pulang Hari Ini": 1
       }
