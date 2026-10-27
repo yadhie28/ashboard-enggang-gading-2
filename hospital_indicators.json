@@ -13,8 +13,8 @@
     "avlos": 10.39,
     "toi": 1.22,
     "bto": 25.66,
-    "gdr": 85.59,
-    "ndr": 68.2
+    "gdr": 84.2,
+    "ndr": 66.81
   },
   "monthly": [
     {
@@ -168,14 +168,14 @@
       "hpA": 414,
       "hpB": 1010,
       "discharges": 130,
-      "deaths": 15,
-      "deathsGt48": 15,
+      "deaths": 13,
+      "deathsGt48": 13,
       "bor": 94.18,
       "avlos": 10.95,
       "toi": 0.68,
       "bto": 2.32,
-      "gdr": 115.38,
-      "ndr": 115.38
+      "gdr": 100.0,
+      "ndr": 100.0
     }
   ]
 }
