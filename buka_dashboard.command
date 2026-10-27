@@ -6,7 +6,7 @@ echo "================================================================"
 echo "    MEMBUKA DASHBOARD RUANG ENGGANG GADING 2"
 echo "    RSUD Dr. Soedarso Pontianak"
 echo "================================================================"
-echo "Lokasi Proyek : $DIR"
+echo "Lokasi Proyek : $PROJECT_DIR"
 
 # Cek apakah server lokal sudah aktif di port 3000
 if lsof -i :3000 -sTCP:LISTEN >/dev/null 2>&1; then
