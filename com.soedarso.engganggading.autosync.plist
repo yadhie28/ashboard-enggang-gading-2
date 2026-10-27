@@ -19,13 +19,16 @@
     <true/>
     
     <!-- Jadwal penarikan data 3 kali sehari sesuai jadwal operan jaga -->
+    <!-- SHIFT PAGI: Dijalankan jam 06:45 WIB agar WA terkirim sebelum 07:02 WIB -->
+    <!-- (Download sheet ~5-10 menit + build data ~2-3 menit = selesai ~07:00) -->
+    <!-- Perubahan dari 07:00 → 06:45 untuk memastikan ketepatan waktu laporan -->
     <key>StartCalendarInterval</key>
     <array>
         <dict>
             <key>Hour</key>
-            <integer>7</integer>
+            <integer>6</integer>
             <key>Minute</key>
-            <integer>0</integer>
+            <integer>45</integer>
         </dict>
         <dict>
             <key>Hour</key>

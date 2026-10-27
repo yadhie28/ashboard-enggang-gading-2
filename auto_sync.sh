@@ -28,7 +28,16 @@ trap 'rm -f "$LOCKFILE"' EXIT INT TERM
 echo "==================================================================" >> "$LOG_FILE"
 log "=== [AUTO-SYNC START] Memulai Penarikan Spreadsheet Google Sheets ==="
 
-# 1. Download EG2A with retry and safety check
+# ─────────────────────────────────────────────────────────────────────────────
+# LANGKAH 1 (PRIORITAS UTAMA): Kirim Laporan Sensus WhatsApp SEKARANG
+# Menggunakan data checkpoint shift terakhir yang sudah tersimpan.
+# Dikirim TERLEBIH DAHULU sebelum proses download (agar tepat waktu ≤ 07:02).
+# ─────────────────────────────────────────────────────────────────────────────
+log "[STEP 1] Mengirimkan laporan sensus WhatsApp ke Kepala Ruang (prioritas utama)..."
+python3 send_whatsapp.py --sensus --scheduled-only --gateway fonnte >> "$LOG_FILE" 2>&1 || true
+log "[STEP 1] Pengiriman WA selesai."
+
+# 2. Download EG2A with retry and safety check
 log "Mengunduh Spreadsheet EG2A..."
 curl -s -L --retry 3 --connect-timeout 20 "https://docs.google.com/spreadsheets/d/1RtJzfTnuTu-cmZXW59aGUDpihhJ1kGm_z9BozUHsgsI/export?format=xlsx" -o EG2A.xlsx.tmp
 if [ -s EG2A.xlsx.tmp ] && [ $(wc -c < EG2A.xlsx.tmp) -gt 50000 ]; then
@@ -51,7 +60,7 @@ else
 fi
 
 # 3. Run build script
-log "Membangun ulang dataset sensus & deteksi warna kepulangan (run_build_data.py)..."
+log "[STEP 3] Membangun ulang dataset sensus & deteksi warna kepulangan (run_build_data.py)..."
 python3 run_build_data.py >> "$LOG_FILE" 2>&1
 BUILD_STATUS=$?
 
@@ -59,13 +68,9 @@ if [ $BUILD_STATUS -ne 0 ]; then
     log "[ERROR] Pemrosesan run_build_data.py gagal dengan kode $BUILD_STATUS."
     exit 1
 fi
-log "Dataset dashboard_data.json & hospital_indicators.json berhasil diperbarui."
+log "[STEP 3] Dataset dashboard_data.json & hospital_indicators.json berhasil diperbarui."
 
-# 4. Kirim Laporan Sensus WhatsApp Otomatis (Prioritas Utama: Dikirim Langsung Sebelum Proses Arsip & Deploy)
-log "Mengirimkan laporan sensus WhatsApp otomatis ke Kepala Ruang (Jadwal Operan Jaga / Catch-up Otomatis)..."
-python3 send_whatsapp.py --sensus --scheduled-only --gateway fonnte >> "$LOG_FILE" 2>&1 || true
-
-# 5. Update zip archive for offline distribution
+# 4. Update zip archive for offline distribution
 log "Memperbarui arsip ZIP dashboard..."
 zip -r dashboard-enggang-gading-2.zip index.html index.css app.js dashboard_data.json hospital_indicators.json server.py share_link.sh auto_sync.sh run_build_data.py update_full_pipeline.py generate_dashboard_data.py logo_kalbar.svg start_server.command _redirects sync_info.json logo_asset.js logo_kalbar.png logo_enggang.png >> "$LOG_FILE" 2>&1
 if [ -d "$HOME/Downloads" ]; then

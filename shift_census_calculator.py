@@ -14,6 +14,12 @@ Aturan Baku (Rule Tetap):
    Menarik data akhir shift malam (tanggal kemarin malam) dengan pembanding Shift 20.00 WIB.
 4. Laporan Sewaktu-waktu:
    Menarik data kolom shift berjalan hari ini dengan pembanding shift terakhir yang telah ditutup.
+
+Rumus Keseimbangan Sensus (WAJIB):
+   px_awal + px_baru - px_pulang - px_meninggal - px_pindah = px_sekarang
+   => px_baru = (px_sekarang - px_awal) + px_pulang + px_meninggal + px_pindah
+   => Seluruh variabel keluar (pulang, meninggal, pindah) HARUS diperhitungkan
+      sebelum menghitung px_baru, terlepas dari apakah total netto naik atau turun.
 """
 
 import os
@@ -217,35 +223,50 @@ def compute_census_report(mode="auto", custom_now=None):
     occ_b = today_summary.get("occB", 34)
     px_skrg = today_summary.get("occupied", occ_a + occ_b)
 
-    # 4. Deteksi Kematian (Meninggal)
+    # 4. Deteksi Kematian & Kepulangan dari data dashboard hari ini
     deaths = today_summary.get("deathsToday", 0)
+    discharged_today = today_summary.get("dischargedToday", 0)
 
-    # 5. Persamaan Keseimbangan Sensus Pasien
-    # Px awal + Px baru - (Px pulang + Px meninggal + Px pindah) = Px sekarang
-    delta = px_skrg - px_awal
+    # 5. Persamaan Keseimbangan Sensus Pasien (RUMUS BAKU WAJIB)
+    # ─────────────────────────────────────────────────────────────
+    # px_awal + px_baru = px_sekarang + px_pulang + px_meninggal + px_pindah
+    # => px_baru = (px_sekarang - px_awal) + px_pulang + px_meninggal + px_pindah
+    #
+    # PENTING: px_meninggal dan px_pulang HARUS diperhitungkan terlebih dahulu
+    # SEBELUM menghitung px_baru, karena pasien yang meninggal / pulang sudah
+    # TIDAK terhitung lagi di px_sekarang (sudah dikeluarkan dari spreadsheet).
+    # ─────────────────────────────────────────────────────────────
+
     px_pindah = "-"
     renc_pulang = "-"
     renc_pindah = "-"
 
-    if delta > 0:
-        # Netto pasien bertambah
-        px_baru = delta
-        px_pulang = "-"
-        px_meninggal = "-"
+    # Tentukan meninggal dari data hari ini (deathsToday dari dashboard)
+    px_meninggal = deaths if deaths > 0 else "-"
+
+    # Tentukan pulang dari data hari ini (dischargedToday dari dashboard)
+    # dischargedToday sudah dikurangi yang meninggal di pipeline data
+    n_pulang_raw = max(0, discharged_today)
+    px_pulang = n_pulang_raw if n_pulang_raw > 0 else "-"
+
+    # Hitung px_baru menggunakan rumus keseimbangan yang benar
+    # px_baru = (px_skrg - px_awal) + total_keluar
+    total_keluar = (deaths if deaths > 0 else 0) + n_pulang_raw  # pindah diabaikan jika '-'
+    px_baru_raw = (px_skrg - px_awal) + total_keluar
+
+    if px_baru_raw > 0:
+        px_baru = px_baru_raw
+    elif px_baru_raw == 0:
+        px_baru = "-"  # Tidak ada pasien baru
     else:
-        # Pasien berkurang / tetap
-        px_baru = "-"
-        total_keluar = px_awal - px_skrg
-        if total_keluar > 0 and deaths > 0:
-            px_meninggal = min(deaths, total_keluar)
-            n_pulang = max(0, total_keluar - px_meninggal)
-            px_pulang = n_pulang if n_pulang > 0 else "-"
-        elif total_keluar > 0:
-            px_meninggal = "-"
-            px_pulang = total_keluar
-        else:
-            px_meninggal = "-"
-            px_pulang = "-"
+        # Inkonsistensi data: px_baru negatif tidak mungkin terjadi
+        # Kemungkinan ada pasien pindah masuk yang belum tercatat di spreadsheet
+        print(f"[WARN] Inkonsistensi data sensus: px_baru_raw={px_baru_raw}. "
+              f"px_awal={px_awal}, px_skrg={px_skrg}, deaths={deaths}, discharged={discharged_today}.")
+        print(f"[WARN] Kemungkinan ada mutasi pasien (pindah masuk/pindah keluar) yang "
+              f"belum tercatat di data spreadsheet. Gunakan nilai px_skrg dari spreadsheet "
+              f"dan periksa ulang data manual.")
+        px_baru = "-"  # Tidak bisa ditentukan otomatis
 
     # 6. Kapasitas & Free Bed
     free_bed = 56 - px_skrg

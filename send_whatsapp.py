@@ -144,11 +144,13 @@ def get_current_wib_datetime():
 def check_scheduled_punctuality(window_minutes=15, custom_now=None, allow_catchup=True):
     """
     Memeriksa jadwal resmi sensus WhatsApp:
-    - Shift Pagi  : 07.00 WIB (07.00 – 07.15 WIB) -> Slot: YYYY-MM-DD_07:00
-    - Shift Sore  : 14.00 WIB (14.00 – 14.15 WIB) -> Slot: YYYY-MM-DD_14:00
-    - Shift Malam : 20.00 WIB (20.00 – 20.15 WIB) -> Slot: YYYY-MM-DD_20:00
+    - Shift Pagi  : 07.00 WIB (06.45 - 07.15 WIB) -> Slot: YYYY-MM-DD_07:00
+    - Shift Sore  : 14.00 WIB (13.45 - 14.15 WIB) -> Slot: YYYY-MM-DD_14:00
+    - Shift Malam : 20.00 WIB (19.45 - 20.15 WIB) -> Slot: YYYY-MM-DD_20:00
 
-    Toleransi on-time standar 15 menit agar proses pengunduhan sheet tidak terpotong waktu.
+    Window on-time mencakup 15 menit SEBELUM hingga 15 menit SESUDAH jadwal resmi.
+    Ini mengakomodasi auto_sync yang dijadwalkan 15 menit lebih awal (06:45 WIB)
+    agar laporan WhatsApp terkirim tepat sebelum batas waktu (<= 07:02 WIB).
     Jika allow_catchup=True dan slot jadwal shift saat ini belum terkirim hari ini
     (misalnya laptop baru dinyalakan atau terbangun dari sleep mode setelah jam jadwal),
     sistem otomatis mengizinkan pengiriman susulan (catch-up) agar laporan sensus tidak pernah hilang.
@@ -161,31 +163,41 @@ def check_scheduled_punctuality(window_minutes=15, custom_now=None, allow_catchu
     cur_date_str = now_wib.strftime("%Y-%m-%d")
     wib_str = now_wib.strftime("%Y-%m-%d %H:%M:%S")
 
-    # 1. Pengecekan On-Time Window (07.00-07.15, 14.00-14.15, 20.00-20.15 WIB)
-    scheduled_hours = [7, 14, 20]
-    if hour in scheduled_hours and 0 <= minute <= window_minutes:
-        slot_key = f"{cur_date_str}_{hour:02d}:00"
-        return True, slot_key, wib_str, "on-time"
+    # Konversi waktu ke total menit dalam hari (0 - 1439)
+    total_minutes = hour * 60 + minute
+
+    # 1. Pengecekan On-Time Window: ±15 menit dari jadwal resmi
+    #    Shift Pagi  07:00 => window 06:45 - 07:15  (405 - 435 menit)
+    #    Shift Sore  14:00 => window 13:45 - 14:15  (825 - 855 menit)
+    #    Shift Malam 20:00 => window 19:45 - 20:15  (1185 - 1215 menit)
+    schedule_slots = [
+        (7 * 60,  f"{cur_date_str}_07:00"),   # Shift Pagi
+        (14 * 60, f"{cur_date_str}_14:00"),   # Shift Sore
+        (20 * 60, f"{cur_date_str}_20:00"),   # Shift Malam
+    ]
+    for sched_total, slot_key in schedule_slots:
+        if (sched_total - window_minutes) <= total_minutes <= (sched_total + window_minutes):
+            return True, slot_key, wib_str, "on-time"
 
     # 2. Pengecekan Catch-up (Susulan otomatis jika laptop mati/tidur pada jam tepat)
     if allow_catchup:
         sent_log = load_sent_log()
 
-        # Shift Pagi (07.00 - 13.59 WIB): slot target 07:00
-        if 7 <= hour < 14:
+        # Shift Pagi (06.45 - 13.44 WIB): slot target 07:00
+        if (6 * 60 + 45) <= total_minutes < (13 * 60 + 45):
             target_slot = f"{cur_date_str}_07:00"
             if target_slot not in sent_log:
                 return True, target_slot, wib_str, "catch-up (Shift Pagi 07.00)"
 
-        # Shift Sore (14.00 - 19.59 WIB): slot target 14:00
-        elif 14 <= hour < 20:
+        # Shift Sore (13.45 - 19.44 WIB): slot target 14:00
+        elif (13 * 60 + 45) <= total_minutes < (19 * 60 + 45):
             target_slot = f"{cur_date_str}_14:00"
             if target_slot not in sent_log:
                 return True, target_slot, wib_str, "catch-up (Shift Sore 14.00)"
 
-        # Shift Malam (20.00 - 06.59 WIB): slot target 20:00
+        # Shift Malam (19.45 - 06.44 WIB): slot target 20:00
         else:
-            if hour >= 20:
+            if total_minutes >= (19 * 60 + 45):
                 target_slot = f"{cur_date_str}_20:00"
             else:
                 prev_date_str = (now_wib - timedelta(days=1)).strftime("%Y-%m-%d")
