@@ -5,16 +5,16 @@
     "total": 56
   },
   "availableBeds": 56,
-  "totalDays": 302,
-  "totalHP": 15151,
-  "totalDischarges": 1452,
+  "totalDays": 303,
+  "totalHP": 15202,
+  "totalDischarges": 1457,
   "overall": {
     "bor": 89.59,
     "avlos": 10.43,
     "toi": 1.21,
-    "bto": 25.93,
-    "gdr": 86.09,
-    "ndr": 68.18
+    "bto": 26.02,
+    "gdr": 85.79,
+    "ndr": 67.95
   },
   "monthly": [
     {
@@ -167,15 +167,31 @@
       "hp": 1638,
       "hpA": 473,
       "hpB": 1165,
-      "discharges": 145,
+      "discharges": 146,
       "deaths": 17,
       "deathsGt48": 16,
       "bor": 94.35,
-      "avlos": 11.3,
-      "toi": 0.68,
-      "bto": 2.59,
-      "gdr": 117.24,
-      "ndr": 110.34
+      "avlos": 11.22,
+      "toi": 0.67,
+      "bto": 2.61,
+      "gdr": 116.44,
+      "ndr": 109.59
+    },
+    {
+      "month": "2026-11",
+      "days": 1,
+      "hp": 51,
+      "hpA": 16,
+      "hpB": 35,
+      "discharges": 4,
+      "deaths": 0,
+      "deathsGt48": 0,
+      "bor": 91.07,
+      "avlos": 12.75,
+      "toi": 1.25,
+      "bto": 0.07,
+      "gdr": 0.0,
+      "ndr": 0.0
     }
   ]
 }
