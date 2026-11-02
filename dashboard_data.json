@@ -13,7 +13,7 @@
       "Enggang Gading 2A (16 Bed)",
       "Enggang Gading 2B (40 Bed)"
     ],
-    "lastUpdated": "02-11-2026 04:44:45",
+    "lastUpdated": "02-11-2026 16:51:54",
     "latestDate": "2026-11-02",
     "totalDatesRecorded": 304,
     "dateRange": "2026-01-01 s/d 2026-11-02",
@@ -2755,10 +2755,10 @@
     {
       "date": "2026-11-02",
       "occA": 16,
-      "occB": 35,
-      "totalOcc": 51,
+      "occB": 16,
+      "totalOcc": 32,
       "totalBeds": 56,
-      "bor": 91.1
+      "bor": 57.1
     }
   ],
   "monthly": [
@@ -2844,10 +2844,10 @@
     },
     {
       "month": "2026-11",
-      "avgOcc": 51.5,
+      "avgOcc": 42.0,
       "avgOccA": 16.0,
-      "avgOccB": 35.5,
-      "avgBor": 91.96,
+      "avgOccB": 26.0,
+      "avgBor": 75.0,
       "daysCounted": 2
     }
   ],
@@ -3002,15 +3002,15 @@
     "insurances": [
       {
         "name": "BPJS Kelas 3",
-        "count": 12163
+        "count": 12149
       },
       {
         "name": "BPJS Kelas 2",
-        "count": 1766
+        "count": 1762
       },
       {
         "name": "BPJS Kelas 1",
-        "count": 622
+        "count": 621
       },
       {
         "name": "Lainnya / Penjamin Khusus",
@@ -3034,15 +3034,15 @@
     },
     "availableBeds": 56,
     "totalDays": 304,
-    "totalHP": 15254,
-    "totalDischarges": 1456,
+    "totalHP": 15235,
+    "totalDischarges": 1474,
     "overall": {
-      "bor": 89.6,
-      "avlos": 10.48,
-      "toi": 1.22,
-      "bto": 26.0,
-      "gdr": 85.85,
-      "ndr": 67.99
+      "bor": 89.49,
+      "avlos": 10.34,
+      "toi": 1.21,
+      "bto": 26.32,
+      "gdr": 85.48,
+      "ndr": 67.84
     },
     "monthly": [
       {
@@ -3208,18 +3208,18 @@
       {
         "month": "2026-11",
         "days": 2,
-        "hp": 103,
+        "hp": 84,
         "hpA": 32,
-        "hpB": 71,
-        "discharges": 3,
-        "deaths": 0,
-        "deathsGt48": 0,
-        "bor": 91.96,
-        "avlos": 34.33,
-        "toi": 3.0,
-        "bto": 0.05,
-        "gdr": 0.0,
-        "ndr": 0.0
+        "hpB": 52,
+        "discharges": 21,
+        "deaths": 1,
+        "deathsGt48": 1,
+        "bor": 75.0,
+        "avlos": 4.0,
+        "toi": 1.33,
+        "bto": 0.38,
+        "gdr": 47.62,
+        "ndr": 47.62
       }
     ]
   },
@@ -89603,12 +89603,12 @@
         {
           "bed": "6",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Ny. Yusnita",
           "mrNo": "002997806",
           "gender": "P",
@@ -89626,6 +89626,10 @@
             "malam": ""
           },
           "tags": [
+            {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
             {
               "label": "Hemodialisa (HD)",
               "color": "purple"
@@ -89675,12 +89679,12 @@
         {
           "bed": "8",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Ny. Putri Aulia Alfitri",
           "mrNo": "00115198",
           "gender": "P",
@@ -89698,6 +89702,10 @@
             "malam": ""
           },
           "tags": [
+            {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
             {
               "label": "Transfusi Darah",
               "color": "red"
@@ -89739,12 +89747,12 @@
         {
           "bed": "10",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Tn. Herry",
           "mrNo": "00270093",
           "gender": "L",
@@ -89763,6 +89771,10 @@
           },
           "tags": [
             {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
+            {
               "label": "Transfusi Darah",
               "color": "red"
             },
@@ -89775,12 +89787,12 @@
         {
           "bed": "11",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Ny. Maryanten",
           "mrNo": "00289269",
           "gender": "P",
@@ -89799,6 +89811,10 @@
           },
           "tags": [
             {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
+            {
               "label": "Hemodialisa (HD)",
               "color": "purple"
             },
@@ -89811,12 +89827,12 @@
         {
           "bed": "12",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFF6B26B",
           "name": "Ny. sabariah",
           "mrNo": "00011532",
           "gender": "P",
@@ -89833,17 +89849,22 @@
             "sore": "",
             "malam": ""
           },
-          "tags": []
+          "tags": [
+            {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            }
+          ]
         },
         {
           "bed": "13",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Ny. Kristina Elvi Virera",
           "mrNo": "00169136",
           "gender": "P",
@@ -89862,6 +89883,10 @@
           },
           "tags": [
             {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
+            {
               "label": "Hemodialisa (HD)",
               "color": "purple"
             },
@@ -89874,12 +89899,12 @@
         {
           "bed": "14",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFF6B26B",
           "name": "Tn. Reski Adetia",
           "mrNo": "00305744",
           "gender": "L",
@@ -89898,8 +89923,8 @@
           },
           "tags": [
             {
-              "label": "Rencana Pulang",
-              "color": "green"
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
             },
             {
               "label": "Transfusi Darah",
@@ -89910,12 +89935,12 @@
         {
           "bed": "15",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Sdr. Rohan",
           "mrNo": "00295878",
           "gender": "L",
@@ -89933,6 +89958,10 @@
             "malam": ""
           },
           "tags": [
+            {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
             {
               "label": "Onkologi",
               "color": "pink"
@@ -89978,32 +90007,36 @@
         {
           "bed": "17",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
-          "name": "Ny. Nuraini",
-          "mrNo": "00306243",
-          "gender": "P",
+          "dischargeColor": "FFFCE5CD",
+          "name": "Tn. Syamsir Alam",
+          "mrNo": "00264776",
+          "gender": "L",
           "age": "",
-          "admissionDate": "11/01/2026",
-          "los": 296,
-          "insurance": "BPJS Kelas 3",
-          "doctor": "dr. Sony",
-          "doctorPrimary": "R. SONY YUSUF WIBISONO, DR, SP.PD.,KGH",
-          "diagnosis": "ckd st v - alo",
-          "category": "Nefrologi & Urologi",
+          "admissionDate": "21/10/2026",
+          "los": 13,
+          "insurance": "BPJS Kelas 1",
+          "doctor": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK",
+          "doctorPrimary": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK",
+          "diagnosis": "CNF on kemotherapi  Chemotherapi induced nausea vomitus Hiponatremia (115,32) Hipokalemia (2.5)",
+          "category": "Bedah Digestif & Gastro",
           "notes": {
-            "pagi": "- Kel : meracau sejak pagi, tidak nyambung jika di ajak berkomunikasi. munth hari ini 5x.\n- Riw hd setiap selasa dan sabtu di yarsi.\n\n- Terapi via IGD :  venflon - inj. omeprazole 1x1 - inj. ondansentron 3x8mg - inj. furosemid 2x1 - amlodipin 1x10mg - klonidin 3x1\n- dr. Sony via IGD : HD Cito \n\n- HD terakhir tgl 31/10/26 (+) => Besok cek Ur/Cr post HD input (+) \n\n- LApor PB (+)",
+            "pagi": "",
             "sore": "",
             "malam": ""
           },
           "tags": [
             {
-              "label": "Hemodialisa (HD)",
-              "color": "purple"
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
+            {
+              "label": "Onkologi",
+              "color": "pink"
             }
           ]
         },
@@ -90095,11 +90128,15 @@
           "diagnosis": "Scc kidney sn Ca related pain Post paliatif nefrektomi sn",
           "category": "Onkologi & Hematologi",
           "notes": {
-            "pagi": "- Kel: Nyeri perut kiri menjalar ke kanan sejak 5 hari smrs Mual Bab bak bisa. \n- Riw: nefrektomi di rs. Kharitas 2 minggu lalu dg dr saor. Hasil biopsi scc ren sn. Belum konsul ulang ke dr. Saor d kharitas karena biaya.\n\ndr.Parsaoran,Sp.U via IGD:\n- Drip TKO dalam infus 500 cc-->60 tpm\n- Pasien hasil PA nya: SCC \n- Lansoprazole 1x30 mg i.v, Cefoperazone sulbactam 2x1 gr (skin test)\n- Co dr. KHOM untuk minta terapi adjuvan pasien dengan SCC kidney post nefrektomi (+)\n- R/ CT scan abd Kamis 05/11/2026 (sudah dpt jdwl dari penjadwalan radiologi) =>> INPUT (-), PUASA (+)\n\ndr.Surya visite 31/10/26 a/i:\n- Sabtu,31/10/26 cek dr (+) HB: 9.0 lapor dr a/i: Ab lanjut, Transfusi 1 prc ya kak \n- HB: 9.0 Rencana tf PRC 1 KOLF => ready di UTD\n\ndr.Ivan,Sp.PD-KHOM visite tanggal 30/10/2026:\n- IVFD NaCl 3% : Asering : BFLuid (1:1:1 kolf/hari) =>> Na:  126.61. Koreksi NaCl 3% (3 Hari) =>>  NACL 3% Ke 3 (+) \n- Senin tgl 02/11/2026 Cek elektrolit ulang post NaCl 3% Hari ke-3, input  (+)\n- MST 2x20mg (K/P NYERI), Lanso 1x30mg IV, Mecobalamin 2x500mcg IV, CPG 1x75mg PO, Candesartan 1x8mg PO, Lactulac Syr 3x15 cc PO =>> RESEP (+)\n- AB Sesuai DPJP\n- Pro Chemoterapi Adjuvant via Poli HO",
+            "pagi": "- Kel: Nyeri pinggang dan tulang belakang vas 2-3, sudah bisa tidur\n- Riw: nefrektomi di rs. Kharitas 2 minggu lalu dg dr saor. Hasil biopsi scc ren sn. Belum konsul ulang ke dr. Saor d kharitas karena biaya.\n\ndr.Parsaoran,Sp.U via IGD:\n- Drip TKO dalam infus 500 cc-->60 tpm\n- Pasien hasil PA nya: SCC \n- Lansoprazole 1x30 mg i.v, Cefoperazone sulbactam 2x1 gr (skin test)\n- Co dr. KHOM untuk minta terapi adjuvan pasien dengan SCC kidney post nefrektomi (+)\n- R/ CT scan abd Kamis 05/11/2026 (sudah dpt jdwl dari penjadwalan radiologi) =>> INPUT (-), PUASA (+)\n\ndr.Surya visite 02/11/26 a/i:\n- Sabtu,31/10/26 cek dr (+) HB: 9.0 lapor dr a/i: Ab lanjut, Transfusi 1 prc ya kak \n- HB: 9.0 Rencana tf PRC 1 KOLF => ready di UTD\n- Lapor Hasil elektrolit ulang (Tanggal 02/11/2026) ke dr.Surya (-)\n\ndr.Ivan,Sp.PD-KHOM visite tanggal 02/11/2026:\n- IVFD NaCl 3% : Asering : BFLuid (1:1:1 kolf/hari) =>> Na:  128.76. Koreksi NaCl 3% (3 Hari) (TAHAP 2) (TARGET S/D Na > 135) =>> BELUM DIMULAI KOREKSI HARI KE-1 (-)\n- Cek elektrolit ulang post Koreksi NaCl 3% Hari ke-3 TAHAP 2(-)\n- Terapi: MST 2x20mg PO, Lanso 1x30mg IV, Mecobalamin 2x500mcg IV, CPG 1x75mg PO, Candesartan 1x8mg PO, Lactulac Syr 3x15 cc PO \n- AB Sesuai DPJP\n- DIET TINGGI GARAM =>> LAPOR KAK DIAH GIZI (+)\n- R/ Cek Urinalisa =>> POT (-), SAMPEL (-), INPUT (-)\n- Cek UR/CR per 3 hari =>> Tanggal 28/10/2026 (UR: 30.1 CR:  1.53 eGFR: 57) =>> Selanjutnya Besok Selasa 03/11/2026 (-)\n- Catat Urin/24 jam =>> KIE (-)\n- R/ BLPL Jika Target Tercapai =>> Resep Pulang (-), Pro Chemoterapi Adjuvant via Poli HO",
             "sore": "",
             "malam": ""
           },
           "tags": [
+            {
+              "label": "Rencana Pulang",
+              "color": "green"
+            },
             {
               "label": "Transfusi Darah",
               "color": "red"
@@ -90117,12 +90154,12 @@
         {
           "bed": "21",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Tn. Surianto 00298258",
           "mrNo": "",
           "gender": "L",
@@ -90141,6 +90178,10 @@
           },
           "tags": [
             {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
+            {
               "label": "Transfusi Darah",
               "color": "red"
             },
@@ -90153,12 +90194,12 @@
         {
           "bed": "22",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFD9D9D9",
           "name": "Ny. Mely Afrianti",
           "mrNo": "00148683",
           "gender": "P",
@@ -90176,6 +90217,10 @@
             "malam": ""
           },
           "tags": [
+            {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
             {
               "label": "Hemodialisa (HD)",
               "color": "purple"
@@ -90207,7 +90252,7 @@
           "diagnosis": "Adenoca colon Cancer pain\n Hiperkalemia Hiponatremia",
           "category": "Onkologi & Hematologi",
           "notes": {
-            "pagi": "- Kel: Nyeri perut disertai tidak dapat BAB sejak 5 hari yang lalu. Kedua kaki masih bengkak. Demam mual muntah disangkal\n- Riw: Pasien membawa pengantar dari dr. Elit,Sp.B dengan Adenoca colon Cancer pain,\n\n dr.Elit,Sp.B-KBD visite tanggal 29/10/2026:\n- Raber dr Sp.PD KGH (+)\n- Drip Tramadol ketorolac ondancentron 16 ypm\n- Hasil Cek Lab persiapan kemo GDS, UR CR, elektrolit, albumin, serologi, OT PT dan CEA (Selasa 27/10/2026) (GDS:93 UR:  263.8 CR: 25.65 eGFR: 1 Alb:  2.84 OT: 7.0 PT: 6.1 CEA:  67.98)\n- R/ CT Scan abdomen non kontras Senin 02/11/2026 =>> FORM DI STATUS (+), INPUT (-) mlm puasakan (+) \n- terapi tambahan laxadin sirup \n- hasil PA (+) ada di status\n\ndr.Darmawan,Sp.PD-KGH visite tanggal 27/10/2026: \n- Nac 3x200 mg po, Bicnat 3x500 mg po, Asam folat 3x1 mg po,  kalitake 3x1 sach, Omz 1x40 mg iv, Ondansetron 3x8 mg iv\n- Koreksi Protokol hiperkalemia:\nI: Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit\nII: D40 2 flacon + insulin 8 iu bolus iv\n- Koreksi hiperkalemia 1 siklus TAHAP 3 (+) SELESAI SENIN 26/10/2026 JAM 20:00 =>> Hasil Cek elektrolit ulang (Na: 127.45 K: 7.50 Cl:  100.34 Ca Ion: 1.03) \n- Tranfusi PRC 250 cc (+) SELESAI \n- PASIEN ADA RIWAYAT MENGGIGIL SAAT TRANFUSI!!\n- HD KE-1 + PASANG CDL Rabu 28/10/2026 (+) =>> R/ HD Ke-2 Sabtu 31/10/2026 (+)\n- Minggu tgl 1/11/26 cek DR/UR/CR (+) HB : 9.4 , UR : 135.5 , CR : 16.45 , eGFR : 2 => lpor dr darmawan (+) Hd besok senin 02/11/26 , daftar (+)",
+            "pagi": "- Kel: Nyeri perut disertai tidak dapat BAB sejak 5 hari yang lalu. Kedua kaki masih bengkak. Demam mual muntah disangkal\n- Riw: Pasien membawa pengantar dari dr. Elit,Sp.B dengan Adenoca colon Cancer pain,\n\n dr.Elit,Sp.B-KBD visite tanggal 29/10/2026:\n- Raber dr Sp.PD KGH (+)\n- Drip Tramadol ketorolac ondancentron 16 ypm\n- Hasil Cek Lab persiapan kemo GDS, UR CR, elektrolit, albumin, serologi, OT PT dan CEA (Selasa 27/10/2026) (GDS:93 UR:  263.8 CR: 25.65 eGFR: 1 Alb:  2.84 OT: 7.0 PT: 6.1 CEA:  67.98)\n- SSH CT Scan abdomen non kontras (Senin 02/11/2026)\n- terapi tambahan laxadin sirup \n- hasil PA (+) ada di status\n\ndr.Darmawan,Sp.PD-KGH visite tanggal 27/10/2026: \n- Nac 3x200 mg po, Bicnat 3x500 mg po, Asam folat 3x1 mg po,  kalitake 3x1 sach, Omz 1x40 mg iv, Ondansetron 3x8 mg iv\n- Koreksi Protokol hiperkalemia:\nI: Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit\nII: D40 2 flacon + insulin 8 iu bolus iv\n- Koreksi hiperkalemia 1 siklus TAHAP 3 (+) SELESAI SENIN 26/10/2026 JAM 20:00 =>> Hasil Cek elektrolit ulang (Na: 127.45 K: 7.50 Cl:  100.34 Ca Ion: 1.03) \n- Tranfusi PRC 250 cc (+) SELESAI \n- PASIEN ADA RIWAYAT MENGGIGIL SAAT TRANFUSI!!\n- HD Ke-3 Senin 02/11/2026 (+) (Akses: CDL)\n- Besok Selasa 03/11/2026 cek UR/CR Post HD Senin (-)",
             "sore": "",
             "malam": ""
           },
@@ -90223,22 +90268,18 @@
             {
               "label": "Onkologi",
               "color": "pink"
-            },
-            {
-              "label": "Puasa Pre-Op",
-              "color": "amber"
             }
           ]
         },
         {
           "bed": "24",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Tn. Edi Nurdini",
           "mrNo": "00295532",
           "gender": "L",
@@ -90257,6 +90298,10 @@
           },
           "tags": [
             {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
+            {
               "label": "Hemodialisa (HD)",
               "color": "purple"
             },
@@ -90273,12 +90318,12 @@
         {
           "bed": "25",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Ny. Ida Suharni",
           "mrNo": "00247308",
           "gender": "P",
@@ -90297,6 +90342,10 @@
           },
           "tags": [
             {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
+            {
               "label": "Hemodialisa (HD)",
               "color": "purple"
             }
@@ -90305,12 +90354,12 @@
         {
           "bed": "26",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFE69138",
           "name": "Ny. Jaiton",
           "mrNo": "00206725",
           "gender": "P",
@@ -90329,6 +90378,10 @@
           },
           "tags": [
             {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
+            {
               "label": "Transfusi Darah",
               "color": "red"
             }
@@ -90337,12 +90390,12 @@
         {
           "bed": "27",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Sdr. Muhammad Syahrul Fitrah 00263502",
           "mrNo": "",
           "gender": "L",
@@ -90361,6 +90414,10 @@
           },
           "tags": [
             {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
+            {
               "label": "Transfusi Darah",
               "color": "red"
             },
@@ -90373,12 +90430,12 @@
         {
           "bed": "28",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Tn. Apriyanto",
           "mrNo": "00304571",
           "gender": "L",
@@ -90396,6 +90453,10 @@
             "malam": ""
           },
           "tags": [
+            {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
             {
               "label": "Hemodialisa (HD)",
               "color": "purple"
@@ -90477,12 +90538,12 @@
         {
           "bed": "31",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Meninggal",
           "isEmpty": false,
-          "isActive": true,
+          "isActive": false,
           "isDischargedToday": false,
-          "isDeceased": false,
-          "dischargeColor": null,
+          "isDeceased": true,
+          "dischargeColor": "FFE06666",
           "name": "Tn. Deni Gustiansyah NO. HP KELUARGA: 085753540660 (JAMAAH) 085751722874 (ADEK PASIEN) +62 819-3403-2744 (MANTAN ISTRI)",
           "mrNo": "00304982",
           "gender": "L",
@@ -90500,6 +90561,10 @@
             "malam": ""
           },
           "tags": [
+            {
+              "label": "Meninggal",
+              "color": "red"
+            },
             {
               "label": "Hemodialisa (HD)",
               "color": "purple"
@@ -90666,12 +90731,12 @@
         {
           "bed": "37",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Ny. Hatti",
           "mrNo": "00162461",
           "gender": "P",
@@ -90690,6 +90755,10 @@
           },
           "tags": [
             {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            },
+            {
               "label": "Transfusi Darah",
               "color": "red"
             },
@@ -90702,12 +90771,12 @@
         {
           "bed": "38",
           "room": "EG2B",
-          "status": "Dirawat",
+          "status": "Pulang Hari Ini",
           "isEmpty": false,
-          "isActive": true,
-          "isDischargedToday": false,
+          "isActive": false,
+          "isDischargedToday": true,
           "isDeceased": false,
-          "dischargeColor": null,
+          "dischargeColor": "FFCCCCCC",
           "name": "Tn. Kaseng",
           "mrNo": "00186499",
           "gender": "L",
@@ -90724,7 +90793,12 @@
             "sore": "",
             "malam": ""
           },
-          "tags": []
+          "tags": [
+            {
+              "label": "Pulang Hari Ini",
+              "color": "emerald"
+            }
+          ]
         },
         {
           "bed": "39",
@@ -90785,28 +90859,29 @@
         "totalBeds": 56,
         "capacityA": 16,
         "capacityB": 40,
-        "occupied": 51,
-        "empty": 5,
-        "freeBedDetail": "Free Bed:  5 (EG2-A: 0 ekstra bed, EG2-B: 1 + 4 ekstra bed)",
+        "occupied": 32,
+        "empty": 24,
+        "freeBedDetail": "Free Bed:  24 (EG2-A: 0 ekstra bed, EG2-B: 20 + 4 ekstra bed)",
         "textFreeA": "0 ekstra bed",
-        "textFreeB": "1 + 4 ekstra bed",
-        "bor": 91.1,
+        "textFreeB": "20 + 4 ekstra bed",
+        "bor": 57.1,
         "borA": 100.0,
-        "borB": 87.5,
+        "borB": 40.0,
         "occA": 16,
-        "occB": 35,
+        "occB": 16,
         "emptyA": 0,
-        "emptyB": 5,
-        "dischargedToday": 1,
-        "deathsToday": 0,
+        "emptyB": 24,
+        "dischargedToday": 19,
+        "deathsToday": 1,
         "tagCounts": {
-          "Onkologi": 12,
+          "Onkologi": 13,
           "Bedah / Operasi": 14,
           "Transfusi Darah": 27,
           "Rencana Pulang": 3,
-          "Puasa Pre-Op": 7,
-          "Hemodialisa (HD)": 16,
-          "Pulang Hari Ini": 1
+          "Puasa Pre-Op": 6,
+          "Hemodialisa (HD)": 15,
+          "Pulang Hari Ini": 19,
+          "Meninggal": 1
         }
       }
     }
@@ -91515,12 +91590,12 @@
       {
         "bed": "6",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Ny. Yusnita",
         "mrNo": "002997806",
         "gender": "P",
@@ -91538,6 +91613,10 @@
           "malam": ""
         },
         "tags": [
+          {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
           {
             "label": "Hemodialisa (HD)",
             "color": "purple"
@@ -91587,12 +91666,12 @@
       {
         "bed": "8",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Ny. Putri Aulia Alfitri",
         "mrNo": "00115198",
         "gender": "P",
@@ -91610,6 +91689,10 @@
           "malam": ""
         },
         "tags": [
+          {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
           {
             "label": "Transfusi Darah",
             "color": "red"
@@ -91651,12 +91734,12 @@
       {
         "bed": "10",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Tn. Herry",
         "mrNo": "00270093",
         "gender": "L",
@@ -91675,6 +91758,10 @@
         },
         "tags": [
           {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
+          {
             "label": "Transfusi Darah",
             "color": "red"
           },
@@ -91687,12 +91774,12 @@
       {
         "bed": "11",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Ny. Maryanten",
         "mrNo": "00289269",
         "gender": "P",
@@ -91711,6 +91798,10 @@
         },
         "tags": [
           {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
+          {
             "label": "Hemodialisa (HD)",
             "color": "purple"
           },
@@ -91723,12 +91814,12 @@
       {
         "bed": "12",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFF6B26B",
         "name": "Ny. sabariah",
         "mrNo": "00011532",
         "gender": "P",
@@ -91745,17 +91836,22 @@
           "sore": "",
           "malam": ""
         },
-        "tags": []
+        "tags": [
+          {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          }
+        ]
       },
       {
         "bed": "13",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Ny. Kristina Elvi Virera",
         "mrNo": "00169136",
         "gender": "P",
@@ -91774,6 +91870,10 @@
         },
         "tags": [
           {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
+          {
             "label": "Hemodialisa (HD)",
             "color": "purple"
           },
@@ -91786,12 +91886,12 @@
       {
         "bed": "14",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFF6B26B",
         "name": "Tn. Reski Adetia",
         "mrNo": "00305744",
         "gender": "L",
@@ -91810,8 +91910,8 @@
         },
         "tags": [
           {
-            "label": "Rencana Pulang",
-            "color": "green"
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
           },
           {
             "label": "Transfusi Darah",
@@ -91822,12 +91922,12 @@
       {
         "bed": "15",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Sdr. Rohan",
         "mrNo": "00295878",
         "gender": "L",
@@ -91845,6 +91945,10 @@
           "malam": ""
         },
         "tags": [
+          {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
           {
             "label": "Onkologi",
             "color": "pink"
@@ -91890,32 +91994,36 @@
       {
         "bed": "17",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
-        "name": "Ny. Nuraini",
-        "mrNo": "00306243",
-        "gender": "P",
+        "dischargeColor": "FFFCE5CD",
+        "name": "Tn. Syamsir Alam",
+        "mrNo": "00264776",
+        "gender": "L",
         "age": "",
-        "admissionDate": "11/01/2026",
-        "los": 296,
-        "insurance": "BPJS Kelas 3",
-        "doctor": "dr. Sony",
-        "doctorPrimary": "R. SONY YUSUF WIBISONO, DR, SP.PD.,KGH",
-        "diagnosis": "ckd st v - alo",
-        "category": "Nefrologi & Urologi",
+        "admissionDate": "21/10/2026",
+        "los": 13,
+        "insurance": "BPJS Kelas 1",
+        "doctor": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK",
+        "doctorPrimary": "EKO RUSTIANTO SUHARDIMAN, DR. SP.B(K) ONK",
+        "diagnosis": "CNF on kemotherapi  Chemotherapi induced nausea vomitus Hiponatremia (115,32) Hipokalemia (2.5)",
+        "category": "Bedah Digestif & Gastro",
         "notes": {
-          "pagi": "- Kel : meracau sejak pagi, tidak nyambung jika di ajak berkomunikasi. munth hari ini 5x.\n- Riw hd setiap selasa dan sabtu di yarsi.\n\n- Terapi via IGD :  venflon - inj. omeprazole 1x1 - inj. ondansentron 3x8mg - inj. furosemid 2x1 - amlodipin 1x10mg - klonidin 3x1\n- dr. Sony via IGD : HD Cito \n\n- HD terakhir tgl 31/10/26 (+) => Besok cek Ur/Cr post HD input (+) \n\n- LApor PB (+)",
+          "pagi": "",
           "sore": "",
           "malam": ""
         },
         "tags": [
           {
-            "label": "Hemodialisa (HD)",
-            "color": "purple"
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
+          {
+            "label": "Onkologi",
+            "color": "pink"
           }
         ]
       },
@@ -92007,11 +92115,15 @@
         "diagnosis": "Scc kidney sn Ca related pain Post paliatif nefrektomi sn",
         "category": "Onkologi & Hematologi",
         "notes": {
-          "pagi": "- Kel: Nyeri perut kiri menjalar ke kanan sejak 5 hari smrs Mual Bab bak bisa. \n- Riw: nefrektomi di rs. Kharitas 2 minggu lalu dg dr saor. Hasil biopsi scc ren sn. Belum konsul ulang ke dr. Saor d kharitas karena biaya.\n\ndr.Parsaoran,Sp.U via IGD:\n- Drip TKO dalam infus 500 cc-->60 tpm\n- Pasien hasil PA nya: SCC \n- Lansoprazole 1x30 mg i.v, Cefoperazone sulbactam 2x1 gr (skin test)\n- Co dr. KHOM untuk minta terapi adjuvan pasien dengan SCC kidney post nefrektomi (+)\n- R/ CT scan abd Kamis 05/11/2026 (sudah dpt jdwl dari penjadwalan radiologi) =>> INPUT (-), PUASA (+)\n\ndr.Surya visite 31/10/26 a/i:\n- Sabtu,31/10/26 cek dr (+) HB: 9.0 lapor dr a/i: Ab lanjut, Transfusi 1 prc ya kak \n- HB: 9.0 Rencana tf PRC 1 KOLF => ready di UTD\n\ndr.Ivan,Sp.PD-KHOM visite tanggal 30/10/2026:\n- IVFD NaCl 3% : Asering : BFLuid (1:1:1 kolf/hari) =>> Na:  126.61. Koreksi NaCl 3% (3 Hari) =>>  NACL 3% Ke 3 (+) \n- Senin tgl 02/11/2026 Cek elektrolit ulang post NaCl 3% Hari ke-3, input  (+)\n- MST 2x20mg (K/P NYERI), Lanso 1x30mg IV, Mecobalamin 2x500mcg IV, CPG 1x75mg PO, Candesartan 1x8mg PO, Lactulac Syr 3x15 cc PO =>> RESEP (+)\n- AB Sesuai DPJP\n- Pro Chemoterapi Adjuvant via Poli HO",
+          "pagi": "- Kel: Nyeri pinggang dan tulang belakang vas 2-3, sudah bisa tidur\n- Riw: nefrektomi di rs. Kharitas 2 minggu lalu dg dr saor. Hasil biopsi scc ren sn. Belum konsul ulang ke dr. Saor d kharitas karena biaya.\n\ndr.Parsaoran,Sp.U via IGD:\n- Drip TKO dalam infus 500 cc-->60 tpm\n- Pasien hasil PA nya: SCC \n- Lansoprazole 1x30 mg i.v, Cefoperazone sulbactam 2x1 gr (skin test)\n- Co dr. KHOM untuk minta terapi adjuvan pasien dengan SCC kidney post nefrektomi (+)\n- R/ CT scan abd Kamis 05/11/2026 (sudah dpt jdwl dari penjadwalan radiologi) =>> INPUT (-), PUASA (+)\n\ndr.Surya visite 02/11/26 a/i:\n- Sabtu,31/10/26 cek dr (+) HB: 9.0 lapor dr a/i: Ab lanjut, Transfusi 1 prc ya kak \n- HB: 9.0 Rencana tf PRC 1 KOLF => ready di UTD\n- Lapor Hasil elektrolit ulang (Tanggal 02/11/2026) ke dr.Surya (-)\n\ndr.Ivan,Sp.PD-KHOM visite tanggal 02/11/2026:\n- IVFD NaCl 3% : Asering : BFLuid (1:1:1 kolf/hari) =>> Na:  128.76. Koreksi NaCl 3% (3 Hari) (TAHAP 2) (TARGET S/D Na > 135) =>> BELUM DIMULAI KOREKSI HARI KE-1 (-)\n- Cek elektrolit ulang post Koreksi NaCl 3% Hari ke-3 TAHAP 2(-)\n- Terapi: MST 2x20mg PO, Lanso 1x30mg IV, Mecobalamin 2x500mcg IV, CPG 1x75mg PO, Candesartan 1x8mg PO, Lactulac Syr 3x15 cc PO \n- AB Sesuai DPJP\n- DIET TINGGI GARAM =>> LAPOR KAK DIAH GIZI (+)\n- R/ Cek Urinalisa =>> POT (-), SAMPEL (-), INPUT (-)\n- Cek UR/CR per 3 hari =>> Tanggal 28/10/2026 (UR: 30.1 CR:  1.53 eGFR: 57) =>> Selanjutnya Besok Selasa 03/11/2026 (-)\n- Catat Urin/24 jam =>> KIE (-)\n- R/ BLPL Jika Target Tercapai =>> Resep Pulang (-), Pro Chemoterapi Adjuvant via Poli HO",
           "sore": "",
           "malam": ""
         },
         "tags": [
+          {
+            "label": "Rencana Pulang",
+            "color": "green"
+          },
           {
             "label": "Transfusi Darah",
             "color": "red"
@@ -92029,12 +92141,12 @@
       {
         "bed": "21",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Tn. Surianto 00298258",
         "mrNo": "",
         "gender": "L",
@@ -92053,6 +92165,10 @@
         },
         "tags": [
           {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
+          {
             "label": "Transfusi Darah",
             "color": "red"
           },
@@ -92065,12 +92181,12 @@
       {
         "bed": "22",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFD9D9D9",
         "name": "Ny. Mely Afrianti",
         "mrNo": "00148683",
         "gender": "P",
@@ -92088,6 +92204,10 @@
           "malam": ""
         },
         "tags": [
+          {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
           {
             "label": "Hemodialisa (HD)",
             "color": "purple"
@@ -92119,7 +92239,7 @@
         "diagnosis": "Adenoca colon Cancer pain\n Hiperkalemia Hiponatremia",
         "category": "Onkologi & Hematologi",
         "notes": {
-          "pagi": "- Kel: Nyeri perut disertai tidak dapat BAB sejak 5 hari yang lalu. Kedua kaki masih bengkak. Demam mual muntah disangkal\n- Riw: Pasien membawa pengantar dari dr. Elit,Sp.B dengan Adenoca colon Cancer pain,\n\n dr.Elit,Sp.B-KBD visite tanggal 29/10/2026:\n- Raber dr Sp.PD KGH (+)\n- Drip Tramadol ketorolac ondancentron 16 ypm\n- Hasil Cek Lab persiapan kemo GDS, UR CR, elektrolit, albumin, serologi, OT PT dan CEA (Selasa 27/10/2026) (GDS:93 UR:  263.8 CR: 25.65 eGFR: 1 Alb:  2.84 OT: 7.0 PT: 6.1 CEA:  67.98)\n- R/ CT Scan abdomen non kontras Senin 02/11/2026 =>> FORM DI STATUS (+), INPUT (-) mlm puasakan (+) \n- terapi tambahan laxadin sirup \n- hasil PA (+) ada di status\n\ndr.Darmawan,Sp.PD-KGH visite tanggal 27/10/2026: \n- Nac 3x200 mg po, Bicnat 3x500 mg po, Asam folat 3x1 mg po,  kalitake 3x1 sach, Omz 1x40 mg iv, Ondansetron 3x8 mg iv\n- Koreksi Protokol hiperkalemia:\nI: Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit\nII: D40 2 flacon + insulin 8 iu bolus iv\n- Koreksi hiperkalemia 1 siklus TAHAP 3 (+) SELESAI SENIN 26/10/2026 JAM 20:00 =>> Hasil Cek elektrolit ulang (Na: 127.45 K: 7.50 Cl:  100.34 Ca Ion: 1.03) \n- Tranfusi PRC 250 cc (+) SELESAI \n- PASIEN ADA RIWAYAT MENGGIGIL SAAT TRANFUSI!!\n- HD KE-1 + PASANG CDL Rabu 28/10/2026 (+) =>> R/ HD Ke-2 Sabtu 31/10/2026 (+)\n- Minggu tgl 1/11/26 cek DR/UR/CR (+) HB : 9.4 , UR : 135.5 , CR : 16.45 , eGFR : 2 => lpor dr darmawan (+) Hd besok senin 02/11/26 , daftar (+)",
+          "pagi": "- Kel: Nyeri perut disertai tidak dapat BAB sejak 5 hari yang lalu. Kedua kaki masih bengkak. Demam mual muntah disangkal\n- Riw: Pasien membawa pengantar dari dr. Elit,Sp.B dengan Adenoca colon Cancer pain,\n\n dr.Elit,Sp.B-KBD visite tanggal 29/10/2026:\n- Raber dr Sp.PD KGH (+)\n- Drip Tramadol ketorolac ondancentron 16 ypm\n- Hasil Cek Lab persiapan kemo GDS, UR CR, elektrolit, albumin, serologi, OT PT dan CEA (Selasa 27/10/2026) (GDS:93 UR:  263.8 CR: 25.65 eGFR: 1 Alb:  2.84 OT: 7.0 PT: 6.1 CEA:  67.98)\n- SSH CT Scan abdomen non kontras (Senin 02/11/2026)\n- terapi tambahan laxadin sirup \n- hasil PA (+) ada di status\n\ndr.Darmawan,Sp.PD-KGH visite tanggal 27/10/2026: \n- Nac 3x200 mg po, Bicnat 3x500 mg po, Asam folat 3x1 mg po,  kalitake 3x1 sach, Omz 1x40 mg iv, Ondansetron 3x8 mg iv\n- Koreksi Protokol hiperkalemia:\nI: Ca Glukonas diencerkan 1:1 dengan nacl, bolus pelan 10-15 menit\nII: D40 2 flacon + insulin 8 iu bolus iv\n- Koreksi hiperkalemia 1 siklus TAHAP 3 (+) SELESAI SENIN 26/10/2026 JAM 20:00 =>> Hasil Cek elektrolit ulang (Na: 127.45 K: 7.50 Cl:  100.34 Ca Ion: 1.03) \n- Tranfusi PRC 250 cc (+) SELESAI \n- PASIEN ADA RIWAYAT MENGGIGIL SAAT TRANFUSI!!\n- HD Ke-3 Senin 02/11/2026 (+) (Akses: CDL)\n- Besok Selasa 03/11/2026 cek UR/CR Post HD Senin (-)",
           "sore": "",
           "malam": ""
         },
@@ -92135,22 +92255,18 @@
           {
             "label": "Onkologi",
             "color": "pink"
-          },
-          {
-            "label": "Puasa Pre-Op",
-            "color": "amber"
           }
         ]
       },
       {
         "bed": "24",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Tn. Edi Nurdini",
         "mrNo": "00295532",
         "gender": "L",
@@ -92169,6 +92285,10 @@
         },
         "tags": [
           {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
+          {
             "label": "Hemodialisa (HD)",
             "color": "purple"
           },
@@ -92185,12 +92305,12 @@
       {
         "bed": "25",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Ny. Ida Suharni",
         "mrNo": "00247308",
         "gender": "P",
@@ -92209,6 +92329,10 @@
         },
         "tags": [
           {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
+          {
             "label": "Hemodialisa (HD)",
             "color": "purple"
           }
@@ -92217,12 +92341,12 @@
       {
         "bed": "26",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFE69138",
         "name": "Ny. Jaiton",
         "mrNo": "00206725",
         "gender": "P",
@@ -92241,6 +92365,10 @@
         },
         "tags": [
           {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
+          {
             "label": "Transfusi Darah",
             "color": "red"
           }
@@ -92249,12 +92377,12 @@
       {
         "bed": "27",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Sdr. Muhammad Syahrul Fitrah 00263502",
         "mrNo": "",
         "gender": "L",
@@ -92273,6 +92401,10 @@
         },
         "tags": [
           {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
+          {
             "label": "Transfusi Darah",
             "color": "red"
           },
@@ -92285,12 +92417,12 @@
       {
         "bed": "28",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Tn. Apriyanto",
         "mrNo": "00304571",
         "gender": "L",
@@ -92308,6 +92440,10 @@
           "malam": ""
         },
         "tags": [
+          {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
           {
             "label": "Hemodialisa (HD)",
             "color": "purple"
@@ -92389,12 +92525,12 @@
       {
         "bed": "31",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Meninggal",
         "isEmpty": false,
-        "isActive": true,
+        "isActive": false,
         "isDischargedToday": false,
-        "isDeceased": false,
-        "dischargeColor": null,
+        "isDeceased": true,
+        "dischargeColor": "FFE06666",
         "name": "Tn. Deni Gustiansyah NO. HP KELUARGA: 085753540660 (JAMAAH) 085751722874 (ADEK PASIEN) +62 819-3403-2744 (MANTAN ISTRI)",
         "mrNo": "00304982",
         "gender": "L",
@@ -92412,6 +92548,10 @@
           "malam": ""
         },
         "tags": [
+          {
+            "label": "Meninggal",
+            "color": "red"
+          },
           {
             "label": "Hemodialisa (HD)",
             "color": "purple"
@@ -92578,12 +92718,12 @@
       {
         "bed": "37",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Ny. Hatti",
         "mrNo": "00162461",
         "gender": "P",
@@ -92602,6 +92742,10 @@
         },
         "tags": [
           {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          },
+          {
             "label": "Transfusi Darah",
             "color": "red"
           },
@@ -92614,12 +92758,12 @@
       {
         "bed": "38",
         "room": "EG2B",
-        "status": "Dirawat",
+        "status": "Pulang Hari Ini",
         "isEmpty": false,
-        "isActive": true,
-        "isDischargedToday": false,
+        "isActive": false,
+        "isDischargedToday": true,
         "isDeceased": false,
-        "dischargeColor": null,
+        "dischargeColor": "FFCCCCCC",
         "name": "Tn. Kaseng",
         "mrNo": "00186499",
         "gender": "L",
@@ -92636,7 +92780,12 @@
           "sore": "",
           "malam": ""
         },
-        "tags": []
+        "tags": [
+          {
+            "label": "Pulang Hari Ini",
+            "color": "emerald"
+          }
+        ]
       },
       {
         "bed": "39",
@@ -92697,28 +92846,29 @@
       "totalBeds": 56,
       "capacityA": 16,
       "capacityB": 40,
-      "occupied": 51,
-      "empty": 5,
-      "freeBedDetail": "Free Bed:  5 (EG2-A: 0 ekstra bed, EG2-B: 1 + 4 ekstra bed)",
+      "occupied": 32,
+      "empty": 24,
+      "freeBedDetail": "Free Bed:  24 (EG2-A: 0 ekstra bed, EG2-B: 20 + 4 ekstra bed)",
       "textFreeA": "0 ekstra bed",
-      "textFreeB": "1 + 4 ekstra bed",
-      "bor": 91.1,
+      "textFreeB": "20 + 4 ekstra bed",
+      "bor": 57.1,
       "borA": 100.0,
-      "borB": 87.5,
+      "borB": 40.0,
       "occA": 16,
-      "occB": 35,
+      "occB": 16,
       "emptyA": 0,
-      "emptyB": 5,
-      "dischargedToday": 1,
-      "deathsToday": 0,
+      "emptyB": 24,
+      "dischargedToday": 19,
+      "deathsToday": 1,
       "tagCounts": {
-        "Onkologi": 12,
+        "Onkologi": 13,
         "Bedah / Operasi": 14,
         "Transfusi Darah": 27,
         "Rencana Pulang": 3,
-        "Puasa Pre-Op": 7,
-        "Hemodialisa (HD)": 16,
-        "Pulang Hari Ini": 1
+        "Puasa Pre-Op": 6,
+        "Hemodialisa (HD)": 15,
+        "Pulang Hari Ini": 19,
+        "Meninggal": 1
       }
     }
   }
