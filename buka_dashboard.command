@@ -1,5 +1,6 @@
 #!/bin/bash
-PROJECT_DIR="/Users/rusmulyadiiskandar/.gemini/antigravity-ide/scratch/dashboard-enggang-gading-2"
+DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_DIR="$DIR"
 cd "$PROJECT_DIR"
 
 echo "================================================================"
