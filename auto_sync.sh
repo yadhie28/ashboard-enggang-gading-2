@@ -29,13 +29,11 @@ echo "==================================================================" >> "$L
 log "=== [AUTO-SYNC START] Memulai Penarikan Spreadsheet Google Sheets ==="
 
 # ─────────────────────────────────────────────────────────────────────────────
-# LANGKAH 1 (PRIORITAS UTAMA): Kirim Laporan Sensus WhatsApp SEKARANG
-# Menggunakan data checkpoint shift terakhir yang sudah tersimpan.
-# Dikirim TERLEBIH DAHULU sebelum proses download (agar tepat waktu ≤ 07:02).
+# LANGKAH 1: Pengiriman WA dinonaktifkan atas permintaan pengguna
 # ─────────────────────────────────────────────────────────────────────────────
-log "[STEP 1] Mengirimkan laporan sensus WhatsApp ke Kepala Ruang (prioritas utama)..."
-python3 send_whatsapp.py --sensus --scheduled-only --gateway fonnte >> "$LOG_FILE" 2>&1 || true
-log "[STEP 1] Pengiriman WA selesai."
+# log "[STEP 1] Mengirimkan laporan sensus WhatsApp ke Kepala Ruang..."
+# python3 send_whatsapp.py --sensus --scheduled-only --gateway fonnte >> "$LOG_FILE" 2>&1 || true
+log "[STEP 1] Pengiriman WA ke Kepala Ruang dinonaktifkan."
 
 # 2. Download EG2A with retry and safety check
 log "Mengunduh Spreadsheet EG2A..."

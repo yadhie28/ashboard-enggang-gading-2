@@ -358,7 +358,13 @@ def build_census_report(mode="auto", px_awal=None, px_baru=None, px_pindah=None,
         )
 
 
+# Master switch untuk menghentikan pengiriman WhatsApp ke Kepala Ruang
+WHATSAPP_ENABLED = False
+
 def main():
+    if not WHATSAPP_ENABLED:
+        print("[INFO] Pengiriman pesan WhatsApp ke Kepala Ruang telah dinonaktifkan (WHATSAPP_ENABLED = False).")
+        return
     parser = argparse.ArgumentParser(description="Kirim Pesan WhatsApp ke Kepala Ruang Enggang Gading 2")
     parser.add_argument("-m", "--message", default=None, help="Isi pesan (default: 'Test Boss' atau template sensus bila --sensus aktif)")
     parser.add_argument("--sensus", action="store_true", help="Gunakan template resmi laporan sensus WhatsApp EG2 (format bold baku)")
